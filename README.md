@@ -20,8 +20,8 @@ Robin Britelle:
 
 
 Enzo Cluzel:
--Email: @iut-rodez.fr
--GitHub: 
+Email: @iut-rodez.fr
+GitHub: 
 
 Alexandre Brouzes:
 -Email: @iut-rodez.fr
