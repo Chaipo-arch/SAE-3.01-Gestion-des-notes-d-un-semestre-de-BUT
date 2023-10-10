@@ -1,3 +1,3 @@
-# SAE-3.01-Gestion-des-notes-d-un-semestre-de-BUT
+# SAE-3.01-Application-Gestion-des-notes-de-BUT
 University project 
-quelqu'un peut le rédiger ?
+
