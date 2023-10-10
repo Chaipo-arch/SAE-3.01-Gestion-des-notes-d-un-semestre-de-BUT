@@ -15,24 +15,33 @@ L'application final doit prendre en charge les éléments suivants:
 --Equipe Projet--
 
 Robin Britelle:
--Email: robin.britelle@iut-rodez.fr
--GitHub: 
 
+-Email: robin.britelle@iut-rodez.fr
+
+-GitHub: DroGone31
 
 Enzo Cluzel:
-Email: @iut-rodez.fr
-GitHub: 
+
+-Email: enzo.cluzel@iut-rodez.fr
+
+-GitHub: enzo_2900
 
 Alexandre Brouzes:
--Email: @iut-rodez.fr
--GitHub: 
+
+-Email: alexandre.brouzes@iut-rodez.fr
+
+-GitHub: Alexandreiut
 
 Ahmed Bribach:
--Email: @iut-rodez.fr
--GitHub: 
+
+-Email: ahmed.bribach@iut-rodez.fr
+
+-GitHub: Chaipo-arch
 
 --Board Agile Git-Hub--
+
 https://github.com/users/Chaipo-arch/projects/3
 
 --Google Drive Projet--
+
 https://drive.google.com/drive/folders/0AJDjIDH6Hy7YUk9PVA
