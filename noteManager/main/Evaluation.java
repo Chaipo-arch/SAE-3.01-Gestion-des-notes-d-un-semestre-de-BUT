@@ -97,7 +97,7 @@ public class Evaluation implements OutilsEvaluation{
         int nbNote = 0;
         for (Evaluation evaluation : listeEvaluation){
             if(evaluation.note instanceof Note){
-                moyenne += this.note;
+                moyenne += this.note.getNote();
                 nbNote ++;
             }  
         }
