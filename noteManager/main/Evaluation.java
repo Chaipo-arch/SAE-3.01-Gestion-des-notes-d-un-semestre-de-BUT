@@ -40,7 +40,7 @@ public class Evaluation implements OutilsEvaluation{
     public Evaluation(String ressourceEvaluation, Note noteEvaluation, String typeEvaluation,double coefficientEvaluation
                                            ,String dateEvaluation ){
         this.ressource = ressourceEvaluation;
-        this.note = 0.0;
+        this.note = null;
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
@@ -64,7 +64,8 @@ public class Evaluation implements OutilsEvaluation{
     
     public String toSring(){
         if (this.note == null){
-            this.note = "note non renseignée";
+            return this.ressource + " " + this.type + " " + this.date 
+                            + this.coefficient + " note non renseignée";
         }
         return this.ressource + " " + this.type + " " + this.date 
                             + this.coefficient + this.note;   
