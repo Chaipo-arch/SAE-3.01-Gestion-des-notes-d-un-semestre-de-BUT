@@ -87,7 +87,7 @@ public class TestStockage{
         }
         System.out.println("le nombre d'erreur est de : "+nombreErreur);
     }
-    public static void main(String[] args)throws NoteException{
+    public static void main(String[] args){
         jeuxDeDonnees();
         testAdd();
          //System.out.println(stockage.ressources.get(1).libelle);
