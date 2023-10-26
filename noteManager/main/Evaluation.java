@@ -9,7 +9,7 @@ package noteManager.main;
  *
  * @author enzo.cluzel
  */
-class Evaluation {
+public class Evaluation {
 
     private final String libelle;
     

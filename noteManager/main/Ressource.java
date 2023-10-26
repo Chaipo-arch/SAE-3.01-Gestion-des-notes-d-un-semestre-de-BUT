@@ -9,7 +9,7 @@ package noteManager.main;
  *
  * @author enzo.cluzel
  */
-class Ressource {
+public class Ressource {
 
     public String libelle;
     

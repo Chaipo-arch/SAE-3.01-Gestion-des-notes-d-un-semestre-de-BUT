@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Stockage {
     ArrayList<Competence> competences ;
-    ArrayList<Ressource> ressources;
+   public ArrayList<Ressource> ressources;
     ArrayList<Evaluation> evaluations;
     private static Stockage instance = new Stockage();
     
@@ -38,30 +38,30 @@ public class Stockage {
      * Sauvegarde de nouvelles instances de l'objet competences dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
      */
-    public void addCompetences(ArrayList<Competence> aAjouter) {
-        competences.addAll(aAjouter);
+    public boolean addCompetences(ArrayList<Competence> aAjouter) {
+        return competences.addAll(aAjouter);
     }
     
     /**
      * Sauvegarde de nouvelles instances de l'objet ressource dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
      */
-    void addRessources(ArrayList<Ressource> aAjouter) {
-        ressources.addAll(aAjouter);
+    public boolean addRessources(ArrayList<Ressource> aAjouter) {
+        return ressources.addAll(aAjouter);
     }
     
     /**
      * Sauvegarde de nouvelles instances de l'objet évaluation dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
      */
-    void addEvaluations(ArrayList<Evaluation> aAjouter) {
-        evaluations.addAll(aAjouter);
+    public boolean addEvaluations(ArrayList<Evaluation> aAjouter) {
+        return evaluations.addAll(aAjouter);
     }
     
     /**
      * Supprime les données dans stockage en enlevant les éléments dans les listes
      */
-    void supprimerDonnees() {
+    public void supprimerDonnees() {
         competences.clear();
         ressources.clear();
         evaluations.clear();
