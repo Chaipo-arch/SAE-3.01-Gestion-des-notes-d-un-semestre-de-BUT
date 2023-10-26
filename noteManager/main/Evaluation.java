@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package noteManager.main;
+import java.text.DecimalFormat;
 
 /**
  * Classe de l'objet evaluation permettant l'insertion, l'ajout de note
  * la modification de modalité et l'affichage d'une note
  * @author alexandre.brouzes
  */
-public class Evaluation implements OutilsEvaluation{
+public class Evaluation {
     
     /**  
      * Nom de la matière de l'évaluation
@@ -47,11 +48,12 @@ public class Evaluation implements OutilsEvaluation{
     }
     /**
      * Ajoute une note à l'intance de l'évaluation
-     * @return true si l'ajout a bien été effectué, false sinon
+     * @return true si l'ajout a bien été effectué(la nouvelle note inséré 
+     * n'écrase pas une ancienne note), false sinon
      */
     public boolean ajouterNote(Note noteAAjouter){
-        this.note = noteAAjouter; 
-        if (this.note == noteAAjouter){
+        if(note == null){
+            note = noteAAjouter; 
             return true;
         }
         return false;
@@ -63,12 +65,15 @@ public class Evaluation implements OutilsEvaluation{
      */
     
     public String toSring(){
-        if (this.note == null){
-            return this.ressource + " " + this.type + " " + this.date 
-                            + this.coefficient + " note non renseignée";
+        if (note == null){
+            return ressource + " " + type + " " + date 
+                             + coefficient + " note non renseignée";
         }
-        return this.ressource + " " + this.type + " " + this.date 
-                            + this.coefficient + this.note;   
+        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
+        String noteArrondi = df.format(note);
+        noteArrondi.replace('.', ','); // remplace le '.' par ','
+        return ressource + " " + type + " " + date 
+                         + coefficient + noteArrondi;   
     }
     /**
      * Modifie tous les attributs d'un objet évaluation
@@ -77,30 +82,24 @@ public class Evaluation implements OutilsEvaluation{
     private boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
                                   String nouveauType, double nouveauCoefficient,
                                   String nouvelleDate){
-        this.ressource = nouveauLibelle;
-        this.note = nouvelleNote;
-        this.type = nouveauType;
-        this.coefficient = nouveauCoefficient;
-        this.date = nouvelleDate;
+        ressource = nouveauLibelle;
+        note = nouvelleNote;
+        type = nouveauType;
+        coefficient = nouveauCoefficient;
+        date = nouvelleDate;
         
-        if (this.ressource == nouveauLibelle && this.note == nouvelleNote
-            && this.type == nouveauType    
-            && this.coefficient == nouveauCoefficient
-            && this.date == nouvelleDate){
+        if (ressource == nouveauLibelle && note == nouvelleNote
+            && type == nouveauType    
+            && coefficient == nouveauCoefficient
+            && date == nouvelleDate){
             return true;
         }
         return false;  
-    }  
-    @Override
-    public double calculMoyenne(Evaluation[] listeEvaluation) {
-        double moyenne = 0.0;
-        int nbNote = 0;
-        for (Evaluation evaluation : listeEvaluation){
-            if(evaluation.note instanceof Note){
-                moyenne += this.note.getNote();
-                nbNote ++;
-            }  
-        }
-        return moyenne/nbNote;
+    }
+    public double getNote(){
+        return note.getNote();
+    }
+    public double getCoefficient(){
+        return coefficient;
     }
 }
