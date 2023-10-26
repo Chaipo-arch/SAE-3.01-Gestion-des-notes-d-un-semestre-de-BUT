@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package noteManager.main;
+import java.text.DecimalFormat;
 
 /**
  * Classe de l'objet evaluation permettant l'insertion, l'ajout de note
  * la modification de modalité et l'affichage d'une note
  * @author alexandre.brouzes
  */
-public class Evaluation implements OutilsEvaluation{
+public class Evaluation {
     
     /**  
      * Nom de la matière de l'évaluation
@@ -47,11 +48,12 @@ public class Evaluation implements OutilsEvaluation{
     }
     /**
      * Ajoute une note à l'intance de l'évaluation
-     * @return true si l'ajout a bien été effectué, false sinon
+     * @return true si l'ajout a bien été effectué(la nouvelle note inséré 
+     * n'écrase pas une ancienne note), false sinon
      */
-    public boolean ajouterNote(Note noteAAjouter){ 
-        if (note == null){
-            note = noteAAjouter;
+    public boolean ajouterNote(Note noteAAjouter){
+        if(note == null){
+            note = noteAAjouter; 
             return true;
         }
         return false;
@@ -65,12 +67,15 @@ public class Evaluation implements OutilsEvaluation{
      */
     
     public String toSring(){
-        if (this.note == null){
+        if (note == null){
             return ressource + " " + type + " " + date 
-                            + coefficient + " note non renseignée";
+                             + coefficient + " note non renseignée";
         }
+        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
+        String noteArrondi = df.format(note);
+        noteArrondi.replace('.', ','); // remplace le '.' par ','
         return ressource + " " + type + " " + date 
-                            + coefficient + note;   
+                         + coefficient + noteArrondi;   
     }
     /**
      * Modifie tous les attributs d'un objet évaluation
@@ -92,7 +97,7 @@ public class Evaluation implements OutilsEvaluation{
             return true;
         }
         return false;  
-    }    
+    }
     public double getNote(){
         return note.getNote();
     }
