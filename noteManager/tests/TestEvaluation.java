@@ -20,8 +20,12 @@ public class TestEvaluation {
     public static ArrayList<Evaluation> listeEvaluationSanNote = new ArrayList<>();
     public static ArrayList<Evaluation> listeEvaluationNonValide = new ArrayList<>();
     public static ArrayList<Note> listeNoteValide = new ArrayList<>();
-    public static void batterieDeTest(){
-        Note[] listeNote = []
+    
+    public static void batterieDeTest() throws NoteException{
+        listeNoteValide.add(new Note(0));
+        listeNoteValide.add(new Note(10));
+        listeNoteValide.add(new Note(20));
+        listeNoteValide.add(new Note(19));
         listeEvaluationValide.add("Mathématiques",); 
         
     }
