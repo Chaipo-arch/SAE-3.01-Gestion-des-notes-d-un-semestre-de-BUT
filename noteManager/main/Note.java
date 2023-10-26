@@ -41,11 +41,15 @@ public class Note {
         }
         
     }
+    
+    public double getNote(){
+        return valeur;
+    }
     /**
      * @param valeur , la valeur à vérifié
      * @return true si la valeur est une note correcte sinon false
      */
-    private static boolean isNote(double valeur) {
+    public static boolean isNote(double valeur) {
         return valeur >= 0.0 && valeur <=20.0;
     }
 
