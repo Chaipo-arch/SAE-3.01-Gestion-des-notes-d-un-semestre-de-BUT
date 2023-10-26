@@ -21,14 +21,33 @@ public class Parametrage {
     
     
 
-    public boolean estFichierCSV(File fichier) {
-        if (fichier.isFile() && fichier.getName().toLowerCase().endsWith(".csv")) {
+    public boolean estFichierCSV(String chemin) {
+        File cheminFichier;
+        cheminFichier = new File(chemin);
+        if (cheminFichier.isFile() && cheminFichier.getName().toLowerCase().endsWith(".csv")) {
             return true;
         }
         return false;
     }
+    
+    
+    public ArrayList<ArrayList<String>> extraireDonneesCSV(File fichier) throws IOException {
+        ArrayList<ArrayList<String>> donnees = new ArrayList<>();
+        try (Scanner scanner = new Scanner(fichier)) {
+            while (scanner.hasNextLine()) {
+                String ligne = scanner.nextLine();
+                String[] colonnes = ligne.split(";");
+                ArrayList<String> colonnesList = new ArrayList<>();
+                for (String colonne : colonnes) {
+                    colonnesList.add(colonne);
+                }
+                donnees.add(colonnesList);
+            }
+        }
+        return donnees;
+    }
 
-    public List<String[]> extraireDonneesCSV(File fichier) throws IOException {
+    /*public List<String[]> extraireDonneesCSV(File fichier) throws IOException {
         List<String[]> donnees = new ArrayList<>();
         try (Scanner scanner = new Scanner(fichier)) {
             while (scanner.hasNextLine()) {
@@ -38,39 +57,13 @@ public class Parametrage {
             }
         }
         return donnees;
-    }
+    }*/
+    
+    //TODO a voir si on rajoute le ISCORRECT pour l'abstract Class
+    
+    // TODO revoir la methodes d'extraction des donnees pour un acces facile a chacune des cases du csv a partir d'un index de ligne
+    
+    //Rajout d'une methodes permettant de verifier la variable "Chemin" pour verifier la saisie Utilisateur et message d'erreur adapter
     
     
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Entrez le chemin du fichier : ");
-        String cheminFichier = scanner.nextLine();
-        
-        File fichier = new File(cheminFichier);
-        Parametrage parametrage = new Parametrage();
-        
-        if (parametrage.estFichierCSV(fichier)) {
-            System.out.println("Le fichier est de type CSV.");
-            
-            try {
-                List<String[]> donneesCSV = parametrage.extraireDonneesCSV(fichier);
-
-                System.out.println("Données extraites du fichier CSV :");
-                for (String[] ligne : donneesCSV) {
-                    for (String colonne : ligne) {
-                        System.out.print(colonne + " | ");
-                    }
-                    System.out.println(); // Saut de ligne entre les lignes.
-                }
-            } catch (IOException e) {
-                System.err.println("Une erreur s'est produite lors de la lecture du fichier.");
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Le fichier n'est pas de type CSV.");
-        }
-        
-        scanner.close();
-    }
 }
