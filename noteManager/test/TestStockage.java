@@ -48,7 +48,7 @@ public class TestStockage{
         for (Ressource ressource : tabRessource) {
             System.out.print("cas ressource :" + ressource.libelle);
             listeRessour.add(ressource);
-            if(stockage.addRessources(listeEvaluation)){
+            if(stockage.addRessources(listeRessour)){
                 System.out.println(": cas valide");
             }else{
                 System.out.println(": cas invalide");
