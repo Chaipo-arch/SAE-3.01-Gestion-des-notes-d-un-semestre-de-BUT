@@ -25,7 +25,7 @@ public class TestStockage{
     static Ressource [] tabRessource = {new Ressource("s1"), new Ressource("s2"), new Ressource("s3")};
     static Evaluation [] tabEval = {new Evaluation("e1")};
     
-    public static void jeuxDeDonnees() throws NoteException{
+    public static void jeuxDeDonnees() {
         stockage = Stockage.getInstance();
         Competence competence = new Competence("U2.1");
         listeCompe.add(competence);
@@ -70,7 +70,7 @@ public class TestStockage{
         
     }
     
-    public static void testRecherche() throws NoteException{
+    public static void testRecherche() {
         int nombreErreur = 0;
         System.out.println("## TestStockageRecherche ## \n ###########################\n ");
         if(stockage.recherche("U2.1") !=null) {
