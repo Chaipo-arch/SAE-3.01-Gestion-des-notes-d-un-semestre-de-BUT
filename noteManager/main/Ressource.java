@@ -27,7 +27,7 @@ public class Ressource {
      * @throws NoteException 
      */
     public Ressource(String intitule, double coeficient , String id,String identifiant)throws NoteException{
-        this.note = new Note(0);
+        this.note = new Note(-1);
         this.intitule = intitule;
         this.identifiant = identifiant;
         this.coeficient = coeficient;
@@ -84,5 +84,4 @@ public class Ressource {
         }
         return true;
     }
-
 }

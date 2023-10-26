@@ -26,7 +26,6 @@ public class TestEvaluation {
         listeNoteValide.add(new Note(10));
         listeNoteValide.add(new Note(20));
         listeNoteValide.add(new Note(19));
-        listeEvaluationValide.add("Mathématiques",); 
         
     }
     
