@@ -10,7 +10,7 @@ package noteManager.main;
  * la modification de modalité et l'affichage d'une note
  * @author alexandre.brouzes
  */
-public class Evaluation {
+public class Evaluation implements OutilsEvaluation{
     
     /**  
      * Nom de la matière de l'évaluation
