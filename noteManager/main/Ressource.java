@@ -40,7 +40,14 @@ public class Ressource {
      * @return laMoyenne de cette ressource
      */
     private double calculMoyenne(){
-        return 0.0; // bouchon
+        double totalCoef = 0.0;
+        double calculMoyenne=0.0;
+        for(int index = 0 ; index < evaluations.size(); index++){
+            calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
+            totalCoef += evaluations.get(index).getCoefficient();
+        }
+        
+        return calculMoyenne/totalCoef; // calcul la moyenne d'une ressource
     }
     
     /**
@@ -55,16 +62,27 @@ public class Ressource {
      * ajoute une evaluation à la ressource
      * @param evaluationAAjouter 
      */
-    private void ajouterEvaluation(Evaluation evaluationAAjouter){
-        
+    private boolean ajouterEvaluation(Evaluation evaluationAAjouter){
+        if(evaluations.contains(evaluationAAjouter)){
+            return false;
+        }
+        evaluations.add(evaluationAAjouter);
+        return true;
     }
     
     /**
      * supprimer une évaluation à la ressources
      * @param evaluationASupprimer 
      */
-    private void supprimerEvaluation(String evaluationASupprimer){
-        
+    private boolean supprimerEvaluation(Evaluation evaluationASupprimer){
+        if(!evaluations.contains(evaluationASupprimer)){
+            return false;
+        }
+        evaluations.remove(evaluationASupprimer);
+        if(evaluations.contains(evaluationASupprimer)){
+            return false;
+        }
+        return true;
     }
 
 }
