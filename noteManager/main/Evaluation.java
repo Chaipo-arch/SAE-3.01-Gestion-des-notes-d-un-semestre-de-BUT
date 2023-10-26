@@ -38,8 +38,17 @@ public class Evaluation {
     private String date = "";
     
     // constructor Evaluation
-    public Evaluation(String ressourceEvaluation, Note noteEvaluation, String typeEvaluation,double coefficientEvaluation
-                                           ,String dateEvaluation ){
+    public Evaluation(String ressourceEvaluation, Note noteEvaluation
+                      ,String typeEvaluation,double coefficientEvaluation
+                      ,String dateEvaluation )throws EvaluationException{
+        if(!isCoefficient(coefficientEvaluation)){
+            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
+        }
+        if(ressourceEvaluation.equals("")|| ressourceEvaluation == null
+           || typeEvaluation.equals("")|| typeEvaluation == null){
+            throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
+                    + "sont incomplet");
+        }
         this.ressource = ressourceEvaluation;
         this.note = null;
         this.type = typeEvaluation;
@@ -96,10 +105,19 @@ public class Evaluation {
         }
         return false;  
     }
+    //getter note
     public double getNote(){
         return note.getNote();
     }
+    //getter coefficient
     public double getCoefficient(){
         return coefficient;
+    }
+    /**
+     * vérification de la cohérence d'un cohéficient (>0 <100)
+     * @return true si le coefficient est correct, false sinon
+     */
+    private boolean isCoefficient(double coefficientATester){
+        return coefficient < 100 && coefficient > 0;
     }
 }
