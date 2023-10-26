@@ -39,7 +39,19 @@ public class Stockage {
      * @param aAjouter , les instances à ajouter dans la liste
      */
     public boolean addCompetences(ArrayList<Competence> aAjouter) {
+         if(competences.containsAll(aAjouter)) {
+            return false;
+        }
+        ArrayList<Competence> save = new ArrayList<>() ;
+        for(Competence competence : aAjouter) {
+            
+            if (competences.contains(competence)) {
+                save.add(competence);
+            } 
+        }
+        aAjouter.removeAll(save);
         return competences.addAll(aAjouter);
+    
     }
     
     /**
@@ -47,16 +59,39 @@ public class Stockage {
      * @param aAjouter , les instances à ajouter dans la liste
      */
     public boolean addRessources(ArrayList<Ressource> aAjouter) {
+        if(ressources.containsAll(aAjouter)) {
+            return false;
+        }
+        ArrayList<Ressource> save = new ArrayList<>() ;
+        for(Ressource ressource : aAjouter) {
+            if (ressources.contains(ressource)) {
+                save.add(ressource);
+            } 
+        }
+        aAjouter.removeAll(save);
         return ressources.addAll(aAjouter);
     }
     
+   
     /**
      * Sauvegarde de nouvelles instances de l'objet évaluation dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
+     * @return barnabe
      */
     public boolean addEvaluations(ArrayList<Evaluation> aAjouter) {
+        if(evaluations.containsAll(aAjouter)) {
+            return false;
+        }
+         ArrayList<Evaluation> save = new ArrayList<>() ;
+        for(Evaluation eval : aAjouter) {
+            if (evaluations.contains(eval)) {
+                save.add(eval);
+            } 
+        }
+        aAjouter.removeAll(save);
         return evaluations.addAll(aAjouter);
     }
+    
     
     /**
      * Supprime les données dans stockage en enlevant les éléments dans les listes

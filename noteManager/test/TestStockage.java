@@ -44,6 +44,17 @@ public class TestStockage{
                 nombreErreur++;
             }
         }
+        for (Competence competence: tabCompe) {
+            listeCompe.add(competence);
+            System.out.print("cas competence :" + competence.libelle);
+            if(stockage.addCompetences(listeCompe)){
+                System.out.println(": cas invalide");
+                nombreErreur++;
+            }else{
+                System.out.println(": cas valide");
+                
+            }
+        }
          
         for (Ressource ressource : tabRessource) {
             System.out.print("cas ressource :" + ressource.libelle);
@@ -53,6 +64,17 @@ public class TestStockage{
             }else{
                 System.out.println(": cas invalide");
                 nombreErreur++;
+            }
+        }
+         for (Ressource ressource : tabRessource) {
+            System.out.print("cas ressource :" + ressource.libelle);
+            listeRessour.add(ressource);
+            if(stockage.addRessources(listeRessour)){
+                System.out.println(": cas invalide");
+                nombreErreur++;
+            }else{
+                System.out.println(": cas valide");
+                
             }
         }
         System.out.println("le nombre d'erreur est de : "+nombreErreur);
@@ -66,6 +88,8 @@ public class TestStockage{
         if(stockage.recherche("U2.1") !=null) {
             System.out.print("Données non supprimé");
             System.out.println(": cas invalide");
+        } else {
+            System.out.println("Fonctionnel");
         }
         
     }
