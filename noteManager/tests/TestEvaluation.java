@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author alexandre.brouzes
  */
-public class TestEvaluation {
+public class TestEvaluation  {
     /**
      * fixture de test ="image fixe de test" partagée pour
      * les différents tests de la classe de évaluation 
@@ -24,6 +24,8 @@ public class TestEvaluation {
     public static ArrayList<Evaluation> listeEvaluationSansNote = new ArrayList<>();
     public static ArrayList<String> listeChaineNonValide = new ArrayList<>();
     public static ArrayList<Note> listeNoteValide = new ArrayList<>();
+    public static ArrayList<Double> listeCoefficientValide = new ArrayList<>();
+    public static ArrayList<Double> listeCoefficientNonValide = new ArrayList<>();
     
 
     public static void batterieDeTest() throws NoteException, EvaluationException{
@@ -33,14 +35,24 @@ public class TestEvaluation {
         listeNoteValide.add(new Note(20));
         listeNoteValide.add(new Note(12.256));
         
+        listeCoefficientValide.add(1.0);
+        listeCoefficientValide.add(100.0);
+        listeCoefficientValide.add(20.0);
+        listeCoefficientValide.add(50.5);
+        
+        listeCoefficientNonValide.add(null);
+        listeCoefficientNonValide.add(-1.0);
+        listeCoefficientNonValide.add(-9456.4898);
+        listeCoefficientNonValide.add(100.0001);
+        
         listeEvaluationValide.add(new Evaluation("Maths",listeNoteValide.get(0)
-                ,"QCM",1,"25/01/2023"));
+                ,"QCM",listeCoefficientValide.get(0),"25/01/2023"));
         listeEvaluationValide.add(new Evaluation("Développement Web",listeNoteValide.get(1)
-                ,"Exam sur machine",100,"Mi septembre"));
+                ,"Exam sur machine",listeCoefficientValide.get(1),"Mi septembre"));
         listeEvaluationValide.add(new Evaluation("Sql",listeNoteValide.get(2)
-                ,"Ecrit",20,""));
+                ,"Ecrit",listeCoefficientValide.get(2),""));
         listeEvaluationValide.add(new Evaluation("Anglais",listeNoteValide.get(3)
-                ,"Relevés TPs",50.5,"25/12/2024"));
+                ,"Relevés TPs",listeCoefficientValide.get(3),"25/12/2024"));
         
         
         listeEvaluationSansNote.add(new Evaluation("Cryptographie",null
@@ -103,21 +115,41 @@ public class TestEvaluation {
     }
 
     public static void testModifierModalite(){
-        if(!listeEvaluationValide.get(0).modifierModalite("Economie",null
-                ,"Exam sur machine",100,"Mi septembre"){
+        if(!listeEvaluationValide.get(0).modifierModalite("Economie",null,
+                "Exam sur machine",100,"Mi septembre")){
+            System.out.println("une erreur c'est produit lors de la modification");
             
         }
-        if (listeEvaluationValide.get(0).compareTo(listeEvaluationValide.get(1) != 0)){
+        if (listeEvaluationValide.get(0).compareTo(listeEvaluationValide.get(1))){
             System.out.println("erreur de la classe modification");  
         }
     }  
 
     public static void testGetNote() {
-        
+        for(int i = 0; i < listeEvaluationValide.size(); i++){
+            if(!(listeEvaluationValide.get(i).getNote() 
+                    == listeNoteValide.get(i).getNote())){
+                System.out.println("erreur de la classe getNote");
+            }               
+        }
     }
     
     public static void testGetCoefficient(){
-        
+        for(int i = 0; i < listeEvaluationValide.size(); i++){
+            if(!(listeEvaluationValide.get(i).getCoefficient() 
+                    == listeCoefficientValide.get(i))){
+                System.out.println("erreur de la classe getNote");
+            }               
+        }   
+    }
+    
+    public static void testIsCoefficient(){
+        for(double coefficientATester : listeCoefficientValide){
+            if(!(isCoefficient(coefficientATester))){
+                System.out.println("erreur de la classe getNote");
+            }               
+        }
+            
     }
     public static void main(String[] args) throws NoteException, EvaluationException{
         batterieDeTest();
