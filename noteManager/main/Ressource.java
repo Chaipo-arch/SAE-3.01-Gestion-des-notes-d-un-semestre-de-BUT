@@ -27,11 +27,16 @@ public class Ressource {
      * @throws NoteException 
      */
     public Ressource(String intitule, double coeficient , String id,String identifiant)throws NoteException{
+        if(coeficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         this.note = new Note(-1);
         this.intitule = intitule;
         this.identifiant = identifiant;
         this.coeficient = coeficient;
         evaluations = new ArrayList<>();
+        
+        
     }
     
     /**
@@ -39,7 +44,7 @@ public class Ressource {
      * à l'aides des evaluations de cette ressources
      * @return laMoyenne de cette ressource
      */
-    private double calculMoyenne(){
+    public double calculMoyenne(){
         double totalCoef = 0.0;
         double calculMoyenne=0.0;
         for(int index = 0 ; index < evaluations.size(); index++){
@@ -62,7 +67,7 @@ public class Ressource {
      * ajoute une evaluation à la ressource
      * @param evaluationAAjouter 
      */
-    private boolean ajouterEvaluation(Evaluation evaluationAAjouter){
+    public boolean ajouterEvaluation(Evaluation evaluationAAjouter){
         if(evaluations.contains(evaluationAAjouter)){
             return false;
         }
@@ -74,7 +79,7 @@ public class Ressource {
      * supprimer une évaluation à la ressources
      * @param evaluationASupprimer 
      */
-    private boolean supprimerEvaluation(Evaluation evaluationASupprimer){
+    public boolean supprimerEvaluation(Evaluation evaluationASupprimer){
         if(!evaluations.contains(evaluationASupprimer)){
             return false;
         }
