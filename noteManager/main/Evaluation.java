@@ -88,7 +88,7 @@ public class Evaluation {
      * Modifie tous les attributs d'un objet évaluation
      * @return true si la modification à été effectué, false sinon
      */
-    private boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
+    public boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
                                   String nouveauType, double nouveauCoefficient,
                                   String nouvelleDate){
         ressource = nouveauLibelle;
