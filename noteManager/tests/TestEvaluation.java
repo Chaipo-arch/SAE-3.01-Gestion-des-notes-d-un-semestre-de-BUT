@@ -145,7 +145,7 @@ public class TestEvaluation  {
         for (int i = 0; i < listeEvaluationValide.size(); i++) {
             if (listeEvaluationValide.get(i).getNote() != listeNoteValide.get(i).getNote()) {
                 System.out.println("Erreur de la classe getNote pour la valeur " 
-                                + listeEvaluationValide.get(i).getNote());
+                                   + listeEvaluationValide.get(i).getNote());
             }
         }
     }
@@ -157,7 +157,8 @@ public class TestEvaluation  {
     public static void testGetCoefficient() {
         for (int i = 0; i < listeEvaluationValide.size(); i++) {
             if (listeEvaluationValide.get(i).getCoefficient() != listeCoefficientValide.get(i)) {
-                System.out.println("Erreur de la classe getCoefficient pour la valeur " + listeEvaluationValide.get(i).getCoefficient());
+                System.out.println("Erreur de la classe getCoefficient pour la valeur " 
+                                   + listeEvaluationValide.get(i).getCoefficient());
             }
         }
     }
@@ -168,7 +169,8 @@ public class TestEvaluation  {
     public static void testIsCoefficient() {
         for (double coefficientATester : listeCoefficientValide) {
             if (!isCoefficient(coefficientATester)) {
-                System.out.println("Erreur de la classe isCoefficient pour la valeur " + coefficientATester);
+                System.out.println("Erreur de la classe isCoefficient pour la valeur " 
+                                   + coefficientATester);
             }
         }
         for (double coefficientNonValideATester : listeCoefficientNonValide) {
