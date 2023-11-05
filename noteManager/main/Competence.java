@@ -57,7 +57,7 @@ public class Competence {
         if (note == null){
             return libelle +" note non renseignée " + ensembleRessource;
         }
-        return libelle +" "+ note + ensembleRessource;
+        return libelle +" "+ noteArrondi + ensembleRessource;
     }
 
     /**
