@@ -22,7 +22,7 @@ public class Competence {
      */
     public Competence(String libelle) {
         this.libelle = libelle;
-        this.note = new Note(-1);
+        this.note = null;
         ressources = new Arralist<>();
     }
 
@@ -32,13 +32,13 @@ public class Competence {
      */
     public double calculMoyenneCompetence() {
         double totalCoef = 0.0;
-        double calculMoyenne=0.0;
+        double calculMoyenne = 0.0;
         for(int index = 0 ; index < ressources.size(); index++){
-            calculMoyenne +=ressources.get(index).getNote()*ressources.get(index).getCoefficient();
+            calculMoyenne += ressources.get(index).getNote() * ressources.get(index).getCoefficient();
             totalCoef += ressources.get(index).getCoefficient();
         }
         
-        return calculMoyenne/totalCoef; // calcul la moyenne d'une competence
+        return note = calculMoyenne/totalCoef; // calcul la moyenne d'une competence
     }
 
     /**
@@ -46,10 +46,18 @@ public class Competence {
      * @return la chaîne de caractère contenant la description de l'évaluation
      */
     public String competenceToString() {
+
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
         String noteArrondi = df.format(note);
         noteArrondi.replace('.', ','); // remplace le '.' par ','
-        return libelle +" "+ note;
+        String ensembleRessource = "";
+        for (ressourceAAfficher : ressources){
+            ensembleRessource += ressourceAAfficher.ressourceToString;
+        }
+        if (note == null){
+            return libelle +" note non renseignée " + ensembleRessource;
+        }
+        return libelle +" "+ note + ensembleRessource;
     }
 
     /**
@@ -57,7 +65,7 @@ public class Competence {
      * @param ressourceAAjouter ressource à ajouter
      * @return true si l'ajout a pu être effectué, false sinon
      */
-    public boolean ajouterResource(Ressource resourceAAjouter) {
+    public boolean ajouterRessource(Ressource resourceAAjouter) {
         if(ressources.contains(resourceAAjouter || resourceAAjouter == null)){
             return false;
         }
