@@ -45,7 +45,8 @@ public class Ressource {
      * à l'aides des evaluations de cette ressources
      * @return laMoyenne de cette ressource
      */
-    public double calculMoyenne(){
+    public Note calculMoyenne() throws NoteException {
+        
         double totalCoef = 0.0;
         double calculMoyenne=0.0;
         for(int index = 0 ; index < evaluations.size(); index++){
@@ -54,6 +55,8 @@ public class Ressource {
         }
         
         return note = new Note(calculMoyenne/totalCoef); // calcul la moyenne d'une ressource
+        
+        
     }
     
     /**
