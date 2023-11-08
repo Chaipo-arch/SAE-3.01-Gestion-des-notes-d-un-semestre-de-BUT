@@ -16,7 +16,8 @@ import java.util.ArrayList;
  */
 public class Stockage {
     ArrayList<Competence> competences ;
-   public ArrayList<Ressource> ressources;
+   /** TODO comment field role (attribute, association) */
+public ArrayList<Ressource> ressources;
     ArrayList<Evaluation> evaluations;
     private static Stockage instance = new Stockage();
     
@@ -37,19 +38,22 @@ public class Stockage {
     /**
      * Sauvegarde de nouvelles instances de l'objet competences dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
+     * @return a
      */
     public boolean addCompetences(ArrayList<Competence> aAjouter) {
          if(competences.containsAll(aAjouter)) {
             return false;
         }
-        ArrayList<Competence> save = new ArrayList<>() ;
+        ArrayList<Competence> aSupprimer = new ArrayList<>() ;
         for(Competence competence : aAjouter) {
-            
-            if (competences.contains(competence)) {
-                save.add(competence);
-            } 
+            for(Competence c: competences) {
+                if (competence.identifiant.equals(c.identifiant)) {
+                    aSupprimer.add(competence);
+                } 
+            }
+             
         }
-        aAjouter.removeAll(save);
+        aAjouter.removeAll(aSupprimer);
         return competences.addAll(aAjouter);
     
     }
@@ -57,19 +61,30 @@ public class Stockage {
     /**
      * Sauvegarde de nouvelles instances de l'objet ressource dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
+     * @return l'array list aAjouter mais avec les ressources qui sont déjà dans le Stockage
      */
-    public boolean addRessources(ArrayList<Ressource> aAjouter) {
+    public ArrayList<Ressource> addRessources(ArrayList<Ressource> aAjouter) {
         if(ressources.containsAll(aAjouter)) {
-            return false;
+            return null;
         }
+       
         ArrayList<Ressource> save = new ArrayList<>() ;
-        for(Ressource ressource : aAjouter) {
-            if (ressources.contains(ressource)) {
-                save.add(ressource);
-            } 
-        }
-        aAjouter.removeAll(save);
-        return ressources.addAll(aAjouter);
+        ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
+        //for(Competence comps: competences) {
+            for (Ressource ressou: ressources) {
+                for(Ressource r: aAjouter)
+                if(r.identifiant.equals(ressou.identifiant)) {
+                    save.add(ressou);
+                    aSupprimer.add(r);
+                }
+                 
+            }
+        //}
+        aAjouter.removeAll(aSupprimer);
+        
+        ressources.addAll(aAjouter);
+       aAjouter.addAll(save);
+        return aAjouter;
     }
     
    
@@ -105,25 +120,25 @@ public class Stockage {
     
     /**
      * Trouve la competence, ou ressource selon le libele de ce qui est cherché
-     * @param libelle , le libelle de ce qui est cherche
+     * @param identifiant , le libelle de ce qui est cherche
      * @return null si l'objet cherché n'est pas trouvé sinon l'instance du libellé
      */
-    public Object recherche(String libelle) {
+    public Object recherche(String identifiant) {
         Object cherche = null;
-        char c = libelle.charAt(0);
-        if(c != 'R' && c != 'U' ) {
+        char c = identifiant.charAt(0);
+        if(c != 'R' && c != 'U' && c!= 'P' && c != 'S') {
             return null;
         } 
-        if(c == 'R') {
-            for (Ressource ressource : ressources) {
-                if (ressource.libelle.equals(libelle)) {
-                    cherche = ressource;
+        if(c == 'U') {
+            for (Competence competence : competences) {
+                if (competence.identifiant.equals(identifiant)) {
+                    cherche = competence;
                 }
             }
         } else {
-            for (Competence competence : competences) {
-                if (competence.libelle.equals(libelle)) {
-                    cherche = competence;
+            for (Ressource ressource :ressources) {
+                if (ressource.identifiant.equals(identifiant)) {
+                    cherche = ressource;
                 }
             }
         }
