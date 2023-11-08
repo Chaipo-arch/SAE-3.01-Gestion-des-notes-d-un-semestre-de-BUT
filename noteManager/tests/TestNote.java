@@ -19,6 +19,11 @@ public class TestNote{
     public static  ArrayList<Double> noteInvalide = new ArrayList<>();
     public static ArrayList<Note> note = new ArrayList<>();
     
+    /**
+     * jeu de tests que l'on utilise tout au long de 
+     * nos test .
+     * @throws NoteException 
+     */
     public static void jeuxDeDonnees() throws NoteException{
         noteInvalide.add(Double.NaN);
         noteInvalide.add(-1.0);
