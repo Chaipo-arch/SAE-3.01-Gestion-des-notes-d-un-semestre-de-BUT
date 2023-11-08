@@ -27,6 +27,7 @@ public class Note {
             throw new NoteException("La valeur de la note n'est pas bonne");
         }
     }
+    
 
     /**
      * Modification de la valeur de la note
