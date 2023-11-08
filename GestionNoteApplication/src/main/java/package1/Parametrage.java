@@ -3,67 +3,63 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package package1;
+package parametrage;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  *
- * @author robin.britelle
+ * @author enzo.cluzel robin.britelle
  */
-
-
-public class Parametrage {
+public abstract class Parametrage {
+   
+    /**
+     * 
+     */
+    protected File file;
+    /** TODO comment field role (attribute, association) */
+    protected ArrayList<String> contenue ;
     
     
-
-    public boolean estFichierCSV(String chemin) {
-        File cheminFichier;
-        cheminFichier = new File(chemin);
-        if (cheminFichier.isFile() && cheminFichier.getName().toLowerCase().endsWith(".csv")) {
-            return true;
+    
+    
+    
+    /**
+     * 
+     * @param chemin 
+     * @throws IllegalArgumentException 
+     */
+    public Parametrage(String chemin) throws IllegalArgumentException {;
+        if(isCSV(chemin)) {
+            contenue = new ArrayList();
+            file = new File(chemin);   
+            
+        } else {
+            throw new IllegalArgumentException("pas csv");
         }
-        return false;
+        
     }
     
-    
-    public ArrayList<ArrayList<String>> extraireDonneesCSV(File fichier) throws IOException {
-        ArrayList<ArrayList<String>> donnees = new ArrayList<>();
-        try (Scanner scanner = new Scanner(fichier)) {
-            while (scanner.hasNextLine()) {
-                String ligne = scanner.nextLine();
-                String[] colonnes = ligne.split(";");
-                ArrayList<String> colonnesList = new ArrayList<>();
-                for (String colonne : colonnes) {
-                    colonnesList.add(colonne);
-                }
-                donnees.add(colonnesList);
-            }
-        }
-        return donnees;
+    /**
+     * verifie si le fichier est un csv
+     * @return return un boolean qui est égal a true si le fichier est au format .csv
+     *          et false sinon
+     */
+    private static boolean isCSV(String chemin) {
+        File file = new File(chemin);
+        return file.exists() && file.getName().toLowerCase().endsWith(".csv");    
     }
-
-    /*public List<String[]> extraireDonneesCSV(File fichier) throws IOException {
-        List<String[]> donnees = new ArrayList<>();
-        try (Scanner scanner = new Scanner(fichier)) {
-            while (scanner.hasNextLine()) {
-                String ligne = scanner.nextLine();
-                String[] colonnes = ligne.split(",");
-                donnees.add(colonnes);
-            }
-        }
-        return donnees;
-    }*/
     
-    //TODO a voir si on rajoute le ISCORRECT pour l'abstract Class
+    /** TODO comment method role
+     * 
+     */
+    public abstract void parse();
     
-    // TODO revoir la methodes d'extraction des donnees pour un acces facile a chacune des cases du csv a partir d'un index de ligne
-    
-    //Rajout d'une methodes permettant de verifier la variable "Chemin" pour verifier la saisie Utilisateur et message d'erreur adapter
-    
-    
+    /** TODO comment method role
+     * @return b
+     * 
+     */
+    public abstract boolean isCorrect();
 }
