@@ -15,5 +15,8 @@ public class NoteException extends Exception {
     }
     
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> note
 }
