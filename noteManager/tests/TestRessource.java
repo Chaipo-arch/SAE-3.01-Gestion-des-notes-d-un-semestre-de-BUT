@@ -6,9 +6,9 @@
 package noteManager.tests;
 
 import java.util.ArrayList;
-import noteManager.main.Evaluation;
-import noteManager.main.Note;
-import noteManager.main.Ressource;
+import noteManager.main.java.Evaluation;
+import noteManager.main.java.Note;
+import noteManager.main.java.Ressource;
 import static noteManager.tests.TestEvaluation.listeChaineNonValide;
 import static noteManager.tests.TestEvaluation.listeEvaluationSansNote;
 import static noteManager.tests.TestEvaluation.listeEvaluationValide;
