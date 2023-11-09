@@ -45,7 +45,7 @@ public class Ressource {
      * à l'aides des evaluations de cette ressources
      * @return laMoyenne de cette ressource
      */
-    public double calculMoyenne(){
+    public Note calculMoyenne() throws NoteException{
         double totalCoef = 0.0;
         double calculMoyenne=0.0;
         for(int index = 0 ; index < evaluations.size(); index++){
@@ -67,8 +67,8 @@ public class Ressource {
         String noteArrondi = df.format(note);
         noteArrondi.replace('.', ','); // remplace le '.' par ','
 
-        for (evaluationAAfficher : evaluations){
-            affichageEvaluation += evaluationAAfficher.toString();
+        for (int i=0 ; i<evaluations.size();i++){
+            affichageEvaluation += evaluations.get(i).toString();
         }
         if (note.getNote() == -1){
             return identifiant + " " + intitule + " " + coefficient + " note non renseigné " 
@@ -112,6 +112,6 @@ public class Ressource {
      * @return coefficient  
      */
     public double getCoefficient(){
-        return coefficient
+        return coefficient;
     }
 }

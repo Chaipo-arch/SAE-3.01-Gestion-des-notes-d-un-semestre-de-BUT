@@ -5,9 +5,11 @@
  */
 package noteManager.tests;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import noteManager.main.Evaluation;
 import noteManager.main.Note;
+import noteManager.main.NoteException;
 import noteManager.main.Ressource;
 import static noteManager.tests.TestEvaluation.listeChaineNonValide;
 import static noteManager.tests.TestEvaluation.listeEvaluationSansNote;
@@ -23,7 +25,7 @@ public class TestRessource {
     public static ArrayList<Ressource> ressourcesValide= new ArrayList<>() ;
     public static ArrayList<Evaluation> listeDeToutEvaluation = new ArrayList<>();
     
-    public boolean jeuxDeData() throws Exception{
+    public static boolean jeuxDeData() throws Exception{
         boolean jeuValide = true;
         try{
             TestEvaluation.batterieDeTest();
@@ -44,6 +46,21 @@ public class TestRessource {
         }
        
         return jeuValide;
+        
+    }
+    
+    
+    public static void testCalculMoyenne() throws NoteException{
+        System.out.println(ressourcesValide.get(0).calculMoyenne());
+    }
+    
+    public static void main(String[] args){
+        try{
+            jeuxDeData();
+            testCalculMoyenne();  
+        }catch(Exception e){
+            
+        }
         
     }
 }

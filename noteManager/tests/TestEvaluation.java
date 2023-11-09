@@ -104,10 +104,10 @@ public class TestEvaluation {
 
     public static void testModifierModalite(){
         if(!listeEvaluationValide.get(0).modifierModalite("Economie",null
-                ,"Exam sur machine",100,"Mi septembre"){
+                ,"Exam sur machine",100,"Mi septembre")){
             
         }
-        if (listeEvaluationValide.get(0).compareTo(listeEvaluationValide.get(1) != 0)){
+        if (listeEvaluationValide.get(0).compareTo(listeEvaluationValide.get(1).getNote() != 0.0)){
             System.out.println("erreur de la classe modification");  
         }
     }  
