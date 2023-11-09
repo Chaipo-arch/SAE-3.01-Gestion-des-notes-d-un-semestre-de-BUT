@@ -50,7 +50,7 @@ public class Evaluation {
                     + "sont incomplet");
         }
         this.ressource = ressourceEvaluation;
-        this.note = null;
+        this.note = noteEvaluation;
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
@@ -75,13 +75,14 @@ public class Evaluation {
      * @return la chaîne de caractère contenant la description de l'évaluation
      */
     
-    public String toSring(){
+    public String toString(){
         if (note == null){
             return ressource + " " + type + " " + date 
                              + coefficient + " note non renseignée";
         }
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(note);
+        String noteArrondi = df.format(note.getNote());
+    
         noteArrondi.replace('.', ','); // remplace le '.' par ','
         return ressource + " " + type + " " + date 
                          + coefficient + noteArrondi;   
@@ -120,6 +121,6 @@ public class Evaluation {
      * @return true si le coefficient est correct, false sinon
      */
     private boolean isCoefficient(double coefficientATester){
-        return coefficient < 100 && coefficient > 0;
+        return coefficientATester <= 100 && coefficientATester > 0;
     }
 }

@@ -51,9 +51,7 @@ public class Note {
      * @return true si la valeur est une note correcte sinon false
      */
     public static boolean isNote(double valeur) {
-        return valeur >= 0.0 && valeur <=20.0;
+        return (valeur >= 0.0 && valeur <=20.0) || valeur ==-1;
     }
-
-    
 }
 

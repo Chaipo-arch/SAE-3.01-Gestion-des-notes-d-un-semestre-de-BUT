@@ -27,23 +27,22 @@ public class TestRessource {
     
     public static boolean jeuxDeData() throws Exception{
         boolean jeuValide = true;
-        try{
+        
             TestEvaluation.batterieDeTest();
             listeDeToutEvaluation.addAll(listeEvaluationValide);
             listeDeToutEvaluation.addAll(listeEvaluationSansNote);
 
             ressourcesValide.add(new Ressource("Programmation Général", 10, "id", "id"));
             ressourcesValide.add(new Ressource("Mathématique", 20, "id", "id"));
-            ressourcesValide.get(0).ajouterEvaluation(listeEvaluationSansNote.get(0));
-        }catch(Exception e){
-            jeuValide =  false;
-        }
+            for(int i=0 ; i < listeEvaluationValide.size() ;i++){
+                ressourcesValide.get(0).ajouterEvaluation(listeEvaluationValide.get(0));
+            }
+            
+            
+//            ressourcesValide.get(0).ajouterEvaluation(listeEvaluationSansNote.get(0));
         
-        try{
-            
-        }catch(Exception e){
-            
-        }
+        System.out.println(ressourcesValide.toString());
+        
        
         return jeuValide;
         
@@ -51,16 +50,15 @@ public class TestRessource {
     
     
     public static void testCalculMoyenne() throws NoteException{
+        System.out.println("démarrage des test");
         System.out.println(ressourcesValide.get(0).calculMoyenne());
     }
     
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) throws Exception{
+       
             jeuxDeData();
             testCalculMoyenne();  
-        }catch(Exception e){
-            
-        }
+        
         
     }
 }

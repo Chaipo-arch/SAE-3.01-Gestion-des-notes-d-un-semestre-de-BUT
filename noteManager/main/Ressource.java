@@ -52,8 +52,11 @@ public class Ressource {
             calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
             totalCoef += evaluations.get(index).getCoefficient();
         }
-        
-        return note = new Note(calculMoyenne/totalCoef); // calcul la moyenne d'une ressource
+        System.out.println(calculMoyenne);
+        System.out.println(totalCoef);
+        Note note = new Note(calculMoyenne/totalCoef);
+        System.out.println(note);
+        return note ; // calcul la moyenne d'une ressource
     }
     
     /**

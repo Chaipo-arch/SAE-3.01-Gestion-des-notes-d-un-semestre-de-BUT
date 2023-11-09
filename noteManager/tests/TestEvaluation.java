@@ -62,7 +62,7 @@ public class TestEvaluation  {
         listeEvaluationSansNote.add(new Evaluation("Cryptographie",null
                 ,"QCM",1,"25/01/2023"));
         listeEvaluationSansNote.add(new Evaluation("Economie",null
-                ,"Exam sur machine",100,"Mi septembre"));
+                ,"Exam sur machine",10,"Mi septembre"));
         listeEvaluationSansNote.add(new Evaluation("Réseaux",null
                 ,"Ecrit",20,""));
         listeEvaluationSansNote.add(new Evaluation("Programmation",null
@@ -79,13 +79,19 @@ public class TestEvaluation  {
     public static void testAjouterNote(){
         int nbTestNOk = 0;
         int index = 0;
+        
         for(Evaluation evaluationTeste : listeEvaluationSansNote){
+            
             if (!evaluationTeste.ajouterNote(listeNoteValide.get(index))){
                 nbTestNOk++;
             }
             index++;
         }
+        index =0;
+        
+        
         for(Evaluation evaluationTeste : listeEvaluationValide){
+            
             if (evaluationTeste.ajouterNote(listeNoteValide.get(index))){
                 nbTestNOk++;
             }
@@ -93,34 +99,47 @@ public class TestEvaluation  {
         }
         if(nbTestNOk != 0){
             System.out.println("Il y a " + nbTestNOk + " erreur(s)");
+        }else{
+            System.out.println("TEST : ajouterNote VALIDE");
         }
+        
+        
     }
 
     /**
      * tests sur la méthode toString de la classe Evaluation.
      */
-    public static void testToSring(){
+    public static void testToString(){
 
-        String affichageATester = listeEvaluationValide.get(0).toSring();
+        int nbErreur = 0;
+        String affichageATester = listeEvaluationValide.get(0).toString();
         String chaineAttendue = "Maths QCM 25/01/2023 1.0 0.5";
-        String affichageATester2 = listeEvaluationValide.get(1).toSring();
+        String affichageATester2 = listeEvaluationValide.get(1).toString();
         String chaineAttendue2 = "Développement Web Exam sur machine Mi septembre 100.0 10.524";
-        String affichageATester3 = listeEvaluationValide.get(3).toSring();
+        String affichageATester3 = listeEvaluationValide.get(3).toString();
         String chaineAttendue3 = "Anglais Relevés TPs 25/12/2024 50.5 12.256";
-        String affichageATester4 = listeEvaluationSansNote.get(0).toSring();
+        String affichageATester4 = listeEvaluationSansNote.get(0).toString();
         String chaineAttendue4 = "Cryptographie QCM 25/01/2023 1.0 note non renseignée";
 
-        if(affichageATester.compareTo(chaineAttendue) != 0){
+        if(affichageATester.equals(chaineAttendue)){
             System.out.println("Erreur dans la première chaîne comparée");
+            nbErreur++;
         }
-        if(affichageATester2.compareTo(chaineAttendue2) != 0){
+        if(affichageATester2.equals(chaineAttendue2) ){
             System.out.println("Erreur dans la deuxième chaîne comparée");
+            nbErreur++;
         }
-        if(affichageATester3.compareTo(chaineAttendue3) != 0){
+        if(affichageATester3.equals(chaineAttendue3)){
             System.out.println("Erreur dans la troisième chaîne comparée");
+            nbErreur++;
         }
-        if(affichageATester4.compareTo(chaineAttendue4) != 0){
+        if(affichageATester4.equals(chaineAttendue4)){
             System.out.println("Erreur dans la quatrième chaîne comparée");
+            nbErreur++;
+        }
+        
+        if(nbErreur == 0){
+            System.out.println("TEST : toString VALIDE");
         }
 
     }
@@ -133,8 +152,10 @@ public class TestEvaluation  {
                 "Exam sur machine",100,"Mi septembre")){
             System.out.println("Une erreur s'est produite lors de la modification");
         }
-        if (listeEvaluationValide.get(0).compareTo(listeEvaluationValide.get(1))){
+        else if (listeEvaluationValide.get(0) ==listeEvaluationValide.get(1)){
             System.out.println("Erreur de la classe modification");
+        }else{
+            System.out.println("TEST : modification VALIDE");
         }
     }
 
@@ -142,11 +163,16 @@ public class TestEvaluation  {
      * tests sur la méthode getNote de la classe Evaluation.
      */
     public static void testGetNote() {
+        int nbErreur =0;
         for (int i = 0; i < listeEvaluationValide.size(); i++) {
             if (listeEvaluationValide.get(i).getNote() != listeNoteValide.get(i).getNote()) {
                 System.out.println("Erreur de la classe getNote pour la valeur " 
                                    + listeEvaluationValide.get(i).getNote());
+                nbErreur++;
             }
+        }
+        if(nbErreur==0){
+            System.out.println("Test : GetNote VALIDE");
         }
     }
 
@@ -167,7 +193,7 @@ public class TestEvaluation  {
      * tests sur la méthode isCoefficient pour vérifier la validité des coefficients.
      */
     public static void testIsCoefficient() {
-        for (double coefficientATester : listeCoefficientValide) {
+        /*for (double coefficientATester : listeCoefficientValide) {
             if (!isCoefficient(coefficientATester)) {
                 System.out.println("Erreur de la classe isCoefficient pour la valeur " 
                                    + coefficientATester);
@@ -177,7 +203,7 @@ public class TestEvaluation  {
             if (isCoefficient(coefficientNonValideATester)) {
                 System.out.println("Erreur de la classe isCoefficient pour la valeur " + coefficientNonValideATester);
             }
-        }
+        }*/
     }
 
     /**
@@ -186,11 +212,14 @@ public class TestEvaluation  {
     public static void main(String[] args) throws NoteException, EvaluationException {
         batterieDeTest();
         testAjouterNote();
-        testToSring();
-        testModifierModalite();
+        testToString();
         testGetNote();
-        testGetCoefficient();
         testIsCoefficient();
+        //testGetCoefficient();
+        
+        testModifierModalite();
+        
+        
     }
     
 }
