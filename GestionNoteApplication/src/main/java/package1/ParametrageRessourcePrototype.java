@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,12 +17,12 @@ import java.util.Scanner;
  *
  * @author enzo.cluzel
  */
-public class ParametrageNationalPrototype extends Parametrage {
+public class ParametrageRessourcePrototype extends Parametrage {
 
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"BUT Informatique - Modalit� Contr�le de connaissances (programme national)", "Semestre", "Parcours", "Type �valuation;Identifiant;Libell�;Poids"};
+    protected final String[] MODELE = {"BUT Informatique - Modalit� Contr�le de connaissances ressources semestre", "Semestre", "Parcours", "Type �valuation;Date;Poids"};
 
     private static int numeroLigne;
 
@@ -32,13 +32,14 @@ public class ParametrageNationalPrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageNationalPrototype(String chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageRessourcePrototype(String chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
     }
 
     @Override
     public void parse() throws IOException, MauvaisFormatFichierException {
         FileReader fr = null;
+        //System.out.println("ok");
         // prerequis
         try {
             fr = new FileReader(file);
@@ -53,6 +54,9 @@ public class ParametrageNationalPrototype extends Parametrage {
         String line;
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
             String[] chaine = line.split(";");
+            if (numeroLigne == 0) {
+                chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
+            }
             if (!chaine[0].equals(MODELE[numeroLigne])) {
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + chaine[0]);
             }
@@ -61,21 +65,14 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
 
         }
-        String saveIdentifiantC = null;
+        String saveIdentifiantR = null;
         int calculCoeff;
         while (line != null) {
             calculCoeff = 0;
             String[] chaine = line.split(";");
 
-            if (chaine[0].equals("Comp�tence") && chaine.length == 3 && chaine[1].matches("U[1-6]\\.[1-9]")) {
-                //System.out.println("passage2");
-                ArrayList<Competence> comps = new ArrayList();
-
-                Competence comp = new Competence(chaine[1]);
-                saveIdentifiantC = chaine[1];
-                comps.add(comp);
-                Stockage.getInstance().addCompetences(comps);
-
+            if ((chaine[0].equals("Comp�tence") || chaine[0].equals("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
+                saveIdentifiantR = chaine[1];
             } else {
                 System.out.println("erreur4");
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + line);
@@ -87,31 +84,26 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
-            ArrayList<Ressource> ress = new ArrayList();
+            ArrayList<Evaluation> evals = new ArrayList();
             for (line = newLine(br); line != null
-                    && !line.split(";")[0].equals("Comp�tence"); line = newLine(br)) {
+                    && !line.split(";")[0].equals("Comp�tence")
+                    && !line.split(";")[0].equals("Ressource"); line = newLine(br)) {
                 chaine = line.split(";");
-                if (chaine.length != 4) {
+                if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas assez de colonne");
                 }
-                if (!chaine[0].matches("Ressource|Portfolio|SAE")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[0]);
-                }
-                if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[1]);
-                }
-                calculCoeff += Integer.parseInt(chaine[3]);
-                ress.add(new Ressource(chaine[0], chaine[1], chaine[2], chaine[3]));
+                calculCoeff += Integer.parseInt(chaine[2]);
+                evals.add(new Evaluation(chaine[0], chaine[1], chaine[2]));
             }
             if (calculCoeff == 100) {
-                Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
-                ress = Stockage.getInstance().addRessources(ress);
-                if (compe instanceof Competence) {
-                    ((Competence) compe).ajouterRessources(ress);
+                Object ressource = Stockage.getInstance().recherche(saveIdentifiantR);
+                Stockage.getInstance().addEvaluations(evals);
+                if (ressource instanceof Ressource) {
+                    ((Ressource) ressource).ajouterEvaluations(evals);
 
                 }
             } else {
-                throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantC + " a une somme des coefficients pas égale à 100: " + calculCoeff);
+                throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantR + " a une somme des coefficients pas égale à 100: " + calculCoeff);
             }
 
         }
@@ -123,6 +115,12 @@ public class ParametrageNationalPrototype extends Parametrage {
      */
     public static boolean flag = true;
 
+    /**
+     *
+     * @param br
+     * @return
+     * @throws IOException
+     */
     public String newLine(BufferedReader br) throws IOException {
         String line = null;
         do {
