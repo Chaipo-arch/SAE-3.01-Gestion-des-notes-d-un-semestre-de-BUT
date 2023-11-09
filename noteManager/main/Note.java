@@ -1,3 +1,4 @@
+
 /*
  * Note.java                                            //2023
  * IUT de Rodez, BUT2, aucun droit d'auteur
@@ -27,7 +28,6 @@ public class Note {
             throw new NoteException("La valeur de la note n'est pas bonne");
         }
     }
-    
 
     /**
      * Modification de la valeur de la note
@@ -56,3 +56,4 @@ public class Note {
 
     
 }
+
