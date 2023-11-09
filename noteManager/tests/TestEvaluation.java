@@ -192,5 +192,6 @@ public class TestEvaluation  {
         testGetCoefficient();
         testIsCoefficient();
     }
+    
 }
 
