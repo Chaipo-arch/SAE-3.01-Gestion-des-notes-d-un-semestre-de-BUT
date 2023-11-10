@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GestionNoteApplication.src.main.java.package1;
+package parametrage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,11 +57,22 @@ public class ParametrageRessourcePrototype extends Parametrage {
             if (numeroLigne == 0) {
                 chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
             }
-            if (!chaine[0].equals(MODELE[numeroLigne])) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + chaine[0]);
+           if (!chaine[0].equals(MODELE[numeroLigne])) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " );
             }
-            if ((numeroLigne != 0 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$|^[1-6]$"))) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + chaine[1]);
+            
+             if(chaine.length != 2 && numeroLigne == 1) {
+               
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
+                
+            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
+            }
+            if (numeroLigne == 2 && chaine.length != 2) {
+                
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
+            } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
             }
 
         }
@@ -90,11 +101,16 @@ public class ParametrageRessourcePrototype extends Parametrage {
                     && !line.split(";")[0].equals("Ressource"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 3) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas assez de colonne");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas 3 colonne");
                 }
+                if (chaine[2].matches("-([0-9]){1,}|[(^0-9)]")) {
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[2]);
+                }
+                
                 calculCoeff += Integer.parseInt(chaine[2]);
                 evals.add(new Evaluation(chaine[0], chaine[1], chaine[2]));
             }
+            //System.out.println(calculCoeff);
             if (calculCoeff == 100) {
                 Object ressource = Stockage.getInstance().recherche(saveIdentifiantR);
                 Stockage.getInstance().addEvaluations(evals);

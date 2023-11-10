@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,10 +54,21 @@ public class ParametrageNationalPrototype extends Parametrage {
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
             String[] chaine = line.split(";");
             if (!chaine[0].equals(MODELE[numeroLigne])) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + chaine[0]);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " );
             }
-            if ((numeroLigne != 0 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$|^[1-6]$"))) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + chaine[1]);
+            //System.out.println(chaine.length);
+            if(chaine.length != 2 && numeroLigne == 1) {
+               
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
+                
+            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
+            }
+            if (numeroLigne == 2 && chaine.length != 2) {
+                
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
+            } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
             }
 
         }
@@ -78,12 +89,12 @@ public class ParametrageNationalPrototype extends Parametrage {
 
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + line);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit" + line);
             }
             line = newLine(br);
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit");
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
@@ -92,13 +103,16 @@ public class ParametrageNationalPrototype extends Parametrage {
                     && !line.split(";")[0].equals("Comp�tence"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 4) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas assez de colonne");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 4 colonne");
                 }
                 if (!chaine[0].matches("Ressource|Portfolio|SAE")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[0]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[0]);
                 }
                 if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[1]);
+                }
+                if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], chaine[3]));
@@ -118,6 +132,7 @@ public class ParametrageNationalPrototype extends Parametrage {
         br.close();
         fr.close();
     }
+    
     /**
      * eviter premier passage
      */
