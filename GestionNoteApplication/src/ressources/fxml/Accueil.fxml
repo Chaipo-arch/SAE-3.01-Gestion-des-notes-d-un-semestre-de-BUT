@@ -11,52 +11,13 @@
       <AnchorPane layoutX="190.0" layoutY="68.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="910.0" stylesheets="@../css/css.css" VBox.vgrow="ALWAYS" />
       <AnchorPane prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: #262626;" stylesheets="@../css/css.css">
          <children>
-            <Button layoutX="13.0" layoutY="328.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@../GestionNote/GestionNoteApplication/src/main/controller/css.css">
-               <graphic>
-                  <Label prefHeight="37.0" prefWidth="152.0" text="Ajouter Evaluation" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../GestionNote/GestionNoteApplication/src/main/controller/img/icons8-ajouter-50.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </graphic>
-            </Button>
-            <Button layoutX="12.0" layoutY="226.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@../GestionNote/GestionNoteApplication/src/main/controller/css.css">
-               <graphic>
-                  <Label onMouseClicked="#mesNotesActionBtn" prefHeight="37.0" prefWidth="120.0" text="Mes Notes" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../GestionNote/GestionNoteApplication/src/main/controller/img/icons8-menu-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </graphic>
-            </Button>
-            <Button layoutX="13.0" layoutY="147.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload">
+            <Button layoutX="-34.0" layoutY="129.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="213.0" styleClass="payload">
                <graphic>
                   <Label fx:id="BtnAccueil" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../GestionNote/GestionNoteApplication/src/main/controller/img/icons8-accueil-24.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </graphic>
-            </Button>
-            <Button layoutX="12.0" layoutY="419.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@../GestionNote/GestionNoteApplication/src/main/controller/css.css">
-               <graphic>
-                  <Label prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../GestionNote/GestionNoteApplication/src/main/controller/img/icons8-engrenage-64.png" />
+                              <Image url="@../img/icons8-accueil-24.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -71,9 +32,48 @@
             </AnchorPane>
             <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../GestionNote/GestionNoteApplication/src/main/controller/img/icons8-utilisateur-50.png" />
+                  <Image url="@../img/icons8-utilisateur-50.png" />
                </image>
             </ImageView>
+            <Button layoutX="-34.0" layoutY="232.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="213.0" styleClass="payload">
+               <graphic>
+                  <Label fx:id="BtnAccueil1" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-menu-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+            <Button layoutX="-34.0" layoutY="334.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="213.0" styleClass="payload">
+               <graphic>
+                  <Label fx:id="BtnAccueil11" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-ajouter-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+            <Button layoutX="-34.0" layoutY="436.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="213.0" styleClass="payload">
+               <graphic>
+                  <Label fx:id="BtnAccueil12" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-engrenage-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="190.0" prefHeight="68.0" prefWidth="910.0" style="-fx-background-color: orange;">

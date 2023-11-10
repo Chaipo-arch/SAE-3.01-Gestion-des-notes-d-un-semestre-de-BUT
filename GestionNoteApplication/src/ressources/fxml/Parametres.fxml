@@ -6,15 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AccueilController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="910.0" style="-fx-background-color: green;" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="190.0" layoutY="68.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="910.0" style="-fx-background-color: green;" stylesheets="@../css/css.css" VBox.vgrow="ALWAYS">
-         <children>
-            <Button layoutX="39.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="285.0" text="Button" />
-            <Button layoutX="391.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="285.0" text="Button" />
-            <Button layoutX="738.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="137.0" text="Button" />
-            <Button layoutX="391.0" layoutY="341.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="204.0" text="Button" />
-            <Label layoutX="354.0" layoutY="44.0" prefHeight="64.0" prefWidth="220.0" style="-fx-background-color: yellow;" text="Vous etes dans les parametres" />
-         </children></AnchorPane>
+      <Button layoutX="39.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="285.0" text="Button" />
+      <Button layoutX="391.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="285.0" text="Button" />
+      <Button layoutX="738.0" layoutY="190.0" mnemonicParsing="false" prefHeight="121.0" prefWidth="137.0" text="Button" />
+      <Button layoutX="391.0" layoutY="341.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="204.0" text="Button" />
+      <Label layoutX="354.0" layoutY="44.0" prefHeight="64.0" prefWidth="220.0" style="-fx-background-color: yellow;" text="Vous etes dans les parametres" />
    </children>
 </AnchorPane>
