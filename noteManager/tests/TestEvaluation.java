@@ -4,9 +4,9 @@
  */
 package noteManager.tests;
 
-import noteManager.main.Evaluation;
-import noteManager.main.Note;
-import noteManager.main.NoteException;
+import noteManager.main.java.Evaluation;
+import noteManager.main.java.Note;
+import noteManager.main.java.NoteException;
 import noteManager.main.EvaluationException;
 import java.util.ArrayList;
 

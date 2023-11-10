@@ -4,7 +4,7 @@
  * IUT de Rodez, BUT2, aucun droit d'auteur
  */
 
- package noteManager.main;
+ package noteManager.main.java;
 
  /**
   * Note associé à une eval, ressource ou compétence

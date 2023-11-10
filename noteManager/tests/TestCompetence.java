@@ -9,6 +9,8 @@ package noteManager.tests;
 import noteManager.main.java.Note;
 import noteManager.main.java.NoteException;
 import java.util.ArrayList;
+import noteManager.main.java.Competence;
+import noteManager.main.java.Ressource;
 
 public class TestCompetence {
 
@@ -23,15 +25,15 @@ public class TestCompetence {
         Ressource ressource2 = new Ressource("Ressource2", 2.0, "ID2", "Identifiant2");
         Ressource ressource3 = new Ressource("Ressource3", 3.0, "ID3", "Identifiant3");
         
-        competenceValide.ressources.add(ressource1);
-        competenceValide.ressources.add(ressource2);
+        competenceValide.getRessources().add(ressource1);
+        competenceValide.getRessources().add(ressource2);
         
     }
 
     public static void testCalculMoyenneCompetence() throws NoteException{
 
-        competenceValide.ressources.get(0).setNote(20);
-        competenceValide.ressources.get(1).setNote(10);
+        competenceValide.getRessources().get(0).setNote(20);
+        competenceValide.getRessources().get(1).setNote(10);
 
         double moyenneCalculer = competenceValide.calculMoyenneCompetence();
         double numerateurMoyenne = competenceValide.ressources.get(0).getNote()

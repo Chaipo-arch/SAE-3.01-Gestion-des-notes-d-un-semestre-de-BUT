@@ -5,6 +5,7 @@
  */
 package noteManager.main.java;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * Classe de l'objet competence permettant de calculer la moyenne et d'afficher une compétence
@@ -15,6 +16,7 @@ public class Competence {
 
     private String libelle;
     private Note note;
+    private ArrayList<Ressource> ressources;
 
     /**
      * constructeur de l'objet competence
@@ -23,22 +25,33 @@ public class Competence {
     public Competence(String libelle) {
         this.libelle = libelle;
         this.note = null;
-        ressources = new Arralist<>();
+        ressources = new ArrayList<>();
     }
 
     /**
      * calcule la moyenne des ressources liées à cette compétence
      * @return moyenne double contenant la moyenne de la ressource
      */
-    public double calculMoyenneCompetence() {
+    public Note calculMoyenneCompetence() throws NoteException{
         double totalCoef = 0.0;
         double calculMoyenne = 0.0;
+        
+        if(ressources.size() ==0){
+            return note;
+        }
+        
         for(int index = 0 ; index < ressources.size(); index++){
-            calculMoyenne += ressources.get(index).getNote() * ressources.get(index).getCoefficient();
+            calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
+                             * ressources.get(index).getCoefficient();               
             totalCoef += ressources.get(index).getCoefficient();
         }
         
-        return note = calculMoyenne/totalCoef; // calcul la moyenne d'une competence
+        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
+        String noteArrondi = df.format(calculMoyenne/totalCoef);
+        note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
+
+        return note ; // calcul la moyenne d'une ressource
+       
     }
 
     /**
@@ -51,8 +64,8 @@ public class Competence {
         String noteArrondi = df.format(note);
         noteArrondi.replace('.', ','); // remplace le '.' par ','
         String ensembleRessource = "";
-        for (ressourceAAfficher : ressources){
-            ensembleRessource += ressourceAAfficher.ressourceToString;
+        for (Ressource ressourceAAfficher : ressources){
+            ensembleRessource += ressourceAAfficher.toString();
         }
         if (note == null){
             return libelle +" note non renseignée " + ensembleRessource;
@@ -66,7 +79,7 @@ public class Competence {
      * @return true si l'ajout a pu être effectué, false sinon
      */
     public boolean ajouterRessource(Ressource resourceAAjouter) {
-        if(ressources.contains(resourceAAjouter || resourceAAjouter == null)){
+        if(ressources.contains(resourceAAjouter) || resourceAAjouter == null){
             return false;
         }
         ressources.add(resourceAAjouter);
@@ -87,5 +100,9 @@ public class Competence {
             return false;
         }
         return true;
+    }
+    
+    public ArrayList<Ressource> getRessources(){
+        return  ressources;
     }
 }
