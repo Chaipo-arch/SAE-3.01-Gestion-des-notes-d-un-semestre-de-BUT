@@ -146,7 +146,9 @@ public class Ressource {
     public double getCoefficient(){
         return coefficient;
     }
-    
+    public ArrayList<Evaluation> getEvaluation(){
+        return evaluations;
+    }
     public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
         
         if(coefficient<=0 || intitule.trim().isEmpty() || id.trim().isEmpty()  || identifiant.trim().isEmpty() ){

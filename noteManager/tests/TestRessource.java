@@ -119,8 +119,16 @@ public class TestRessource {
      * @throws Exception 
      */
     public static void testSupprimerEvaluation() throws Exception{
+        int nbErreur = 0;
         for(int i=0 ; i < listeEvaluation.size() ; i++){
-            ressourcesValide.get(2).supprimerEvaluation(listeEvaluation.get(i));
+            if(!ressourcesValide.get(2).supprimerEvaluation(listeEvaluation.get(i)) && ressourcesValide.get(2).getEvaluation().contains(listeEvaluation.get(i)) ){
+                nbErreur++;
+            }
+        }
+        if(nbErreur == 0){
+            System.out.println("TEST : testSupprimerEvaluation VALIDE");
+        }else{
+            System.out.println("nombre d'erreur :" + nbErreur);
         }
         
     }
