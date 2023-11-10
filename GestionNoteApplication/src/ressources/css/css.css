@@ -1,0 +1,52 @@
+.payload {
+
+    -fx-background-color: #737373;
+
+    /* -fx-border-radius: 200px; */
+
+    -fx-background-radius: 50px;/* Angles arrondis */
+
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+
+.quitter {
+
+    -fx-background-color: #F28444;
+
+    /* -fx-border-radius: 200px; */
+
+    -fx-background-radius: 50px;/* Angles arrondis */
+
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+
+.barrePrincipale{
+
+}
+
+
+.barreMenu{
+    
+}
+
+
+.userPane{
+    -fx-background-color: #737373;
+    -fx-background-radius: 70px;
+}
+
+
+.titreApli{
+    -fx-text-fill: black;
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-transform: uppercase; /* Texte en majuscules */
+}
+
+
+.textBlanc{
+    -fx-text-fill: white;
+}
