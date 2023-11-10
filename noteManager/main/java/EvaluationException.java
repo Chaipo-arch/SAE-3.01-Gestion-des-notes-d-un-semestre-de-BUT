@@ -7,10 +7,9 @@ package noteManager.main;
 
 /**
  *
- * @author ahmed.bribach
+ * @author alexandre.brouzes
  */
-public class EvaluationException {
-    
+public class EvaluationException extends Exception {
     public EvaluationException(String message) {
     }
 }

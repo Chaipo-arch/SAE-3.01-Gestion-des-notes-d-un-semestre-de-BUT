@@ -1,9 +1,10 @@
+
 /*
  * Note.java                                            //2023
  * IUT de Rodez, BUT2, aucun droit d'auteur
  */
 
- package noteManager.main.java;
+ package noteManager.main;
 
  /**
   * Note associé à une eval, ressource ou compétence
@@ -27,7 +28,6 @@ public class Note {
             throw new NoteException("La valeur de la note n'est pas bonne");
         }
     }
-    
 
     /**
      * Modification de la valeur de la note
@@ -51,8 +51,15 @@ public class Note {
      * @return true si la valeur est une note correcte sinon false
      */
     public static boolean isNote(double valeur) {
-        return valeur >= 0.0 && valeur <=20.0;
+        return (valeur >= 0.0 && valeur <=20.0) || valeur ==-1;
     }
-
     
+    public boolean equals(Note note){
+        if(valeur == note.getNote()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+

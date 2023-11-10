@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,8 +6,8 @@
  */
 package noteManager.tests;
 
-import noteManager.main.java.Note;
-import noteManager.main.java.NoteException;
+import noteManager.main.Note;
+import noteManager.main.NoteException;
 import java.util.ArrayList;
 
 /**
@@ -19,11 +20,6 @@ public class TestNote{
     public static  ArrayList<Double> noteInvalide = new ArrayList<>();
     public static ArrayList<Note> note = new ArrayList<>();
     
-    /**
-     * jeu de tests que l'on utilise tout au long de 
-     * nos test .
-     * @throws NoteException 
-     */
     public static void jeuxDeDonnees() throws NoteException{
         noteInvalide.add(Double.NaN);
         noteInvalide.add(-1.0);
