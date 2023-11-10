@@ -43,7 +43,7 @@ public class TestEvaluation  {
         listeCoefficientValide.add(50.5);
 
         // Initialisation de listes de coefficients non valides
-        listeCoefficientNonValide.add(null);
+        
         listeCoefficientNonValide.add(-1.0);
         listeCoefficientNonValide.add(-9456.4898);
         listeCoefficientNonValide.add(100.0001);
@@ -181,11 +181,18 @@ public class TestEvaluation  {
      * tests sur la méthode getCoefficient de la classe Evaluation.
      */
     public static void testGetCoefficient() {
+        int nbError = 0;
         for (int i = 0; i < listeEvaluationValide.size(); i++) {
             if (listeEvaluationValide.get(i).getCoefficient() != listeCoefficientValide.get(i)) {
                 System.out.println("Erreur de la classe getCoefficient pour la valeur " 
                                    + listeEvaluationValide.get(i).getCoefficient());
+                nbError++;
             }
+        }
+        if(nbError==0){
+            System.out.println("TEST : testGetCoefficient VALIDE");
+        }else{
+            System.out.println("test invalide nombre d'erreur : " +nbError);
         }
     }
 
@@ -193,17 +200,25 @@ public class TestEvaluation  {
      * tests sur la méthode isCoefficient pour vérifier la validité des coefficients.
      */
     public static void testIsCoefficient() {
-        /*for (double coefficientATester : listeCoefficientValide) {
-            if (!isCoefficient(coefficientATester)) {
+        int nbError =0;
+        for (double coefficientATester : listeCoefficientValide) {
+            if (!Evaluation.isCoefficient(coefficientATester)) {
                 System.out.println("Erreur de la classe isCoefficient pour la valeur " 
                                    + coefficientATester);
+                nbError++;
             }
         }
         for (double coefficientNonValideATester : listeCoefficientNonValide) {
-            if (isCoefficient(coefficientNonValideATester)) {
+            if (Evaluation.isCoefficient(coefficientNonValideATester)) {
                 System.out.println("Erreur de la classe isCoefficient pour la valeur " + coefficientNonValideATester);
+                nbError++;
             }
-        }*/
+        }
+        if(nbError==0){
+            System.out.println("TEST : isCoefficient VALIDE");
+        }else{
+            System.out.println("test invalide nombre d'erreur : " +nbError);
+        }
     }
 
     /**
@@ -215,11 +230,8 @@ public class TestEvaluation  {
         testToString();
         testGetNote();
         testIsCoefficient();
-        //testGetCoefficient();
-        
+        testGetCoefficient();
         testModifierModalite();
-        
-        
     }
     
 }

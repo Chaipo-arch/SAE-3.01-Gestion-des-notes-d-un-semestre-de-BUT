@@ -120,7 +120,7 @@ public class Evaluation {
      * vérification de la cohérence d'un cohéficient (>0 <100)
      * @return true si le coefficient est correct, false sinon
      */
-    private boolean isCoefficient(double coefficientATester){
+    public static boolean isCoefficient(double coefficientATester){
         return coefficientATester <= 100 && coefficientATester > 0;
     }
 }
