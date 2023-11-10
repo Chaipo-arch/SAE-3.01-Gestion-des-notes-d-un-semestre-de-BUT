@@ -13,16 +13,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AccueilController">
+<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AccueilController">
    <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="900.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+    <AnchorPane layoutX="-13.0" layoutY="-3.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="606.0" prefWidth="1091.0" VBox.vgrow="ALWAYS">
       <children>
-            <AnchorPane fx:id="contenuPage" layoutX="189.0" layoutY="69.0" prefHeight="831.0" prefWidth="811.0">
+            <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
                <children>
                   <Label layoutX="218.0" prefHeight="217.0" prefWidth="419.0" text="Le Lorem Ipsum est simplement du faux texte employé dans l" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="151.0" prefHeight="71.0" prefWidth="849.0" style="-fx-background-color: orange;">
+            <AnchorPane layoutX="195.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
                <children>
                   <Label layoutX="260.0" layoutY="14.0" prefHeight="37.0" prefWidth="329.0" styleClass="titreApli" stylesheets="@css.css" text="Application Gestion Notes">
                      <font>
@@ -30,11 +30,11 @@
                      </font>
                   </Label>
                </children></AnchorPane>
-            <AnchorPane prefHeight="900.0" prefWidth="190.0" style="-fx-background-color: #262626;">
+            <AnchorPane layoutX="13.0" layoutY="3.0" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: #262626;">
                <children>
                   <Button layoutX="16.0" layoutY="405.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css">
                      <graphic>
-                        <Label prefHeight="37.0" prefWidth="152.0" text="Ajouter Evaluation" textFill="WHITE">
+                        <Label onMouseClicked="#AjouterEvaluationActionButton" prefHeight="37.0" prefWidth="152.0" text="Ajouter Evaluation" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -73,7 +73,7 @@
                   </Button>
                   <Button layoutX="12.0" layoutY="470.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css">
                      <graphic>
-                        <Label prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="WHITE">
+                        <Label onMouseClicked="#ParametreActionButton" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -84,10 +84,11 @@
                         </Label>
                      </graphic>
                   </Button>
-                  <Button layoutX="37.0" layoutY="833.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="117.0" styleClass="quitter" stylesheets="@css.css" text="Quitter" />
-                  <AnchorPane layoutX="47.0" layoutY="19.0" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
+                  <Button layoutX="25.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#QuitterActionButton" prefHeight="35.0" prefWidth="117.0" styleClass="quitter" stylesheets="@css.css" text="Quitter" />
+                  <AnchorPane layoutX="47.0" layoutY="19.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
                      <children>
-                        <Label layoutX="33.0" layoutY="2.0" prefHeight="25.0" prefWidth="38.0" styleClass="textBlanc" text="User" />
+                        <TextField fx:id="UserTextField" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" visible="false" />
+                        <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" />
                      </children>
                   </AnchorPane>
                   <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
