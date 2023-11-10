@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AccueilController">
+   <children>
+      <AnchorPane layoutX="41.0" layoutY="96.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="1100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <AnchorPane fx:id="contenuPage" layoutX="143.0" layoutY="-28.0" prefHeight="532.0" prefWidth="916.0" style="-fx-background-color: green;">
+               <children>
+                  <Label layoutX="301.0" layoutY="151.0" prefHeight="67.0" prefWidth="175.0" style="-fx-background-color: blue;" text="Vous etes sur la page D'accueil" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
