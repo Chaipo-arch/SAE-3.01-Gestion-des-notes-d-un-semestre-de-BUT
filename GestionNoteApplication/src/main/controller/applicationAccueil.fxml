@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <AnchorPane layoutX="151.0" prefHeight="71.0" prefWidth="489.0" style="-fx-background-color: orange;">
+               <children>
+                  <Label layoutX="104.0" layoutY="17.0" prefHeight="37.0" prefWidth="329.0" styleClass="titreApli" stylesheets="@css.css" text="Application Gestion Notes">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="400.0" prefWidth="151.0" style="-fx-background-color: #262626;">
+               <children>
+                  <Button layoutX="-23.0" layoutY="221.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css" />
+                  <Button layoutX="-21.0" layoutY="157.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css" />
+                  <Button layoutX="-21.0" layoutY="93.0" mnemonicParsing="false"  prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css" />
+                  <Button layoutX="-23.0" layoutY="283.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="166.0" styleClass="payload" stylesheets="@css.css" />
+                  <Button layoutX="16.0" layoutY="348.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="117.0" styleClass="quitter" stylesheets="@css.css" text="Quitter" />
+                  <Label layoutX="-3.0" layoutY="155.0" prefHeight="37.0" prefWidth="120.0" text="Mes Notes" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-menu-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label layoutX="6.0" layoutY="97.0" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-accueil-24.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label layoutX="3.0" layoutY="225.0" prefHeight="37.0" prefWidth="152.0" text="Ajouter Evaluation" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-ajouter-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label layoutX="6.0" layoutY="287.0" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-engrenage-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <AnchorPane layoutX="47.0" layoutY="19.0" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
+                     <children>
+                        <Label layoutX="33.0" layoutY="2.0" prefHeight="25.0" prefWidth="38.0" styleClass="textBlanc" text="User" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-utilisateur-50.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label layoutX="200.0" layoutY="92.0" prefHeight="217.0" prefWidth="419.0" text="Le Lorem Ipsum est simplement du faux texte employé dans l" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
