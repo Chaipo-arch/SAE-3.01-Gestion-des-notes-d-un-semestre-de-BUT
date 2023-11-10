@@ -149,7 +149,7 @@ public class Ressource {
     
     public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
         
-        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+        if(coefficient<=0 || intitule.trim().isEmpty() || id.trim().isEmpty()  || identifiant.trim().isEmpty() ){
             return false;
         }
         return true;

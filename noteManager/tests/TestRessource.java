@@ -23,7 +23,7 @@ public class TestRessource {
     
     public static ArrayList<Ressource> ressourcesValide= new ArrayList<>() ;
     public static ArrayList<Note> listeDeMoyenne = new ArrayList<>();
-    
+    public static ArrayList<Evaluation> listeEvaluation = new ArrayList<>();
     public static void jeuxDeData() throws Exception{
         boolean jeuValide = true;
         
@@ -41,7 +41,36 @@ public class TestRessource {
         
     }
     public static void testCreationRessource() throws Exception{
-            Ressource.isValide("Programmation Général", 10, "id", "id");
+        int nbErreur = 0;
+        if(Ressource.isValide("", 0, "", "")){
+            nbErreur++;
+        }
+        if(Ressource.isValide("  ", 1, "dsd", "sdsdsd")){
+            nbErreur++;
+        }
+        if(Ressource.isValide("dsf", -1, "fsd", "sdf")){
+            nbErreur++;
+        }if(Ressource.isValide("sdqsd", 2, " ", "dqsdsqds")){
+            nbErreur++;
+        }if(Ressource.isValide("sdqsd", 2, "sdqddsq ", "      ")){
+            nbErreur++;
+        }
+        if(!Ressource.isValide("sd    qsd", 2, "sdqdsqsqd ", "dqsdsqds")){
+            nbErreur++;
+        }
+        if(!Ressource.isValide("sdqsd", 100, "qsdsqdsqsdq", "dqsdsqds")){
+            nbErreur++;
+        }
+        
+        if(nbErreur==0){
+            System.out.println("TEST : testCreationRessource VALIDE");
+        }else{
+           System.out.println("nombre d'erreur : " + nbErreur); 
+        }
+        
+        
+            
+            
             
     }
     
@@ -59,7 +88,10 @@ public class TestRessource {
             System.out.println("TEST : testCalculMoyenne INVALIDE nombre erreur : " + nbErreur);
         }
     }
-    
+    /**
+     * 
+     * @throws Exception 
+     */
     public static void testAjouterEvaluation() throws Exception{
         int nbErreur =0;
         for(int i=0 ; i < listeEvaluationValide.size() ;i++){
@@ -68,12 +100,12 @@ public class TestRessource {
                 System.out.println("echec de l'insertion de : " + listeEvaluationValide.get(i));
             }
         }
-        Evaluation evaluation1 = new Evaluation("id", new Note(20), "qcm", 100.0, "05/12/2022");
-        Evaluation evaluation2 = new Evaluation("id", new Note(0), "qcm", 20.0, "05/12/2022");
-        if(!ressourcesValide.get(2).ajouterEvaluation(evaluation1)){
+        listeEvaluation.add(new Evaluation("id", new Note(20), "qcm", 100.0, "05/12/2022"));
+        listeEvaluation.add(new Evaluation("id", new Note(0), "qcm", 20.0, "05/12/2022"));
+        if(!ressourcesValide.get(2).ajouterEvaluation(listeEvaluation.get(0))){
             nbErreur++;
         }
-        if(!ressourcesValide.get(2).ajouterEvaluation(evaluation2)){
+        if(!ressourcesValide.get(2).ajouterEvaluation(listeEvaluation.get(1))){
             nbErreur++;
         }
         
@@ -82,12 +114,27 @@ public class TestRessource {
         }
         
     }
-    
-    
-    public static void main(String[] args) throws Exception{
+    /**
+     * 
+     * @throws Exception 
+     */
+    public static void testSupprimerEvaluation() throws Exception{
+        for(int i=0 ; i < listeEvaluation.size() ; i++){
+            ressourcesValide.get(2).supprimerEvaluation(listeEvaluation.get(i));
+        }
         
+    }
+    
+    /**
+     * 
+     * @param args
+     * @throws Exception 
+     */
+    public static void main(String[] args) throws Exception{
+        testCreationRessource();
         jeuxDeData();
         testAjouterEvaluation();
         testCalculMoyenne();  
+        testSupprimerEvaluation();
     }
 }
