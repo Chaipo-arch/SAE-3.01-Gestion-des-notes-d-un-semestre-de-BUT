@@ -49,7 +49,7 @@ public class Ressource {
      * @throws NoteException 
      */
     public Ressource(String intitule, double coefficient , String id,String identifiant , Note note)throws NoteException{
-        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+        if(isValide(intitule, coefficient, id, identifiant)){
             throw new IllegalArgumentException();
         }
         this.note = note;
@@ -147,5 +147,11 @@ public class Ressource {
         return coefficient;
     }
     
-    
+    public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
+        
+        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

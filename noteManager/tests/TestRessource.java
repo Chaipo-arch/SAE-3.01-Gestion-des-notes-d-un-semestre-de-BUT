@@ -24,7 +24,7 @@ public class TestRessource {
     public static ArrayList<Ressource> ressourcesValide= new ArrayList<>() ;
     public static ArrayList<Note> listeDeMoyenne = new ArrayList<>();
     
-    public static boolean jeuxDeData() throws Exception{
+    public static void jeuxDeData() throws Exception{
         boolean jeuValide = true;
         
             TestEvaluation.batterieDeTest();
@@ -37,10 +37,13 @@ public class TestRessource {
             listeDeMoyenne.add(new Note(16.67));
             
         // ressourcesValide.get(0).ajouterEvaluation(listeEvaluationSansNote.get(0));
-        return jeuValide;
+        
         
     }
-    
+    public static void testCreationRessource() throws Exception{
+            Ressource.isValide("Programmation Général", 10, "id", "id");
+            
+    }
     
     public static void testCalculMoyenne() throws Exception{
        int nbErreur = 0;
@@ -80,9 +83,11 @@ public class TestRessource {
         
     }
     
+    
     public static void main(String[] args) throws Exception{
-            jeuxDeData();
-            testAjouterEvaluation();
-            testCalculMoyenne();  
+        
+        jeuxDeData();
+        testAjouterEvaluation();
+        testCalculMoyenne();  
     }
 }
