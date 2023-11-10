@@ -53,5 +53,13 @@ public class Note {
     public static boolean isNote(double valeur) {
         return (valeur >= 0.0 && valeur <=20.0) || valeur ==-1;
     }
+    
+    public boolean equals(Note note){
+        if(valeur == note.getNote()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
