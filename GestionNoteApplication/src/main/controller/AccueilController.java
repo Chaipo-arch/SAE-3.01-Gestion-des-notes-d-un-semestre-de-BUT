@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IHM;
+package GestionNoteApplication.src.main.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,14 +29,25 @@ import javafx.stage.Stage;
  */
 public class AccueilController implements Initializable {
     
+   @FXML
+    private AnchorPane idaccueil;
 
+    @FXML
+    private Label BtnAccueil;
+    private Stage fenetreActive;
+
+    public void setFenetre(Stage fenetre) {
+        fenetreActive = fenetre;
+    }
+
+    
+    
     @FXML
     private AnchorPane contenuPage;
     
-    Stage fenetreSuivante = null;
     
     Parent fxml;
-
+    private ArrayList<Node> sauvegardeAccueil;
 
     /**
      * Initializes the controller class.
@@ -40,27 +55,58 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            fxml = FXMLLoader.load(getClass().getResource("accueil.fxml"));
-            contenuPage.getChildren().removeAll();
-            contenuPage.getChildren().setAll(fxml);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       sauvegardeAccueil = new ArrayList();
+       sauvegardeAccueil.addAll(contenuPage.getChildren());
+        
+        //System.out.println(sauvegardeAccueil.getChildren());
+        //System.out.println(contenuPage);
+        /*fxml = FXMLLoader.load(getClass().getResource("page2.fxml"));
+        contenuPage.getChildren().removeAll();
+        contenuPage.getChildren().setAll(fxml);
+        System.out.println(contenuPage.getChildren());*/
+    }
+    
+    @FXML
+    void AccueilActionBouton() {
+        
+       contenuPage.getChildren().setAll(sauvegardeAccueil);
+        //System.out.println(sauvegardeAccueil.getChildren());
+        //contenuPage.getChildren().clear();
+        //contenuPage.getChildren().setAll(sauvegardeAccueil.getChildren());
     }
     
      @FXML
-    void mesNotesActionBtn(ActionEvent event) {
+    void mesNotesActionBtn() {
         try {
             changerPage("page2.fxml");
         } catch (IOException ex) {
             
         }
     }
+     @FXML
+    void AjouterEvaluationActionButton() {
+
+    }
+
+    
+
+    
+
+    @FXML
+    void ParametreActionButton() {
+
+    }
+
+    @FXML
+    void QuitterActionButton() {
+        //fenetreActive.hide();
+        System.exit(0);
+    }
+
 
     
     public void changerPage(String page) throws IOException {
-        fxml = FXMLLoader.load(getClass().getResource("accueil.fxml"));
+        fxml = FXMLLoader.load(getClass().getResource(page));
         contenuPage.getChildren().removeAll();
         contenuPage.getChildren().setAll(fxml);
     }
