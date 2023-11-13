@@ -1,4 +1,8 @@
-.payload {
+
+
+
+
+.BouttonMenu {
 
     -fx-background-color: #737373;
 
@@ -11,7 +15,7 @@
 }
 
 
-.quitter {
+.BouttonQuitter {
 
     -fx-background-color: #F28444;
 
@@ -23,14 +27,30 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
+.Boutton{
 
-.barrePrincipale{
-
+    -fx-background-color: #7681EA;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
 }
 
 
-.barreMenu{
-    
+.WhoIam {
+    -fx-background-color: #737373;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+
+}
+
+.barreTitre{
+    -fx-background-color: #F28444;
+}
+
+
+.barreLatterale{
+    -fx-background-color: #262626;
 }
 
 
