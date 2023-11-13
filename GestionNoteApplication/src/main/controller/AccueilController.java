@@ -72,7 +72,7 @@ public class AccueilController implements Initializable {
      @FXML
     void mesNotesActionBtn() {
         try {
-            changerPage("page2.fxml");
+            changerPage("notes.fxml");
         } catch (IOException ex) {
             
         }
@@ -80,7 +80,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            changerPage("ajouterEvaluation.fxml");
+            changerPage("ajouterEvaluations.fxml");
         } catch (IOException ex) {
             
         }

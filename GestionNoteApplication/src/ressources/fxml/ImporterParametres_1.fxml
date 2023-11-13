@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="913.0" style="-fx-background-color: white;" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.ImporterParametresController">
+   <children>
+      <Button layoutX="119.0" layoutY="164.0" mnemonicParsing="false" onAction="#importerFichier" prefHeight="64.0" prefWidth="672.0" text="Importer mes parametres " />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="36.0" prefHeight="64.0" prefWidth="403.0" style="-fx-background-color: yellow;" text="Vous etes dans l'importations des parametres" />
+      <Button layoutX="381.0" layoutY="402.0" mnemonicParsing="false" onAction="#choixValiderAction" prefHeight="49.0" prefWidth="148.0" text="Valider" />
+      <RadioButton fx:id="localToggle" layoutX="268.0" layoutY="126.0" mnemonicParsing="false" text="Importer mes parametres en Local">
+         <toggleGroup>
+            <ToggleGroup fx:id="choix" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="distanceToggle" layoutX="478.0" layoutY="126.0" mnemonicParsing="false" text="Importer mes parametres a distance" toggleGroup="$choix" />
+      <Label fx:id="nomFichier" layoutX="410.0" layoutY="315.0" text="NomFichierChoisi" />
+   </children>
+</AnchorPane>

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
+
 public class ParametreController {
     
     Parent fxml;
@@ -14,19 +15,18 @@ public class ParametreController {
     private AnchorPane contenuPage;
 
     @FXML
-    void communiquerActionButton() {
-
+    void communiquerActionButton() throws IOException {
+        changerPage("communiquer.fxml");
     }
 
     @FXML
     void reinitialiserActionButton() {
-
+        //Stockage.getInstance().supprimerDonnees();
     }
 
     @FXML
     void importerActionButton() throws IOException {
-        
-        changerPage("page2.fxml");
+        changerPage("ImporterParametres.fxml");
     }
      public void changerPage(String page) throws IOException {
         File file = new File("src/IHM/"+page);

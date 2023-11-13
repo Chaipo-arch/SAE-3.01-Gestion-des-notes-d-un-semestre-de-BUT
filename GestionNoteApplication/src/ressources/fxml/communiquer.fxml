@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.CommuniquerController">
+   <children>
+      <Label layoutX="295.0" layoutY="121.0" text="Adresse Ip : " />
+      <TextField fx:id="adresseIPText" layoutX="419.0" layoutY="117.0" promptText="ex : 192.1.1.0" />
+      <RadioButton fx:id="toggleNational" layoutX="376.0" layoutY="214.0" mnemonicParsing="false" text="parametrageNational">
+         <toggleGroup>
+            <ToggleGroup fx:id="choix" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="toggleRessource" layoutX="376.0" layoutY="308.0" mnemonicParsing="false" text="parametrageRessource" toggleGroup="$choix" />
+      <Button layoutX="393.0" layoutY="390.0" mnemonicParsing="false" onAction="#ValiderAction" text="valider" />
+      <AnchorPane fx:id="NotifUtil" layoutX="716.0" layoutY="475.0" prefHeight="57.0" prefWidth="200.0" style="-fx-background-color: red;" />
+   </children>
+</AnchorPane>
