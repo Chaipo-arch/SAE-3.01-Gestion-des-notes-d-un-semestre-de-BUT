@@ -6,10 +6,10 @@
 package noteManager.tests;
 
 import java.util.ArrayList;
-import noteManager.main.java.Evaluation;
-import noteManager.main.java.Note;
-import noteManager.main.java.NoteException;
-import noteManager.main.java.Ressource;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.Note;
+import GestionNoteApplication.src.main.java.package1.NoteException;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 import static noteManager.tests.TestEvaluation.listeChaineNonValide;
 import static noteManager.tests.TestEvaluation.listeEvaluationSansNote;
 import static noteManager.tests.TestEvaluation.listeEvaluationValide;
@@ -93,15 +93,15 @@ public class TestRessource {
      * @throws Exception 
      */
     public static void testAjouterEvaluation() throws Exception{
-        int nbErreur =0;
+        int nbErreur = 0;
         for(int i=0 ; i < listeEvaluationValide.size() ;i++){
             if(!ressourcesValide.get(0).ajouterEvaluation(listeEvaluationValide.get(i))){
                 nbErreur++;
                 System.out.println("echec de l'insertion de : " + listeEvaluationValide.get(i));
             }
         }
-        listeEvaluation.add(new Evaluation("id", new Note(20), "qcm", 100.0, "05/12/2022"));
-        listeEvaluation.add(new Evaluation("id", new Note(0), "qcm", 20.0, "05/12/2022"));
+        listeEvaluation.add(new Evaluation( new Note(20), "qcm", 100.0, "05/12/2022"));
+        listeEvaluation.add(new Evaluation( new Note(0), "qcm", 20.0, "05/12/2022"));
         if(!ressourcesValide.get(2).ajouterEvaluation(listeEvaluation.get(0))){
             nbErreur++;
         }
@@ -121,7 +121,8 @@ public class TestRessource {
     public static void testSupprimerEvaluation() throws Exception{
         int nbErreur = 0;
         for(int i=0 ; i < listeEvaluation.size() ; i++){
-            if(!ressourcesValide.get(2).supprimerEvaluation(listeEvaluation.get(i)) && ressourcesValide.get(2).getEvaluation().contains(listeEvaluation.get(i)) ){
+            if(!ressourcesValide.get(2).supprimerEvaluation(listeEvaluation.get(i))
+                && ressourcesValide.get(2).getEvaluation().contains(listeEvaluation.get(i)) ){
                 nbErreur++;
             }
         }

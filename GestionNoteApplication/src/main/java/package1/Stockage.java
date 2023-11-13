@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main;
+package GestionNoteApplication.src.main.java.package1;
 
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.Competence;
 import java.util.ArrayList;
 
 /**
@@ -47,7 +49,7 @@ public ArrayList<Ressource> ressources;
         ArrayList<Competence> aSupprimer = new ArrayList<>() ;
         for(Competence competence : aAjouter) {
             for(Competence c: competences) {
-                if (competence.identifiant.equals(c.identifiant)) {
+                if (competence.getIdentifiant().equals(c.getIdentifiant())) {
                     aSupprimer.add(competence);
                 } 
             }
@@ -73,7 +75,7 @@ public ArrayList<Ressource> ressources;
         //for(Competence comps: competences) {
             for (Ressource ressou: ressources) {
                 for(Ressource r: aAjouter)
-                if(r.identifiant.equals(ressou.identifiant)) {
+                if(r.getIdentifiant().equals(ressou.getIdentifiant())) {
                     save.add(ressou);
                     aSupprimer.add(r);
                 }
@@ -131,13 +133,13 @@ public ArrayList<Ressource> ressources;
         } 
         if(c == 'U') {
             for (Competence competence : competences) {
-                if (competence.identifiant.equals(identifiant)) {
+                if (competence.getIdentifiant().equals(identifiant)) {
                     cherche = competence;
                 }
             }
         } else {
             for (Ressource ressource :ressources) {
-                if (ressource.identifiant.equals(identifiant)) {
+                if (ressource.getIdentifiant().equals(identifiant)) {
                     cherche = ressource;
                 }
             }

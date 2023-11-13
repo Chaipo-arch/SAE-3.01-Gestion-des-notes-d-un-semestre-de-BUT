@@ -4,10 +4,10 @@
  */
 package noteManager.tests;
 
-import noteManager.main.java.Evaluation;
-import noteManager.main.java.Note;
-import noteManager.main.java.NoteException;
-import noteManager.main.java.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.Note;
+import GestionNoteApplication.src.main.java.package1.NoteException;
+import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import java.util.ArrayList;
 
 /**
@@ -49,23 +49,23 @@ public class TestEvaluation  {
         listeCoefficientNonValide.add(100.0001);
 
         // Initialisation de listes d'évaluations valides avec des notes, des coefficients et des modalités
-        listeEvaluationValide.add(new Evaluation("Maths",listeNoteValide.get(0)
+        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(0)
                 ,"QCM",listeCoefficientValide.get(0),"25/01/2023"));
-        listeEvaluationValide.add(new Evaluation("Développement Web",listeNoteValide.get(1)
+        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(1)
                 ,"Exam sur machine",listeCoefficientValide.get(1),"Mi septembre"));
-        listeEvaluationValide.add(new Evaluation("Sql",listeNoteValide.get(2)
+        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(2)
                 ,"Ecrit",listeCoefficientValide.get(2),""));
-        listeEvaluationValide.add(new Evaluation("Anglais",listeNoteValide.get(3)
+        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(3)
                 ,"Relevés TPs",listeCoefficientValide.get(3),"25/12/2024"));
 
         // Initialisation de listes d'évaluations sans note avec des modalités
-        listeEvaluationSansNote.add(new Evaluation("Cryptographie",null
+        listeEvaluationSansNote.add(new Evaluation(null
                 ,"QCM",1,"25/01/2023"));
-        listeEvaluationSansNote.add(new Evaluation("Economie",null
+        listeEvaluationSansNote.add(new Evaluation(null
                 ,"Exam sur machine",10,"Mi septembre"));
-        listeEvaluationSansNote.add(new Evaluation("Réseaux",null
+        listeEvaluationSansNote.add(new Evaluation(null
                 ,"Ecrit",20,""));
-        listeEvaluationSansNote.add(new Evaluation("Programmation",null
+        listeEvaluationSansNote.add(new Evaluation(null
                 ,"Relevés TPs",50.5,"25/12/2024"));
 
         // Initialisation de listes de chaînes non valides
@@ -148,7 +148,7 @@ public class TestEvaluation  {
      * tests sur la méthode modifierModalite de la classe Evaluation.
      */
     public static void testModifierModalite(){
-        if(!listeEvaluationValide.get(0).modifierModalite("Economie",null,
+        if(!listeEvaluationValide.get(0).modifierModalite(null,
                 "Exam sur machine",100,"Mi septembre")){
             System.out.println("Une erreur s'est produite lors de la modification");
         }

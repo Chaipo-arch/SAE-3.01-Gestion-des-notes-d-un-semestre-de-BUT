@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main.java;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.util.ArrayList;
 import java.text.DecimalFormat;
@@ -145,6 +145,9 @@ public class Ressource {
      */
     public double getCoefficient(){
         return coefficient;
+    }
+    public String getIdentifiant(){
+        return identifiant;
     }
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;

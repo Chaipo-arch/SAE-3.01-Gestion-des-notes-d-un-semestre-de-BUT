@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main.java;
+package GestionNoteApplication.src.main.java.package1;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Competence {
 
     private String libelle;
+    private String identifiant;
     private Note note;
     private ArrayList<Ressource> ressources;
 
@@ -22,7 +23,8 @@ public class Competence {
      * constructeur de l'objet competence
      * @param libelle
      */
-    public Competence(String libelle) {
+    public Competence(String identifiant,String libelle) {
+        this.identifiant = identifiant;
         this.libelle = libelle;
         this.note = null;
         ressources = new ArrayList<>();
@@ -68,9 +70,9 @@ public class Competence {
             ensembleRessource += ressourceAAfficher.toString();
         }
         if (note == null){
-            return libelle +" note non renseignée " + ensembleRessource;
+            return identifiant +" note non renseignée " + ensembleRessource;
         }
-        return libelle +" "+ noteArrondi + ensembleRessource;
+        return identifiant +" "+ noteArrondi + ensembleRessource;
     }
 
     /**
@@ -102,6 +104,9 @@ public class Competence {
         return true;
     }
     
+    public String getIdentifiant(){
+        return identifiant;
+    }
     public ArrayList<Ressource> getRessources(){
         return  ressources;
     }

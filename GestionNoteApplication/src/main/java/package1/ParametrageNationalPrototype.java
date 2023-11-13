@@ -37,7 +37,7 @@ public class ParametrageNationalPrototype extends Parametrage {
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException {
+    public void parse() {
         FileReader fr = null;
         // prerequis
         try {
@@ -46,6 +46,9 @@ public class ParametrageNationalPrototype extends Parametrage {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        try{
+            
+        
         // bufferedReader plus pratique
         BufferedReader br = new BufferedReader(fr);
         // lecture ligne par ligne
@@ -82,7 +85,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 //System.out.println("passage2");
                 ArrayList<Competence> comps = new ArrayList();
 
-                Competence comp = new Competence(chaine[1]);
+                Competence comp = new Competence(chaine[1],chaine[2]);
                 saveIdentifiantC = chaine[1];
                 comps.add(comp);
                 Stockage.getInstance().addCompetences(comps);
@@ -115,13 +118,16 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
-                ress.add(new Ressource(chaine[0], chaine[1], chaine[2], chaine[3]));
+                ress.add(new Ressource(chaine[2], Double.parseDouble(chaine[3]), chaine[1], chaine[0]));
             }
             if (calculCoeff == 100) {
                 Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
                 ress = Stockage.getInstance().addRessources(ress);
                 if (compe instanceof Competence) {
-                    ((Competence) compe).ajouterRessources(ress);
+                    for(int i=0 ; i < ress.size() ; i++){
+                        ((Competence) compe).ajouterRessource(ress.get(i));
+                    }
+                    
 
                 }
             } else {
@@ -131,6 +137,9 @@ public class ParametrageNationalPrototype extends Parametrage {
         }
         br.close();
         fr.close();
+        }catch(Exception e){
+            
+        }
     }
     
     /**

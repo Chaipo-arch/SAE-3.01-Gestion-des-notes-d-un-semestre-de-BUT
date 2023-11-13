@@ -6,8 +6,8 @@
  */
 package noteManager.tests;
 
-import noteManager.main.java.Note;
-import noteManager.main.java.NoteException;
+import GestionNoteApplication.src.main.java.package1.Note;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.util.ArrayList;
 
 /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main.java;
+package GestionNoteApplication.src.main.java.package1;
 import java.text.DecimalFormat;
 
 /**
@@ -13,10 +13,7 @@ import java.text.DecimalFormat;
  */
 public class Evaluation {
     
-    /**  
-     * Nom de la matière de l'évaluation
-     */
-    private String ressource = "";
+    
     /**  
      * Note de l'évaluation 
      */
@@ -38,19 +35,36 @@ public class Evaluation {
     private String date = "";
     
     // constructor Evaluation
-    public Evaluation(String ressourceEvaluation, Note noteEvaluation
+    public Evaluation( Note noteEvaluation
                       ,String typeEvaluation,double coefficientEvaluation
                       ,String dateEvaluation )throws EvaluationException{
         if(!isCoefficient(coefficientEvaluation)){
             throw new EvaluationException("le coefficient doit être >0 & <= 100");  
         }
-        if(ressourceEvaluation.equals("")|| ressourceEvaluation == null
-           || typeEvaluation.equals("")|| typeEvaluation == null){
+        if( typeEvaluation.equals("")|| typeEvaluation == null){
             throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
                     + "sont incomplet");
         }
-        this.ressource = ressourceEvaluation;
         this.note = noteEvaluation;
+        this.type = typeEvaluation;
+        this.coefficient = coefficientEvaluation;
+        this.date = dateEvaluation;
+    }
+    
+    public Evaluation(){
+        
+    }
+    
+    public Evaluation(String typeEvaluation,double coefficientEvaluation
+                      ,String dateEvaluation )throws Exception{
+        if(!isCoefficient(coefficientEvaluation)){
+            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
+        }
+        if( typeEvaluation.equals("")|| typeEvaluation == null){
+            throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
+                    + "sont incomplet");
+        }
+        this.note = new Note(-1);
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
@@ -77,30 +91,30 @@ public class Evaluation {
     
     public String toString(){
         if (note == null){
-            return ressource + " " + type + " " + date 
+            return " " + type + " " + date 
                              + coefficient + " note non renseignée";
         }
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
         String noteArrondi = df.format(note.getNote());
     
         noteArrondi.replace('.', ','); // remplace le '.' par ','
-        return ressource + " " + type + " " + date 
+        return " " + type + " " + date 
                          + coefficient + noteArrondi;   
     }
     /**
      * Modifie tous les attributs d'un objet évaluation
      * @return true si la modification à été effectué, false sinon
      */
-    public boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
+    public boolean modifierModalite(Note nouvelleNote,
                                   String nouveauType, double nouveauCoefficient,
                                   String nouvelleDate){
-        ressource = nouveauLibelle;
+        
         note = nouvelleNote;
         type = nouveauType;
         coefficient = nouveauCoefficient;
         date = nouvelleDate;
         
-        if (ressource == nouveauLibelle && note == nouvelleNote
+        if (note == nouvelleNote
             && type == nouveauType    
             && coefficient == nouveauCoefficient
             && date == nouvelleDate){

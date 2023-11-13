@@ -2,7 +2,7 @@
  * GestionNote.java                                           26/10/2023
  * IUT De Rodez, info2, aucun droit d'auteur
  */
-package noteManager.main;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import noteManager.main.*;
 
 /**
  * Gestionnaire des Notes de l'application

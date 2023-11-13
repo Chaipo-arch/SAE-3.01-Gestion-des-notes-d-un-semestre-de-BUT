@@ -6,8 +6,11 @@
 package noteManager.test;
 
 
+import GestionNoteApplication.src.main.java.package1.Stockage;
+import GestionNoteApplication.src.main.java.package1.Ressource;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.Competence;
 import java.util.ArrayList;
-import noteManager.main.*;
 
 
 /**

@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.tests;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
+import GestionNoteApplication.src.main.java.package1.Parametrage;
+import GestionNoteApplication.src.main.java.package1.ParametrageNational;
 
 /**
  *
@@ -29,7 +31,7 @@ public class ParametrageTest {
        File existe = new File("truc.csv");
        existe.createNewFile();
        
-        ParametrageNational paN= new ParametrageNational("truc.csv") ;
+        ParametrageNational paN= new ParametrageNationaltional("truc.csv") ;
         //System.out.println(Stockage.getInstance().competences.get(0).identifiant);
         ParametrageRessource paR= new ParametrageRessource("truc2.csv") ;
         for(Competence c : Stockage.getInstance().competences ) {

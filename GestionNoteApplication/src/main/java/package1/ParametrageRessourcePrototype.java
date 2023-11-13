@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +37,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException {
+    public void parse()  {
         FileReader fr = null;
         //System.out.println("ok");
         // prerequis
@@ -47,6 +47,9 @@ public class ParametrageRessourcePrototype extends Parametrage {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        try{
+            
+        
         // bufferedReader plus pratique
         BufferedReader br = new BufferedReader(fr);
         // lecture ligne par ligne
@@ -108,14 +111,17 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 }
                 
                 calculCoeff += Integer.parseInt(chaine[2]);
-                evals.add(new Evaluation(chaine[0], chaine[1], chaine[2]));
+                evals.add(new Evaluation(chaine[0], Double.parseDouble(chaine[2]), chaine[1]));
             }
             //System.out.println(calculCoeff);
             if (calculCoeff == 100) {
                 Object ressource = Stockage.getInstance().recherche(saveIdentifiantR);
                 Stockage.getInstance().addEvaluations(evals);
                 if (ressource instanceof Ressource) {
-                    ((Ressource) ressource).ajouterEvaluations(evals);
+                    for(int i=0 ; i < evals.size() ; i++){
+                        ((Ressource) ressource).ajouterEvaluation(evals.get(i));
+
+                    }
 
                 }
             } else {
@@ -125,6 +131,9 @@ public class ParametrageRessourcePrototype extends Parametrage {
         }
         br.close();
         fr.close();
+        }catch(Exception e){
+            
+        }
     }
     /**
      * eviter premier passage

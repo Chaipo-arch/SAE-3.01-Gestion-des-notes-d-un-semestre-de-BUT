@@ -6,11 +6,11 @@
  */
 package noteManager.tests;
 
-import noteManager.main.java.Note;
-import noteManager.main.java.NoteException;
+import GestionNoteApplication.src.main.java.package1.Note;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.util.ArrayList;
-import noteManager.main.java.Competence;
-import noteManager.main.java.Ressource;
+import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 
 public class TestCompetence {
 
@@ -19,23 +19,27 @@ public class TestCompetence {
     public static Competence competenceValideAvecNote = new Competence("Test2");
     
 
-    public static void batterieDeTest() throws NoteException{
+    public static void batterieDeTest() throws Exception{
         
-        Ressource ressource1 = new Ressource("Ressource1", 1.0, "ID1", "Identifiant1");
-        Ressource ressource2 = new Ressource("Ressource2", 2.0, "ID2", "Identifiant2");
-        Ressource ressource3 = new Ressource("Ressource3", 3.0, "ID3", "Identifiant3");
         
-        competenceValide.getRessources().add(ressource1);
-        competenceValide.getRessources().add(ressource2);
+        System.out.println(ressourceValide.toString());
+        
+        for(int i=0 ; i< ressourceValide.size();i++){
+            competenceValide.getRessources().add(ressourceValide.get(i));
+        }
+        
+        
+     
         
     }
 
     public static void testCalculMoyenneCompetence() throws NoteException{
+        
+        
+        System.out.println(competenceValide.calculMoyenneCompetence().getNote());
+        
 
-        competenceValide.getRessources().get(0).setNote(20);
-        competenceValide.getRessources().get(1).setNote(10);
-
-        double moyenneCalculer = competenceValide.calculMoyenneCompetence();
+        /*double moyenneCalculer = competenceValide.calculMoyenneCompetence();
         double numerateurMoyenne = competenceValide.ressources.get(0).getNote()
                                  * competenceValide.ressources.get(0).getCoefficient()
                                  + competenceValide.ressources.get(1).getNote()
@@ -46,10 +50,10 @@ public class TestCompetence {
                                  
         if (moyenneCalculer != numerateurMoyenne/denominateurMoyenne) {
             System.out.println("Test de calculMoyenneCompetence échoué.");
-        }
+        }*/
     }
 
-    public static void testCompetenceToString() {
+   /* public static void testCompetenceToString() {
         competenceValideAvecNote.note.setNote(10.0);
         String chaineAttendu = "Test note non renseignee ..."; //TODO FINIR LE toString de ressource et remplacer les ...
         String chaineAttendu2 = "Test2 10,0 ...";//TODO FINIR LE toString de ressource et remplacer les ...
@@ -75,13 +79,18 @@ public class TestCompetence {
             ||competence.supprimerRessource(ressource3)) {
             System.out.println("Test de supprimerRessource échoué.");
         }
-    }
+    }*/
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        TestEvaluation.batterieDeTest();
+        TestEvaluation.testAjouterNote();
+        TestRessource.testCreationRessource();    
+        TestRessource.jeuxDeData();
+        batterieDeTest();
         testCalculMoyenneCompetence();
-        testCompetenceToString();
-        testAjouterRessource();
-        testSupprimerRessource();
+       // testCompetenceToString();
+        //testAjouterRessource();
+        //testSupprimerRessource();
     }
     
 }

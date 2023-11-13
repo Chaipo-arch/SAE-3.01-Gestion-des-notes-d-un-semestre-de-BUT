@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.package1;
 
 import java.io.File;
 import java.io.IOException;
