@@ -1,16 +1,33 @@
 package GestionNoteApplication.src.main.controller;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.FileChooser;
+import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+
+
+import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
+import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
 
 public class ImporterParametresController {
 
+    @FXML
+    private ToggleGroup choix2;
+      
+    @FXML
+    private RadioButton RessourceToggle;
+    
+    
+    @FXML
+    private RadioButton nationalToggle;
+          
     @FXML
     private ToggleGroup choix;
 
@@ -25,17 +42,49 @@ public class ImporterParametresController {
 
     @FXML
     void importerFichier(ActionEvent event) throws IOException {
-        System.out.println(choix.getSelectedToggle());
-        System.out.println(localToggle.isSelected());
-        if(localToggle.isSelected()) {
-            String nomDossier = null;
-            Desktop.getDesktop().open(new File("C:\\folder"));
-        }
+       
+        
+        FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("csv","*.csv");
+        ex.getExtensions();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(ex);
+        File selectedFile = fileChooser.showOpenDialog(null);
+           
+            if (selectedFile != null) {
+                nomFichier.setText(selectedFile.getName());
+                
+            
+            }
+        
     }
 
     @FXML
-    void choixValiderAction(ActionEvent event) {
-
+    void choixValiderAction(ActionEvent event){
+        if(localToggle.isSelected()) {
+            if(nationalToggle.isSelected()) {
+                try {
+                    System.out.println("ok");
+                    ParametrageNationalPrototype paN = new ParametrageNationalPrototype(nomFichier.getText());
+                    paN.parse();
+                } catch (IOException ex) {
+                    
+                } catch (MauvaisFormatFichierException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } 
+            if(RessourceToggle.isSelected()) {
+                try {
+                    System.out.println("ok");
+                    ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(nomFichier.getText());
+                    paR.parse();
+                } catch (IOException ex) {
+                    
+                } catch (MauvaisFormatFichierException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+            
+        }
     }
 
 }

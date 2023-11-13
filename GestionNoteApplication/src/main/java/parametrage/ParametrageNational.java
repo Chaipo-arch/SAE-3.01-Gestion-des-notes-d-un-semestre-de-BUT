@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.parametrage;
 
+import GestionNoteApplication.src.main.java.modele.Competence;
+import GestionNoteApplication.src.main.java.modele.Ressource;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

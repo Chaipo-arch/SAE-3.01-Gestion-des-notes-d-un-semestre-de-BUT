@@ -23,7 +23,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Ressource" />
+            <Label fx:id="Type" text="Ressource" />
             <Label fx:id="NomRessource" text="Nom Ressource" GridPane.columnIndex="2" />
             <Label text="Label" GridPane.columnIndex="3" />
             <Label text="Type Eval" GridPane.rowIndex="1" />
@@ -63,7 +63,7 @@
          </children>
       </GridPane>
       <AnchorPane layoutX="756.0" layoutY="467.0" prefHeight="65.0" prefWidth="160.0" style="-fx-background-color: green;" />
-      <ComboBox layoutX="26.0" layoutY="23.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboBox" layoutX="26.0" layoutY="23.0" prefWidth="150.0" />
       <Button fx:id="ValiderChangementButton" layoutX="48.0" layoutY="467.0" mnemonicParsing="false" onAction="#ValiderAction" text="Valider" />
    </children>
 </AnchorPane>

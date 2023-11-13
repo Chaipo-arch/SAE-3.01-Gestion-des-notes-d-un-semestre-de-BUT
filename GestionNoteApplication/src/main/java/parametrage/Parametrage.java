@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parametrage;
+package GestionNoteApplication.src.main.java.parametrage;
 
+import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  *
- * @author enzo.cluzel robin.britelle
+ * @author enzo.cluzel
  */
 public abstract class Parametrage {
    
@@ -55,7 +56,7 @@ public abstract class Parametrage {
     /** TODO comment method role
      * 
      */
-    public abstract void parse();
+    public abstract void parse() throws IOException, MauvaisFormatFichierException;
     
     /** TODO comment method role
      * @return b

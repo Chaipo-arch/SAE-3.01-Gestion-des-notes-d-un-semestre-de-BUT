@@ -5,6 +5,8 @@
  */
 package parametrage;
 
+import GestionNoteApplication.src.main.java.parametrage.ParametrageNational;
+import GestionNoteApplication.src.main.java.parametrage.ParametrageRessource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;

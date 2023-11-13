@@ -6,7 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-
+import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 
 public class ParametreController {
     
@@ -16,17 +17,18 @@ public class ParametreController {
 
     @FXML
     void communiquerActionButton() throws IOException {
-        changerPage("communiquer.fxml");
+        changerPage("fxml/communiquer.fxml");
     }
 
     @FXML
     void reinitialiserActionButton() {
-        //Stockage.getInstance().supprimerDonnees();
+        Stockage.getInstance().supprimerDonnees();
+        ParametrageNationalPrototype.flag = true;
     }
 
     @FXML
     void importerActionButton() throws IOException {
-        changerPage("ImporterParametres.fxml");
+        changerPage("fxml/ImporterParametres.fxml");
     }
      public void changerPage(String page) throws IOException {
         File file = new File("src/IHM/"+page);
