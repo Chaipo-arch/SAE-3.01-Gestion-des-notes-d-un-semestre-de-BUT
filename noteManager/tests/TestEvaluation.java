@@ -7,7 +7,7 @@ package noteManager.tests;
 import noteManager.main.java.Evaluation;
 import noteManager.main.java.Note;
 import noteManager.main.java.NoteException;
-import noteManager.main.EvaluationException;
+import noteManager.main.java.EvaluationException;
 import java.util.ArrayList;
 
 /**
