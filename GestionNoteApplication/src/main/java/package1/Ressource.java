@@ -27,33 +27,13 @@ public class Ressource {
      * @param identifiant
      * @throws NoteException 
      */
-    public Ressource(String intitule, double coefficient , String id,String identifiant)throws NoteException{
+    public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
         if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
             throw new IllegalArgumentException();
         }
         this.note = new Note(-1);
         this.intitule = intitule;
-        this.identifiant = identifiant;
-        this.coefficient = coefficient;
-        evaluations = new ArrayList<>();
-        
-        
-    }
-    /**
-     * constructeur d'une ressources
-     * @param intitule
-     * @param coefficient
-     * @param id
-     * @param identifiant
-     * @param note
-     * @throws NoteException 
-     */
-    public Ressource(String intitule, double coefficient , String id,String identifiant , Note note)throws NoteException{
-        if(isValide(intitule, coefficient, id, identifiant)){
-            throw new IllegalArgumentException();
-        }
-        this.note = note;
-        this.intitule = intitule;
+        this.type = type;
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
