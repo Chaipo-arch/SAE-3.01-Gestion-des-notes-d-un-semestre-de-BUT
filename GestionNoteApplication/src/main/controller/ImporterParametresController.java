@@ -27,6 +27,7 @@ public class ImporterParametresController {
     @FXML
     private Label nomFichier;
 
+    private File file;
     @FXML
     private RadioButton ressourceToggle;
 
@@ -41,6 +42,7 @@ public class ImporterParametresController {
         File selectedFile = fileChooser.showOpenDialog(null);
            
             if (selectedFile != null) {
+                file = selectedFile;
                 nomFichier.setText(selectedFile.getName());
                 
             
@@ -53,7 +55,7 @@ public class ImporterParametresController {
             if(nationalToggle.isSelected()) {
                 try {
                     System.out.println("ok");
-                    ParametrageNationalPrototype paN = new ParametrageNationalPrototype(nomFichier.getText());
+                    ParametrageNationalPrototype paN = new ParametrageNationalPrototype(file);
                     paN.parse();
                 } catch (IOException ex) {
                     
@@ -64,7 +66,7 @@ public class ImporterParametresController {
             if(ressourceToggle.isSelected()) {
                 try {
                     System.out.println("ok");
-                    ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(nomFichier.getText());
+                    ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     paR.parse();
                 } catch (IOException ex) {
                     

@@ -36,7 +36,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageRessourcePrototype(String chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageRessourcePrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
     }
 

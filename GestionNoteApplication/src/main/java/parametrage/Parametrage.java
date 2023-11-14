@@ -32,10 +32,10 @@ public abstract class Parametrage {
      * @param chemin 
      * @throws IllegalArgumentException 
      */
-    public Parametrage(String chemin) throws IllegalArgumentException {;
+    public Parametrage(File chemin) throws IllegalArgumentException {;
         
             contenue = new ArrayList();
-        file = new File(chemin);    
+        file = chemin; 
     }
     
    

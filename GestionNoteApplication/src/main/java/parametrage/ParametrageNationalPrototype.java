@@ -36,7 +36,7 @@ public class ParametrageNationalPrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageNationalPrototype(String chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageNationalPrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
         flag = true;
     }
