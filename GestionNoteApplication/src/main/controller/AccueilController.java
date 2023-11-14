@@ -72,7 +72,7 @@ public class AccueilController implements Initializable {
      @FXML
     void mesNotesActionBtn() {
         try {
-            changerPage("../../ressources/fxml/notes.fxml");
+            changerPage("notes.fxml");
         } catch (IOException ex) {
             
         }
@@ -80,7 +80,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            changerPage("../../ressources/fxml/ajouterEvaluations.fxml");
+            changerPage("ajouterEvaluations.fxml");
         } catch (IOException ex) {
             
         }
@@ -93,7 +93,7 @@ public class AccueilController implements Initializable {
     @FXML
     void ParametreActionButton() {
          try {
-            changerPage("../../ressources/fxml/Parametres.fxml");
+            changerPage("Parametres.fxml");
         } catch (IOException ex) {
             
         }
@@ -108,11 +108,12 @@ public class AccueilController implements Initializable {
 
     
     public void changerPage(String page) throws IOException {
-        File file = new File("src/GestionNoteApplication.src/"+page);
-        
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
+        System.out.println(file.getAbsolutePath());
         if(file.exists()) {
+            String changementPage = "../../ressources/fxml/"+page;
             System.out.println(file.getAbsolutePath());
-            fxml = FXMLLoader.load(getClass().getResource(page));
+            fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
         }

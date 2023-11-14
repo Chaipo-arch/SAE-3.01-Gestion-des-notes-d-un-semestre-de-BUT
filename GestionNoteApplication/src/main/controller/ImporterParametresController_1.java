@@ -19,7 +19,7 @@ public class ImporterParametresController_1 {
     
     @FXML
     void LocalActionButton(ActionEvent event) throws IOException {
-        changerPage("ImporterParametres.fxml");
+        changerPage("ImporterParametres_1.fxml");
     }
 
     @FXML
@@ -28,9 +28,10 @@ public class ImporterParametresController_1 {
 
     }
     public void changerPage(String page) throws IOException {
-        File file = new File("src/IHM/"+page);
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
         if(file.exists()) {
-            fxml = FXMLLoader.load(getClass().getResource(page));
+            String changementPage = "../../ressources/fxml/"+page;
+            fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
         }

@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.CommuniquerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.CommuniquerController">
    <children>
       <Button layoutX="321.0" layoutY="400.0" mnemonicParsing="false" onAction="#ValiderAction" prefHeight="65.0" prefWidth="317.0" text="valider">
          <styleClass>

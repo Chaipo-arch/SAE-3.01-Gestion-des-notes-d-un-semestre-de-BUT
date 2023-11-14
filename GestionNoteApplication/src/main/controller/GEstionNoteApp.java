@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -38,12 +39,17 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+                System.out.println();
                 Parent fxml = FXMLLoader.load(getClass().getResource("../../ressources/fxml/accueil.fxml"));
                 Scene sceneActive = new Scene(fxml);
 
                primaryStage.setScene(sceneActive);
                primaryStage.show();
-               
+               primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+               public void handle(WindowEvent evt){
+                    primaryStage.hide();
+                   }
+               });
 
         } catch (IOException ex) {
                 Logger.getLogger(GEstionNoteApp.class.getName()).log(Level.SEVERE, null, ex);

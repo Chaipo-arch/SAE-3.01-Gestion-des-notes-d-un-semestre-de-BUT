@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.NotesController">
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.NotesController">
    <children>
       <GridPane fx:id="GridPaneR" alignment="CENTER" layoutX="26.0" layoutY="84.0" prefHeight="359.0" prefWidth="852.0" style="-fx-border-color: black; -fx-grid-lines-visible: true; -fx-background-color: gray;">
         <columnConstraints>

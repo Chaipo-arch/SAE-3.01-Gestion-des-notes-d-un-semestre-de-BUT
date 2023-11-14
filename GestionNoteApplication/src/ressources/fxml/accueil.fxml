@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AccueilController">
+<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.AccueilController">
    <children>
     <AnchorPane layoutX="-13.0" layoutY="-3.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="606.0" prefWidth="1091.0" VBox.vgrow="ALWAYS">
       <children>

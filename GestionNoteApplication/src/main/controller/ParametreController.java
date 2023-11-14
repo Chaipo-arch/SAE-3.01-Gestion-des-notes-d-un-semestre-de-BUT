@@ -17,7 +17,7 @@ public class ParametreController {
 
     @FXML
     void communiquerActionButton() throws IOException {
-        changerPage("fxml/communiquer.fxml");
+        changerPage("communiquer.fxml");
     }
 
     @FXML
@@ -28,12 +28,13 @@ public class ParametreController {
 
     @FXML
     void importerActionButton() throws IOException {
-        changerPage("fxml/ImporterParametres.fxml");
+        changerPage("ImporterParametres.fxml");
     }
      public void changerPage(String page) throws IOException {
-        File file = new File("src/IHM/"+page);
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
         if(file.exists()) {
-            fxml = FXMLLoader.load(getClass().getResource(page));
+             String changementPage = "../../ressources/fxml/"+page;
+            fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
         }

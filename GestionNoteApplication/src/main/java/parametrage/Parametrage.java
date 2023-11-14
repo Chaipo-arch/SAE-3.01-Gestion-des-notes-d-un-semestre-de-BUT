@@ -33,25 +33,12 @@ public abstract class Parametrage {
      * @throws IllegalArgumentException 
      */
     public Parametrage(String chemin) throws IllegalArgumentException {;
-        if(isCSV(chemin)) {
-            contenue = new ArrayList();
-            file = new File(chemin);   
-            
-        } else {
-            throw new IllegalArgumentException("pas csv");
-        }
         
+            contenue = new ArrayList();
+        file = new File(chemin);    
     }
     
-    /**
-     * verifie si le fichier est un csv
-     * @return return un boolean qui est égal a true si le fichier est au format .csv
-     *          et false sinon
-     */
-    private static boolean isCSV(String chemin) {
-        File file = new File(chemin);
-        return file.exists() && file.getName().toLowerCase().endsWith(".csv");    
-    }
+   
     
     /** TODO comment method role
      * 

@@ -18,16 +18,9 @@ import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourceProt
 
 public class ImporterParametresController {
 
-    @FXML
-    private ToggleGroup choix2;
-      
-    @FXML
-    private RadioButton RessourceToggle;
-    
-    
-    @FXML
+       @FXML
     private RadioButton nationalToggle;
-          
+
     @FXML
     private ToggleGroup choix;
 
@@ -35,10 +28,7 @@ public class ImporterParametresController {
     private Label nomFichier;
 
     @FXML
-    private RadioButton localToggle;
-
-    @FXML
-    private RadioButton distanceToggle;
+    private RadioButton ressourceToggle;
 
     @FXML
     void importerFichier(ActionEvent event) throws IOException {
@@ -60,7 +50,6 @@ public class ImporterParametresController {
 
     @FXML
     void choixValiderAction(ActionEvent event){
-        if(localToggle.isSelected()) {
             if(nationalToggle.isSelected()) {
                 try {
                     System.out.println("ok");
@@ -72,7 +61,7 @@ public class ImporterParametresController {
                     System.out.println(ex.getMessage());
                 }
             } 
-            if(RessourceToggle.isSelected()) {
+            if(ressourceToggle.isSelected()) {
                 try {
                     System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(nomFichier.getText());
@@ -85,6 +74,6 @@ public class ImporterParametresController {
             }
             
         }
-    }
+    
 
 }
