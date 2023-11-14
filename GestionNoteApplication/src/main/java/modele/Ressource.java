@@ -1,160 +1,52 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Ressource.java                                    31 oct. 2023
+ * IUT Rodez, info1 2022-2023, pas de copyright ni "copyleft"
  */
 package GestionNoteApplication.src.main.java.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.text.DecimalFormat;
 
-/**
- * class destiner à créer une ressource
- * @author ahmed.bribach
+/** TODO comment class responsibility (SRP)
+ * @author Cluzel
+ *
  */
-public class Ressource implements Serializable{
-    private String intitule;
-    private double coefficient;
-    private String identifiant;
-    private Note note;
-    private ArrayList<Evaluation> evaluations;
-    
-    /**
-     * constructeur d'une ressources
-     * @param intitule
-     * @param coefficient
-     * @param id
-     * @param identifiant
-     * @throws NoteException 
-     */
-    public Ressource(String intitule, double coefficient , String id,String identifiant)throws NoteException{
-        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
-            throw new IllegalArgumentException();
-        }
-        this.note = new Note(-1);
-        this.intitule = intitule;
-        this.identifiant = identifiant;
-        this.coefficient = coefficient;
-        evaluations = new ArrayList<>();
-        
-        
-    }
-    /**
-     * constructeur d'une ressources
-     * @param intitule
-     * @param coefficient
-     * @param id
-     * @param identifiant
-     * @param note
-     * @throws NoteException 
-     */
-    public Ressource(String intitule, double coefficient , String id,String identifiant , Note note)throws NoteException{
-        if(isValide(intitule, coefficient, id, identifiant)){
-            throw new IllegalArgumentException();
-        }
-        this.note = note;
-        this.intitule = intitule;
-        this.identifiant = identifiant;
-        this.coefficient = coefficient;
-        evaluations = new ArrayList<>();
-        
-        
-    }
-    /**
-     * calcul la moyenne de la ressources
-     * à l'aides des evaluations de cette ressources
-     * @return laMoyenne de cette ressource
-     */
-    public Note calculMoyenne() throws NoteException{
-        double totalCoef = 0.0;
-        double calculMoyenne=0.0;
-        if(evaluations.size()==0){
-            return note;
-        }
-        else{
-            for(int index = 0 ; index < evaluations.size(); index++){
-                calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
-                totalCoef += evaluations.get(index).getCoefficient();
-            }
-        
-            DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-            String noteArrondi = df.format(calculMoyenne/totalCoef);
-            note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
+public class Ressource implements Serializable {
 
-            return note ; // calcul la moyenne d'une ressource
-        }
-        
-        
-    }
-    
-    /**
-     * Affichage d'une ressource
-     * @return une chaîne de caractère contennant l'affichage d'une ressource
-     * 
-     */
-    
-    public String toString(){
-        String affichageEvaluation = "";
-        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(note.getNote());
-        noteArrondi.replace('.', ','); // remplace le '.' par ','
+    /** TODO comment field role (attribute, association) */
+    public String libelle;
 
-        for (int i=0 ; i<evaluations.size();i++){
-            affichageEvaluation += evaluations.get(i).toString() + " | ";
-        }
-        if (note.getNote() == -1){
-            return identifiant + " " + intitule + " " + coefficient + " note non renseigné " 
-                   + affichageEvaluation;     
-        }
-        return identifiant + " " + intitule + " " + coefficient + " " + noteArrondi
-                   + affichageEvaluation;
-        }
+    /** TODO comment field role (attribute, association) */
+    public ArrayList<Evaluation> evaluations = new ArrayList();
     
-    /**
-     * ajoute une evaluation à la ressource
-     * @param evaluationAAjouter 
-     * @return true si l'évaluation a été correctement ajouté, false sinon
+    public String type;
+    public String identifiant;
+    public String poid;
+    
+    /** TODO comment initial state
+     * @param string
+     * @param string2
+     * @param string3
+     * @param string4 
      */
-    public boolean ajouterEvaluation(Evaluation evaluationAAjouter){
-        if(evaluations.contains(evaluationAAjouter)){
-            return false;
-        }
-        evaluations.add(evaluationAAjouter);
-        return true;
+    public Ressource(String string, String string2, String string3, String string4) {
+        type = string;
+        identifiant= string2;
+        poid = string4;
+        libelle = string3;
     }
-    
-    /**
-     * supprimer une évaluation à la ressources
-     * @param evaluationASupprimer 
-     * @return true si l'évaluation a été correctement supprimé, false sinon
+    /** TODO comment initial state
+     * @param string
      */
-    public boolean supprimerEvaluation(Evaluation evaluationASupprimer){
-        if(!evaluations.contains(evaluationASupprimer)){
-            return false;
-        }
-        evaluations.remove(evaluationASupprimer);
-        if(evaluations.contains(evaluationASupprimer)){
-            return false;
-        }
-        return true;
+    public Ressource(String string) {
+        libelle = string;
+    }
+    /** TODO comment method role
+     * @param evals
+     */
+    public void ajouterEvaluations(ArrayList<Evaluation> evals) {
+        evaluations.addAll(evals);
+        
     }
 
-    /**
-     * renvoi le coefficient de la ressource
-     * @return coefficient  
-     */
-    public double getCoefficient(){
-        return coefficient;
-    }
-    public ArrayList<Evaluation> getEvaluation(){
-        return evaluations;
-    }
-    public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
-        
-        if(coefficient<=0 || intitule.trim().isEmpty() || id.trim().isEmpty()  || identifiant.trim().isEmpty() ){
-            return false;
-        }
-        return true;
-    }
 }
