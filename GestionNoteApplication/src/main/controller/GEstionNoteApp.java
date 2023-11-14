@@ -5,6 +5,7 @@
  */
 package GestionNoteApplication.src.main.controller;
 
+import GestionNoteApplication.src.main.java.modele.GestionNote;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +48,7 @@ public class GEstionNoteApp extends Application {
                primaryStage.show();
                primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
                public void handle(WindowEvent evt){
+                   GestionNote.enregistrerDonnees();
                     primaryStage.hide();
                    }
                });

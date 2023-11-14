@@ -32,7 +32,7 @@ public class GestionNote {
      * stockées dans stockage
      */
     public static void enregistrerDonnees() {
-        /*
+        
          try {
              if(!new File(nomFichierDonnees).exists()) {
                   new File(nomFichierDonnees).createNewFile();
@@ -51,7 +51,7 @@ public class GestionNote {
         catch(IOException e) {
           System.out.println("Erreur sauvegarde ");
         }
-        */
+        
         
     }
     /**
