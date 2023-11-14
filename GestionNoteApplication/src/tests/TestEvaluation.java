@@ -2,7 +2,7 @@
  * Ce commentaire en haut du fichier indique des informations sur le fichier, telles que la licence et le modèle.
  * Vous pouvez ajouter ici des informations sur la licence et la description du fichier.
  */
-package noteManager.tests;
+package GestionNoteApplication.src.tests;
 
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.Note;

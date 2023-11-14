@@ -5,11 +5,20 @@
  */
 package GestionNoteApplication.src.main.java.package1;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -173,4 +182,54 @@ public class ParametrageNationalPrototype extends Parametrage {
         return false;
     }
 
+    
+    
+    public void envoyer() throws Exception {
+        InetAddress serveur = InetAddress.getByName("10.2.6.20"); // Remplacez par votre adresse IP ou nom d'hôte
+        Socket cli = new Socket(serveur, 9632);
+        byte[] byteArray = new byte[(int) file.length()];
+        
+        
+        FileInputStream fis = new FileInputStream(file);
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        bis.read(byteArray, 0, byteArray.length);
+        
+        OutputStream os = cli.getOutputStream();
+        System.out.println("Envoi du fichier " + file);
+        os.write(byteArray, 0, byteArray.length);
+        os.flush();
+    }
+    
+    public static void recevoir() throws Exception {
+        ServerSocket serv = new ServerSocket(9632);
+        Socket clientSocket = serv.accept();
+       
+        
+        InputStream is = clientSocket.getInputStream();
+        FileOutputStream fos = new FileOutputStream("D:/tpDevWeb/monFichier.csv");
+        BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+        byte[] byteArray = new byte[1024];
+        int bytesRead;
+        
+        while ((bytesRead = is.read(byteArray, 0, byteArray.length)) != -1) {
+            bos.write(byteArray, 0, bytesRead);
+        }
+        
+        bos.close();
+        fos.close();
+        is.close();
+        clientSocket.close();
+        serv.close();
+        // Vous pouvez maintenant utiliser clientSocket pour recevoir des données du client.
+    }
+
+
+    
+    public static void main(String[] args) throws Exception{
+        ParametrageNationalPrototype para = new ParametrageNationalPrototype("D:/tpDevWeb/Paramétrage semestre2.csv");
+        
+        //para.recevoir();
+        para.envoyer();
+    }
 }

@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.tests;
+package GestionNoteApplication.src.tests;
 
 import java.util.ArrayList;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.Note;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
-import static noteManager.tests.TestEvaluation.listeChaineNonValide;
-import static noteManager.tests.TestEvaluation.listeEvaluationSansNote;
-import static noteManager.tests.TestEvaluation.listeEvaluationValide;
-import static noteManager.tests.TestEvaluation.listeNoteValide;
+import static GestionNoteApplication.src.tests.TestEvaluation.listeChaineNonValide;
+import static GestionNoteApplication.src.tests.TestEvaluation.listeEvaluationSansNote;
+import static GestionNoteApplication.src.tests.TestEvaluation.listeEvaluationValide;
+import static GestionNoteApplication.src.tests.TestEvaluation.listeNoteValide;
 
 /**
  *

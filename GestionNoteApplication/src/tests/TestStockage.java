@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.test;
+package GestionNoteApplication.src.tests;
 
 
 import GestionNoteApplication.src.main.java.package1.Stockage;

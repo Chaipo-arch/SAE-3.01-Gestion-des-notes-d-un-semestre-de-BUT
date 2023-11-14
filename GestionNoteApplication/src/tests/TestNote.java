@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.tests;
+package GestionNoteApplication.src.tests;
 
 import GestionNoteApplication.src.main.java.package1.Note;
 import GestionNoteApplication.src.main.java.package1.NoteException;

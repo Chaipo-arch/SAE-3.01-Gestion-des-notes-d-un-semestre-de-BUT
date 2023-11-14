@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.tests;
+package GestionNoteApplication.src.tests;
 
 import GestionNoteApplication.src.main.java.package1.Note;
 import GestionNoteApplication.src.main.java.package1.NoteException;
@@ -15,8 +15,8 @@ import GestionNoteApplication.src.main.java.package1.Ressource;
 public class TestCompetence {
 
     public static ArrayList<Ressource> ressourceValide = new ArrayList<>();
-    public static Competence competenceValide = new Competence("Test");
-    public static Competence competenceValideAvecNote = new Competence("Test2");
+    public static Competence competenceValide = new Competence("Test","Test");
+    public static Competence competenceValideAvecNote = new Competence("Test2","Test");
     
 
     public static void batterieDeTest() throws Exception{
