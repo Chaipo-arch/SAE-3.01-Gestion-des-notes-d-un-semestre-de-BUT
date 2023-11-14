@@ -77,7 +77,7 @@
                   <AnchorPane layoutX="47.0" layoutY="19.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
                      <children>
                         <TextField fx:id="UserTextField" alignment="CENTER" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" visible="false" />
-                        <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" />
+                        <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                   <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

@@ -44,7 +44,7 @@ public class NotesController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO faire fonctionner sans commentaire
-        if(!ParametrageNationalPrototype.flag) {
+        if(Stockage.getInstance().ressources.size() != 0) {
             
         
         Stockage stock = Stockage.getInstance();

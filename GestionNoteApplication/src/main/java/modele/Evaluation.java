@@ -4,11 +4,13 @@
  */
 package GestionNoteApplication.src.main.java.modele;
 
+import java.io.Serializable;
+
 /** TODO comment class responsibility (SRP)
  * @author Cluzel
  *
  */
-public class Evaluation {
+public class Evaluation implements Serializable {
 
     String type;
     String date;

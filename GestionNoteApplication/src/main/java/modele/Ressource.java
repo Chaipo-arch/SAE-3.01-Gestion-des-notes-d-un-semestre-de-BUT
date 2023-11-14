@@ -4,13 +4,14 @@
  */
 package GestionNoteApplication.src.main.java.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** TODO comment class responsibility (SRP)
  * @author Cluzel
  *
  */
-public class Ressource {
+public class Ressource implements Serializable {
 
     /** TODO comment field role (attribute, association) */
     public String libelle;

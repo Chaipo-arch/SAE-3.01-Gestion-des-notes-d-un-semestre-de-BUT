@@ -32,6 +32,7 @@ public class GestionNote {
      * stockées dans stockage
      */
     public static void enregistrerDonnees() {
+        /*
          try {
              if(!new File(nomFichierDonnees).exists()) {
                   new File(nomFichierDonnees).createNewFile();
@@ -50,6 +51,7 @@ public class GestionNote {
         catch(IOException e) {
           System.out.println("Erreur sauvegarde ");
         }
+        */
         
     }
     /**
@@ -59,18 +61,19 @@ public class GestionNote {
      */
     public static void recupererDonnees() throws IOException, ClassNotFoundException {
         if(new File(nomFichierDonnees).isFile()){
+            System.out.println("ok");
             ObjectInputStream donnees;
             donnees = new ObjectInputStream(new FileInputStream(nomFichierDonnees));
             Stockage stockageDonnees;
+            
             stockageDonnees = (Stockage)donnees.readObject();
+            System.out.println(stockageDonnees.ressources);
             Stockage.getInstance().addCompetences(stockageDonnees.competences);
             Stockage.getInstance().addRessources(stockageDonnees.ressources);
             Stockage.getInstance().addEvaluations(stockageDonnees.evaluations);
            donnees.close();
 
             
-        }else{
-            // Parametrage
         }
         
 

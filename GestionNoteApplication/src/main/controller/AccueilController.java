@@ -5,11 +5,14 @@
  */
 package GestionNoteApplication.src.main.controller;
 
+import GestionNoteApplication.src.main.java.modele.GestionNote;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +62,13 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+            try {
+                GestionNote.recupererDonnees();
+            } catch (IOException ex) {
+                
+            } catch (ClassNotFoundException ex) {
+               
+            }
        sauvegardeAccueil = new ArrayList();
        sauvegardeAccueil.addAll(contenuPage.getChildren());
     }
@@ -102,6 +112,7 @@ public class AccueilController implements Initializable {
     @FXML
     void QuitterActionButton() {
         //fenetreActive.hide();
+        GestionNote.enregistrerDonnees();
         System.exit(0);
     }
 
