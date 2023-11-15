@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
 package GestionNoteApplication.src.main.java.package1;
+=======
+package noteManager.main.java;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -15,7 +19,10 @@ import java.util.ArrayList;
 public class Competence {
 
     private String libelle;
+<<<<<<< HEAD
     private String identifiant;
+=======
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     private Note note;
     private ArrayList<Ressource> ressources;
 
@@ -23,8 +30,12 @@ public class Competence {
      * constructeur de l'objet competence
      * @param libelle
      */
+<<<<<<< HEAD
     public Competence(String identifiant,String libelle) {
         this.identifiant = identifiant;
+=======
+    public Competence(String libelle) {
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         this.libelle = libelle;
         this.note = null;
         ressources = new ArrayList<>();
@@ -70,9 +81,15 @@ public class Competence {
             ensembleRessource += ressourceAAfficher.toString();
         }
         if (note == null){
+<<<<<<< HEAD
             return identifiant +" note non renseignée " + ensembleRessource;
         }
         return identifiant +" "+ noteArrondi + ensembleRessource;
+=======
+            return libelle +" note non renseignée " + ensembleRessource;
+        }
+        return libelle +" "+ noteArrondi + ensembleRessource;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     }
 
     /**
@@ -104,9 +121,12 @@ public class Competence {
         return true;
     }
     
+<<<<<<< HEAD
     public String getIdentifiant(){
         return identifiant;
     }
+=======
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     public ArrayList<Ressource> getRessources(){
         return  ressources;
     }

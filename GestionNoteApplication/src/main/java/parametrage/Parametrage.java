@@ -3,15 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/Parametrage.java
 package GestionNoteApplication.src.main.java.package1;
+=======
+package GestionNoteApplication.src.main.java.parametrage;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/parametrage/Parametrage.java
 
+import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  *
- * @author enzo.cluzel robin.britelle
+ * @author enzo.cluzel
  */
 public abstract class Parametrage {
    
@@ -31,31 +36,18 @@ public abstract class Parametrage {
      * @param chemin 
      * @throws IllegalArgumentException 
      */
-    public Parametrage(String chemin) throws IllegalArgumentException {;
-        if(isCSV(chemin)) {
-            contenue = new ArrayList();
-            file = new File(chemin);   
-            
-        } else {
-            throw new IllegalArgumentException("pas csv");
-        }
+    public Parametrage(File chemin) throws IllegalArgumentException {;
         
+            contenue = new ArrayList();
+        file = chemin; 
     }
     
-    /**
-     * verifie si le fichier est un csv
-     * @return return un boolean qui est égal a true si le fichier est au format .csv
-     *          et false sinon
-     */
-    private static boolean isCSV(String chemin) {
-        File file = new File(chemin);
-        return file.exists() && file.getName().toLowerCase().endsWith(".csv");    
-    }
+   
     
     /** TODO comment method role
      * 
      */
-    public abstract void parse();
+    public abstract void parse() throws IOException, MauvaisFormatFichierException;
     
     /** TODO comment method role
      * @return b

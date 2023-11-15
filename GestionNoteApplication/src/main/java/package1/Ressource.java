@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
 package GestionNoteApplication.src.main.java.package1;
+=======
+package noteManager.main.java;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
 
 import java.util.ArrayList;
 import java.text.DecimalFormat;
@@ -27,12 +31,17 @@ public class Ressource {
      * @param identifiant
      * @throws NoteException 
      */
+<<<<<<< HEAD
     public Ressource(String intitule, double coefficient , String id,String identifiant)throws NoteException{
+=======
+    public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
             throw new IllegalArgumentException();
         }
         this.note = new Note(-1);
         this.intitule = intitule;
+<<<<<<< HEAD
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
@@ -54,6 +63,9 @@ public class Ressource {
         }
         this.note = note;
         this.intitule = intitule;
+=======
+        this.type = type;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
@@ -146,9 +158,12 @@ public class Ressource {
     public double getCoefficient(){
         return coefficient;
     }
+<<<<<<< HEAD
     public String getIdentifiant(){
         return identifiant;
     }
+=======
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;
     }

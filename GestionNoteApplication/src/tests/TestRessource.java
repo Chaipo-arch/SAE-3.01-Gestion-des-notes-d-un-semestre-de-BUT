@@ -28,9 +28,9 @@ public class TestRessource {
         boolean jeuValide = true;
         
             TestEvaluation.batterieDeTest();
-            ressourcesValide.add(new Ressource("Programmation Général", 10, "id", "id"));
-            ressourcesValide.add(new Ressource("Mathématique", 20, "id", "id"));
-            ressourcesValide.add(new Ressource("intit", 10, "id", "id"));
+            ressourcesValide.add(new Ressource("Programmation Général", 10, "Sae", "id"));
+            ressourcesValide.add(new Ressource("Mathématique", 20, "Portefolio", "id"));
+            ressourcesValide.add(new Ressource("intit", 10, "Ressource", "id"));
            
             listeDeMoyenne.add(new Note(12.08));
             listeDeMoyenne.add(new Note(-1.0));

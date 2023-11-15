@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GestionNoteApplication.src.main.java.package1;
+package GestionNoteApplication.src.main.java.parametrage;
 
+import GestionNoteApplication.src.main.java.modele.Evaluation;
+import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.modele.Ressource;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +36,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageRessourcePrototype(String chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageRessourcePrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
     }
 
@@ -106,7 +110,11 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas 3 colonne");
                 }
+<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/ParametrageRessourcePrototype.java
                 if (chaine[2].matches("-([0-9]){1,}|[(^0-9)]")) {
+=======
+                if (chaine[2].matches("-([0-9]){1,}")) {
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/parametrage/ParametrageRessourcePrototype.java
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[2]);
                 }
                 

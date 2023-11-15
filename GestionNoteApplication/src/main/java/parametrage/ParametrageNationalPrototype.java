@@ -3,10 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/ParametrageNationalPrototype.java
 package GestionNoteApplication.src.main.java.package1;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+=======
+package GestionNoteApplication.src.main.java.parametrage;
+
+import GestionNoteApplication.src.main.java.modele.Competence;
+import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.modele.Ressource;
+import GestionNoteApplication.src.main.java.modele.Stockage;
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/parametrage/ParametrageNationalPrototype.java
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,8 +50,9 @@ public class ParametrageNationalPrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageNationalPrototype(String chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageNationalPrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
+        flag = true;
     }
 
     @Override
@@ -124,7 +134,11 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[1]);
                 }
                 if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
+<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/ParametrageNationalPrototype.java
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[3]);
+=======
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal écrit: " + chaine[3]);
+>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/parametrage/ParametrageNationalPrototype.java
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
                 ress.add(new Ressource(chaine[2], Double.parseDouble(chaine[3]), chaine[1], chaine[0]));
