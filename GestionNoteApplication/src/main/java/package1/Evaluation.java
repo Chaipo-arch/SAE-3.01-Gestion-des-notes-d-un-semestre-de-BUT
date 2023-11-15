@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GestionNoteApplication.src.main.java.package1;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
@@ -11,7 +12,7 @@ import java.text.DecimalFormat;
  * la modification de modalité et l'affichage d'une note
  * @author alexandre.brouzes
  */
-public class Evaluation {
+public class Evaluation implements Serializable{
     
     /**  
      * Nom de la matière de l'évaluation

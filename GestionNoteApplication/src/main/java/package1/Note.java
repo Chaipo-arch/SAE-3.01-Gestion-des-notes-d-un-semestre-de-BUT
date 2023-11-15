@@ -6,12 +6,14 @@
 
  package GestionNoteApplication.src.main.java.package1;
 
+import java.io.Serializable;
+
  /**
   * Note associé à une eval, ressource ou compétence
   * La note peut être changé et créé
   * @author Enzo Cluzel
   */
-public class Note {
+public class Note implements Serializable {
 
     /** la valeur de la note */
     private double valeur ;

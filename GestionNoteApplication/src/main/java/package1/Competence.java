@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GestionNoteApplication.src.main.java.package1;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * ainsi que l'ajout ou la supression d'une ressource
  * @author alexandre.brouzes
  */
-public class Competence {
+public class Competence implements Serializable{
 
     public String libelle;
     public String identifiant;

@@ -7,6 +7,7 @@ package GestionNoteApplication.src.main.java.package1;
 
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.NoteException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 
@@ -14,7 +15,7 @@ import java.text.DecimalFormat;
  * class destiner à créer une ressource
  * @author ahmed.bribach
  */
-public class Ressource {
+public class Ressource implements Serializable{
      public String type;
     public String libelle;
     private double coefficient;
