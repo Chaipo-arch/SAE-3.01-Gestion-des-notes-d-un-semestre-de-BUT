@@ -32,9 +32,19 @@ public class Server {
 
             // Réception du fichier sérialisé
             Object fileObject = in.readObject();
-
-            // Vous pouvez ici travailler avec l'objet sérialisé reçu (ex: casting, traitement, etc.)
+            
+            
             System.out.println("Fichier sérialisé reçu du client.");
+            if (fileObject instanceof Stockage) {
+                Stockage receivedStorage = (Stockage) fileObject;
+                Stockage.getInstance().addCompetences(receivedStorage.competences);
+                // Utilisation des informations de stockage reçues
+                System.out.println("Informations sur le stockage reçues : "+ "-----" + receivedStorage.competences.get(0).identifiant+"++++");
+            } else {
+                System.out.println("Type d'objet inattendu reçu du client.");
+            }
+            
+            
 
             // Fermeture des flux et du socket
             in.close();

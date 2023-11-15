@@ -65,7 +65,7 @@ public class Serialisation implements Serializable{
      
      private static String nomFichierDonnees = "stock.bin";
      
-     public void serialiserStockage(){        
+     public static void serialiserStockage(){        
         
         try {
              if(!new File(nomFichierDonnees).exists()) {
@@ -77,7 +77,7 @@ public class Serialisation implements Serializable{
              
              
             // Création d'une instance de Stockage
-            //Stockage monStockage = Stockage.getInstance();
+            Stockage monStockage = Stockage.getInstance();
 
             // Ajout d'une compétence
             //Competence nouvelleCompetence = new Competence(/* ... */); // Créez une nouvelle compétence
@@ -88,8 +88,10 @@ public class Serialisation implements Serializable{
             //monStockage.supprimerCompetence(competenceASupprimer);
 
             // Appel de la méthode pour sérialiser l'objet Stockage
-            //Serialisation.serialiserObjet(monStockage);
+            Serialisation.serialiserObjet(monStockage);
             
+            
+            //System.out.println("Objet Serialisé Normalement ?");
         }
         catch(IOException e) {
           System.out.println("Erreur sauvegarde ");
@@ -104,7 +106,7 @@ public class Serialisation implements Serializable{
         //Personne personne = new Personne("Alice", 30, "123 Rue de la Java");
 
             // Appel de la méthode pour sérialiser l'objet
-        //Serialisation.serialiserObjet(personne);
+        Serialisation.serialiserStockage();
     }
 }
    
