@@ -15,35 +15,38 @@ import java.io.*;
 import java.net.*;
 
 public class Server {
-    public static void main(String[] args) {
+    public static void receiveSerializedFile() {
         try {
-            // Création d'un socket serveur et spécification du numéro de port
-            int port = 9999;
-            try (ServerSocket serverSocket = new ServerSocket(port)) {
-                System.out.println("Serveur en attente de connexion...");
-                
-                try ( // Accepte la connexion d'un client
-                        Socket clientSocket = serverSocket.accept()) {
-                    System.out.println("Connexion établie avec " + clientSocket.getInetAddress());
-                    
-                    PrintWriter out;
-                    try ( // Flux de lecture et d'écriture pour communiquer avec le client
-                            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
-                        out = new PrintWriter(clientSocket.getOutputStream(), true);
-                        // Lecture du message envoyé par le client
-                        String messageFromClient = in.readLine();
-                        System.out.println("Message reçu du client : " + messageFromClient);
-                        // Réponse au client
-                        out.println("Message reçu par le serveur : " + messageFromClient);
-                        // Fermeture des flux et des sockets
-                    }
-                    out.close();
-                }
-            }
+            // Spécification du numéro de port
+            int port = 8887;
+            ServerSocket serverSocket = new ServerSocket(port);
+            
+            System.out.println("Serveur en attente de connexion...");
 
-        } catch (IOException e) {
+            // Accepte la connexion d'un client
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Connexion établie avec " + clientSocket.getInetAddress());
+
+            // Flux d'entrée d'objets pour recevoir le fichier sérialisé du client
+            ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+
+            // Réception du fichier sérialisé
+            Object fileObject = in.readObject();
+
+            // Vous pouvez ici travailler avec l'objet sérialisé reçu (ex: casting, traitement, etc.)
+            System.out.println("Fichier sérialisé reçu du client.");
+
+            // Fermeture des flux et du socket
+            in.close();
+            clientSocket.close();
+            serverSocket.close();
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-}
 
+    public static void main(String[] args) {
+        receiveSerializedFile();
+    }
+}

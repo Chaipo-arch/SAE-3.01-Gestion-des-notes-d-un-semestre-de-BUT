@@ -15,35 +15,47 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-    public static void main(String[] args) {
+    public static void sendSerializedFileToServer() {
+        String serverIP = "127.0.0.1"; // Adresse IP du serveur
+        String filePath = "stock.bin"; // Chemin du fichier sérialisé
+        
         try {
-            // Spécification de l'adresse IP du serveur et du numéro de port
-            String serverIP = "127.0.0.1"; // Remplacez par l'adresse IP du serveur
-            int port = 9999;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                System.out.println("Le fichier spécifié n'existe pas.");
+                return;
+            }
+
+            // Spécification du numéro de port
+            int port = 8887;
 
             // Création d'un socket client pour se connecter au serveur
             Socket socket = new Socket(serverIP, port);
 
-            // Flux de lecture et d'écriture pour communiquer avec le serveur
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            // Flux d'entrée d'objets pour lire le fichier sérialisé
+            ObjectInputStream fileInputStream = new ObjectInputStream(new FileInputStream(file));
 
-            // Envoi d'un message au serveur
-            String message = "Bonjour, serveur!";
-            out.println(message);
-            System.out.println("Message envoyé au serveur : " + message);
+            // Flux de sortie d'objets pour envoyer le fichier sérialisé au serveur
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
-            // Lecture de la réponse du serveur
-            String serverResponse = in.readLine();
-            System.out.println("Réponse du serveur : " + serverResponse);
+            // Envoi du fichier sérialisé au serveur
+            Object fileObject = fileInputStream.readObject();
+            out.writeObject(fileObject);
+            out.flush();
+
+            System.out.println("Fichier sérialisé envoyé au serveur.");
 
             // Fermeture des flux et du socket
-            in.close();
+            fileInputStream.close();
             out.close();
             socket.close();
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        sendSerializedFileToServer();
     }
 }
