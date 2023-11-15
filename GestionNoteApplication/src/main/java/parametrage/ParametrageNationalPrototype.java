@@ -20,6 +20,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -124,11 +126,15 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal écrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
+                
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }
             if (calculCoeff == 100) {
+               
                 Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
+                
                 ress = Stockage.getInstance().addRessources(ress);
+                
                 if (compe instanceof Competence) {
                     for(Ressource r : ress) {
                         ((Competence) compe).ajouterRessource(r);

@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
  * @author ahmed.bribach
  */
 public class Ressource {
-     private String type;
+     public String type;
     public String libelle;
     private double coefficient;
     public String identifiant;
@@ -30,10 +30,10 @@ public class Ressource {
      * @param identifiant
      * @throws NoteException 
      */
-    public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
-        if(coefficient<=0 || intitule.isEmpty() || identifiant.isEmpty()){
-            throw new IllegalArgumentException();
-        }
+    /*public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
+       // if(coefficient<=0 || intitule.isEmpty() || identifiant.isEmpty()){
+       //     throw new IllegalArgumentException(coefficient + intitule + identifiant);
+       // }
         this.note = new Note(-1);
         this.libelle = intitule;
         this.type = type;
@@ -42,13 +42,15 @@ public class Ressource {
         evaluations = new ArrayList<>();
         
         
-    }
+    }*/
     
     public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
-        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
-            throw new IllegalArgumentException();
-        }
+        //if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+        //   throw new IllegalArgumentException();
+        //}
+       
         this.note = new Note(-1);
+        this.identifiant = id;
         this.libelle = intitule;
         this.type = type;
         this.identifiant = identifiant;

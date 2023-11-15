@@ -61,12 +61,12 @@ public class ImporterParametresController {
                     try {
                         paN = new ParametrageNationalPrototype(file);
                     } catch (EvaluationException ex) {
-                        Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("erreur2");
                     }
                     try {
                         paN.parse();
                     } catch (NoteException ex) {
-                        Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("erreur");
                     }
                 } catch (IOException ex) {
                     

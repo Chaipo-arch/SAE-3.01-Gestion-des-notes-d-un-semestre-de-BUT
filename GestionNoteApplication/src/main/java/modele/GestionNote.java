@@ -69,7 +69,11 @@ public class GestionNote {
             stockageDonnees = (Stockage)donnees.readObject();
             System.out.println(stockageDonnees.ressources);
             Stockage.getInstance().addCompetences(stockageDonnees.competences);
-            Stockage.getInstance().addRessources(stockageDonnees.ressources);
+            
+                Stockage.getInstance().addRessources(stockageDonnees.ressources);
+            
+                
+            
             Stockage.getInstance().addEvaluations(stockageDonnees.evaluations);
            donnees.close();
 

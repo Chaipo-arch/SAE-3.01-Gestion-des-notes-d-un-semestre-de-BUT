@@ -70,17 +70,21 @@ public class Stockage implements Serializable {
         if(ressources.containsAll(aAjouter)) {
             return null;
         }
+        
        
         ArrayList<Ressource> save = new ArrayList<>() ;
         ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
         //for(Competence comps: competences) {
             for (Ressource ressou: ressources) {
-                for(Ressource r: aAjouter)
-                if(r.identifiant.equals(ressou.identifiant)) {
-                    save.add(ressou);
-                    aSupprimer.add(r);
-                }
+                for(Ressource r: aAjouter){
+                    System.out.println(r.identifiant);
+                    System.out.println(ressou.identifiant);
+                    if(r.identifiant.equals(ressou.identifiant)) {
+                        save.add(ressou);
+                        aSupprimer.add(r);
+                    }
                  
+                }
             }
         //}
         aAjouter.removeAll(aSupprimer);
