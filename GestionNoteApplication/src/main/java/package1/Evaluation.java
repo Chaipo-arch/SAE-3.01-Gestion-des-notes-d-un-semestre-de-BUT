@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main.java;
+package GestionNoteApplication.src.main.java.package1;
 import java.text.DecimalFormat;
 
 /**
@@ -54,6 +54,17 @@ public class Evaluation {
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
+    }
+    public Evaluation(String type,String dateEvaluation
+                      ,double coefficientEvaluation
+                      )throws EvaluationException{
+        if(!isCoefficient(coefficientEvaluation)){
+            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
+        }
+        this.type = type;
+        this.coefficient = coefficientEvaluation;
+        this.date = dateEvaluation;
+        this.note = null;
     }
     /**
      * Ajoute une note à l'intance de l'évaluation

@@ -5,6 +5,9 @@
  */
 package GestionNoteApplication.src.main.java.modele;
 
+import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.Ressource;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
 import java.util.ArrayList;
 import java.io.Serializable;
 /**
@@ -15,10 +18,10 @@ import java.io.Serializable;
  * @author enzo.cluzel
  */
 public class Stockage implements Serializable {
-    ArrayList<Competence> competences ;
+    public ArrayList<Competence> competences ;
    /** TODO comment field role (attribute, association) */
-public ArrayList<Ressource> ressources;
-    ArrayList<Evaluation> evaluations;
+    public ArrayList<Ressource> ressources;
+    public  ArrayList<Evaluation> evaluations;
     private static Stockage instance = new Stockage();
     
     private Stockage() {

@@ -13,7 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
-import GestionNoteApplication.src.main.java.modele.Ressource;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 import GestionNoteApplication.src.main.java.modele.Stockage;
 
 public class NotesController implements Initializable{

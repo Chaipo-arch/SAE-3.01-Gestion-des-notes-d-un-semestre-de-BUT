@@ -5,10 +5,14 @@
  */
 package GestionNoteApplication.src.main.java.parametrage;
 
-import GestionNoteApplication.src.main.java.modele.Competence;
+
 import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
-import GestionNoteApplication.src.main.java.modele.Ressource;
+
 import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,13 +40,13 @@ public class ParametrageNationalPrototype extends Parametrage {
      * @param chemin
      * @throws IOException
      */
-    public ParametrageNationalPrototype(File chemin) throws IOException, MauvaisFormatFichierException {
+    public ParametrageNationalPrototype(File chemin) throws IOException, MauvaisFormatFichierException, EvaluationException {
         super(chemin);
         flag = true;
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException {
+    public void parse() throws IOException, MauvaisFormatFichierException, NoteException {
         FileReader fr = null;
         // prerequis
         try {
@@ -120,13 +124,16 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal écrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
-                ress.add(new Ressource(chaine[0], chaine[1], chaine[2], chaine[3]));
+                ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }
             if (calculCoeff == 100) {
                 Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
                 ress = Stockage.getInstance().addRessources(ress);
                 if (compe instanceof Competence) {
-                    ((Competence) compe).ajouterRessources(ress);
+                    for(Ressource r : ress) {
+                        ((Competence) compe).ajouterRessource(r);
+                    }
+                    
 
                 }
             } else {

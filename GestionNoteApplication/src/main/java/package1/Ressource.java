@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package noteManager.main.java;
+package GestionNoteApplication.src.main.java.package1;
 
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 
@@ -13,9 +15,10 @@ import java.text.DecimalFormat;
  * @author ahmed.bribach
  */
 public class Ressource {
-    private String intitule;
+     private String type;
+    public String libelle;
     private double coefficient;
-    private String identifiant;
+    public String identifiant;
     private Note note;
     private ArrayList<Evaluation> evaluations;
     
@@ -28,11 +31,25 @@ public class Ressource {
      * @throws NoteException 
      */
     public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
+        if(coefficient<=0 || intitule.isEmpty() || identifiant.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        this.note = new Note(-1);
+        this.libelle = intitule;
+        this.type = type;
+        this.identifiant = identifiant;
+        this.coefficient = coefficient;
+        evaluations = new ArrayList<>();
+        
+        
+    }
+    
+    public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
         if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
             throw new IllegalArgumentException();
         }
         this.note = new Note(-1);
-        this.intitule = intitule;
+        this.libelle = intitule;
         this.type = type;
         this.identifiant = identifiant;
         this.coefficient = coefficient;
@@ -83,10 +100,10 @@ public class Ressource {
             affichageEvaluation += evaluations.get(i).toString() + " | ";
         }
         if (note.getNote() == -1){
-            return identifiant + " " + intitule + " " + coefficient + " note non renseigné " 
+            return identifiant + " " + libelle + " " + coefficient + " note non renseigné " 
                    + affichageEvaluation;     
         }
-        return identifiant + " " + intitule + " " + coefficient + " " + noteArrondi
+        return identifiant + " " + libelle + " " + coefficient + " " + noteArrondi
                    + affichageEvaluation;
         }
     

@@ -5,10 +5,11 @@
  */
 package GestionNoteApplication.src.main.java.parametrage;
 
-import GestionNoteApplication.src.main.java.modele.Evaluation;
 import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
-import GestionNoteApplication.src.main.java.modele.Ressource;
 import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +42,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException {
+    public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException {
         FileReader fr = null;
         //System.out.println("ok");
         // prerequis
@@ -112,14 +113,17 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 }
                 
                 calculCoeff += Integer.parseInt(chaine[2]);
-                evals.add(new Evaluation(chaine[0], chaine[1], chaine[2]));
+                evals.add(new Evaluation(chaine[0], chaine[1], Double.parseDouble(chaine[2])));
             }
             //System.out.println(calculCoeff);
             if (calculCoeff == 100) {
                 Object ressource = Stockage.getInstance().recherche(saveIdentifiantR);
                 Stockage.getInstance().addEvaluations(evals);
                 if (ressource instanceof Ressource) {
-                    ((Ressource) ressource).ajouterEvaluations(evals);
+                    for(Evaluation e: evals) {
+                        ((Ressource) ressource).ajouterEvaluation(e);
+                    }
+                    
 
                 }
             } else {
