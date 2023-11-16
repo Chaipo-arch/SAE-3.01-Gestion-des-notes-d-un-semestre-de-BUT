@@ -24,7 +24,7 @@ public class ImporterParametresController_1 {
 
     @FXML
     void DistanceActionButton(ActionEvent event) throws IOException {
-        changerPage("");
+        changerPage("importationDistance.fxml");
 
     }
     public void changerPage(String page) throws IOException {
