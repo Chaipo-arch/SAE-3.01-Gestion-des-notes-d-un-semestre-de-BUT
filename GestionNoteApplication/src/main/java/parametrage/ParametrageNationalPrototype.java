@@ -12,6 +12,8 @@ import GestionNoteApplication.src.main.java.package1.Competence;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -239,7 +241,7 @@ public class ParametrageNationalPrototype extends Parametrage {
 
     
     public static void main(String[] args) throws Exception{
-        ParametrageNationalPrototype para = new ParametrageNationalPrototype("D:/tpDevWeb/Paramétrage semestre2.csv");
+        ParametrageNationalPrototype para = new ParametrageNationalPrototype(new File("D:/tpDevWeb/Paramétrage semestre2.csv"));
         
         //para.recevoir();
         para.envoyer();
