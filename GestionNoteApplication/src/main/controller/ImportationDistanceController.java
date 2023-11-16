@@ -3,6 +3,7 @@ package GestionNoteApplication.src.main.controller;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -50,11 +51,13 @@ public class ImportationDistanceController implements Initializable{
        adresseIP.setText("Votre adresse ip : " + ip.getHostAddress());
     }
     private int i = 0;
-    private Thread t1;
+    
     @FXML
     void importationDistanceButton(ActionEvent event) {
         
         if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
+            AccueilController a = new AccueilController();
+            
             connexion.setVisible(true);
             annulerButton.setVisible(true);
              t1 = new Thread(new Runnable() {

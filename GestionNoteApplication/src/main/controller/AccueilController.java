@@ -5,6 +5,7 @@
  */
 package GestionNoteApplication.src.main.controller;
 
+import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import GestionNoteApplication.src.main.java.modele.GestionNote;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class AccueilController implements Initializable {
     public void setFenetre(Stage fenetre) {
         fenetreActive = fenetre;
     }
-
+    
     
     
     @FXML
@@ -75,7 +76,9 @@ public class AccueilController implements Initializable {
     
     @FXML
     void AccueilActionBouton() {
-        
+       if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        } 
        contenuPage.getChildren().setAll(sauvegardeAccueil);
     }
     
@@ -112,6 +115,9 @@ public class AccueilController implements Initializable {
     @FXML
     void QuitterActionButton() {
         //fenetreActive.hide();
+        if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        }
         GestionNote.enregistrerDonnees();
         System.exit(0);
     }
@@ -119,6 +125,9 @@ public class AccueilController implements Initializable {
 
     
     public void changerPage(String page) throws IOException {
+        if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        }
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
         System.out.println(file.getAbsolutePath());
         if(file.exists()) {
