@@ -57,7 +57,7 @@ public class ImporterParametresController {
         if(file != null && file.exists() && file.isFile() ) {
             if(nationalToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
+                   // System.out.println("ok");
                     ParametrageNationalPrototype paN = null;
                     try {
                         paN = new ParametrageNationalPrototype(file);
@@ -77,7 +77,7 @@ public class ImporterParametresController {
             } 
             if(ressourceToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
+                   // System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     try {
                         paR.parse();

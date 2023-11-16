@@ -129,10 +129,10 @@ public class AccueilController implements Initializable {
             t1.interrupt();
         }
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         if(file.exists()) {
             String changementPage = "../../ressources/fxml/"+page;
-            System.out.println(file.getAbsolutePath());
+            //System.out.println(file.getAbsolutePath());
             fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
