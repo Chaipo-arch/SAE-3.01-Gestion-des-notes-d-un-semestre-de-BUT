@@ -40,6 +40,7 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+            
                 System.out.println();
                 Parent fxml = FXMLLoader.load(getClass().getResource("../../ressources/fxml/accueil.fxml"));
                 Scene sceneActive = new Scene(fxml);

@@ -98,7 +98,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            changerPage("ajouterEvaluations.fxml");
+            changerPage("calculerMoyenne.fxml");
         } catch (IOException ex) {
             
         }

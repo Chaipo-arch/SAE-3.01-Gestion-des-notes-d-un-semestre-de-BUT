@@ -154,5 +154,8 @@ public class Stockage implements Serializable {
         
     }
             
-    
+    public String ToString(){
+        
+        return competences.toString() + ressources.toString() + evaluations.toString();
+    }
 }

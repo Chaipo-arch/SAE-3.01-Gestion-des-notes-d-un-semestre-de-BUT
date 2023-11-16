@@ -58,14 +58,14 @@ public class Evaluation implements Serializable{
     }
     public Evaluation(String type,String dateEvaluation
                       ,double coefficientEvaluation
-                      )throws EvaluationException{
+                      )throws EvaluationException, NoteException{
         if(!isCoefficient(coefficientEvaluation)){
             throw new EvaluationException("le coefficient doit être >0 & <= 100");  
         }
         this.type = type;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
-        this.note = null;
+         this.note = new Note(-1);
     }
     /**
      * Ajoute une note à l'intance de l'évaluation

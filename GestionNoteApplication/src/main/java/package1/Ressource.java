@@ -73,8 +73,11 @@ public class Ressource implements Serializable{
         }
         else{
             for(int index = 0 ; index < evaluations.size(); index++){
-                calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
-                totalCoef += evaluations.get(index).getCoefficient();
+                if(evaluations.get(index).getNote()*evaluations.get(index).getCoefficient()>-1){
+                    calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
+                    totalCoef += evaluations.get(index).getCoefficient();
+                }
+               
             }
         
             DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 

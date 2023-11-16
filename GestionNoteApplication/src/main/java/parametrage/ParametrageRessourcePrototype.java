@@ -9,6 +9,7 @@ import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException
 import GestionNoteApplication.src.main.java.modele.Stockage;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +43,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException {
+    public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException {
         FileReader fr = null;
         //System.out.println("ok");
         // prerequis

@@ -24,9 +24,9 @@ public class Competence implements Serializable{
      * constructeur de l'objet competence
      * @param libelle
      */
-    public Competence(String id) {
+    public Competence(String id) throws NoteException{
         this.identifiant = id;
-        this.note = null;
+        this.note = new Note(-1);
         ressources = new ArrayList<>();
     }
 
@@ -43,9 +43,12 @@ public class Competence implements Serializable{
         }
         
         for(int index = 0 ; index < ressources.size(); index++){
-            calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
+            if(ressources.get(index).calculMoyenne().getNote()>-1){
+                calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
                              * ressources.get(index).getCoefficient();               
-            totalCoef += ressources.get(index).getCoefficient();
+                totalCoef += ressources.get(index).getCoefficient();
+            }
+            
         }
         
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
