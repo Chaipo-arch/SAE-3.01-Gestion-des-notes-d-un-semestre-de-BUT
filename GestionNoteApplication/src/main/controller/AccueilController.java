@@ -31,7 +31,10 @@ import javafx.stage.Stage;
  */
 public class AccueilController implements Initializable {
     
-        @FXML
+    @FXML
+    private Label textePresentation;
+    
+    @FXML
     private TextField UserTextField;
 
     @FXML
@@ -63,6 +66,8 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        textePresentation.setText("Bienvenue " +userLabel.getText() 
+                                  + " sur votre application de gestion de Notes");
             try {
                 GestionNote.recupererDonnees();
             } catch (IOException ex) {
@@ -152,6 +157,8 @@ public class AccueilController implements Initializable {
         UserTextField.setVisible(false);
         userLabel.setText(UserTextField.getText());
         userLabel.setVisible(true);
+        textePresentation.setText("Bienvenue " +userLabel.getText() 
+                                  + " sur votre application de gestion de Notes");
 
     }
 

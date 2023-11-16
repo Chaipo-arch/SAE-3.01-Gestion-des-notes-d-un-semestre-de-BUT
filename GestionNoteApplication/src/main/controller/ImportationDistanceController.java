@@ -56,7 +56,7 @@ public class ImportationDistanceController implements Initializable{
     void importationDistanceButton(ActionEvent event) {
         
         if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
-            AccueilController a = new AccueilController();
+            
             
             connexion.setVisible(true);
             annulerButton.setVisible(true);
