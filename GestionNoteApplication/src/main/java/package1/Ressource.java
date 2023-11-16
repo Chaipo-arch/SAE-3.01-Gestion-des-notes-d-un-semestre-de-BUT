@@ -79,10 +79,13 @@ public class Ressource implements Serializable{
                 }
                
             }
-        
-            DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-            String noteArrondi = df.format(calculMoyenne/totalCoef);
-            note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
+            if(totalCoef == 0.0) {
+                return new Note(0.0);
+            }
+            note.setNote((double)Math.round(calculMoyenne/totalCoef));
+           // DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
+            //String noteArrondi = df.format(calculMoyenne/totalCoef);
+            //note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
 
             return note ; // calcul la moyenne d'une ressource
         }
