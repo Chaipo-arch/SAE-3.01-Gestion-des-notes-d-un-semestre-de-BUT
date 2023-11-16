@@ -24,12 +24,12 @@ public class ImporterParametresController_1 {
 
     @FXML
     void DistanceActionButton(ActionEvent event) throws IOException {
-        changerPage("");
+        changerPage("importationDistance.fxml");
 
     }
     public void changerPage(String page) throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        if(file.exists()) {
+        if(file.exists() && file.isFile()) {
             String changementPage = "../../ressources/fxml/"+page;
             fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();

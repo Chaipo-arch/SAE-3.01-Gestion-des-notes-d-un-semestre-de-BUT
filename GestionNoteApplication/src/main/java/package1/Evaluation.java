@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
+
+
 package GestionNoteApplication.src.main.java.package1;
-=======
-package noteManager.main.java;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
@@ -15,16 +14,9 @@ import java.text.DecimalFormat;
  * la modification de modalité et l'affichage d'une note
  * @author alexandre.brouzes
  */
-public class Evaluation {
+public class Evaluation implements Serializable{
     
-<<<<<<< HEAD
     
-=======
-    /**  
-     * Nom de la matière de l'évaluation
-     */
-    private String ressource = "";
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     /**  
      * Note de l'évaluation 
      */
@@ -46,35 +38,22 @@ public class Evaluation {
     private String date = "";
     
     // constructor Evaluation
-<<<<<<< HEAD
     public Evaluation( Note noteEvaluation
-=======
-    public Evaluation(String ressourceEvaluation, Note noteEvaluation
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
                       ,String typeEvaluation,double coefficientEvaluation
                       ,String dateEvaluation )throws EvaluationException{
         if(!isCoefficient(coefficientEvaluation)){
             throw new EvaluationException("le coefficient doit être >0 & <= 100");  
         }
-<<<<<<< HEAD
         if( typeEvaluation.equals("")|| typeEvaluation == null){
             throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
                     + "sont incomplet");
         }
-=======
-        if(ressourceEvaluation.equals("")|| ressourceEvaluation == null
-           || typeEvaluation.equals("")|| typeEvaluation == null){
-            throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
-                    + "sont incomplet");
-        }
-        this.ressource = ressourceEvaluation;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         this.note = noteEvaluation;
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
     }
-<<<<<<< HEAD
+
     
     public Evaluation(){
         
@@ -94,8 +73,19 @@ public class Evaluation {
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
     }
-=======
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+
+    public Evaluation(String type,String dateEvaluation
+                      ,double coefficientEvaluation
+                      )throws EvaluationException{
+        if(!isCoefficient(coefficientEvaluation)){
+            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
+        }
+        this.type = type;
+        this.coefficient = coefficientEvaluation;
+        this.date = dateEvaluation;
+        this.note = null;
+    }
+
     /**
      * Ajoute une note à l'intance de l'évaluation
      * @return true si l'ajout a bien été effectué(la nouvelle note inséré 
@@ -118,49 +108,30 @@ public class Evaluation {
     
     public String toString(){
         if (note == null){
-<<<<<<< HEAD
             return " " + type + " " + date 
-=======
-            return ressource + " " + type + " " + date 
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
                              + coefficient + " note non renseignée";
         }
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
         String noteArrondi = df.format(note.getNote());
     
         noteArrondi.replace('.', ','); // remplace le '.' par ','
-<<<<<<< HEAD
         return " " + type + " " + date 
-=======
-        return ressource + " " + type + " " + date 
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
                          + coefficient + noteArrondi;   
     }
     /**
      * Modifie tous les attributs d'un objet évaluation
      * @return true si la modification à été effectué, false sinon
      */
-<<<<<<< HEAD
     public boolean modifierModalite(Note nouvelleNote,
                                   String nouveauType, double nouveauCoefficient,
                                   String nouvelleDate){
         
-=======
-    public boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
-                                  String nouveauType, double nouveauCoefficient,
-                                  String nouvelleDate){
-        ressource = nouveauLibelle;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         note = nouvelleNote;
         type = nouveauType;
         coefficient = nouveauCoefficient;
         date = nouvelleDate;
         
-<<<<<<< HEAD
         if (note == nouvelleNote
-=======
-        if (ressource == nouveauLibelle && note == nouvelleNote
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
             && type == nouveauType    
             && coefficient == nouveauCoefficient
             && date == nouvelleDate){

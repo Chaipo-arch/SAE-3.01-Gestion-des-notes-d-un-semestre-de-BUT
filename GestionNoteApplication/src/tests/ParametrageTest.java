@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import GestionNoteApplication.src.main.java.package1.Parametrage;
-import GestionNoteApplication.src.main.java.package1.ParametrageNational;
+import GestionNoteApplication.src.main.java.package1.ParametrageNationalPrototype;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ParametrageTest {
        File existe = new File("truc.csv");
        existe.createNewFile();
        
-        ParametrageNational paN= new ParametrageNationaltional("truc.csv") ;
+        ParametrageNationalPrototype paN= new ParametrageNationaltional("truc.csv") ;
         //System.out.println(Stockage.getInstance().competences.get(0).identifiant);
         ParametrageRessource paR= new ParametrageRessource("truc2.csv") ;
         for(Competence c : Stockage.getInstance().competences ) {

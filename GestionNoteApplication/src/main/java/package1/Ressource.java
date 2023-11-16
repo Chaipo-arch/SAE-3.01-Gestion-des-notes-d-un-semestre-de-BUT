@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
-package GestionNoteApplication.src.main.java.package1;
-=======
-package noteManager.main.java;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
 
+
+package GestionNoteApplication.src.main.java.package1;
+
+import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.NoteException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 
@@ -16,10 +17,11 @@ import java.text.DecimalFormat;
  * class destiner à créer une ressource
  * @author ahmed.bribach
  */
-public class Ressource {
-    private String intitule;
+public class Ressource implements Serializable{
+    public String type;
+    public String libelle;
     private double coefficient;
-    private String identifiant;
+    public String identifiant;
     private Note note;
     private ArrayList<Evaluation> evaluations;
     
@@ -31,41 +33,31 @@ public class Ressource {
      * @param identifiant
      * @throws NoteException 
      */
-<<<<<<< HEAD
+
     public Ressource(String intitule, double coefficient , String id,String identifiant)throws NoteException{
-=======
-    public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+
         if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
             throw new IllegalArgumentException();
         }
         this.note = new Note(-1);
         this.intitule = intitule;
-<<<<<<< HEAD
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
         
         
-    }
-    /**
-     * constructeur d'une ressources
-     * @param intitule
-     * @param coefficient
-     * @param id
-     * @param identifiant
-     * @param note
-     * @throws NoteException 
-     */
-    public Ressource(String intitule, double coefficient , String id,String identifiant , Note note)throws NoteException{
-        if(isValide(intitule, coefficient, id, identifiant)){
-            throw new IllegalArgumentException();
-        }
-        this.note = note;
-        this.intitule = intitule;
 =======
+    }*/
+    
+    public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
+        //if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
+        //   throw new IllegalArgumentException();
+        //}
+       
+        this.note = new Note(-1);
+        this.identifiant = id;
+        this.libelle = intitule;
         this.type = type;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
@@ -115,10 +107,10 @@ public class Ressource {
             affichageEvaluation += evaluations.get(i).toString() + " | ";
         }
         if (note.getNote() == -1){
-            return identifiant + " " + intitule + " " + coefficient + " note non renseigné " 
+            return identifiant + " " + libelle + " " + coefficient + " note non renseigné " 
                    + affichageEvaluation;     
         }
-        return identifiant + " " + intitule + " " + coefficient + " " + noteArrondi
+        return identifiant + " " + libelle + " " + coefficient + " " + noteArrondi
                    + affichageEvaluation;
         }
     
@@ -158,12 +150,9 @@ public class Ressource {
     public double getCoefficient(){
         return coefficient;
     }
-<<<<<<< HEAD
     public String getIdentifiant(){
         return identifiant;
     }
-=======
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;
     }

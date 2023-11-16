@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-<<<<<<< HEAD
+
+
 package GestionNoteApplication.src.main.java.package1;
-=======
-package noteManager.main.java;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+import java.io.Serializable;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -16,27 +11,26 @@ import java.util.ArrayList;
  * ainsi que l'ajout ou la supression d'une ressource
  * @author alexandre.brouzes
  */
-public class Competence {
+public class Competence implements Serializable{
 
     private String libelle;
-<<<<<<< HEAD
     private String identifiant;
-=======
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+
     private Note note;
-    private ArrayList<Ressource> ressources;
+    public ArrayList<Ressource> ressources;
 
     /**
      * constructeur de l'objet competence
      * @param libelle
      */
-<<<<<<< HEAD
     public Competence(String identifiant,String libelle) {
         this.identifiant = identifiant;
-=======
+
     public Competence(String libelle) {
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
         this.libelle = libelle;
+
+    public Competence(String id) {
+        this.identifiant = id;
         this.note = null;
         ressources = new ArrayList<>();
     }
@@ -81,15 +75,9 @@ public class Competence {
             ensembleRessource += ressourceAAfficher.toString();
         }
         if (note == null){
-<<<<<<< HEAD
             return identifiant +" note non renseignée " + ensembleRessource;
         }
         return identifiant +" "+ noteArrondi + ensembleRessource;
-=======
-            return libelle +" note non renseignée " + ensembleRessource;
-        }
-        return libelle +" "+ noteArrondi + ensembleRessource;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     }
 
     /**
@@ -121,12 +109,9 @@ public class Competence {
         return true;
     }
     
-<<<<<<< HEAD
     public String getIdentifiant(){
         return identifiant;
     }
-=======
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
     public ArrayList<Ressource> getRessources(){
         return  ressources;
     }

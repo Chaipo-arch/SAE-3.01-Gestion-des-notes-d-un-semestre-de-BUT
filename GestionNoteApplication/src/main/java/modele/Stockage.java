@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/Stockage.java
-package GestionNoteApplication.src.main.java.package1;
-========
-package GestionNoteApplication.src.main.java.modele;
->>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/modele/Stockage.java
 
-import GestionNoteApplication.src.main.java.package1.Evaluation;
+package GestionNoteApplication.src.main.java.modele;
+
+
 import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.Ressource;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
 import java.util.ArrayList;
 import java.io.Serializable;
 /**
@@ -21,10 +20,10 @@ import java.io.Serializable;
  * @author enzo.cluzel
  */
 public class Stockage implements Serializable {
-    ArrayList<Competence> competences ;
+    public ArrayList<Competence> competences ;
    /** TODO comment field role (attribute, association) */
-public ArrayList<Ressource> ressources;
-    ArrayList<Evaluation> evaluations;
+    public ArrayList<Ressource> ressources;
+    public  ArrayList<Evaluation> evaluations;
     private static Stockage instance = new Stockage();
     
     private Stockage() {
@@ -73,23 +72,25 @@ public ArrayList<Ressource> ressources;
         if(ressources.containsAll(aAjouter)) {
             return null;
         }
+        
        
         ArrayList<Ressource> save = new ArrayList<>() ;
         ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
         //for(Competence comps: competences) {
             for (Ressource ressou: ressources) {
-                for(Ressource r: aAjouter)
+                for(Ressource r: aAjouter){
                 if(r.getIdentifiant().equals(ressou.getIdentifiant())) {
                     save.add(ressou);
                     aSupprimer.add(r);
                 }
                  
+                }
             }
         //}
         aAjouter.removeAll(aSupprimer);
         
         ressources.addAll(aAjouter);
-       aAjouter.addAll(save);
+        aAjouter.addAll(save);
         return aAjouter;
     }
     

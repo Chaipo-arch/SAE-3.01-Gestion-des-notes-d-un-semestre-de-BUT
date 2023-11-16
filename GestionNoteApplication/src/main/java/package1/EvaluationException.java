@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
+
+
 package GestionNoteApplication.src.main.java.package1;
-=======
-package noteManager.main.java;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
 
 /**
  *

@@ -4,18 +4,17 @@
  * IUT de Rodez, BUT2, aucun droit d'auteur
  */
 
-<<<<<<< HEAD
  package GestionNoteApplication.src.main.java.package1;
-=======
- package noteManager.main.java;
->>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac
+
+import java.io.Serializable;
+
 
  /**
   * Note associé à une eval, ressource ou compétence
   * La note peut être changé et créé
   * @author Enzo Cluzel
   */
-public class Note {
+public class Note implements Serializable {
 
     /** la valeur de la note */
     private double valeur ;

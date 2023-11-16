@@ -11,6 +11,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 
 
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
@@ -52,11 +54,21 @@ public class ImporterParametresController {
 
     @FXML
     void choixValiderAction(ActionEvent event){
+        if(file != null && file.exists() && file.isFile() ) {
             if(nationalToggle.isSelected()) {
                 try {
                     System.out.println("ok");
-                    ParametrageNationalPrototype paN = new ParametrageNationalPrototype(file);
-                    paN.parse();
+                    ParametrageNationalPrototype paN = null;
+                    try {
+                        paN = new ParametrageNationalPrototype(file);
+                    } catch (EvaluationException ex) {
+                        System.out.println("erreur2");
+                    }
+                    try {
+                        paN.parse();
+                    } catch (NoteException ex) {
+                        System.out.println("erreur");
+                    }
                 } catch (IOException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
@@ -67,7 +79,11 @@ public class ImporterParametresController {
                 try {
                     System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
-                    paR.parse();
+                    try {
+                        paR.parse();
+                    } catch (EvaluationException ex) {
+                        Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (IOException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
@@ -76,6 +92,7 @@ public class ImporterParametresController {
             }
             
         }
+    }
     
 
 }
