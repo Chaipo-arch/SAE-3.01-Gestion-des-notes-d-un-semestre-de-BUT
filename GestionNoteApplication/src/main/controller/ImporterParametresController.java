@@ -54,6 +54,7 @@ public class ImporterParametresController {
 
     @FXML
     void choixValiderAction(ActionEvent event){
+        if(file != null && file.exists() && file.isFile() ) {
             if(nationalToggle.isSelected()) {
                 try {
                     System.out.println("ok");
@@ -91,6 +92,7 @@ public class ImporterParametresController {
             }
             
         }
+    }
     
 
 }
