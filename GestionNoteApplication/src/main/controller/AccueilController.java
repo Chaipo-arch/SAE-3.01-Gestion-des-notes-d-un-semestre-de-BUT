@@ -5,6 +5,7 @@
  */
 package GestionNoteApplication.src.main.controller;
 
+import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import GestionNoteApplication.src.main.java.modele.GestionNote;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +31,10 @@ import javafx.stage.Stage;
  */
 public class AccueilController implements Initializable {
     
-        @FXML
+    @FXML
+    private Label textePresentation;
+    
+    @FXML
     private TextField UserTextField;
 
     @FXML
@@ -46,7 +50,7 @@ public class AccueilController implements Initializable {
     public void setFenetre(Stage fenetre) {
         fenetreActive = fenetre;
     }
-
+    
     
     
     @FXML
@@ -62,6 +66,8 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        textePresentation.setText("Bienvenue " +userLabel.getText() 
+                                  + " sur votre application de gestion de Notes");
             try {
                 GestionNote.recupererDonnees();
             } catch (IOException ex) {
@@ -75,7 +81,9 @@ public class AccueilController implements Initializable {
     
     @FXML
     void AccueilActionBouton() {
-        
+       if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        } 
        contenuPage.getChildren().setAll(sauvegardeAccueil);
     }
     
@@ -90,7 +98,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            changerPage("ajouterEvaluations.fxml");
+            changerPage("calculerMoyenne.fxml");
         } catch (IOException ex) {
             
         }
@@ -112,6 +120,9 @@ public class AccueilController implements Initializable {
     @FXML
     void QuitterActionButton() {
         //fenetreActive.hide();
+        if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        }
         GestionNote.enregistrerDonnees();
         System.exit(0);
     }
@@ -119,11 +130,14 @@ public class AccueilController implements Initializable {
 
     
     public void changerPage(String page) throws IOException {
+        if(t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        }
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         if(file.exists()) {
             String changementPage = "../../ressources/fxml/"+page;
-            System.out.println(file.getAbsolutePath());
+            //System.out.println(file.getAbsolutePath());
             fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
@@ -143,6 +157,8 @@ public class AccueilController implements Initializable {
         UserTextField.setVisible(false);
         userLabel.setText(UserTextField.getText());
         userLabel.setVisible(true);
+        textePresentation.setText("Bienvenue " +userLabel.getText() 
+                                  + " sur votre application de gestion de Notes");
 
     }
 

@@ -57,33 +57,27 @@ public class ImporterParametresController {
         if(file != null && file.exists() && file.isFile() ) {
             if(nationalToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
+                   // System.out.println("ok");
                     ParametrageNationalPrototype paN = null;
                     try {
                         paN = new ParametrageNationalPrototype(file);
                     } catch (EvaluationException ex) {
                         System.out.println("erreur2");
                     }
-                    try {
-                        paN.parse();
-                    } catch (NoteException ex) {
-                        System.out.println("erreur");
-                    }
+                    paN.parse();
                 } catch (IOException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
                     System.out.println(ex.getMessage());
+                } catch (NoteException ex) {
+                    Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } 
             if(ressourceToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
+                   // System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
-                    try {
-                        paR.parse();
-                    } catch (EvaluationException ex) {
-                        Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    paR.parse();
                 } catch (IOException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {

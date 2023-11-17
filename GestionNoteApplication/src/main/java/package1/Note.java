@@ -8,7 +8,6 @@
 
 import java.io.Serializable;
 
-
  /**
   * Note associé à une eval, ressource ou compétence
   * La note peut être changé et créé

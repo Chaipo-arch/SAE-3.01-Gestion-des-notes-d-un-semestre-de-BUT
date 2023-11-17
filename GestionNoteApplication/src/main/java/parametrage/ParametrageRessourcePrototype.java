@@ -9,6 +9,7 @@ import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException
 import GestionNoteApplication.src.main.java.modele.Stockage;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
 import java.io.File;
@@ -116,7 +117,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 }
                 
                 calculCoeff += Integer.parseInt(chaine[2]);
-                evals.add(new Evaluation(chaine[0], Double.parseDouble(chaine[2]), chaine[1]));
+                evals.add(new Evaluation(chaine[0],  chaine[1] , Double.parseDouble(chaine[2])));
             }
             //System.out.println(calculCoeff);
             if (calculCoeff == 100) {

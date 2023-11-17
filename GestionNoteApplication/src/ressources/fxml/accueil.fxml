@@ -20,7 +20,10 @@
       <children>
             <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
                <children>
-                  <Label layoutX="218.0" prefHeight="217.0" prefWidth="419.0" text="Le Lorem Ipsum est simplement du faux texte employé dans l" />
+                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="195.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">

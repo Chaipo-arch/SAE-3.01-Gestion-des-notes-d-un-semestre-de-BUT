@@ -27,7 +27,7 @@ import javafx.stage.WindowEvent;
  */
 public class GEstionNoteApp extends Application {
     
-   
+   public static Thread t1;
     Stage fenetreSuivante = null;
     Parent fxml;
     /**
@@ -40,6 +40,7 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+            
                 System.out.println();
                 Parent fxml = FXMLLoader.load(getClass().getResource("../../ressources/fxml/accueil.fxml"));
                 Scene sceneActive = new Scene(fxml);
@@ -48,6 +49,9 @@ public class GEstionNoteApp extends Application {
                primaryStage.show();
                primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
                public void handle(WindowEvent evt){
+                   if(t1 != null && t1.isAlive()) {
+                    t1.interrupt();
+                     } 
                    GestionNote.enregistrerDonnees();
                     primaryStage.hide();
                    }

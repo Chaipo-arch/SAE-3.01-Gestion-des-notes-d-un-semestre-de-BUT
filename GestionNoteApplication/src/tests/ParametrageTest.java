@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package GestionNoteApplication.src.tests;
-
+/*
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
@@ -15,20 +15,20 @@ import GestionNoteApplication.src.main.java.package1.ParametrageNationalPrototyp
  *
  * @author enzo.cluzel robin.britelle
  */
-public class ParametrageTest {
+/*public class ParametrageTest {
     /**
      * TODO comment method role
      * @param args
      * @throws IOException 
-     */
-    public static void main(String[] args) throws IOException {
+     *//*
+    public static void main(String[] args) throws IOException {*/
       /* Ressource r1 = new Ressource("R2.01");
        Ressource r2 = new Ressource("R2.02");
        ArrayList<Ressource> rs = new ArrayList();
        rs.add(r1);
        rs.add(r2);*/
        //Stockage.getInstance().addRessources(rs);
-       File existe = new File("truc.csv");
+     /*  File existe = new File("truc.csv");
        existe.createNewFile();
        
         ParametrageNationalPrototype paN= new ParametrageNationaltional("truc.csv") ;
@@ -51,3 +51,4 @@ public class ParametrageTest {
     }
     
 }
+*/

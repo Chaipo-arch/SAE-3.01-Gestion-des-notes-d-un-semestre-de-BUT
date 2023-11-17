@@ -15,8 +15,8 @@ import GestionNoteApplication.src.main.java.package1.Ressource;
 public class TestCompetence {
 
     public static ArrayList<Ressource> ressourceValide = new ArrayList<>();
-    public static Competence competenceValide = new Competence("Test","Test");
-    public static Competence competenceValideAvecNote = new Competence("Test2","Test");
+    public static Competence competenceValide ;
+    public static Competence competenceValideAvecNote ;
     
 
     public static void batterieDeTest() throws Exception{

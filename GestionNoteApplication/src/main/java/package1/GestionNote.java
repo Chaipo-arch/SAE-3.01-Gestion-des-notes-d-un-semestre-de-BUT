@@ -2,12 +2,13 @@
  * GestionNote.java                                           26/10/2023
  * IUT De Rodez, info2, aucun droit d'auteur
  */
-<<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/GestionNote.java
-package GestionNoteApplication.src.main.java.package1;
-========
-package GestionNoteApplication.src.main.java.modele;
->>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/modele/GestionNote.java
 
+
+
+package GestionNoteApplication.src.main.java.package1;
+
+
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,10 +19,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<<< HEAD:GestionNoteApplication/src/main/java/package1/GestionNote.java
-========
 
->>>>>>>> acccceb1ebcaeca497acefe0c324e03b26225dac:GestionNoteApplication/src/main/java/modele/GestionNote.java
+
+
 
 /**
  * Gestionnaire des Notes de l'application

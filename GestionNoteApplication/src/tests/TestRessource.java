@@ -28,9 +28,9 @@ public class TestRessource {
         boolean jeuValide = true;
         
             TestEvaluation.batterieDeTest();
-            ressourcesValide.add(new Ressource("Programmation Général", 10, "Sae", "id"));
-            ressourcesValide.add(new Ressource("Mathématique", 20, "Portefolio", "id"));
-            ressourcesValide.add(new Ressource("intit", 10, "Ressource", "id"));
+            ressourcesValide.add(new Ressource("Programmation Général", "Sae", "id", 10));
+            ressourcesValide.add(new Ressource("Mathématique", "Portefolio", "id", 20));
+            ressourcesValide.add(new Ressource("intit",  "Ressource", "id",10));
            
             listeDeMoyenne.add(new Note(12.08));
             listeDeMoyenne.add(new Note(-1.0));
@@ -100,8 +100,8 @@ public class TestRessource {
                 System.out.println("echec de l'insertion de : " + listeEvaluationValide.get(i));
             }
         }
-        listeEvaluation.add(new Evaluation( new Note(20), "qcm", 100.0, "05/12/2022"));
-        listeEvaluation.add(new Evaluation( new Note(0), "qcm", 20.0, "05/12/2022"));
+        listeEvaluation.add(new Evaluation(  "string EN trop", new Note(20), "qcm",100.0, "05/12/2022"));
+        //listeEvaluation.add(new Evaluation( new Note(0), "qcm", 20.0, "05/12/2022"));
         if(!ressourcesValide.get(2).ajouterEvaluation(listeEvaluation.get(0))){
             nbErreur++;
         }

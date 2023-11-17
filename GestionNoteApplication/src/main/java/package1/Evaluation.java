@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 package GestionNoteApplication.src.main.java.package1;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -16,7 +14,10 @@ import java.text.DecimalFormat;
  */
 public class Evaluation implements Serializable{
     
-    
+    /**  
+     * Nom de la matière de l'évaluation
+     */
+    private String ressource = "";
     /**  
      * Note de l'évaluation 
      */
@@ -38,54 +39,34 @@ public class Evaluation implements Serializable{
     private String date = "";
     
     // constructor Evaluation
-    public Evaluation( Note noteEvaluation
+    public Evaluation(String ressourceEvaluation, Note noteEvaluation
                       ,String typeEvaluation,double coefficientEvaluation
                       ,String dateEvaluation )throws EvaluationException{
         if(!isCoefficient(coefficientEvaluation)){
             throw new EvaluationException("le coefficient doit être >0 & <= 100");  
         }
-        if( typeEvaluation.equals("")|| typeEvaluation == null){
+        if(ressourceEvaluation.equals("")|| ressourceEvaluation == null
+           || typeEvaluation.equals("")|| typeEvaluation == null){
             throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
                     + "sont incomplet");
         }
+        this.ressource = ressourceEvaluation;
         this.note = noteEvaluation;
         this.type = typeEvaluation;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
     }
-
-    
-    public Evaluation(){
-        
-    }
-    
-    public Evaluation(String typeEvaluation,double coefficientEvaluation
-                      ,String dateEvaluation )throws Exception{
-        if(!isCoefficient(coefficientEvaluation)){
-            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
-        }
-        if( typeEvaluation.equals("")|| typeEvaluation == null){
-            throw new EvaluationException("les champs de ressource ou du type de l'évaluation"
-                    + "sont incomplet");
-        }
-        this.note = new Note(-1);
-        this.type = typeEvaluation;
-        this.coefficient = coefficientEvaluation;
-        this.date = dateEvaluation;
-    }
-
     public Evaluation(String type,String dateEvaluation
                       ,double coefficientEvaluation
-                      )throws EvaluationException{
+                      )throws EvaluationException, NoteException{
         if(!isCoefficient(coefficientEvaluation)){
             throw new EvaluationException("le coefficient doit être >0 & <= 100");  
         }
         this.type = type;
         this.coefficient = coefficientEvaluation;
         this.date = dateEvaluation;
-        this.note = null;
+         this.note = new Note(-1);
     }
-
     /**
      * Ajoute une note à l'intance de l'évaluation
      * @return true si l'ajout a bien été effectué(la nouvelle note inséré 
@@ -108,30 +89,30 @@ public class Evaluation implements Serializable{
     
     public String toString(){
         if (note == null){
-            return " " + type + " " + date 
+            return ressource + " " + type + " " + date 
                              + coefficient + " note non renseignée";
         }
         DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
         String noteArrondi = df.format(note.getNote());
     
         noteArrondi.replace('.', ','); // remplace le '.' par ','
-        return " " + type + " " + date 
+        return ressource + " " + type + " " + date 
                          + coefficient + noteArrondi;   
     }
     /**
      * Modifie tous les attributs d'un objet évaluation
      * @return true si la modification à été effectué, false sinon
      */
-    public boolean modifierModalite(Note nouvelleNote,
+    public boolean modifierModalite(String nouveauLibelle,Note nouvelleNote,
                                   String nouveauType, double nouveauCoefficient,
                                   String nouvelleDate){
-        
+        ressource = nouveauLibelle;
         note = nouvelleNote;
         type = nouveauType;
         coefficient = nouveauCoefficient;
         date = nouvelleDate;
         
-        if (note == nouvelleNote
+        if (ressource == nouveauLibelle && note == nouvelleNote
             && type == nouveauType    
             && coefficient == nouveauCoefficient
             && date == nouvelleDate){

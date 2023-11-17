@@ -1,8 +1,10 @@
-
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package GestionNoteApplication.src.main.java.package1;
 import java.io.Serializable;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -13,9 +15,8 @@ import java.util.ArrayList;
  */
 public class Competence implements Serializable{
 
-    private String libelle;
-    private String identifiant;
-
+    public String libelle;
+    public String identifiant;
     private Note note;
     public ArrayList<Ressource> ressources;
 
@@ -23,15 +24,9 @@ public class Competence implements Serializable{
      * constructeur de l'objet competence
      * @param libelle
      */
-    public Competence(String identifiant,String libelle) {
-        this.identifiant = identifiant;
-
-    public Competence(String libelle) {
-        this.libelle = libelle;
-
-    public Competence(String id) {
+    public Competence(String id) throws NoteException{
         this.identifiant = id;
-        this.note = null;
+        this.note = new Note(-1);
         ressources = new ArrayList<>();
     }
 
@@ -48,14 +43,21 @@ public class Competence implements Serializable{
         }
         
         for(int index = 0 ; index < ressources.size(); index++){
-            calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
+            if(ressources.get(index).calculMoyenne().getNote()>-1){
+                calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
                              * ressources.get(index).getCoefficient();               
-            totalCoef += ressources.get(index).getCoefficient();
+                totalCoef += ressources.get(index).getCoefficient();
+            }
+            
         }
+        if(totalCoef == 0.0) {
+            return new Note(0.0);
+        }
+        note.setNote((double)Math.round(calculMoyenne/totalCoef));
+        //DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
         
-        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(calculMoyenne/totalCoef);
-        note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
+       // String noteArrondi = df.format(calculMoyenne/totalCoef);
+        //note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
 
         return note ; // calcul la moyenne d'une ressource
        
@@ -75,9 +77,9 @@ public class Competence implements Serializable{
             ensembleRessource += ressourceAAfficher.toString();
         }
         if (note == null){
-            return identifiant +" note non renseignée " + ensembleRessource;
+            return libelle +" note non renseignée " + ensembleRessource;
         }
-        return identifiant +" "+ noteArrondi + ensembleRessource;
+        return libelle +" "+ noteArrondi + ensembleRessource;
     }
 
     /**
@@ -109,9 +111,6 @@ public class Competence implements Serializable{
         return true;
     }
     
-    public String getIdentifiant(){
-        return identifiant;
-    }
     public ArrayList<Ressource> getRessources(){
         return  ressources;
     }

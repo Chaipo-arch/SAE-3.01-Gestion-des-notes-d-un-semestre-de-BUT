@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 package GestionNoteApplication.src.main.java.package1;
 
 import GestionNoteApplication.src.main.java.package1.Evaluation;
@@ -18,7 +16,7 @@ import java.text.DecimalFormat;
  * @author ahmed.bribach
  */
 public class Ressource implements Serializable{
-    public String type;
+     public String type;
     public String libelle;
     private double coefficient;
     public String identifiant;
@@ -33,20 +31,18 @@ public class Ressource implements Serializable{
      * @param identifiant
      * @throws NoteException 
      */
-
-    public Ressource(String intitule, double coefficient , String id,String identifiant)throws NoteException{
-
-        if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
-            throw new IllegalArgumentException();
-        }
+    /*public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
+       // if(coefficient<=0 || intitule.isEmpty() || identifiant.isEmpty()){
+       //     throw new IllegalArgumentException(coefficient + intitule + identifiant);
+       // }
         this.note = new Note(-1);
-        this.intitule = intitule;
+        this.libelle = intitule;
+        this.type = type;
         this.identifiant = identifiant;
         this.coefficient = coefficient;
         evaluations = new ArrayList<>();
         
         
-=======
     }*/
     
     public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
@@ -77,13 +73,19 @@ public class Ressource implements Serializable{
         }
         else{
             for(int index = 0 ; index < evaluations.size(); index++){
-                calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
-                totalCoef += evaluations.get(index).getCoefficient();
+                if(evaluations.get(index).getNote()*evaluations.get(index).getCoefficient()>-1){
+                    calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
+                    totalCoef += evaluations.get(index).getCoefficient();
+                }
+               
             }
-        
-            DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-            String noteArrondi = df.format(calculMoyenne/totalCoef);
-            note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
+            if(totalCoef == 0.0) {
+                return new Note(0.0);
+            }
+            note.setNote((double)Math.round(calculMoyenne/totalCoef));
+           // DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
+            //String noteArrondi = df.format(calculMoyenne/totalCoef);
+            //note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
 
             return note ; // calcul la moyenne d'une ressource
         }
@@ -149,9 +151,6 @@ public class Ressource implements Serializable{
      */
     public double getCoefficient(){
         return coefficient;
-    }
-    public String getIdentifiant(){
-        return identifiant;
     }
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;

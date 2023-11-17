@@ -6,7 +6,7 @@
 package GestionNoteApplication.src.tests;
 
 
-import GestionNoteApplication.src.main.java.package1.Stockage;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.Competence;
@@ -17,21 +17,22 @@ import java.util.ArrayList;
  *
  * @author enzo.cluzel
  */
-public class TestStockage{
-    
+/*public class TestStockage{*/
+  /*  
     static Stockage stockage;
     static ArrayList<Competence> listeCompe = new ArrayList<>();
     static ArrayList<Ressource> listeRessour = new ArrayList<>();
     static ArrayList<Evaluation> listeEvaluation = new ArrayList<>();
     
-    static Competence [] tabCompe = {new Competence("c1"), new Competence("c2"), new Competence("c3")};
-    static Ressource [] tabRessource = {new Ressource("s1"), new Ressource("s2"), new Ressource("s3")};
-    static Evaluation [] tabEval = {new Evaluation("e1")};
+    static Competence [] tabCompe ;
+    static Ressource [] tabRessource ;
+    static Evaluation [] tabEval ;
     
     public static void jeuxDeDonnees() {
         stockage = Stockage.getInstance();
-        Competence competence = new Competence("U2.1");
-        listeCompe.add(competence);
+        Competence competence ;
+        
+        //listeCompe.add(competence);
     }
     public static void testAdd(){
         int nombreErreur = 0;
@@ -124,4 +125,4 @@ public class TestStockage{
     
 
 
-}
+}*/

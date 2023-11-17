@@ -1,32 +1,23 @@
-
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package GestionNoteApplication.src.main.java.parametrage;
 
 
 import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
 
 import GestionNoteApplication.src.main.java.modele.Stockage;
-
-
 import GestionNoteApplication.src.main.java.package1.Competence;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -57,7 +48,7 @@ public class ParametrageNationalPrototype extends Parametrage {
     }
 
     @Override
-    public void parse() {
+    public void parse() throws IOException, MauvaisFormatFichierException, NoteException {
         FileReader fr = null;
         // prerequis
         try {
@@ -66,9 +57,6 @@ public class ParametrageNationalPrototype extends Parametrage {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        try{
-            
-        
         // bufferedReader plus pratique
         BufferedReader br = new BufferedReader(fr);
         // lecture ligne par ligne
@@ -105,7 +93,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 //System.out.println("passage2");
                 ArrayList<Competence> comps = new ArrayList();
 
-                Competence comp = new Competence(chaine[1],chaine[2]);
+                Competence comp = new Competence(chaine[1]);
                 saveIdentifiantC = chaine[1];
                 comps.add(comp);
                 Stockage.getInstance().addCompetences(comps);
@@ -135,10 +123,11 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[1]);
                 }
                 if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[3]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal écrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
-                ress.add(new Ressource(chaine[2], Double.parseDouble(chaine[3]), chaine[1], chaine[0]));
+                
+                ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }
             if (calculCoeff == 100) {
                
@@ -147,8 +136,8 @@ public class ParametrageNationalPrototype extends Parametrage {
                 ress = Stockage.getInstance().addRessources(ress);
                 
                 if (compe instanceof Competence) {
-                    for(int i=0 ; i < ress.size() ; i++){
-                        ((Competence) compe).ajouterRessource(ress.get(i));
+                    for(Ressource r : ress) {
+                        ((Competence) compe).ajouterRessource(r);
                     }
                     
 
@@ -160,9 +149,6 @@ public class ParametrageNationalPrototype extends Parametrage {
         }
         br.close();
         fr.close();
-        }catch(Exception e){
-            
-        }
     }
     
     /**
@@ -196,54 +182,4 @@ public class ParametrageNationalPrototype extends Parametrage {
         return false;
     }
 
-    
-    
-    public void envoyer() throws Exception {
-        InetAddress serveur = InetAddress.getByName("10.2.6.20"); // Remplacez par votre adresse IP ou nom d'hôte
-        Socket cli = new Socket(serveur, 9632);
-        byte[] byteArray = new byte[(int) file.length()];
-        
-        
-        FileInputStream fis = new FileInputStream(file);
-        BufferedInputStream bis = new BufferedInputStream(fis);
-        bis.read(byteArray, 0, byteArray.length);
-        
-        OutputStream os = cli.getOutputStream();
-        System.out.println("Envoi du fichier " + file);
-        os.write(byteArray, 0, byteArray.length);
-        os.flush();
-    }
-    
-    public static void recevoir() throws Exception {
-        ServerSocket serv = new ServerSocket(9632);
-        Socket clientSocket = serv.accept();
-       
-        
-        InputStream is = clientSocket.getInputStream();
-        FileOutputStream fos = new FileOutputStream("D:/tpDevWeb/monFichier.csv");
-        BufferedOutputStream bos = new BufferedOutputStream(fos);
-
-        byte[] byteArray = new byte[1024];
-        int bytesRead;
-        
-        while ((bytesRead = is.read(byteArray, 0, byteArray.length)) != -1) {
-            bos.write(byteArray, 0, bytesRead);
-        }
-        
-        bos.close();
-        fos.close();
-        is.close();
-        clientSocket.close();
-        serv.close();
-        // Vous pouvez maintenant utiliser clientSocket pour recevoir des données du client.
-    }
-
-
-    
-    public static void main(String[] args) throws Exception{
-        ParametrageNationalPrototype para = new ParametrageNationalPrototype(new File("D:/tpDevWeb/Paramétrage semestre2.csv"));
-        
-        //para.recevoir();
-        para.envoyer();
-    }
 }

@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GestionNoteApplication.src.main.java.modele;
-
 
 import GestionNoteApplication.src.main.java.package1.Competence;
 import GestionNoteApplication.src.main.java.package1.Ressource;
@@ -20,7 +18,7 @@ import java.io.Serializable;
  * @author enzo.cluzel
  */
 public class Stockage implements Serializable {
-    public ArrayList<Competence> competences ;
+   public ArrayList<Competence> competences ;
    /** TODO comment field role (attribute, association) */
     public ArrayList<Ressource> ressources;
     public  ArrayList<Evaluation> evaluations;
@@ -52,7 +50,7 @@ public class Stockage implements Serializable {
         ArrayList<Competence> aSupprimer = new ArrayList<>() ;
         for(Competence competence : aAjouter) {
             for(Competence c: competences) {
-                if (competence.getIdentifiant().equals(c.getIdentifiant())) {
+                if (competence.identifiant.equals(c.identifiant)) {
                     aSupprimer.add(competence);
                 } 
             }
@@ -79,10 +77,12 @@ public class Stockage implements Serializable {
         //for(Competence comps: competences) {
             for (Ressource ressou: ressources) {
                 for(Ressource r: aAjouter){
-                if(r.getIdentifiant().equals(ressou.getIdentifiant())) {
-                    save.add(ressou);
-                    aSupprimer.add(r);
-                }
+                    System.out.println(r.identifiant);
+                    System.out.println(ressou.identifiant);
+                    if(r.identifiant.equals(ressou.identifiant)) {
+                        save.add(ressou);
+                        aSupprimer.add(r);
+                    }
                  
                 }
             }
@@ -90,7 +90,7 @@ public class Stockage implements Serializable {
         aAjouter.removeAll(aSupprimer);
         
         ressources.addAll(aAjouter);
-        aAjouter.addAll(save);
+       aAjouter.addAll(save);
         return aAjouter;
     }
     
@@ -138,13 +138,13 @@ public class Stockage implements Serializable {
         } 
         if(c == 'U') {
             for (Competence competence : competences) {
-                if (competence.getIdentifiant().equals(identifiant)) {
+                if (competence.identifiant.equals(identifiant)) {
                     cherche = competence;
                 }
             }
         } else {
             for (Ressource ressource :ressources) {
-                if (ressource.getIdentifiant().equals(identifiant)) {
+                if (ressource.identifiant.equals(identifiant)) {
                     cherche = ressource;
                 }
             }
@@ -154,5 +154,8 @@ public class Stockage implements Serializable {
         
     }
             
-    
+    public String ToString(){
+        
+        return competences.toString() + ressources.toString() + evaluations.toString();
+    }
 }

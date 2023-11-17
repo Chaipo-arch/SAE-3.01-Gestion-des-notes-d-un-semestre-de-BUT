@@ -26,7 +26,7 @@ public class CommuniquerController {
 
     @FXML
     void ValiderAction(ActionEvent event) {
-        System.out.println(choix.getSelectedToggle());
+       // System.out.println(choix.getSelectedToggle());
        // if (choix.)
     }
 
