@@ -3,20 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package communication;
+package GestionNoteApplication.src.main.java.modele;
 
-/**
- *
- * @author enzo
- */
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.Ressource;
+import GestionNoteApplication.src.main.java.package1.Evaluation;
 import java.util.ArrayList;
 import java.io.Serializable;
 /**
@@ -27,17 +18,17 @@ import java.io.Serializable;
  * @author enzo.cluzel
  */
 public class Stockage implements Serializable {
-    ArrayList<Competence> competences ;
+    public ArrayList<Competence> competences ;
    /** TODO comment field role (attribute, association) */
-public ArrayList<Ressource> ressources;
-    ArrayList<Evaluation> evaluations;
+    public ArrayList<Ressource> ressources;
+    public  ArrayList<Evaluation> evaluations;
     private static Stockage instance = new Stockage();
     
     private Stockage() {
         competences = new ArrayList<>();
         ressources = new ArrayList<>();
         evaluations = new ArrayList<>();
-        competences.add(new Competence("r"));
+        competences.add(new Competence("a"));
     }
     
     /**
@@ -80,17 +71,21 @@ public ArrayList<Ressource> ressources;
         if(ressources.containsAll(aAjouter)) {
             return null;
         }
+        
        
         ArrayList<Ressource> save = new ArrayList<>() ;
         ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
         //for(Competence comps: competences) {
             for (Ressource ressou: ressources) {
-                for(Ressource r: aAjouter)
-                if(r.identifiant.equals(ressou.identifiant)) {
-                    save.add(ressou);
-                    aSupprimer.add(r);
-                }
+                for(Ressource r: aAjouter){
+                    System.out.println(r.identifiant);
+                    System.out.println(ressou.identifiant);
+                    if(r.identifiant.equals(ressou.identifiant)) {
+                        save.add(ressou);
+                        aSupprimer.add(r);
+                    }
                  
+                }
             }
         //}
         aAjouter.removeAll(aSupprimer);
@@ -162,4 +157,3 @@ public ArrayList<Ressource> ressources;
             
     
 }
-

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contenuPage" maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="910.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ParametreController">
+   <children>
+      <Button layoutX="39.0" layoutY="190.0" mnemonicParsing="false" onAction="#importerActionButton" prefHeight="121.0" prefWidth="285.0" styleClass="Boutton" text="Importer" />
+      <Button layoutX="362.0" layoutY="190.0" mnemonicParsing="false" onAction="#communiquerActionButton" prefHeight="121.0" prefWidth="314.0" styleClass="Boutton" text="Communiquer" />
+      <Button layoutX="722.0" layoutY="190.0" mnemonicParsing="false" onAction="#reinitialiserActionButton" prefHeight="121.0" prefWidth="164.0" styleClass="Boutton" text="Réinitialiser" />
+      <Button layoutX="353.0" layoutY="391.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="204.0" styleClass="BouttonQuitter" text="Notices" />
+      <Label layoutX="298.0" layoutY="67.0" prefHeight="64.0" prefWidth="314.0" styleClass="WhoIam" text="Vous etes dans les parametres" />
+   </children>
+</AnchorPane>

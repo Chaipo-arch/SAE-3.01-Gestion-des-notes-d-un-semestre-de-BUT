@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImportationDistanceController">
+   <children>
+      <Button defaultButton="true" layoutX="370.0" layoutY="183.0" mnemonicParsing="false" onAction="#importationDistanceButton" prefHeight="25.0" prefWidth="176.0" text="Attendre une importation" />
+      <Label fx:id="connexion" layoutX="234.0" layoutY="244.0" text="Connexion en attente..." visible="false">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Button fx:id="annulerButton" cancelButton="true" layoutX="202.0" layoutY="380.0" mnemonicParsing="false" onAction="#annulerAttenteAction" text="Annuler l'attente" visible="false" />
+      <Label layoutX="297.0" layoutY="44.0" text="Importation de parametre a distance">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="adresseIP" layoutX="647.0" layoutY="187.0" text="Votre adresse ip :" />
+   </children>
+</AnchorPane>

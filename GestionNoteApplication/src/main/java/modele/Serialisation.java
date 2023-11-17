@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package communication;
+package GestionNoteApplication.src.main.java.modele;
 
+import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 
@@ -63,31 +66,32 @@ public class Serialisation implements Serializable{
      }
      
      
-     private static String nomFichierDonnees = "stock.bin";
+     
+     
+     
+     
+     
+     
+     private static String nomFichierDonnees1 = "stock.bin";
+     //private static String nomFichierDonnees2 = "stockNational.bin";
+     //private static String nomFichierDonnees3 = "stockRessource.bin";
+     
      
      public static void serialiserStockage(){        
         
         try {
-             if(!new File(nomFichierDonnees).exists()) {
-                  new File(nomFichierDonnees).createNewFile();
+             if(!new File(nomFichierDonnees1).exists()) {
+                  new File(nomFichierDonnees1).createNewFile();
              } else {
-                 new File(nomFichierDonnees).delete();
-                 new File(nomFichierDonnees).createNewFile();
+                 new File(nomFichierDonnees1).delete();
+                 new File(nomFichierDonnees1).createNewFile();
              }
              
              
             // Création d'une instance de Stockage
             Stockage monStockage = Stockage.getInstance();
 
-            // Ajout d'une compétence
-            //Competence nouvelleCompetence = new Competence(/* ... */); // Créez une nouvelle compétence
-            //monStockage.ajouterCompetence(nouvelleCompetence);
 
-            // Suppression d'une compétence
-            //Competence competenceASupprimer = /* ... */; // Obtenez la compétence à supprimer
-            //monStockage.supprimerCompetence(competenceASupprimer);
-
-            // Appel de la méthode pour sérialiser l'objet Stockage
             Serialisation.serialiserObjet(monStockage);
             
             
@@ -99,6 +103,8 @@ public class Serialisation implements Serializable{
          
      }
      
+
+     
      
      
     public static void main(String[] args) {
@@ -107,6 +113,7 @@ public class Serialisation implements Serializable{
 
             // Appel de la méthode pour sérialiser l'objet
         Serialisation.serialiserStockage();
+        //serialiserNationnal();
     }
 }
    

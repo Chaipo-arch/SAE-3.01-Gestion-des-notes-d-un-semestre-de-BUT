@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package communication;
+package GestionNoteApplication.src.main.java.modele;
 
 /**
  *
@@ -18,6 +18,7 @@ package communication;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import GestionNoteApplication.src.main.java.modele.Ressource;
 
 /** TODO comment class responsibility (SRP)
  * @author Cluzel

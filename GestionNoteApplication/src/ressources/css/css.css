@@ -1,0 +1,98 @@
+
+
+
+
+.BouttonMenu {
+
+    -fx-background-color: #737373;
+
+    /* -fx-border-radius: 200px; */
+
+    -fx-background-radius: 50px;/* Angles arrondis */
+
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+
+.BouttonQuitter {
+
+    -fx-background-color: #F28444;
+
+    /* -fx-border-radius: 200px; */
+
+    -fx-background-radius: 50px;/* Angles arrondis */
+
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.Boutton{
+
+    -fx-background-color: #7681EA;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
+}
+
+
+.WhoIam {
+    -fx-background-color: #737373;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+
+}
+
+.barreTitre{
+    -fx-background-color: #F28444;
+}
+
+
+.barreLatterale{
+    -fx-background-color: #262626;
+}
+
+
+.userPane{
+    -fx-background-color: #737373;
+    -fx-background-radius: 70px;
+}
+
+
+.titreApli{
+    -fx-text-fill: black;
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-transform: uppercase; /* Texte en majuscules */
+}
+
+
+.textBlanc{
+    -fx-text-fill: white;
+    
+}
+
+
+/* styles.css */
+.textTaille10 {
+    -fx-font-size: 10px; /* Remplacez 16px par la taille souhaitée en pixels */
+}
+
+
+.textTaille20 {
+    -fx-font-size: 20px; /* Remplacez 16px par la taille souhaitée en pixels */
+}
+
+
+
+.textTaille30 {
+    -fx-font-size: 30px; /* Remplacez 16px par la taille souhaitée en pixels */
+}
+
+
+.StyleBox{
+    -fx-background-color: #b8b8b8;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+
+}
