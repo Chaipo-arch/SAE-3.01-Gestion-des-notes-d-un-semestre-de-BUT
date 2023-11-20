@@ -8,8 +8,11 @@ package GestionNoteApplication.src.main.java.modele;
 import GestionNoteApplication.src.main.java.package1.Competence;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Stockage < singleton > permettant de stocker les competences, ressources, 
  * evaluations lors de l'importation de paramétrage ou de l'initialisation des 
@@ -28,7 +31,11 @@ public class Stockage implements Serializable {
         competences = new ArrayList<>();
         ressources = new ArrayList<>();
         evaluations = new ArrayList<>();
-        competences.add(new Competence("a"));
+        /*try {
+            competences.add(new Competence("a","a"));
+        } catch (NoteException ex) {
+            Logger.getLogger(Stockage.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
     
     /**
@@ -67,16 +74,15 @@ public class Stockage implements Serializable {
      * @param aAjouter , les instances à ajouter dans la liste
      * @return l'array list aAjouter mais avec les ressources qui sont déjà dans le Stockage
      */
-    public ArrayList<Ressource> addRessources(ArrayList<Ressource> aAjouter) {
+    public ArrayList<Ressource> addRessources(ArrayList<Ressource> aAjouter, Competence c) {
         if(ressources.containsAll(aAjouter)) {
             return null;
         }
-        
-       
+
         ArrayList<Ressource> save = new ArrayList<>() ;
         ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
-        //for(Competence comps: competences) {
-            for (Ressource ressou: ressources) {
+        
+            for (Ressource ressou: c.getRessources()) {
                 for(Ressource r: aAjouter){
                     System.out.println(r.identifiant);
                     System.out.println(ressou.identifiant);
@@ -87,7 +93,7 @@ public class Stockage implements Serializable {
                  
                 }
             }
-        //}
+        
         aAjouter.removeAll(aSupprimer);
         
         ressources.addAll(aAjouter);

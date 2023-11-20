@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,9 +21,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +31,7 @@ public class ParametrageNationalPrototype extends Parametrage {
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"BUT Informatique - Modalit� Contr�le de connaissances (programme national)", "Semestre", "Parcours", "Type �valuation;Identifiant;Libell�;Poids"};
+    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances (programme national)", "Semestre", "Parcours", "Type evaluation;Identifiant;Libelle;Poids"};
 
     private static int numeroLigne;
 
@@ -68,21 +64,21 @@ public class ParametrageNationalPrototype extends Parametrage {
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
             String[] chaine = line.split(";");
             if (!chaine[0].equals(MODELE[numeroLigne])) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " );
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit " );
             }
             //System.out.println(chaine.length);
             if(chaine.length != 2 && numeroLigne == 1) {
                
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" );
                 
             } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
             }
             if (numeroLigne == 2 && chaine.length != 2) {
                 
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes");
             } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal ecrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
             }
 
         }
@@ -92,63 +88,58 @@ public class ParametrageNationalPrototype extends Parametrage {
             calculCoeff = 0;
             String[] chaine = line.split(";");
 
-            if (chaine[0].equals("Comp�tence") && chaine.length == 3 && chaine[1].matches("U[1-6]\\.[1-9]")) {
+            if (chaine[0].equals("Competence") && chaine.length == 3 && chaine[1].matches("U[1-6]\\.[1-9]")) {
                 //System.out.println("passage2");
                 ArrayList<Competence> comps = new ArrayList();
 
-                Competence comp = new Competence(chaine[1]);
+                Competence comp = new Competence(chaine[1],chaine[2]);
                 saveIdentifiantC = chaine[1];
                 comps.add(comp);
                 Stockage.getInstance().addCompetences(comps);
-
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit" + line);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit" + line);
             }
             line = newLine(br);
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit");
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
             ArrayList<Ressource> ress = new ArrayList();
             for (line = newLine(br); line != null
-                    && !line.split(";")[0].equals("Comp�tence"); line = newLine(br)) {
+                    && !line.split(";")[0].equals("Competence"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 4) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 4 colonne");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 4 colonne");
                 }
                 if (!chaine[0].matches("Ressource|Portfolio|SAE")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[0]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: " + chaine[0]);
                 }
                 if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[1]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1]);
                 }
                 if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal écrit: " + chaine[3]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
-                
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }
             if (calculCoeff == 100) {
                
                 Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
                 
-                ress = Stockage.getInstance().addRessources(ress);
+                ress = Stockage.getInstance().addRessources(ress,(Competence)compe);
                 
                 if (compe instanceof Competence) {
                     for(Ressource r : ress) {
                         ((Competence) compe).ajouterRessource(r);
                     }
-                    
-
                 }
             } else {
-                throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantC + " a une somme des coefficients pas égale à 100: " + calculCoeff);
+                throw new MauvaisFormatFichierException("La competence " + saveIdentifiantC + " a une somme des coefficients pas egale à 100: " + calculCoeff);
             }
-
         }
         br.close();
         fr.close();
@@ -159,6 +150,12 @@ public class ParametrageNationalPrototype extends Parametrage {
      */
     public static boolean flag = true;
 
+    /**
+     * 
+     * @param br
+     * @return
+     * @throws IOException 
+     */
     public String newLine(BufferedReader br) throws IOException {
         String line = null;
         do {
@@ -185,37 +182,31 @@ public class ParametrageNationalPrototype extends Parametrage {
         return false;
     }
     
-    
     /**
-     *
+     * 
      */
-     public void createCsv() {
+     public static void createCsv() {
         File file = new File("NationalExporte.csv");
         String csv = "NationalExporte.csv";
         try {
             file.createNewFile();
         } catch (IOException ex) {
-           
+            
         }
         //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
-            ecritureLigne.write("BUT Informatique - Modalité Contrôle de connaissances (programme national)\n");
+            ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances (programme national)\n");
             ecritureLigne.write("Semestre;2\nParcours;Tous\n");
             for(Competence c : Stockage.getInstance().competences) {
-                ecritureLigne.write("Compétence;"+ c.identifiant+";"+c.libelle+ "\n");
-                ecritureLigne.write("Type �valuation;Identifiant;Libell�;Poids\n");
-
-
+                ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
+                ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");
                 for(Ressource r: c.getRessources()) {
-                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ ";" + r.coefficient+"\n");
+                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ ";" +(int) r.coefficient+"\n");
                 }
             }
         } catch (IOException ex) {
-           
+            
         }
     }
-
-
-
 
 }

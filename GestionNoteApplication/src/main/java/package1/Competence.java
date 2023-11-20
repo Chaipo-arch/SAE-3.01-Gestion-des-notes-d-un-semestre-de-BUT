@@ -24,9 +24,10 @@ public class Competence implements Serializable{
      * constructeur de l'objet competence
      * @param libelle
      */
-    public Competence(String id) {
+    public Competence(String id, String libelle) throws NoteException {
         this.identifiant = id;
-        this.note = null;
+        this.note = new Note(-1);
+        this.libelle = libelle;
         ressources = new ArrayList<>();
     }
 

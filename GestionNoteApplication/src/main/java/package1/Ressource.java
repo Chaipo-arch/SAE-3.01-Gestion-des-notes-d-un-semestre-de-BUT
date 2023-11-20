@@ -54,8 +54,7 @@ public class Ressource implements Serializable{
         this.identifiant = id;
         this.libelle = intitule;
         this.type = type;
-        this.identifiant = identifiant;
-        this.coefficient = coefficient;
+        this.coefficient = coeff;
         evaluations = new ArrayList<>();
         
         

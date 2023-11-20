@@ -1,6 +1,7 @@
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.modele.Client;
+import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,8 +46,11 @@ public class CommuniquerController {
         //int port = Integer.parseInt(portText.getText()); // Convertir le port en entier
         //portID.setText("1234");
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
-        String filePath = "/Z//IHM//src//GestionNoteApplication//src//ressources//csv//Paramétrage semestre2.xlsx/"; // Chemin du fichier sérialisé
+        //String filePath = "/Z//IHM//src//GestionNoteApplication//src//ressources//csv//Paramétrage semestre2.xlsx/"; // Chemin du fichier sérialisé
+        
+        String filePath = "NationalExporte.csv";
         try {
+            ParametrageNationalPrototype.createCsv();
             System.out.println(portID.getText());
             int port = Integer.parseInt(portID.getText());
             System.out.println(port);
