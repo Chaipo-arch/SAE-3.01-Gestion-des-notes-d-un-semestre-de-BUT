@@ -38,7 +38,7 @@ public class Client {
     }
     
     public static void main(String[] args) {
-        String serverIP = "127.0.0.1"; // Adresse IP du serveur
+        String serverIP = "10.2.14.25"; // Adresse IP du serveur
         //String filePath = "Z:\\communication\\src\\Ressource\\test.csv"; // Chemin du fichier CSV à envoyer
         String filePath = "Z:\\IHM\\src\\GestionNoteApplication\\src\\ressources\\csv\\Paramétrage semestre2.xlsx"; // Chemin du fichier CSV à envoyer
         int port = 8881; // Port du serveur

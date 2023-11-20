@@ -15,9 +15,11 @@ import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -182,5 +184,38 @@ public class ParametrageNationalPrototype extends Parametrage {
     public boolean isCorrect() {
         return false;
     }
+    
+    
+    /**
+     *
+     */
+     public void createCsv() {
+        File file = new File("NationalExporte.csv");
+        String csv = "NationalExporte.csv";
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+           
+        }
+        //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
+        try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
+            ecritureLigne.write("BUT Informatique - Modalité Contrôle de connaissances (programme national)\n");
+            ecritureLigne.write("Semestre;2\nParcours;Tous\n");
+            for(Competence c : Stockage.getInstance().competences) {
+                ecritureLigne.write("Compétence;"+ c.identifiant+";"+c.libelle+ "\n");
+                ecritureLigne.write("Type �valuation;Identifiant;Libell�;Poids\n");
+
+
+                for(Ressource r: c.getRessources()) {
+                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ ";" + r.coefficient+"\n");
+                }
+            }
+        } catch (IOException ex) {
+           
+        }
+    }
+
+
+
 
 }

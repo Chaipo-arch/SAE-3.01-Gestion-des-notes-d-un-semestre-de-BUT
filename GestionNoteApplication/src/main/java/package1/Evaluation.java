@@ -135,4 +135,12 @@ public class Evaluation implements Serializable{
     public static boolean isCoefficient(double coefficientATester){
         return coefficientATester <= 100 && coefficientATester > 0;
     }
+
+    public String getType() {
+       return this.type;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
 }

@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 public class Ressource implements Serializable{
      public String type;
     public String libelle;
-    private double coefficient;
+    public double coefficient;
     public String identifiant;
     private Note note;
     public ArrayList<Evaluation> evaluations;

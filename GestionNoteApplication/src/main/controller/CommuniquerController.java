@@ -45,14 +45,14 @@ public class CommuniquerController {
         //int port = Integer.parseInt(portText.getText()); // Convertir le port en entier
         //portID.setText("1234");
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
-        String filePath = "stock.bin"; // Chemin du fichier sérialisé
+        String filePath = "/Z//IHM//src//GestionNoteApplication//src//ressources//csv//Paramétrage semestre2.xlsx/"; // Chemin du fichier sérialisé
         try {
             System.out.println(portID.getText());
             int port = Integer.parseInt(portID.getText());
             System.out.println(port);
             System.out.println("salut debug1");
             System.out.println(serverIP);
-            client.sendSerializedFileToServer(serverIP, filePath, port);
+            client.sendCSVFileToServer(serverIP, filePath, port);
         } catch (NumberFormatException e) {
             System.out.println("Le port doit être un nombre valide.");
             //e.printStackTrace();

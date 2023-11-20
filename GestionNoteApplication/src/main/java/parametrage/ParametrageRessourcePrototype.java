@@ -11,9 +11,11 @@ import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -169,6 +171,37 @@ public class ParametrageRessourcePrototype extends Parametrage {
     @Override
     public boolean isCorrect() {
         return false;
+    }
+
+      /**
+     * 
+     */
+     public void createCsv() {
+        File file = new File("RessourceExporte.csv");
+        String csv = "RessourceExporte.csv";
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+           
+        }
+        try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
+            ecritureLigne.write("BUT Informatique - Modalité Contrôle de connaissances ressources semestre\n");
+            ecritureLigne.write("Semestre;2\nParcours;Tous\n");
+            for(Ressource r: Stockage.getInstance().ressources) {
+                if(r.getEvaluation().size() != 0) {
+                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ "\n");
+                    ecritureLigne.write("Type �valuation;Date;Poids\n");
+
+
+                }
+                for(Evaluation e: r.getEvaluation()) {
+                    ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ e.getCoefficient()+ "\n");  
+                }
+            }
+           
+        } catch (IOException ex) {
+           
+        }
     }
 
 }
