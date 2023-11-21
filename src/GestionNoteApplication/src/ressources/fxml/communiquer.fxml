@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,36 +9,41 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../../../../../../IHMV2/src/ressources/css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.CommuniquerController">
    <children>
-      <Button layoutX="321.0" layoutY="440.0" mnemonicParsing="false" onAction="#CommuniquerAction" prefHeight="65.0" prefWidth="317.0" text="valider">
+      <Button layoutX="321.0" layoutY="440.0" mnemonicParsing="false" onAction="#CommuniquerAction" prefHeight="65.0" prefWidth="317.0" stylesheets="@../css/css.css" text="valider">
          <styleClass>
             <String fx:value="BouttonQuitter" />
             <String fx:value="textTaille30" />
          </styleClass>
       </Button>
-      <AnchorPane layoutX="132.0" layoutY="124.0" prefHeight="75.0" prefWidth="698.0" styleClass="textTaille20">
+      <AnchorPane layoutX="132.0" layoutY="124.0" prefHeight="75.0" prefWidth="698.0" styleClass="textTaille20" stylesheets="@../css/css.css">
          <children>
             <CheckBox fx:id="checkTout" layoutX="26.0" layoutY="23.0" mnemonicParsing="false" text="Tout" />
             <CheckBox fx:id="checkNational" layoutX="156.0" layoutY="23.0" mnemonicParsing="false" text="Parametrage Nationnal" />
             <CheckBox fx:id="checkRessource" layoutX="433.0" layoutY="23.0" mnemonicParsing="false" text="Parametrage Ressource" />
          </children>
       </AnchorPane>
-      <Label layoutX="265.0" layoutY="46.0" prefHeight="64.0" prefWidth="430.0" text="Vous etes dans l'exportation de vos Parametres">
+      <Label layoutX="265.0" layoutY="46.0" prefHeight="64.0" prefWidth="430.0" stylesheets="@../css/css.css" text="Vous etes dans l'exportation de vos Parametres">
          <styleClass>
             <String fx:value="WhoIam" />
             <String fx:value="textTaille20" />
          </styleClass>
       </Label>
-      <AnchorPane layoutX="158.0" layoutY="227.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox">
+      <AnchorPane layoutX="158.0" layoutY="227.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox" stylesheets="@../css/css.css">
          <children>
-            <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" text="Adresse Ip : " />
+            <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" stylesheets="@../css/css.css" text="Adresse Ip : " />
             <TextField fx:id="adresseIPText" layoutX="314.0" layoutY="14.0" prefHeight="48.0" prefWidth="267.0" promptText="            ex : 192.1.1.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="158.0" layoutY="325.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox">
+      <AnchorPane layoutX="158.0" layoutY="325.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox" stylesheets="@../css/css.css">
          <children>
-            <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" text="Port : " />
-            <TextField fx:id="portID" layoutX="314.0" layoutY="14.0" prefHeight="48.0" prefWidth="267.0" promptText="            ex : 192.1.1.0" />
+            <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" stylesheets="@../css/css.css" text="Port : " />
+            <TextField fx:id="portID" layoutX="314.0" layoutY="14.0" prefHeight="48.0" prefWidth="267.0" promptText="            ex : 192.1.1.0" stylesheets="@../css/css.css" />
          </children>
       </AnchorPane>
+      <Label fx:id="notifEnvoi" layoutX="132.0" layoutY="199.0" prefHeight="21.0" prefWidth="705.0" text="erreur" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

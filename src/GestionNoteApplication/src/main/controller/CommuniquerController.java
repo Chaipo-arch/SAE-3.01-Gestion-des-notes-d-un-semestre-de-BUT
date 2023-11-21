@@ -53,7 +53,7 @@ public class CommuniquerController {
     @FXML
     private CheckBox checkRessource;
     
-     @FXML
+    @FXML
     private Label notifEnvoi;
      
     @FXML
