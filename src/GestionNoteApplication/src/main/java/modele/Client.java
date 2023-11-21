@@ -11,10 +11,12 @@ public class Client {
         
     }
     private Socket socket ;
+    private OutputStream out;
     
     public void connection(String serverIP, int port) {
         try {
             this.socket = new Socket(serverIP, port);
+            this.socket.setKeepAlive(true);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -29,11 +31,10 @@ public class Client {
                 System.out.println("Le fichier spécifié n'existe pas.");
                 return;
             }
-            
-            
 
             // Flux de sortie pour envoyer le fichier CSV au serveur
-            OutputStream out = socket.getOutputStream();
+            out = socket.getOutputStream();
+            
             FileInputStream fileInputStream = new FileInputStream(file);
 
             byte[] buffer = new byte[1024];
@@ -42,7 +43,7 @@ public class Client {
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-            out.flush();
+            socket.shutdownOutput();
 
             System.out.println("Fichier CSV envoyé au serveur.");
             
@@ -54,8 +55,8 @@ public class Client {
             serverResponse = new String(responseBuffer, 0, bytesRead2);
             responseIn.close();
             System.out.println(serverResponse);*/
-            out.close();
-           System.out.println("serveur close : " + socket.isClosed());
+           // out.close();
+            System.out.println("serveur close : " + socket.isClosed());
             System.out.println("Fermeture de l'envoi du fichier");
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public class Client {
             e.printStackTrace();
         }
         
-        try ( InputStream is = socket.getInputStream()){
+       /* try ( InputStream is = socket.getInputStream()){
             InputStreamReader ir = new InputStreamReader(is); // transformation stream octet
             // en stream de caract
             BufferedReader rd = new BufferedReader(ir);
@@ -80,8 +81,16 @@ public class Client {
             System.out.println(messageSrv);
             ir.close();
             rd.close();
-        }
-        
+            
+        }*/
+        String serverReponse ="";
+        InputStream responseIn = socket.getInputStream();
+        byte[] responseBuffer = new byte[1024]; // Taille du buffer pour la réponse
+        int bytesRead2;
+        bytesRead2 = responseIn.read(responseBuffer);
+        serverReponse = new String(responseBuffer, 0, bytesRead2);
+        responseIn.close();
+        System.out.println(serverReponse);
         
        
         socket.close();
