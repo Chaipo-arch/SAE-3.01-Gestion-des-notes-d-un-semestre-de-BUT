@@ -29,7 +29,7 @@ public class Server {
             InputStream in = clientSocket.getInputStream();
             
             // Chemin de stockage du fichier CSV reçu
-            String filePath = "NationalExporte.csv";
+            String filePath = "RessourceExporte.csv";
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
 
             byte[] buffer = new byte[1024];

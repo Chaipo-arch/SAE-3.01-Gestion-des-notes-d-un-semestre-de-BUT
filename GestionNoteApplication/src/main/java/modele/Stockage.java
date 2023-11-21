@@ -25,12 +25,14 @@ public class Stockage implements Serializable {
    /** TODO comment field role (attribute, association) */
     public ArrayList<Ressource> ressources;
     public  ArrayList<Evaluation> evaluations;
+    private String userName ;
     private static Stockage instance = new Stockage();
     
     private Stockage() {
         competences = new ArrayList<>();
         ressources = new ArrayList<>();
         evaluations = new ArrayList<>();
+        userName = "user";
         /*try {
             competences.add(new Competence("a","a"));
         } catch (NoteException ex) {
@@ -161,5 +163,12 @@ public class Stockage implements Serializable {
         
     }
             
+    public String getUserName() {
+        return userName;
+    }
+    
+    public void setUserName(String name) {
+        this.userName = name;
+    }
     
 }

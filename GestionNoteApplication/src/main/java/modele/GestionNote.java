@@ -70,8 +70,9 @@ public class GestionNote {
             System.out.println(stockageDonnees.ressources);
             Stockage.getInstance().addCompetences(stockageDonnees.competences);
             for(GestionNoteApplication.src.main.java.package1.Competence c: Stockage.getInstance().competences) {
-                Stockage.getInstance().addRessources(stockageDonnees.ressources,c);
+                Stockage.getInstance().addRessources(c.getRessources(),c);
             }
+            Stockage.getInstance().setUserName(stockageDonnees.getUserName());
                
                 
             

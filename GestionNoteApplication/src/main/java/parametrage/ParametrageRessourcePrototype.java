@@ -29,7 +29,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"BUT Informatique - Modalit� Contr�le de connaissances ressources semestre", "Semestre", "Parcours", "Type �valuation;Date;Poids"};
+    protected final String[] MODELE = {"﻿BUT Informatique - Modalite Controle de connaissances ressources semestre", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
 
     private static int numeroLigne;
 
@@ -65,7 +65,8 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
             }
            if (!chaine[0].equals(MODELE[numeroLigne])) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " );
+               System.out.println(chaine[0]);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " + line + numeroLigne );
             }
             
              if(chaine.length != 2 && numeroLigne == 1) {
@@ -89,7 +90,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
             calculCoeff = 0;
             String[] chaine = line.split(";");
 
-            if ((chaine[0].equals("Comp�tence") || chaine[0].equals("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
+            if ((chaine[0].equals("Competence") || chaine[0].equals("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
                 saveIdentifiantR = chaine[1];
             } else {
                 System.out.println("erreur4");
@@ -104,7 +105,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
             // verification des prochaines lignes
             ArrayList<Evaluation> evals = new ArrayList();
             for (line = newLine(br); line != null
-                    && !line.split(";")[0].equals("Comp�tence")
+                    && !line.split(";")[0].equals("Competence")
                     && !line.split(";")[0].equals("Ressource"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 3) {
@@ -176,7 +177,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
       /**
      * 
      */
-     public void createCsv() {
+     public static void createCsv() {
         File file = new File("RessourceExporte.csv");
         String csv = "RessourceExporte.csv";
         try {
@@ -185,12 +186,12 @@ public class ParametrageRessourcePrototype extends Parametrage {
            
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
-            ecritureLigne.write("BUT Informatique - Modalité Contrôle de connaissances ressources semestre\n");
+            ecritureLigne.write("BUT Informatique - Modalité Controle de connaissances ressources semestre\n");
             ecritureLigne.write("Semestre;2\nParcours;Tous\n");
             for(Ressource r: Stockage.getInstance().ressources) {
                 if(r.getEvaluation().size() != 0) {
                     ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ "\n");
-                    ecritureLigne.write("Type �valuation;Date;Poids\n");
+                    ecritureLigne.write("Type evaluation;Date;Poids\n");
 
 
                 }

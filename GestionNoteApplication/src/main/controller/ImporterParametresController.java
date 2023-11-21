@@ -11,6 +11,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 
@@ -80,6 +81,7 @@ public class ImporterParametresController {
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     try {
                         paR.parse();
+                        System.out.println(Stockage.getInstance().evaluations);
                     } catch (EvaluationException ex) {
                         Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
                     }

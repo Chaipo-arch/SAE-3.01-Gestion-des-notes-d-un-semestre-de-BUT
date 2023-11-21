@@ -8,6 +8,7 @@ package GestionNoteApplication.src.main.controller;
 import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import GestionNoteApplication.src.main.java.modele.GestionNote;
 import GestionNoteApplication.src.main.java.modele.Server;
+import GestionNoteApplication.src.main.java.modele.Stockage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -64,10 +65,12 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
                  System.out.println(file.getAbsolutePath());
             try {
                 GestionNote.recupererDonnees();
+                userLabel.setText(Stockage.getInstance().getUserName());
             } catch (IOException ex) {
                 
             } catch (ClassNotFoundException ex) {
