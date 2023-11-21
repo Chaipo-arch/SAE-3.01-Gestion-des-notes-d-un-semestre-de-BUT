@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -52,6 +53,9 @@ public class CommuniquerController {
     @FXML
     private CheckBox checkRessource;
     
+     @FXML
+    private Label notifEnvoi;
+     
     @FXML
     private CheckBox checkTout;
 
@@ -60,53 +64,50 @@ public class CommuniquerController {
 
     @FXML
     public void CommuniquerAction() {
-        //String adresseIP = adresseIPText.getText();
-        //int port = Integer.parseInt(portText.getText()); // Convertir le port en entier
-        //portID.setText("1234");
+        notifEnvoi.setVisible(false);
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
-        //String filePath = "/Z//IHM//src//GestionNoteApplication//src//ressources//csv//Paramétrage semestre2.xlsx/"; // Chemin du fichier sérialisé
-        
-        //String filePath = "NationalExporte.csv";
-        //String filePath = "Z:\\IHM\\src\\GestionNoteApplication\\src\\ressources\\csv\\Paramétrage ressources semestre2.csv";
-        
         boolean BoucleTout = false;
         try {
             String filePath = "";
             ArrayList<String> fichiers = new ArrayList();
             if(checkNational.isSelected()) {
-                System.out.println("Envoie des Parametres national");
+                //System.out.println("Envoie des Parametres national");
                 ParametrageNationalPrototype.createCsv();
                 filePath = "NationalExporte.csv";
                 fichiers.add(filePath);
             }
             if(checkRessource.isSelected()) {
-                System.out.println("Envoie des Parametres Ressource");
+                //System.out.println("Envoie des Parametres Ressource");
                 ParametrageRessourcePrototype.createCsv();
                 filePath = "RessourceExporte.csv";
                 fichiers.add(filePath);
-            } 
-            //ParametrageNationalPrototype.createCsv();
-            
+            }             
             System.out.println(portID.getText());
             int port = Integer.parseInt(portID.getText());
             System.out.println(port);
-            System.out.println("salut debug1");
-            System.out.println(serverIP);
             Client client = new Client();
-            client.connection(serverIP, port);
-            for(int i = 0; i < fichiers.size();i++) {
-                client.sendCSVFileToServer(fichiers.get(i));
-            }
-            try {
-                client.recevoirReponse();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+            System.out.println(serverIP);
+            if(fichiers.size() != 0) { 
+                client.connection(serverIP, port);
+                for(int i = 0; i < fichiers.size();i++) {
+                    client.sendCSVFileToServer(fichiers.get(i));
+                }
+                try {
+                    notifEnvoi.setVisible(true);
+                    notifEnvoi.setText(client.recevoirReponse());
+                } catch (IOException ex) {
+                    notifEnvoi.setVisible(true);
+                    notifEnvoi.setText("Pas de reponse reçu");
+                    
+                }
             }
         } catch (NumberFormatException e) {
-            System.out.println("Le port doit être un nombre valide.");
+            notifEnvoi.setVisible(true);
+            notifEnvoi.setText("Le port doit être un nombre valide.");
+            
             //e.printStackTrace();
         }
-        System.out.println("salut controller");
+        
 
         //client.sendSerializedFileToServer(serverIP, filePath, port); // Appeler la méthode du client
     }

@@ -23,8 +23,6 @@ public class Client {
     }
     
     public void sendCSVFileToServer(String filePath) {
-        
-        
         try {
             File file = new File(filePath);
             if (!file.exists()) {
@@ -44,45 +42,20 @@ public class Client {
                 out.write(buffer, 0, bytesRead);
             }
             socket.shutdownOutput();
-
             System.out.println("Fichier CSV envoyé au serveur.");
-            
-            //TODO on utilise ça ????
-            /*InputStream responseIn = socket.getInputStream();
-            byte[] responseBuffer = new byte[1024]; // Taille du buffer pour la réponse
-            int bytesRead2;
-            bytesRead2 = responseIn.read(responseBuffer);
-            serverResponse = new String(responseBuffer, 0, bytesRead2);
-            responseIn.close();
-            System.out.println(serverResponse);*/
-           // out.close();
             System.out.println("serveur close : " + socket.isClosed());
             System.out.println("Fermeture de l'envoi du fichier");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //return serverResponse;
     }
     
-    public void recevoirReponse() throws IOException {
-        System.out.println("Réponse reçue :");
+    public String recevoirReponse() throws IOException {
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
         } catch (InterruptedException e) {
-         // Gérer une éventuelle exception si l'interruption se produit pendant la pause
             e.printStackTrace();
         }
-        
-       /* try ( InputStream is = socket.getInputStream()){
-            InputStreamReader ir = new InputStreamReader(is); // transformation stream octet
-            // en stream de caract
-            BufferedReader rd = new BufferedReader(ir);
-            String messageSrv = rd.readLine();
-            System.out.println(messageSrv);
-            ir.close();
-            rd.close();
-            
-        }*/
         String serverReponse ="";
         InputStream responseIn = socket.getInputStream();
         byte[] responseBuffer = new byte[1024]; // Taille du buffer pour la réponse
@@ -90,10 +63,11 @@ public class Client {
         bytesRead2 = responseIn.read(responseBuffer);
         serverReponse = new String(responseBuffer, 0, bytesRead2);
         responseIn.close();
-        System.out.println(serverReponse);
+        //System.out.println(serverReponse);
         
        
         socket.close();
+        return(serverReponse);
     }
     
     public static void main(String[] args) {

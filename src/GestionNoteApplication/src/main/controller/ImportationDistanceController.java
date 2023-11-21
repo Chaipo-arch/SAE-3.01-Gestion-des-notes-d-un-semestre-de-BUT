@@ -88,12 +88,17 @@ public class ImportationDistanceController implements Initializable{
                         for(int i = 0; i < fichier.size() && correct; i++ ) {
                             System.out.println(fichier.get(i));
                             reussi = Server.receiveCSVFile(fichier.get(i));
+                            System.out.println(reussi);
                             correct = reussi;
                         }
+                    }
+                    if(!reussi) {
+                        Server.closeClient();
                     }
                     
                     
                 }
+                System.out.println("Envoie en cours");
                 String message = "CSV reçu";
                 try { 
                     if(nationalToggle.isSelected()) {
@@ -110,8 +115,10 @@ public class ImportationDistanceController implements Initializable{
                     message = ex.getMessage();
                 }
                 try {
+                    System.out.println(message);
                     Server.reponse(message);
                 } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
                     System.out.println("La réponse n'a pas pu être envoyé");
                 }
                 Server.closeClient();
@@ -120,6 +127,7 @@ public class ImportationDistanceController implements Initializable{
             });
             t1.start();
         }
+       
     }
 
     @FXML
@@ -128,5 +136,11 @@ public class ImportationDistanceController implements Initializable{
         annulerButton.setVisible(false);
         Server.closeServer();
         t1.interrupt();
+        
+        
+        
     }
+
+    
+
 }
