@@ -1,0 +1,101 @@
+package GestionNoteApplication.src.main.java.modele;
+
+import java.io.*;
+import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Server {
+    
+    private static ServerSocket serverSocket;
+    private static Socket clientSocket;
+    private static ObjectInputStream in;
+    
+
+    public static void createServer() {
+        try {
+            int port = 10008;
+            serverSocket = new ServerSocket(port);
+            
+            System.out.println("Serveur en attente de connexion...");
+        } catch (IOException ex) {
+           
+        }
+    }
+    public static boolean connexion()  {
+        try {
+            clientSocket = serverSocket.accept();
+            System.out.println("Connexion établie avec " + clientSocket.getInetAddress());
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+    public static boolean receiveCSVFile(String filePath) {
+        try {
+            // Flux d'entrée pour recevoir le fichier CSV du client
+            InputStream in = clientSocket.getInputStream();
+            
+            // Chemin de stockage du fichier CSV reçu
+            String f;
+            f = filePath;
+            FileOutputStream fileOutputStream = new FileOutputStream(f);
+            
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+            System.out.println("Fichier CSV reçu et stocké : " + filePath);
+            return true;
+        } catch (IOException e) {
+            //OutputStream os = clientSocket.getOutputStream();
+            //os.write("Le fichier n'a pas était recu ".getBytes());
+            return false;   
+        }
+    }
+    public static void reponse(String message) throws IOException {
+        System.out.println("Envoie Reponse");
+        OutputStream os = clientSocket.getOutputStream();
+        os.write(message.getBytes());
+    }
+    public static void closeClient() {
+        try {
+            if (clientSocket != null) {
+                clientSocket.close();
+                System.out.println("Server Close2");
+            }
+           
+        } catch (SocketException e) {
+            System.out.println("je suis le message d'erreur !!");
+           
+        } catch (IOException ex) {
+            //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void closeServer() {
+        //SocketException e;
+        try {
+            if (in != null) {
+                in.close();
+                System.out.println("Server Close1");
+            }
+            if (serverSocket != null) {
+                serverSocket.close();
+                System.out.println("Server Close3");
+            }
+        } catch (SocketException e) {
+            System.out.println("je suis le message d'erreur !!");
+           
+        } catch (IOException ex) {
+            //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+        //Server.createServer();
+        //Server.receiveCSVFile();
+        //Server.closeServer();
+    }
+}
