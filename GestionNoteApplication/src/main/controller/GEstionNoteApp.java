@@ -17,6 +17,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -27,6 +29,12 @@ import javafx.stage.WindowEvent;
 public class GEstionNoteApp extends Application {
     
     public static Thread t1;
+    private static Stage primaryStage;
+    static public double windowHeight;
+    static public double windowWidth;
+    
+    static public NotificationController notificationController;
+    
    
     Stage fenetreSuivante = null;
     /**
@@ -41,6 +49,9 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+                //NotificationController notificationController = new NotificationController(primaryStage);
+                //GEstionNoteApp.primaryStage = primaryStage; // Stocker la référence à la fenêtre principale
+    
                 System.out.println();
                 File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
                  System.out.println(file.getAbsolutePath());
@@ -53,6 +64,14 @@ public class GEstionNoteApp extends Application {
 
                primaryStage.setScene(sceneActive);
                primaryStage.show();
+               System.out.println(primaryStage.getWidth());
+               
+               
+               //notificationController = new NotificationController(primaryStage);
+               
+               //double windowHeight = primaryStage.getHeight();
+               //double windowWidth = primaryStage.getWidth();
+               
                primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
                public void handle(WindowEvent evt){
                    if(t1 != null && t1.isAlive()) {
@@ -69,6 +88,25 @@ public class GEstionNoteApp extends Application {
             Logger.getLogger(GEstionNoteApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    //todo a supp
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+    
+     public static double getwindowHeight() {
+        return windowHeight;
+    }
+     
+      public static double getwindowWidth() {
+        return windowWidth;
+    }
+      
+    public static NotificationController getNotificationController() {
+       return notificationController;
+    }
+
      
 }
     
