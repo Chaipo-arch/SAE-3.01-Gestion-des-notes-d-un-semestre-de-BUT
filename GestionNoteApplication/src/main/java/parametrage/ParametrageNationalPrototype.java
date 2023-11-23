@@ -120,7 +120,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1]);
                 }
-                if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
+                if (!chaine[3].matches("\\d*")) { //TODO gerer erreur a1
                     throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3]);
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);

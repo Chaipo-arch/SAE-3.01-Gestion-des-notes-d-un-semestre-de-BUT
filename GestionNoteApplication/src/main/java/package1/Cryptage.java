@@ -12,12 +12,40 @@ import java.util.Map;
  *
  * @author ahmed.bribach
  */
-public class Encryptage {
+public class Cryptage {
    
-    public static HashMap<Integer,Character> dico = new HashMap<>();
+   public static HashMap<Integer,Character> dico = new HashMap<>();
    public static HashMap<Character,Integer> dicoReverse = new HashMap<>();
+   
+   private static String cle = "";
+   static int p = 73;
 
     public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô" + " ";
+   
+    public static int codeAlice(int g, int a){
+        //a = 6;
+        int A = (int) (Math.pow(g, a) % p);
+        return A;
+    }
+    public static int codeBob(int g, int b){
+       // b = 15;
+        int B = (int) (Math.pow(g, b) % p);
+        return B;
+    }
+   
+    public static int decodeAlice(int B, int a){
+     
+        int cleSecrete = (int) (Math.pow(B, a) % p);
+        return cleSecrete;
+    }
+   
+    public static int decodeBob(int A, int b ){
+       
+        int cleSecrete = (int) (Math.pow(A, b) % p);
+        return cleSecrete;
+    }
+   
+   
    
     public static void  remplissageduDico(){      
         for (int i = 0; i < ENSEMBLE_CARACTERES.length(); i++) {
@@ -54,24 +82,29 @@ public class Encryptage {
         }
         return chaine;
     }
-   /* public String static cryptageDiffieHelman(){
-        
-        return "";   
-    }*/
     public static void main(String[] args){
         remplissageduDico();
+        String message = "lemassageaenvoyer";
+        for(char c : message.toCharArray()){
+            int a = (int) (Math.random() * 20);
+            int b = (int) (Math.random() * 20);
+            System.out.println(a +"  espace  "+ b);
+            int A = codeAlice(5,a);
+            int B = codeBob(5,b);
+            int cleA = decodeAlice(B,a);
+            int cleB = decodeBob(A,b);
+            
+            if(cleA == cleB){
+                cle += dico.get(cleA);
+            } else {
+                System.out.println("erreur");
+            }
+            
+           
+        }
+        System.out.println("la cle finale est égale à : "+ cle);
        
-        
-       
-        String cle = creationClef(10);
-        System.out.println(" la clé généré est : " + cle);
-        System.out.println("le message encrypté devient " + cryptage(cle,"cc les gens"));
-        String messageCrypte = cryptage(cle,"ygfyugtoutgoètttèttitrrur");
-        System.out.println(decryptage(cle,messageCrypte));
-       
-        //System.out.println(dico.keySet().toArray()[dico.get("A")+5]);
-       
-       
+     
        
        
          

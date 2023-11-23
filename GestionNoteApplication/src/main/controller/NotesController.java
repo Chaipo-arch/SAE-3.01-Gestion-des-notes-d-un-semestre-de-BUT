@@ -135,15 +135,15 @@ public class NotesController implements Initializable{
                             textFieldAnalyser.setStyle("-fx-background-color: white;");    
                         }
                     }
-                    /*if (colIndex == 1){
+                    if (colIndex == 1){
                         dateString = textFieldAnalyser.getText();
-                        if(dateString.equals("")||dateString == null){
+                        /*if(dateString.equals("")||dateString == null){
                             textFieldAnalyser.setStyle("-fx-background-color: orange;");
                         } else { 
                             dateCorrect = true;
                             textFieldAnalyser.setStyle("-fx-background-color: white;");
-                        }
-                    }*/
+                        }*/
+                    }
                     if (colIndex == 2){
                         try {
                             coefficientDouble = Double.parseDouble(textFieldAnalyser.getText());

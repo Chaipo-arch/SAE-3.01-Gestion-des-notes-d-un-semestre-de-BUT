@@ -119,7 +119,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne");
                 }
-                if (chaine[2].matches("-([0-9]){1,}")) {
+                if (!chaine[2].matches("\\d*")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2]);
                 }
                 
@@ -208,7 +208,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
 
                     }
                     for(Evaluation e: r.getEvaluation()) {
-                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ e.getCoefficient()+ "\n");  
+                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ ((int)e.getCoefficient())+ "\n");  
                     }
                 }
             }
