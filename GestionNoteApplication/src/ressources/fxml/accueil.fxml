@@ -21,15 +21,6 @@
             <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
                <children>
                   <Label layoutX="218.0" prefHeight="217.0" prefWidth="419.0" text="Le Lorem Ipsum est simplement du faux texte employé dans lnsgns,g;s,g;,g,ng;g;,gd" />
-                  <Button layoutX="259.0" layoutY="296.0" mnemonicParsing="false" onAction="#AjouterEvaluationActionButton" prefHeight="45.0" prefWidth="166.0" styleClass="glass-grey" stylesheets="@../css/css.css" text="diijzqdpijdpqid">
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-menu-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="195.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
@@ -42,7 +33,7 @@
                </children></AnchorPane>
             <AnchorPane layoutX="13.0" layoutY="3.0" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: #262626;">
                <children>
-                  <Button layoutX="-51.0" layoutY="259.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                  <Button layoutX="-51.0" layoutY="213.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
                         <Label onMouseClicked="#mesNotesActionBtn" prefHeight="37.0" prefWidth="120.0" text="Mes Notes" textFill="#fbfbfb">
                            <graphic>
@@ -55,7 +46,7 @@
                         </Label>
                      </graphic>
                   </Button>
-                  <Button layoutX="-51.0" layoutY="370.0" mnemonicParsing="false" onAction="#ParametreActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                  <Button layoutX="-51.0" layoutY="312.0" mnemonicParsing="false" onAction="#ParametreActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
                         <Label onMouseClicked="#ParametreActionButton" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="#fbfbfb">
                            <graphic>
@@ -79,7 +70,7 @@
                         <Image url="@../img/icons8-utilisateur-50.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="-51.0" layoutY="153.0" mnemonicParsing="false" onAction="#AccueilActionBouton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                  <Button layoutX="-51.0" layoutY="111.0" mnemonicParsing="false" onAction="#AccueilActionBouton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
                         <Label fx:id="BtnAccueil" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="#fbfbfb">
                            <graphic>
@@ -90,6 +81,15 @@
                               </ImageView>
                            </graphic>
                         </Label>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="-57.0" layoutY="410.0" mnemonicParsing="false" onAction="#AjouterEvaluationActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css" text="moyenne">
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-menu-64.png" />
+                           </image>
+                        </ImageView>
                      </graphic>
                   </Button>
                </children>

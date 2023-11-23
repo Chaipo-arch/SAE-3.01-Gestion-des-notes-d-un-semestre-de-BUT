@@ -50,15 +50,16 @@ public class ParametreController implements Initializable {
 
     @FXML
     void reinitialiserActionButton() {
-        
+        NotificationController.popUpMessage("Reinitialisation données","");
         //NotificationController notificationWindow = new NotificationController();
         NotificationController NotificationController = new NotificationController();
-        Optional<ButtonType> result = NotificationController.popUp("Reinitialisation données","Réinitialiser vos données ?");
+        Optional<ButtonType> result = NotificationController.popUpChoix("Reinitialisation données ?","");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Reini");
             Stockage.getInstance().supprimerDonnees();
             NotificationController.showNotification("Vos données ont bien était réinitialiser");
         }
+        
         
 
         

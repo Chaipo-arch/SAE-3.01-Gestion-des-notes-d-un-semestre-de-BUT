@@ -1,5 +1,6 @@
 package GestionNoteApplication.src.main.java.modele;
 
+import GestionNoteApplication.src.main.controller.NotificationController;
 import java.io.*;
 import java.net.*;
 
@@ -40,6 +41,13 @@ public class Server {
             }
 
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
+            
+            
+            //String message ="Fichier CSV reçu et stocké : " + filePath;
+            //NotificationController NotificationController = new NotificationController();
+            //NotificationController.showNotification(message);
+            
+            
             return true;
             // Fermeture des flux et du socket
             //fileOutputStream.close();

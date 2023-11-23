@@ -29,7 +29,7 @@ import javafx.stage.WindowEvent;
 public class GEstionNoteApp extends Application {
     
     public static Thread t1;
-    private static Stage primaryStage;
+    private static Stage secondaryStage;
     static public double windowHeight;
     static public double windowWidth;
     
@@ -61,7 +61,8 @@ public class GEstionNoteApp extends Application {
                 fxml = FXMLLoader.load(getClass().getResource("../../ressources/fxml/accueil.fxml"));
                 System.out.println("salut3");
                 Scene sceneActive = new Scene(fxml);
-
+                
+               secondaryStage = primaryStage;
                primaryStage.setScene(sceneActive);
                primaryStage.show();
                System.out.println(primaryStage.getWidth());
@@ -92,7 +93,7 @@ public class GEstionNoteApp extends Application {
     
     //todo a supp
     public static Stage getPrimaryStage() {
-        return primaryStage;
+        return secondaryStage;
     }
     
      public static double getwindowHeight() {

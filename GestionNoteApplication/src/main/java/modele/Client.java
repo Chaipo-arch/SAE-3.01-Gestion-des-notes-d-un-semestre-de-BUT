@@ -1,9 +1,12 @@
 package GestionNoteApplication.src.main.java.modele;
 
+import GestionNoteApplication.src.main.controller.NotificationController;
 import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Client {
     
@@ -13,7 +16,8 @@ public class Client {
         try {
              socket = new Socket(serverIP, port);
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            NotificationController.popUpMessage("Erreur pas de server","");
         }
     }
     
@@ -58,7 +62,7 @@ public class Client {
             
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         //return serverResponse;
     }
@@ -68,7 +72,7 @@ public class Client {
             Thread.sleep(1000); // Mettre en pause pendant 1 seconde
         } catch (InterruptedException e) {
          // Gérer une éventuelle exception si l'interruption se produit pendant la pause
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         String serverResponse = "";
         InputStream responseIn = socket.getInputStream();
@@ -81,13 +85,32 @@ public class Client {
         socket.close();
     }
     
+    
+
+
+
+    public static boolean validateIP(String ip) {
+        String regex = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(ip);
+        return matcher.matches();
+    }
+    
     public static void main(String[] args) {
         String serverIP = "10.2.14.25"; // Adresse IP du serveur
         //String filePath = "Z:\\communication\\src\\Ressource\\test.csv"; // Chemin du fichier CSV à envoyer
         String filePath = "Z:\\IHM\\src\\GestionNoteApplication\\src\\ressources\\csv\\Paramétrage semestre2.xlsx"; // Chemin du fichier CSV à envoyer
         int port = 8881; // Port du serveur
-        connection(serverIP, port);
-        Client.sendCSVFileToServer(filePath);
+        
+        String ipAddress = "10.2.1.1";
+        if (validateIP(ipAddress)) {
+            System.out.println(ipAddress + " est une adresse IP valide.");
+        } else {
+            System.out.println(ipAddress + " n'est pas une adresse IP valide.");
+        }
+        
+        //connection(serverIP, port);
+        //Client.sendCSVFileToServer(filePath);
         }
         
         
