@@ -60,7 +60,9 @@ public class ParametrageRessourcePrototype extends Parametrage {
         numeroLigne = 0;
         String line;
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
+           
             String[] chaine = line.split(";");
+            
             if (numeroLigne == 0) {
                 chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
             }
@@ -111,7 +113,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas 3 colonne");
                 }
-                if (chaine[2].matches("-([0-9]){1,}")) {
+                if (chaine[2].matches("\\d*\\.?\\d+")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[2]);
                 }
                 

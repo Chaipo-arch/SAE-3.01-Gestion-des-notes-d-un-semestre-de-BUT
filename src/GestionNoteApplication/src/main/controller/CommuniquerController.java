@@ -71,13 +71,13 @@ public class CommuniquerController {
             String filePath = "";
             ArrayList<String> fichiers = new ArrayList();
             if(checkNational.isSelected()) {
-                //System.out.println("Envoie des Parametres national");
+                System.out.println("Envoie des Parametres national");
                 ParametrageNationalPrototype.createCsv();
                 filePath = "NationalExporte.csv";
                 fichiers.add(filePath);
             }
             if(checkRessource.isSelected()) {
-                //System.out.println("Envoie des Parametres Ressource");
+                System.out.println("Envoie des Parametres Ressource");
                 ParametrageRessourcePrototype.createCsv();
                 filePath = "RessourceExporte.csv";
                 fichiers.add(filePath);
@@ -88,10 +88,13 @@ public class CommuniquerController {
             Client client = new Client();
             System.out.println(serverIP);
             if(fichiers.size() != 0) { 
+                System.out.println(fichiers.size());
                 client.connection(serverIP, port);
                 for(int i = 0; i < fichiers.size();i++) {
+                    System.out.println("ok");
                     client.sendCSVFileToServer(fichiers.get(i));
                 }
+               
                 try {
                     notifEnvoi.setVisible(true);
                     notifEnvoi.setText(client.recevoirReponse());

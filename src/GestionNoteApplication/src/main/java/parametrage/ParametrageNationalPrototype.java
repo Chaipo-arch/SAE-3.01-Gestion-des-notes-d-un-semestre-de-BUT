@@ -98,12 +98,12 @@ public class ParametrageNationalPrototype extends Parametrage {
                 Stockage.getInstance().addCompetences(comps);
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit" + line);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit" + line + " Cela doit correspondre à Compentence U+chiffre du semestre+.+nombre libelle");
             }
             line = newLine(br);
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit : " + line + " Cela doit correspondre à " + MODELE[3]);
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
@@ -118,11 +118,13 @@ public class ParametrageNationalPrototype extends Parametrage {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: " + chaine[0]);
                 }
                 if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1] + " Cela doit correspondre à  RouPouS+chiffre du semestre+.+nombre(2 chiffres) ");
                 }
-                if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3]);
+                //-([0-9]){1,}|
+                if (!chaine[3].matches("\\d*\\.?\\d+") ) { //TODO gerer erreur a1
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3] +" Le coefficent doit etre superieur a 0");
                 }
+                
                 calculCoeff += Integer.parseInt(chaine[3]);
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }

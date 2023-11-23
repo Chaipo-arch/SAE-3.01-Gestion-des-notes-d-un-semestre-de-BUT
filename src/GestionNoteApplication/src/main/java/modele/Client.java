@@ -11,7 +11,6 @@ public class Client {
         
     }
     private Socket socket ;
-    private OutputStream out;
     
     public void connection(String serverIP, int port) {
         try {
@@ -23,25 +22,28 @@ public class Client {
     }
     
     public void sendCSVFileToServer(String filePath) {
+        System.out.println("serveur close : " + socket.isClosed());
         try {
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("Le fichier spécifié n'existe pas.");
                 return;
             }
-
+            
             // Flux de sortie pour envoyer le fichier CSV au serveur
-            out = socket.getOutputStream();
+            OutputStream out = socket.getOutputStream();
             
             FileInputStream fileInputStream = new FileInputStream(file);
-
+            System.out.println("serveur close : " + socket.isClosed());
             byte[] buffer = new byte[1024];
             int bytesRead;
 
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-            socket.shutdownOutput();
+            //socket.shutdownOutput();
+            //fileInputStream.close();
+           //socket.shutdownOutput();
             System.out.println("Fichier CSV envoyé au serveur.");
             System.out.println("serveur close : " + socket.isClosed());
             System.out.println("Fermeture de l'envoi du fichier");
@@ -51,6 +53,7 @@ public class Client {
     }
     
     public String recevoirReponse() throws IOException {
+        socket.shutdownOutput(); //garder
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
         } catch (InterruptedException e) {
@@ -62,7 +65,7 @@ public class Client {
         int bytesRead2;
         bytesRead2 = responseIn.read(responseBuffer);
         serverReponse = new String(responseBuffer, 0, bytesRead2);
-        responseIn.close();
+        socket.shutdownInput();
         //System.out.println(serverReponse);
         
        

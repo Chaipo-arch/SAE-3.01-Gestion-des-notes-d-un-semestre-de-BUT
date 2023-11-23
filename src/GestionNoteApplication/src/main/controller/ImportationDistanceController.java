@@ -90,9 +90,16 @@ public class ImportationDistanceController implements Initializable{
                             reussi = Server.receiveCSVFile(fichier.get(i));
                             System.out.println(reussi);
                             correct = reussi;
+                             try {
+                                Thread.sleep(100); // Mettre en pause pendant 1 seconde
+                            } catch (InterruptedException e) {
+                                // Gérer une éventuelle exception si l'interruption se produit pendant la pause
+                            e.printStackTrace();
+                            }
                         }
                     }
                     if(!reussi) {
+                        System.out.println("Tous les fichiers n'ont pas étaient reçu correctement");
                         Server.closeClient();
                     }
                     

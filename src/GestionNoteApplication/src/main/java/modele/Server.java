@@ -34,8 +34,10 @@ public class Server {
     public static boolean receiveCSVFile(String filePath) {
         try {
             System.out.println("receive en cours");
+            System.out.println("client close : "+ clientSocket.isClosed());
             // Flux d'entrée pour recevoir le fichier CSV du client
             InputStream in = clientSocket.getInputStream();
+            
             
             // Chemin de stockage du fichier CSV reçu
             String f;
@@ -48,17 +50,22 @@ public class Server {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
-            //in.close();
+            
+           
             System.out.println("client close : "+ clientSocket.isClosed());
             System.out.println("server close : " + serverSocket.isClosed());
+            
+            
             return true;
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             //OutputStream os = clientSocket.getOutputStream();
             //os.write("Le fichier n'a pas était recu ".getBytes());
             return false;   
         }
     }
     public static void reponse(String message) throws IOException {
+        clientSocket.shutdownInput();
         System.out.println("Envoie Reponse");
         OutputStream os = clientSocket.getOutputStream();
         os.write(message.getBytes());
@@ -67,7 +74,7 @@ public class Server {
         OutputStreamWriter ow = new OutputStreamWriter(os);
         BufferedWriter wr = new BufferedWriter(ow);         
         wr.write("Test\n".);*/
-        clientSocket.shutdownOutput();
+        //clientSocket.shutdownOutput();
         
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
