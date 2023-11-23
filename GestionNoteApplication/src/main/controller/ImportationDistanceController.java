@@ -125,6 +125,7 @@ public class ImportationDistanceController implements Initializable{
                         System.out.println(ex.getMessage());
                         message = ex.getMessage();
                     }
+                    //new file().delete();
                     System.out.println(message);
                     Server.reponse(message);
                     Server.closeClient();

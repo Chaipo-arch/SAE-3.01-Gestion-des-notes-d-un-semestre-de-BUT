@@ -41,7 +41,7 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-               
+                System.out.println("a " + ((int) 1.0));
                 System.out.println();
                 File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
                  System.out.println(file.getAbsolutePath());

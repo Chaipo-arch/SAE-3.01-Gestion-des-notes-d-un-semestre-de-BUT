@@ -135,15 +135,15 @@ public class NotesController implements Initializable{
                             textFieldAnalyser.setStyle("-fx-background-color: white;");    
                         }
                     }
-                    /*if (colIndex == 1){
-                        dateString = textFieldAnalyser.getText();
+                    if (colIndex == 1){
+                        /*dateString = textFieldAnalyser.getText();
                         if(dateString.equals("")||dateString == null){
                             textFieldAnalyser.setStyle("-fx-background-color: orange;");
                         } else { 
                             dateCorrect = true;
                             textFieldAnalyser.setStyle("-fx-background-color: white;");
-                        }
-                    }*/
+                        }*/
+                    }
                     if (colIndex == 2){
                         try {
                             coefficientDouble = Double.parseDouble(textFieldAnalyser.getText());
@@ -167,7 +167,7 @@ public class NotesController implements Initializable{
                                 textFieldAnalyser.setStyle("-fx-background-color: yellow;");
                             } else {
                                 noteATester = new Note(Double.parseDouble(textFieldAnalyser.getText()));
-                                if(Note.isNote(noteATester.getNote())){
+                                if(Note.isNote(noteATester.getNote()) && noteATester.getNote()!= -1){
                                     noteCorrect = 2;
                                     noteDouble = Double.parseDouble(textFieldAnalyser.getText());
                                     textFieldAnalyser.setStyle("-fx-background-color: white;");
@@ -188,6 +188,7 @@ public class NotesController implements Initializable{
                     } else {
                         evaluationList.add(new Evaluation(NomRessource.getText(),new Note(-1) 
                                                ,typeString,coefficientDouble,dateString));
+                        System.out.println("cc");
                         LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne");
                     }  
                     noteCorrect = 0;
