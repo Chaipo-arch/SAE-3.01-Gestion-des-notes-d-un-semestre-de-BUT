@@ -11,7 +11,7 @@ public class Client {
         
     }
     private Socket socket ;
-    private OutputStream out;
+    
     
     public void connection(String serverIP, int port) {
         try {
@@ -31,7 +31,7 @@ public class Client {
             }
 
             // Flux de sortie pour envoyer le fichier CSV au serveur
-            out = socket.getOutputStream();
+            OutputStream out = socket.getOutputStream();
             
             FileInputStream fileInputStream = new FileInputStream(file);
 
@@ -41,6 +41,8 @@ public class Client {
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
+            //socket.shutdownOutput();
+           //fileInputStream.close();
             socket.shutdownOutput();
             System.out.println("Fichier CSV envoyé au serveur.");
             System.out.println("serveur close : " + socket.isClosed());
@@ -50,7 +52,15 @@ public class Client {
         }
     }
     
+    public void closeConnection() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public String recevoirReponse() throws IOException {
+        //socket.shutdownOutput();// a garder si marche pas
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
         } catch (InterruptedException e) {

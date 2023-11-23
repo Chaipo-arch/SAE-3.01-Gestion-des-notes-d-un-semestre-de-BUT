@@ -49,16 +49,20 @@ public class Server {
             }
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
             //in.close();
+            //fileOutputStream.close();
+            clientSocket.shutdownInput();
             System.out.println("client close : "+ clientSocket.isClosed());
             System.out.println("server close : " + serverSocket.isClosed());
             return true;
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             //OutputStream os = clientSocket.getOutputStream();
             //os.write("Le fichier n'a pas était recu ".getBytes());
             return false;   
         }
     }
     public static void reponse(String message) throws IOException {
+        
         System.out.println("Envoie Reponse");
         OutputStream os = clientSocket.getOutputStream();
         os.write(message.getBytes());

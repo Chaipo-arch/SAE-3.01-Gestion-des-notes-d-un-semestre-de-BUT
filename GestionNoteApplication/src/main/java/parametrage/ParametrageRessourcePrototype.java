@@ -43,6 +43,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
      */
     public ParametrageRessourcePrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
+        flag = true;
     }
 
     @Override
@@ -195,13 +196,13 @@ public class ParametrageRessourcePrototype extends Parametrage {
            
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
-            ecritureLigne.write("BUT Informatique - Modalité Controle de connaissances ressources semestre\n");
+            ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre\n");
             ecritureLigne.write("Semestre;2\nParcours;Tous\n");
             for(Ressource r: Stockage.getInstance().ressources) {
                 if (!idDejaApparue.contains(r.getIdentifiant())){
                     idDejaApparue.add(r.getIdentifiant());
                     if(r.getEvaluation().size() != 0) {
-                        ecritureLigne.write(r.getType() +";"+ r.getIdentifiant()+";"+r.getIdentifiant()+ "\n");
+                        ecritureLigne.write("Ressource;"+ r.getIdentifiant()+";"+r.getIdentifiant()+ "\n");
                         ecritureLigne.write("Type evaluation;Date;Poids\n");
 
 

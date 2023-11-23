@@ -88,9 +88,14 @@ public class CommuniquerController {
             Client client = new Client();
             System.out.println(serverIP);
             if(fichiers.size() != 0) { 
-                client.connection(serverIP, port);
                 for(int i = 0; i < fichiers.size();i++) {
+                    client.connection(serverIP, port);
+                
                     client.sendCSVFileToServer(fichiers.get(i));
+                    if(fichiers.size() != i+1) {
+                        System.out.println("ok");
+                        client.closeConnection();
+                    }
                 }
                 notifEnvoi.setVisible(true);
                 try {

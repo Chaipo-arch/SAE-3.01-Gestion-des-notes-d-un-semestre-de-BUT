@@ -84,16 +84,26 @@ public class ImportationDistanceController implements Initializable{
                     //System.out.println(fichier.size());
                     boolean reussi = false;
                     while(!Thread.interrupted() && !reussi) {
-                        if(Server.connexion()) {
-                            boolean correct = true;
-                            for(int i = 0; i < fichier.size() && correct; i++ ) {
+                        boolean correct = true;
+                    
+                        for(int i = 0; i < fichier.size() && correct; i++ ) {
+                            correct = Server.connexion();
+                            if(correct) {
                                 System.out.println(fichier.get(i));
                                 reussi = Server.receiveCSVFile(fichier.get(i));
-                                System.out.println(reussi);
-                                correct = reussi;
+                                if(fichier.size() != i+1) {
+                                    Server.closeClient();
+                                    
+                                } else if(reussi){
+                                    System.out.println("Fichier " + fichier.get(i) + " reçu");
+                                } else {
+                                    System.out.println("Fichiers non reçu");
+                                }
                             }
                         }
-                        if(!reussi) {
+                        if(!correct) {
+                            
+                            System.out.println("Probleme de connexion");
                             Server.closeClient();
                         }
                         
