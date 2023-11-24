@@ -136,8 +136,8 @@ public class NotesController implements Initializable{
                         }
                     }
                     if (colIndex == 1){
-                        /*dateString = textFieldAnalyser.getText();
-                        if(dateString.equals("")||dateString == null){
+                        dateString = textFieldAnalyser.getText();
+                        /*if(dateString.equals("")||dateString == null){
                             textFieldAnalyser.setStyle("-fx-background-color: orange;");
                         } else { 
                             dateCorrect = true;

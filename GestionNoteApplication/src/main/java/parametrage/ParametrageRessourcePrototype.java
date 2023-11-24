@@ -215,7 +215,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
 
                     }
                     for(Evaluation e: r.getEvaluation()) {
-                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ ((int) e.getCoefficient())+ "\n");  
+                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ ((int)e.getCoefficient())+ "\n");  
                     }
                 }
             }
