@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="idaccueil" maxHeight="600.0" maxWidth="1100.0" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.AccueilController">
+   <children>
+    <AnchorPane layoutX="-13.0" layoutY="-3.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="606.0" prefWidth="1091.0" VBox.vgrow="ALWAYS">
+      <children>
+            <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
+               <children>
+                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="195.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
+               <children>
+                  <Label layoutX="260.0" layoutY="14.0" prefHeight="37.0" prefWidth="329.0" styleClass="titreApli" stylesheets="@css.css" text="Application Gestion Notes">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane layoutX="13.0" layoutY="3.0" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: #262626;">
+               <children>
+                  <Button layoutX="-51.0" layoutY="259.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                     <graphic>
+                        <Label onMouseClicked="#mesNotesActionBtn" prefHeight="37.0" prefWidth="120.0" text="Mes Notes" textFill="#fbfbfb">
+                           <graphic>
+                              <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons8-menu-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="-51.0" layoutY="353.0" mnemonicParsing="false" onAction="#ParametreActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                     <graphic>
+                        <Label onMouseClicked="#ParametreActionButton" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="#fbfbfb">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons8-engrenage-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic></Button>
+                  <Button layoutX="22.0" layoutY="523.0" mnemonicParsing="false" onMouseClicked="#QuitterActionButton" prefHeight="55.0" prefWidth="147.0" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Quitter" />
+                  <AnchorPane layoutX="47.0" layoutY="19.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
+                     <children>
+                        <TextField fx:id="UserTextField" alignment="CENTER" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" visible="false" />
+                        <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-utilisateur-50.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="-51.0" layoutY="153.0" mnemonicParsing="false" onAction="#AccueilActionBouton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                     <graphic>
+                        <Label fx:id="BtnAccueil" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="#fbfbfb">
+                           <graphic>
+                              <ImageView fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons8-accueil-24.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="-57.0" layoutY="449.0" mnemonicParsing="false" onAction="#AjouterEvaluationActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css" />
+                  <Label layoutX="6.0" layoutY="463.0" onMouseClicked="#AjouterEvaluationActionButton" prefHeight="37.0" prefWidth="152.0" text="Calculer Moyenne" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-ajouter-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+            </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
