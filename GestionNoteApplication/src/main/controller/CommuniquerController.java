@@ -62,6 +62,11 @@ public class CommuniquerController {
     private Client client = new Client(); // Instanciation de la classe Client
    
 
+    /**
+     * Communiquer avec un ordinateur pour lui envoyé les documents coché
+     * les documents à envoyé sont crée puis une tentative de connexion s'effectue selon le nombre de fichier à envoyé
+     * Une fois envoyé l'ordinateur attend une réponse sur l'envoie de la part de l'autre ordinateur
+     */
     @FXML
     public void CommuniquerAction() {
         notifEnvoi.setVisible(false);
@@ -82,11 +87,8 @@ public class CommuniquerController {
                 filePath = "RessourceExporte.csv";
                 fichiers.add(filePath);
             }             
-            System.out.println(portID.getText());
             int port = Integer.parseInt(portID.getText());
-            System.out.println(port);
             Client client = new Client();
-            System.out.println(serverIP);
             if(fichiers.size() != 0) { 
                 for(int i = 0; i < fichiers.size();i++) {
                     client.connection(serverIP, port);

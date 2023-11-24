@@ -17,16 +17,29 @@ public class ImporterParametresController_1 {
     @FXML
     private AnchorPane contenuPage;
     
+    /**
+     * Donne la page a changerPage correspondant aux button
+     */
     @FXML
     void LocalActionButton(ActionEvent event) throws IOException {
         changerPage("ImporterParametres_1.fxml");
     }
 
+    /**
+     * Donne la page a changerPage correspondant aux button
+     */
     @FXML
     void DistanceActionButton(ActionEvent event) throws IOException {
         changerPage("importationDistance.fxml");
 
     }
+    
+     /**
+     * Change la page selon le button appuyé sur le menu
+     * L'anchor pane de la page est modifié pour prendre celle du fxml demandé
+     * @param page, la page demandée
+     * @throws IOException si la page demandée est cherché mais n'est pas trouvé
+     */
     public void changerPage(String page) throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
         if(file.exists()) {

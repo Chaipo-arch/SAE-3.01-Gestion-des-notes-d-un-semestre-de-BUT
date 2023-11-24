@@ -45,7 +45,7 @@ public class ImportationDistanceController implements Initializable{
     private  CheckBox ressourceToggle;
 
     /**
-     * Initializes the controller class.
+     * Affiche l'addresse ip de l'ordinateur 
      * @param url
      */
     @Override
@@ -60,14 +60,20 @@ public class ImportationDistanceController implements Initializable{
     }
     private int i = 0;
    
-    
+    /**
+     * Cree une fonction que le thread va utiliser, puis lance le thread et affiche les labels de connexion
+     * Le thread ajoute des fichiers qui vont être envoyé selon ce qui est coché, puis le serveur est crée 
+     * et connecte un autre ordinateur selon le nombre de fichiers voulu, et recoit les fichers demandés
+     * une fois reçus, les fichiers sont lues et crée les instances selon leur contenu
+     * une reponse correspondante aux fichiers lue et envoyé a l'ordinateur qui a communiquer
+     * @param event click sur le button
+     */
     @FXML
     void importationDistanceButton(ActionEvent event) {
-        
         if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
             connexion.setVisible(true);
             annulerButton.setVisible(true);
-             t1 = new Thread(new Runnable() {
+            t1 = new Thread(new Runnable() {
             @Override
            public void run() {
                 try {
@@ -140,6 +146,10 @@ public class ImportationDistanceController implements Initializable{
        
     }
 
+    /**
+     * Arrete le thread, et le serveur 
+     * @param event 
+     */
     @FXML
     void annulerAttenteAction(ActionEvent event) {
         connexion.setVisible(false);

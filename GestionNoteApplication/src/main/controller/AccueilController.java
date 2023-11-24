@@ -61,7 +61,8 @@ public class AccueilController implements Initializable {
     private ArrayList<Node> sauvegardeAccueil;
 
     /**
-     * Initializes the controller class.
+     * Recupere les donnes de l'application, mets le nom de l'utilisateur
+     * Sauvegarde le contenu de l'accueil pour la garder en mémoire en cas de retour à l'accueil 
      * @param url
      */
     @Override
@@ -81,6 +82,10 @@ public class AccueilController implements Initializable {
        sauvegardeAccueil.addAll(contenuPage.getChildren());
     }
     
+    /**
+     * Arrete le thread si activé
+     * change le contenu de l'anchor pane a celle sauvegardé 
+     */
     @FXML
     void AccueilActionBouton() {
         if(t1 != null && t1.isAlive()) {
@@ -90,6 +95,9 @@ public class AccueilController implements Initializable {
        contenuPage.getChildren().setAll(sauvegardeAccueil);
     }
     
+    /**
+     * Donne la page a changerPage correspondant aux button
+     */
      @FXML
     void mesNotesActionBtn() {
         try {
@@ -98,6 +106,10 @@ public class AccueilController implements Initializable {
             
         }
     }
+    
+    /**
+     * Donne la page a changerPage correspondant aux button
+     */
      @FXML
     void AjouterEvaluationActionButton() {
         try {
@@ -110,7 +122,9 @@ public class AccueilController implements Initializable {
     
 
     
-
+    /**
+     * Donne la page a changerPage correspondant aux button
+     */
     @FXML
     void ParametreActionButton() {
          try {
@@ -120,6 +134,10 @@ public class AccueilController implements Initializable {
         }
     }
 
+    /**
+     * Arrete l'application et sauvegarde les donnees
+     * Arrete le thread si activé
+     */
     @FXML
     void QuitterActionButton() {
         if(t1 != null && t1.isAlive()) {
@@ -132,14 +150,19 @@ public class AccueilController implements Initializable {
     }
 
 
-    
+    /**
+     * Change la page selon le button appuyé sur le menu
+     * Arrete le thread si activé
+     * L'anchor pane de la page est modifié pour prendre celle du fxml demandé
+     * @param page, la page demandée
+     * @throws IOException si la page demandée est cherché mais n'est pas trouvé
+     */
     public void changerPage(String page) throws IOException {
         if(t1 != null && t1.isAlive()) {
             Server.closeServer();
             t1.interrupt();
         }
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.exists());
         if(file.exists()) {
             String changementPage = "../../ressources/fxml/"+page;
             System.out.println(file.getAbsolutePath());
@@ -149,6 +172,10 @@ public class AccueilController implements Initializable {
         }
     }
     
+    /**
+     * Detecte la souris dans le text field de User 
+     * Permet de changer le nom de l'utilisateur
+     */
     @FXML
     void UserMouseEnter() {
         UserTextField.setText(userLabel.getText());
@@ -157,6 +184,10 @@ public class AccueilController implements Initializable {
         UserTextField.setEditable(true);
     }
 
+     /**
+     * Detecte la sortie de la souris dans le text field de User 
+     * Sauvegarde les changements effectués + enleve la possibilité de modifier le nom du User
+     */
     @FXML
     void UserMouseExit() {
         UserTextField.setVisible(false);
@@ -164,9 +195,5 @@ public class AccueilController implements Initializable {
         userLabel.setVisible(true);
         Stockage.getInstance().setUserName(userLabel.getText());
         textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
-
     }
-
-    
-    
 }

@@ -34,30 +34,36 @@ public class ImporterParametresController {
     @FXML
     private RadioButton ressourceToggle;
 
+    /**
+     * Affiche une nouvelle fenetre à l'utilisateur qui lui permet 
+     * de choisir un fichier CSV, le fichier si bon sera ensuite affiché dans le label nomFichier
+     * @param event click sur le button
+     * @throws IOException 
+     */
     @FXML
     void importerFichier(ActionEvent event) throws IOException {
-       
-        
         FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("csv","*.csv");
         ex.getExtensions();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(ex);
         File selectedFile = fileChooser.showOpenDialog(null);
-           
             if (selectedFile != null) {
                 file = selectedFile;
                 nomFichier.setText(selectedFile.getName());
-                
-            
             }
-        
     }
 
+    /**
+     * Selon le choix de l'utilsateur :
+     * - si est coché national, crée un parametrageNational
+     * - si est coché Ressource, crée un parametrageRessource
+     * Ces parametrage seront ensuite lue
+     * @param event le click sur le bouton
+     */
     @FXML
     void choixValiderAction(ActionEvent event){
             if(nationalToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
                     ParametrageNationalPrototype paN = null;
                     try {
                         paN = new ParametrageNationalPrototype(file);
@@ -77,7 +83,6 @@ public class ImporterParametresController {
             } 
             if(ressourceToggle.isSelected()) {
                 try {
-                    System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     try {
                         paR.parse();
