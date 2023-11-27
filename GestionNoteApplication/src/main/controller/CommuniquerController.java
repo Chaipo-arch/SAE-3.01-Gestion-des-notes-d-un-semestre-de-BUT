@@ -1,6 +1,7 @@
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.package1.Client;
+import GestionNoteApplication.src.main.java.package1.Cryptage;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
@@ -63,7 +64,7 @@ public class CommuniquerController {
    
 
     @FXML
-    public void CommuniquerAction() {
+    public void CommuniquerAction() throws IOException{
         notifEnvoi.setVisible(false);
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
         boolean BoucleTout = false;
@@ -87,7 +88,25 @@ public class CommuniquerController {
             System.out.println(port);
             Client client = new Client();
             System.out.println(serverIP);
-            if(fichiers.size() != 0) { 
+              client.connection(serverIP, port);
+                boolean ok;
+                
+                ok = client.sendA(Cryptage.codeAlice(2));
+                    if(ok){
+                        System.out.println("sa marche");
+                       
+                        System.out.println("1000");
+                        String s = client.recevoirReponse();
+                        Cryptage.creationClefAlice(s);
+                        
+                        System.out.println("la clé est : "+Cryptage.cle);
+                        
+                        }
+                
+                client.closeConnection();
+           /* if(fichiers.size() != 0) { 
+                
+              
                 client.connection(serverIP, port);
                 for(int i = 0; i < fichiers.size();i++) {
                     client.sendCSVFileToServer(fichiers.get(i));
@@ -98,7 +117,7 @@ public class CommuniquerController {
                 } catch (IOException ex) {
                     Logger.getLogger(CommuniquerController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            }*/
         } catch (NumberFormatException e) {
             notifEnvoi.setVisible(true);
             notifEnvoi.setText("Le port doit être un nombre valide.");

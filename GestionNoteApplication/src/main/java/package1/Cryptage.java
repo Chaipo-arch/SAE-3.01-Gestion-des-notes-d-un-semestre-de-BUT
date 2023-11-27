@@ -5,6 +5,7 @@
  */
 package GestionNoteApplication.src.main.java.package1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,68 @@ import java.util.Map;
  */
 public class Cryptage {
    
-    public static HashMap<Integer,Character> dico = new HashMap<>();
+   public static HashMap<Integer,Character> dico = new HashMap<>();
    public static HashMap<Character,Integer> dicoReverse = new HashMap<>();
+   public static ArrayList<Integer> tableauB = new ArrayList<>();
+   public static ArrayList<Integer> tableauA = new ArrayList<>();
+   public static String cle = "";
+   static int p = 71;
 
     public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô" + " ";
+    
+    public static String codeAlice(int g) {
+        String chaineA = "";
+        for(int i=0 ; i<30 ;i++){
+            int a = (int)(Math.random()*70);
+            tableauA.add(a);  
+            int A = expModulaire(g, a, p);
+            chaineA+= " "+A;
+        }
+        
+        return chaineA;
+    }
+
+    public static String codeBob(int g) {
+        String chaineB = "";
+        for(int i=0 ; i<30 ;i++){
+            int b = (int)(Math.random()*70);
+            tableauB.add(b);  
+            int B = expModulaire(g, b, p);
+            chaineB+= " "+B;
+        }
+        
+        return chaineB;
+    }
+
+    public static int decodeAlice(int B, int a) {
+        int cleSecrete = expModulaire(B, a, p);
+        return cleSecrete;
+    }
+
+    public static int decodeBob(int A, int b) {
+        int cleSecrete = expModulaire(A, b, p);
+        return cleSecrete;
+    }
+
+    // Implémentation de l'exponentiation modulaire
+    private static int expModulaire(int base, int exposant, int modulo) {
+        int resultat = 1;
+        base = base % modulo;
+
+        while (exposant > 0) {
+            if (exposant % 2 == 1) {
+                resultat = (resultat * base) % modulo;
+            }
+
+            exposant = exposant >> 1;
+            base = (base * base) % modulo;
+        }
+
+        return resultat;
+    }
+    
    
+    
    
     public static void  remplissageduDico(){      
         for (int i = 0; i < ENSEMBLE_CARACTERES.length(); i++) {
@@ -28,12 +86,45 @@ public class Cryptage {
            
         }
     }
-    public static String creationClef(int longueurCle){
-        String cleEncryptage = "";
-        for(int i = 0 ;i < longueurCle;i++){
-            cleEncryptage += ENSEMBLE_CARACTERES.charAt((int)(Math.random()*ENSEMBLE_CARACTERES.length()));          
-        }        
-        return cleEncryptage;
+    public static void creationClefBob(String ss){
+        cle = "";
+        remplissageduDico();
+        String tableau[]= ss.split(" ");
+        int a = 0;
+        
+        for(int i=0; i< tableau.length;i++){
+             tableau[i] = tableau[i].trim();
+            if(!tableau[i].equals("")){
+                 
+                cle+=dico.get(decodeBob(Integer.parseInt(tableau[i]),tableauB.get(a)));
+                a++;
+                
+            }
+           
+        }
+       
+        
+    }
+    
+    public static String creationClefAlice(String ss){
+        cle = ""; 
+        remplissageduDico();
+        String tableau[]= ss.split(" "); 
+        int a = 0;
+        for(int i=0; i< tableau.length;i++){
+            tableau[i] = tableau[i].trim();
+            if(!tableau[i].equals("")){
+                
+                
+                char c = dico.get(decodeAlice(Integer.parseInt(tableau[i]),tableauA.get(a)));
+                a++;
+                cle+=c; 
+                
+            }
+           
+        }
+        
+        return cle;
     }
    
     public static String cryptage(String cle, String messageACrypter){      
@@ -57,18 +148,10 @@ public class Cryptage {
     }
     public static void main(String[] args){
         remplissageduDico();
-       
         
-       
-        String cle = creationClef(10);
-        System.out.println(" la clé généré est : " + cle);
-        System.out.println("le message encrypté devient " + cryptage(cle,"cc les gens"));
-        String messageCrypte = cryptage(cle,"ygfyugtoutgoètttèttitrrur");
-        System.out.println(decryptage(cle,messageCrypte));
-       
-        //System.out.println(dico.keySet().toArray()[dico.get("A")+5]);
-       
-       
+        System.out.println(cle);
+        System.out.println(cle.length());
+     
        
        
          

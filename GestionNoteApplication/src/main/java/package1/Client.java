@@ -34,10 +34,10 @@ public class Client {
             out = socket.getOutputStream();
             
             FileInputStream fileInputStream = new FileInputStream(file);
-
+            
             byte[] buffer = new byte[1024];
             int bytesRead;
-
+            System.out.println("voici le buffer : "+buffer);
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
@@ -49,7 +49,23 @@ public class Client {
             e.printStackTrace();
         }
     }
-    
+    public boolean sendA(String cle) throws IOException{
+        System.out.println(cle);
+        try{
+            out = socket.getOutputStream();
+            
+            
+
+            out.write(cle.getBytes());
+            socket.shutdownOutput();
+           return true; 
+        }catch(Exception e){
+            return false;
+        }
+        
+            
+        
+    }
     public String recevoirReponse() throws IOException {
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
@@ -63,11 +79,10 @@ public class Client {
         bytesRead2 = responseIn.read(responseBuffer);
         serverReponse = new String(responseBuffer, 0, bytesRead2);
         responseIn.close();
-        //System.out.println(serverReponse);
         
-       
+         
         socket.close();
-        return(serverReponse);
+        return serverReponse;
     }
     
     public static void main(String[] args) {
@@ -78,6 +93,10 @@ public class Client {
         //connection(serverIP, port);
         //Client.sendCSVFileToServer(filePath);
         }
+
+    public void closeConnection() throws IOException{
+        socket.close();
+    }
         
         
         
