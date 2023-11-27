@@ -32,12 +32,27 @@ public class Client {
 
             // Flux de sortie pour envoyer le fichier CSV au serveur
             OutputStream out = socket.getOutputStream();
-            
+            System.out.println("hiorg uiosbh fgui fhdjkfdbfgjh fvb vf;n vbvc,b vcb ,nvc hv ,nbfdv  vb ");
             FileInputStream fileInputStream = new FileInputStream(file);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
             
+            String toutLeFichier = "" ;
+            while (br.readLine() != null) {
+                toutLeFichier+=  br.readLine();
+            }
+            br.close();
+            fr.close();
+            
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            System.out.println(toutLeFichier);
+            System.out.println(Cryptage.cle);
+            System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier));
+            bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier));
             byte[] buffer = new byte[1024];
             int bytesRead;
-            System.out.println("voici le buffer : "+buffer);
+           
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
