@@ -55,6 +55,12 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 20, 0, 0, 0); /* Ombre plus prononcée au survol */
 }
 
+
+.BarreTitre{
+    -fx-background-color: #F28444;
+    -fx-text-fill: black;
+}
+
 .Boutton{
 
     -fx-background-color: #7681EA;
@@ -115,6 +121,11 @@
 /* styles.css */
 .textTaille10 {
     -fx-font-size: 10px; /* Remplacez 16px par la taille souhaitée en pixels */
+}
+
+
+.textTaille15 {
+    -fx-font-size: 15px; /* Remplacez 16px par la taille souhaitée en pixels */
 }
 
 

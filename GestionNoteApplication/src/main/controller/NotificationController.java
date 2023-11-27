@@ -76,7 +76,7 @@ public class NotificationController {
         
         // Définition de la durée d'affichage de la notification avant de la fermer
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(6), // Durée de 6 secondes
+            new KeyFrame(Duration.seconds(9), // Durée de 6 secondes
                 new KeyValue(notificationStage.opacityProperty(), 0)) // Réduction de l'opacité jusqu'à 0
         );
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -18,7 +19,7 @@
    <children>
     <AnchorPane layoutX="-13.0" layoutY="-3.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="606.0" prefWidth="1091.0" VBox.vgrow="ALWAYS">
       <children>
-            <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
+            <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css">
                <children>
                   <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
                      <font>
@@ -26,9 +27,9 @@
                      </font></Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="197.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
+            <AnchorPane layoutX="197.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" styleClass="barreTitre" stylesheets="@../css/css.css">
                <children>
-                  <Label layoutX="260.0" layoutY="14.0" prefHeight="37.0" prefWidth="329.0" styleClass="titreApli" stylesheets="@css.css" text="Application Gestion Notes">
+                  <Label layoutX="285.0" layoutY="13.0" prefHeight="45.0" prefWidth="359.0" styleClass="textTaille30" text="Application Gestion Notes">
                      <font>
                         <Font size="24.0" />
                      </font>

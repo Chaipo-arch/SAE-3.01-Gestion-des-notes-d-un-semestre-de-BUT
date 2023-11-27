@@ -55,7 +55,10 @@ public class ImporterParametresController {
 
     @FXML
     void choixValiderAction(ActionEvent event){
-            if(nationalToggle.isSelected()) {
+            if(!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file==null) {
+                NotificationController.popUpMessage("Merci de cocher et de selectionner le fichier que voussouhaitez importer ", "Erreur Importation");
+            }
+            if(nationalToggle.isSelected() && file != null) {
                 try {
                     System.out.println("ok");
                     ParametrageNationalPrototype paN = null;
@@ -66,29 +69,34 @@ public class ImporterParametresController {
                     }
                     try {
                         paN.parse();
+                        NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Votre programme Nationnal a bien été importé");
                     } catch (NoteException ex) {
                         System.out.println("erreur");
                     }
                 } catch (IOException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
+                    NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
                     System.out.println(ex.getMessage());
                 }
             } 
-            if(ressourceToggle.isSelected()) {
+            if(ressourceToggle.isSelected() && file != null) {
                 try {
                     System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     try {
                         paR.parse();
                         System.out.println(Stockage.getInstance().evaluations);
+                         NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Votre programme Nationnal a bien été importé");
                     } catch (EvaluationException ex) {
                         Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } catch (IOException|NoteException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
-                    System.out.println(ex.getMessage());
+                    NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
                 }
             }
             

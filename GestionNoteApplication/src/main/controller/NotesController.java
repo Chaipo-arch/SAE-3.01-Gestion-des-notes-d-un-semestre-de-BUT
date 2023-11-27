@@ -105,7 +105,12 @@ public class NotesController implements Initializable{
             comboBox.setOnAction(e -> comboBoxAction());
             comboBoxAction();
             
-        }  
+        }  else {
+            NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
+                    + "Programme Nationnal pour utiliser cette fonctionnalité."
+                    + "Rendez vous dans Parametres > Importer ", 
+                    "Erreur Parametres d'application manquants");
+        }
     }
     @FXML
     void ValiderAction(ActionEvent event) throws NoteException, EvaluationException {
@@ -186,13 +191,17 @@ public class NotesController implements Initializable{
                         Note noteAAjouter = new Note(noteDouble);
                         evaluationList.add(new Evaluation(NomRessource.getText(),noteAAjouter 
                                                ,typeString,coefficientDouble,dateString));
-                        //LabelNotificationID ajouter notif eval succeful
                         NotificationController NotificationController = new NotificationController();
-                        NotificationController.showNotification("Vos données ont était insérer");
+                        NotificationController.showNotification("Vos données ont bien était insérer");
+                        
                     } else {
                         evaluationList.add(new Evaluation(NomRessource.getText(),new Note(-1) 
                                                ,typeString,coefficientDouble,dateString));
-                        LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne");
+                        NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Vos données ont était insérer");
+                        NotificationController.popUpMessage("Certaine Ligne ne seront pas prise en comptes lors du calcul de moyenne car des "
+                                + "information sont manquantes (Note et/ou Date)", "Avertissement");
+                        //LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne");
                          
                     }  
                     noteCorrect = 0;
@@ -230,6 +239,11 @@ public class NotesController implements Initializable{
                 }
             }
         } else {
+            NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
+                    + "Programme Nationnal pour utiliser cette fonctionnalité."
+                    + "Rendez vous dans Parametres > Importer ", 
+                    "Erreur Parametres d'application manquants"
+            );
             LabelNotificationID.setText("Impossible d'ajout� les évaluations, veuillez importé un paramétrage");  
         }   
     } 
@@ -350,11 +364,12 @@ public class NotesController implements Initializable{
             for(Ressource r : stock.ressources) {
                 if(r.getIdentifiant().equals(comboBox.getValue()) && nonPasse) {
                     NomRessource.setText(r.getLibelle());
-
                     Type.setText(r.getType()); 
+                    
                     for(Node n : restaurationEvaluation(r)){
                         nonPasse = false;
-                        Grid.addRow(nbRow,textField1,textField2,textField3,textField4,supprimer);
+                        
+                        //Grid.addRow(nbRow,textField1,textField2,textField3,textField4,supprimer);
                     }
                 }
             }

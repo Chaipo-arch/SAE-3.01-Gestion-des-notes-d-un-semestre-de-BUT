@@ -62,6 +62,8 @@ public class CommuniquerController {
     public void CommuniquerAction() {
         
         boolean ipValider = false;
+        
+        boolean checkValider = false;
         //String adresseIP = adresseIPText.getText();
         //int port = Integer.parseInt(portText.getText()); // Convertir le port en entier
         //portID.setText("1234");
@@ -74,6 +76,7 @@ public class CommuniquerController {
 
             if (isValidIP) {
                 // L'adresse IP est valide, effectuez votre logique ici
+                
                 System.out.println("L'adresse IP est valide : " + serverIP);
                 ipValider = true;
                 // ... Autres actions à effectuer avec l'adresse IP valide
@@ -107,46 +110,58 @@ public class CommuniquerController {
                     ParametrageNationalPrototype.createCsv();
                     filePath = "NationalExporte.csv";
                     fichiers.add(filePath);
+                    checkValider = true;
                 }
                 if(checkRessource.isSelected()) {
                     System.out.println("Envoie des Parametres Ressource");
                     ParametrageRessourcePrototype.createCsv();
                     filePath = "RessourceExporte.csv";
                     fichiers.add(filePath);
+                    checkValider = true;
                 } 
                 //ParametrageNationalPrototype.createCsv();
-
+                
+                
                 System.out.println(portID.getText());
                 int port = Integer.parseInt(portID.getText());
                 System.out.println(port);
+
                 System.out.println("salut debug1");
+
                 System.out.println(serverIP);
+                    
+                    
+                if (checkValider == true ) {
+                    // Tentative de connexion au serveur et envoi de fichiers
+                    Client.connection(serverIP, port);
 
-                // Tentative de connexion au serveur et envoi de fichiers
-                Client.connection(serverIP, port);
+                    // Envoi de fichiers au serveur
+                    for (int i = 0; i < fichiers.size(); i++) {
+                        client.sendCSVFileToServer(fichiers.get(i));
+                    }
 
-                // Envoi de fichiers au serveur
-                for (int i = 0; i < fichiers.size(); i++) {
-                    client.sendCSVFileToServer(fichiers.get(i));
+                    // Réception de la réponse du serveur
+                    try {
+                        Client.recevoirReponse();
+                    } catch (IOException ex) {
+                        System.out.println("Erreur lors de la réception de la réponse du serveur : " + ex.getMessage());
+                        // Autres actions en cas d'erreur de réception de réponse
+                    }
                 }
-
-                // Réception de la réponse du serveur
-                try {
-                    Client.recevoirReponse();
-                } catch (IOException ex) {
-                    System.out.println("Erreur lors de la réception de la réponse du serveur : " + ex.getMessage());
-                    // Autres actions en cas d'erreur de réception de réponse
+                if(!checkNational.isSelected() && !checkRessource.isSelected()){
+                     NotificationController.popUpMessage("Veuillez selectionnez un fichier a envoyer","");
                 }
             } catch (NumberFormatException e) {
+                NotificationController.popUpMessage("Le port renseigner n'est pas valide", "Erreur de Port");
                 System.out.println("Le port doit être un nombre valide.");
                 // Actions en cas d'erreur de conversion du port en nombre
             } catch (Exception e) {
                 System.out.println("Une erreur s'est produite : " + e.getMessage());
                 // Actions en cas d'autres exceptions génériques
             }
-
+            
             System.out.println("Fin du traitement dans le contrôleur");
-            // Suite du code après la tentative de connexion et l'envoi de fichiers
+            
         }
         
     }

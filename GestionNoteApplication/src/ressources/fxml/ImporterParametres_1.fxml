@@ -6,15 +6,15 @@
 
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="913.0" style="-fx-background-color: white;" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImporterParametresController">
    <children>
-      <Button layoutX="121.0" layoutY="202.0" mnemonicParsing="false" onAction="#importerFichier" prefHeight="64.0" prefWidth="672.0" styleClass="Boutton" text="Choisissez votre fichier" />
+      <Button layoutX="123.0" layoutY="245.0" mnemonicParsing="false" onAction="#importerFichier" prefHeight="64.0" prefWidth="672.0" styleClass="Boutton" text="Choisissez votre fichier" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="36.0" prefHeight="64.0" prefWidth="403.0" styleClass="WhoIam" text="Vous etes dans l'importations des parametres" />
-      <Button layoutX="381.0" layoutY="402.0" mnemonicParsing="false" onAction="#choixValiderAction" prefHeight="49.0" prefWidth="148.0" styleClass="BouttonQuitter" text="Valider" />
-      <RadioButton fx:id="nationalToggle" layoutX="207.0" layoutY="143.0" mnemonicParsing="false" text="Importer mes parametres Nationnal">
+      <Button layoutX="384.0" layoutY="421.0" mnemonicParsing="false" onAction="#choixValiderAction" prefHeight="49.0" prefWidth="148.0" styleClass="BouttonQuitter" text="Valider" />
+      <RadioButton fx:id="nationalToggle" layoutX="174.0" layoutY="160.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="358.0" styleClass="textTaille15" text="Importer mes parametres Nationnal">
          <toggleGroup>
             <ToggleGroup fx:id="choix" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="ressourceToggle" layoutX="503.0" layoutY="143.0" mnemonicParsing="false" text="Importer mes parametres Ressources" toggleGroup="$choix" />
-      <Label fx:id="nomFichier" layoutX="411.0" layoutY="335.0" text="NomFichierChoisi" />
+      <RadioButton fx:id="ressourceToggle" layoutX="511.0" layoutY="160.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="299.0" styleClass="textTaille15" text="Importer mes parametres Ressources" toggleGroup="$choix" />
+      <Label fx:id="nomFichier" layoutX="412.0" layoutY="358.0" text="NomFichierChoisi" />
    </children>
 </AnchorPane>

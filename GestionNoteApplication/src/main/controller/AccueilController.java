@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -122,13 +124,17 @@ public class AccueilController implements Initializable {
 
     @FXML
     void QuitterActionButton() {
-        if(t1 != null && t1.isAlive()) {
-            Server.closeServer();
-            t1.interrupt();
+        Optional<ButtonType> result = NotificationController.popUpChoix("","Souhaitez vous quitter l'application ?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            if(t1 != null && t1.isAlive()) {
+                Server.closeServer();
+                t1.interrupt();
+            }
+            //fenetreActive.hide();
+            GestionNote.enregistrerDonnees();
+            System.exit(0);
         }
-        //fenetreActive.hide();
-        GestionNote.enregistrerDonnees();
-        System.exit(0);
+        
     }
 
 

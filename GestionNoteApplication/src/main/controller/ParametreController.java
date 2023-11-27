@@ -43,7 +43,7 @@ public class ParametreController implements Initializable {
         //NotificationController.popUpMessage("Reinitialisation données","");
         NotificationController NotificationController = new NotificationController();
         
-        
+        //NotificationController.popUpMessage("salut", "salut");
         Optional<ButtonType> result = NotificationController.popUpChoix("Reinitialisation données ?","");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Reini");
