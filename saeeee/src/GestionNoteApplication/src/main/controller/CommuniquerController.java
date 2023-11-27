@@ -1,7 +1,6 @@
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.package1.Client;
-import GestionNoteApplication.src.main.java.package1.Cryptage;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
@@ -69,7 +68,7 @@ public class CommuniquerController {
      * Une fois envoyé l'ordinateur attend une réponse sur l'envoie de la part de l'autre ordinateur
      */
     @FXML
-    public void CommuniquerAction() throws IOException{
+    public void CommuniquerAction() {
         notifEnvoi.setVisible(false);
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
         boolean BoucleTout = false;
@@ -90,23 +89,7 @@ public class CommuniquerController {
             }             
             int port = Integer.parseInt(portID.getText());
             Client client = new Client();
-            System.out.println(serverIP);
-            client.connection(serverIP, port);
-            boolean ok;
-                
-            ok = client.sendA(Cryptage.codeAlice(2));
-                    if(ok){
-                        System.out.println("sa marche");
-                       
-                        System.out.println("1000");
-                        String s = client.recevoirReponse();
-                        Cryptage.creationClefAlice(s);
-                        
-                        System.out.println("la clé est : "+Cryptage.cle);
-                        
-                        }
-                
-               if(fichiers.size() != 0) { 
+            if(fichiers.size() != 0) { 
                 for(int i = 0; i < fichiers.size();i++) {
                     client.connection(serverIP, port);
                 

@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
-import GestionNoteApplication.src.main.java.package1.Cryptage;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.Server;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
@@ -88,21 +87,9 @@ public class ImportationDistanceController implements Initializable{
                         fichier.add("RessourceExporte.csv");
                     }
                     Server.createServer();
-                    String codeBob = Cryptage.codeBob(2);
                     //System.out.println(fichier.size());
                     boolean reussi = false;
                     while(!Thread.interrupted() && !reussi) {
-                        Server.connexion();
-                        boolean ok;
-                        ok =Server.cle();
-                        
-                        Server.reponse(codeBob);
-                        if(ok){
-                            
-                            System.out.println("sa marche");
-                            
-                        }
-                        Server.closeClient();
                         boolean correct = true;
                     
                         for(int i = 0; i < fichier.size() && correct; i++ ) {
@@ -125,6 +112,8 @@ public class ImportationDistanceController implements Initializable{
                             System.out.println("Probleme de connexion");
                             Server.closeClient();
                         }
+                        
+                        
                     }
                     System.out.println("Envoie en cours");
                     String message = "CSV reçu";
