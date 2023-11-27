@@ -1,7 +1,6 @@
 package GestionNoteApplication.src.main.controller;
 
-import static GestionNoteApplication.src.main.controller.GEstionNoteApp.notificationController;
-import GestionNoteApplication.src.main.java.modele.GestionNote;
+import GestionNoteApplication.src.main.java.package1.GestionNote;
 import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -9,28 +8,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
-import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.Stockage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.StackPane;
-
-
-
 
 public class ParametreController implements Initializable {
     
     Parent fxml;
     @FXML
     private AnchorPane contenuPage;
-    
-    //NotificationController notificationController = GEstionNoteApp.getNotificationController();
-    
 
     /**
      * Initializes the controller class.
@@ -50,30 +40,16 @@ public class ParametreController implements Initializable {
 
     @FXML
     void reinitialiserActionButton() {
-        NotificationController.popUpMessage("Reinitialisation données","");
-        //NotificationController notificationWindow = new NotificationController();
+        //NotificationController.popUpMessage("Reinitialisation données","");
         NotificationController NotificationController = new NotificationController();
+        
+        
         Optional<ButtonType> result = NotificationController.popUpChoix("Reinitialisation données ?","");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Reini");
             Stockage.getInstance().supprimerDonnees();
             NotificationController.showNotification("Vos données ont bien était réinitialiser");
         }
-        
-        
-
-        
-        
-        
-        //NotificationController notificationController = GEstionNoteApp.getNotificationController();
-        //notificationController.showNotification("Nique ta mereeeee!");
-        // Lorsque l'événement se produit, affichez une notification
-        //notificationWindow.showNotification("Nouvelle notification !");
-        
-
-
-//NotificationController.showNotification(message);
-        System.out.println("test");
         ParametrageNationalPrototype.flag = true;
     }
 

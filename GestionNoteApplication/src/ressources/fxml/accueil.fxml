@@ -20,10 +20,13 @@
       <children>
             <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" minHeight="0.0" prefHeight="532.0" prefWidth="916.0">
                <children>
-                  <Label layoutX="218.0" prefHeight="217.0" prefWidth="419.0" text="Le Lorem Ipsum est simplement du faux texte employé dans lnsgns,g;s,g;,g,ng;g;,gd" />
+                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="195.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
+            <AnchorPane layoutX="197.0" layoutY="3.0" prefHeight="71.0" prefWidth="916.0" style="-fx-background-color: orange;">
                <children>
                   <Label layoutX="260.0" layoutY="14.0" prefHeight="37.0" prefWidth="329.0" styleClass="titreApli" stylesheets="@css.css" text="Application Gestion Notes">
                      <font>
@@ -33,7 +36,7 @@
                </children></AnchorPane>
             <AnchorPane layoutX="13.0" layoutY="3.0" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: #262626;">
                <children>
-                  <Button layoutX="-51.0" layoutY="213.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                  <Button layoutX="-62.0" layoutY="224.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="240.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
                         <Label onMouseClicked="#mesNotesActionBtn" prefHeight="37.0" prefWidth="120.0" text="Mes Notes" textFill="#fbfbfb">
                            <graphic>
@@ -46,31 +49,19 @@
                         </Label>
                      </graphic>
                   </Button>
-                  <Button layoutX="-51.0" layoutY="312.0" mnemonicParsing="false" onAction="#ParametreActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
-                     <graphic>
-                        <Label onMouseClicked="#ParametreActionButton" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="#fbfbfb">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/icons8-engrenage-64.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Label>
-                     </graphic></Button>
-                  <Button layoutX="25.0" layoutY="514.0" mnemonicParsing="false" onMouseClicked="#QuitterActionButton" prefHeight="55.0" prefWidth="147.0" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Quitter" />
-                  <AnchorPane layoutX="47.0" layoutY="19.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="17.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css">
+                  <Button layoutX="22.0" layoutY="523.0" mnemonicParsing="false" onMouseClicked="#QuitterActionButton" prefHeight="55.0" prefWidth="147.0" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Quitter" />
+                  <AnchorPane layoutX="74.0" layoutY="38.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="27.0" prefWidth="109.0" styleClass="userPane" stylesheets="@css.css">
                      <children>
                         <TextField fx:id="UserTextField" alignment="CENTER" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" visible="false" />
                         <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" textFill="WHITE" />
                      </children>
                   </AnchorPane>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="81.0" fitWidth="64.0" layoutX="10.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/icons8-utilisateur-50.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="-51.0" layoutY="111.0" mnemonicParsing="false" onAction="#AccueilActionBouton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                  <Button layoutX="-71.0" layoutY="122.0" mnemonicParsing="false" onAction="#AccueilActionBouton" prefHeight="65.0" prefWidth="249.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
                         <Label fx:id="BtnAccueil" onMouseClicked="#AccueilActionBouton" prefHeight="37.0" prefWidth="103.0" text="Accueil" textFill="#fbfbfb">
                            <graphic>
@@ -83,13 +74,30 @@
                         </Label>
                      </graphic>
                   </Button>
-                  <Button layoutX="-57.0" layoutY="410.0" mnemonicParsing="false" onAction="#AjouterEvaluationActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css" text="moyenne">
+                  <Button layoutX="-28.0" layoutY="325.0" mnemonicParsing="false" onAction="#AjouterEvaluationActionButton" prefHeight="65.0" prefWidth="204.0" styleClass="glass-grey" stylesheets="@../css/css.css">
                      <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icons8-menu-64.png" />
-                           </image>
-                        </ImageView>
+                        <Label onMouseClicked="#AjouterEvaluationActionButton" prefHeight="36.0" prefWidth="136.0" text="Calculer Moyenne" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons8-ajouter-50.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="-50.0" layoutY="423.0" mnemonicParsing="false" onAction="#ParametreActionButton" prefHeight="65.0" prefWidth="229.0" styleClass="glass-grey" stylesheets="@../css/css.css">
+                     <graphic>
+                        <Label onMouseClicked="#ParametreActionButton" prefHeight="37.0" prefWidth="115.0" text="Parametre" textFill="#fbfbfb">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons8-engrenage-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
                      </graphic>
                   </Button>
                </children>

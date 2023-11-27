@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,15 +41,19 @@ public class NotificationController {
 
         // Définition du style de la notification
         rootNotif.setStyle(
-            "-fx-background-color: white;" + // Couleur de fond blanche
+            "-fx-background-color: green;" + // Couleur de fond blanche
             "-fx-background-radius: 20;" // Coins arrondis de 20 pixels
         );
         
         // Création de la scène pour la fenêtre de notification
-        Scene scene = new Scene(rootNotif, 300, 70); // Taille de la scène (largeur x hauteur)
+        Scene scene = new Scene(rootNotif, 300, 55); // Taille de la scène (largeur x hauteur)
+        scene.setFill(Color.TRANSPARENT); // Rend la scène transparente
 
+        
         // Attribution de la scène à la fenêtre de notification
         notificationStage.setScene(scene);
+        notificationStage.initStyle(StageStyle.TRANSPARENT);
+        //notificationStage.setScene(scene);
     }
 
     /**
@@ -64,7 +69,7 @@ public class NotificationController {
         
         // Positionnement de la fenêtre de notification
         notificationStage.setX(GEstionNoteApp.getPrimaryStage().getX() + 800); // Décalage de la position X
-        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 500); // Décalage de la position Y
+        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 40); // Décalage de la position Y
         
         // Affichage de la fenêtre de notification
         notificationStage.show();

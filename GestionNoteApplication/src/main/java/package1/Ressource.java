@@ -16,12 +16,12 @@ import java.text.DecimalFormat;
  * @author ahmed.bribach
  */
 public class Ressource implements Serializable{
-     public String type;
-    public String libelle;
-    public double coefficient;
-    public String identifiant;
+    private String type;
+    private String libelle;
+    private double coefficient;
+    private String identifiant;
     private Note note;
-    public ArrayList<Evaluation> evaluations;
+    private ArrayList<Evaluation> evaluations;
     
     /**
      * constructeur d'une ressources
@@ -31,20 +31,6 @@ public class Ressource implements Serializable{
      * @param identifiant
      * @throws NoteException 
      */
-    /*public Ressource(String intitule, double coefficient, String type,String identifiant)throws NoteException{
-       // if(coefficient<=0 || intitule.isEmpty() || identifiant.isEmpty()){
-       //     throw new IllegalArgumentException(coefficient + intitule + identifiant);
-       // }
-        this.note = new Note(-1);
-        this.libelle = intitule;
-        this.type = type;
-        this.identifiant = identifiant;
-        this.coefficient = coefficient;
-        evaluations = new ArrayList<>();
-        
-        
-    }*/
-    
     public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
         //if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
         //   throw new IllegalArgumentException();
@@ -75,7 +61,7 @@ public class Ressource implements Serializable{
                 calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
                 totalCoef += evaluations.get(index).getCoefficient();
             }
-        
+            //note.setNote(calculMoyenne/totalCoef);
             DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
             String noteArrondi = df.format(calculMoyenne/totalCoef);
             note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
@@ -115,12 +101,13 @@ public class Ressource implements Serializable{
      * @return true si l'évaluation a été correctement ajouté, false sinon
      */
     public boolean ajouterEvaluation(Evaluation evaluationAAjouter){
-        if(evaluations.contains(evaluationAAjouter)){
+        if(contientDeja(evaluationAAjouter)){
             return false;
         }
         evaluations.add(evaluationAAjouter);
         return true;
     }
+    
     
     /**
      * supprimer une évaluation à la ressources
@@ -145,6 +132,19 @@ public class Ressource implements Serializable{
     public double getCoefficient(){
         return coefficient;
     }
+    /**
+     * renvoi le type de la ressource
+     * @return coefficient  
+     */
+    public String getType(){
+        return type;
+    }
+    public String getIdentifiant(){
+        return identifiant;
+    }
+    public String getLibelle(){
+        return libelle;
+    }
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;
     }
@@ -155,4 +155,13 @@ public class Ressource implements Serializable{
         }
         return true;
     }
+    public boolean contientDeja(Evaluation e) {
+    	for (Evaluation evaluationAComparer : evaluations) {
+            if(e.compareEvaluation(evaluationAComparer)) {
+    		return true;
+    	    }
+    	}
+    	return false;
+    }
+    
 }

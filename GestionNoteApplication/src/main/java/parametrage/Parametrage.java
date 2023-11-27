@@ -5,7 +5,7 @@
  */
 package GestionNoteApplication.src.main.java.parametrage;
 
-import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.io.File;
@@ -46,10 +46,6 @@ public abstract class Parametrage {
      * 
      */
     public abstract void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException;
+
     
-    /** TODO comment method role
-     * @return b
-     * 
-     */
-    public abstract boolean isCorrect();
 }

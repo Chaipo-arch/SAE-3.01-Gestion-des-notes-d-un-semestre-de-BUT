@@ -1,7 +1,6 @@
 package GestionNoteApplication.src.main.controller;
 
-import GestionNoteApplication.src.main.java.modele.Client;
-import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.package1.Client;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;

@@ -5,10 +5,11 @@
  */
 package GestionNoteApplication.src.main.java.parametrage;
 
-import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
-import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.package1.Stockage;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,8 +30,9 @@ public class ParametrageRessourcePrototype extends Parametrage {
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"﻿BUT Informatique - Modalite Controle de connaissances ressources semestre", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
+    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances ressources semestre ", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
 
+    private static BufferedReader br;
     private static int numeroLigne;
 
     /**
@@ -41,10 +43,11 @@ public class ParametrageRessourcePrototype extends Parametrage {
      */
     public ParametrageRessourcePrototype(File chemin) throws IOException, MauvaisFormatFichierException {
         super(chemin);
+        flag = true;
     }
 
     @Override
-    public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException {
+    public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException {
         FileReader fr = null;
         //System.out.println("ok");
         // prerequis
@@ -55,18 +58,23 @@ public class ParametrageRessourcePrototype extends Parametrage {
             e.printStackTrace();
         }
         // bufferedReader plus pratique
-        BufferedReader br = new BufferedReader(fr);
+         br = new BufferedReader(fr);
         // lecture ligne par ligne
         numeroLigne = 0;
         String line;
-        for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
+        for (line = newLine(); numeroLigne < 3; line = newLine()) {
             String[] chaine = line.split(";");
             if (numeroLigne == 0) {
-                chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
+                chaine[0] = chaine[0].substring(0, chaine[0].length() - 1);
             }
-           if (!chaine[0].equals(MODELE[numeroLigne])) {
+           if (!chaine[0].matches(MODELE[numeroLigne])) {
                System.out.println(chaine[0]);
+               System.out.println("ok");
+               
+               System.out.println(numeroLigne);
+               System.out.println(MODELE[numeroLigne]);
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " + line + numeroLigne );
+                
             }
             
              if(chaine.length != 2 && numeroLigne == 1) {
@@ -90,29 +98,29 @@ public class ParametrageRessourcePrototype extends Parametrage {
             calculCoeff = 0;
             String[] chaine = line.split(";");
 
-            if ((chaine[0].equals("Competence") || chaine[0].equals("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
+            if ((chaine[0].matches("Competence") || chaine[0].matches("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
                 saveIdentifiantR = chaine[1];
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit" + line);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit" + line);
             }
-            line = newLine(br);
+            line = newLine();
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit");
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
             ArrayList<Evaluation> evals = new ArrayList();
-            for (line = newLine(br); line != null
+            for (line = newLine(); line != null
                     && !line.split(";")[0].equals("Competence")
-                    && !line.split(";")[0].equals("Ressource"); line = newLine(br)) {
+                    && !line.split(";")[0].equals("Ressource"); line = newLine()) {
                 chaine = line.split(";");
                 if (chaine.length != 3) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: pas 3 colonne");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne");
                 }
                 if (chaine[2].matches("-([0-9]){1,}")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal écrit: " + chaine[2]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2]);
                 }
                 
                 calculCoeff += Integer.parseInt(chaine[2]);
@@ -120,14 +128,20 @@ public class ParametrageRessourcePrototype extends Parametrage {
             }
             //System.out.println(calculCoeff);
             if (calculCoeff == 100) {
-                Object ressource = Stockage.getInstance().recherche(saveIdentifiantR);
+                ArrayList<Object> ressource = Stockage.getInstance().recherche(saveIdentifiantR);
+                if(ressource.size() == 0) {
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: La ressource avec comme identifiant " + saveIdentifiantR + " n'existe pas");
+                }
                 Stockage.getInstance().addEvaluations(evals);
-                if (ressource instanceof Ressource) {
+                
+                 for(Object o : ressource) {
+                    if (o instanceof Ressource) {
                     for(Evaluation e: evals) {
-                        ((Ressource) ressource).ajouterEvaluation(e);
+                        ((Ressource) o).ajouterEvaluation(e);
                     }
                     
 
+                }
                 }
             } else {
                 throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantR + " a une somme des coefficients pas égale à 100: " + calculCoeff);
@@ -148,7 +162,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
      * @return
      * @throws IOException
      */
-    public String newLine(BufferedReader br) throws IOException {
+    public String newLine() throws IOException {
         String line = null;
         do {
             line = br.readLine();
@@ -160,7 +174,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
             } else {
                 numeroLigne++;
             }
-
+            System.out.println(line);
             while (line.endsWith(";")) {
                 line = (String) line.subSequence(0, line.length() - 1);
             }
@@ -169,34 +183,33 @@ public class ParametrageRessourcePrototype extends Parametrage {
         return line;
     }
 
-    @Override
-    public boolean isCorrect() {
-        return false;
-    }
-
       /**
      * 
      */
      public static void createCsv() {
         File file = new File("RessourceExporte.csv");
         String csv = "RessourceExporte.csv";
+        ArrayList<String> idDejaApparue = new ArrayList();
         try {
             file.createNewFile();
         } catch (IOException ex) {
            
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
-            ecritureLigne.write("BUT Informatique - Modalité Controle de connaissances ressources semestre\n");
+            ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre\n");
             ecritureLigne.write("Semestre;2\nParcours;Tous\n");
             for(Ressource r: Stockage.getInstance().ressources) {
-                if(r.getEvaluation().size() != 0) {
-                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ "\n");
-                    ecritureLigne.write("Type evaluation;Date;Poids\n");
+                if (!idDejaApparue.contains(r.getIdentifiant())){
+                    idDejaApparue.add(r.getIdentifiant());
+                    if(r.getEvaluation().size() != 0) {
+                        ecritureLigne.write("Ressource;"+ r.getIdentifiant()+";"+r.getIdentifiant()+ "\n");
+                        ecritureLigne.write("Type evaluation;Date;Poids\n");
 
 
-                }
-                for(Evaluation e: r.getEvaluation()) {
-                    ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ e.getCoefficient()+ "\n");  
+                    }
+                    for(Evaluation e: r.getEvaluation()) {
+                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ e.getCoefficient()+ "\n");  
+                    }
                 }
             }
            

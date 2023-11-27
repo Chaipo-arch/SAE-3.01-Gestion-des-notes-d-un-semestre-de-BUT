@@ -1,57 +1,28 @@
-/* styles.css */
 
-
-/*TODO root ?*/
-.root{
-    /*-fx-background-color: #65E184;*/
-    -fx-background-color: #4CAF50; /* Vert pour indiquer un état de succès */
-    -fx-border-color: #388E3C; /* Couleur de la bordure */
-    -fx-border-radius: 20px; /* Rayon de la bordure */
-    -fx-border-width: 2px; /* Largeur de la bordure */
-    -fx-padding: 10px; /* Espace intérieur de la notification */
-    -fx-text-fill: white; /* Couleur du texte */
-    -fx-font-size: 14px; /* Taille de la police */
-}
-
-/* Styles pour la classe custom-vbox 
-
-.custom-vbox {
-   
-    -fx-background-color: #65E184;
-    -fx-padding: 10px;
-    -fx-border-color: #388E3C; 
-    -fx-border-radius: 20px; 
+#gridPaneTitre{
+    
     
 }
-
-
-*/
-
-
-
-
-
-
-
-.alert {
-    -fx-background-color: #F5F5F5; /* Couleur de fond */
-    -fx-text-fill: #333333; /* Couleur du texte */
+/* Style pour les enfants de la GridPane (par exemple, les Labels) */
+.gridPane .label{
+    -fx-alignment: center;
+    -fx-background-color: #D9D9D9; /* Fond gris clair */
+    -fx-border-color: black; /* Bordure grise */
+    -fx-border-width: 2px; /* Épaisseur de la bordure noire */
+    -fx-padding: 10px; /* Espace intérieur */
+    
+    
+    -fx-font-size: 25px; /* Remplacez 16px par la taille souhaitée en pixels */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-transform: uppercase; /* Texte en majuscules */
 }
 
-.alert .dialog-pane {
-    -fx-background-color: #FFFFFF; /* Couleur du panneau de dialogue */
-    -fx-border-color: #CCCCCC; /* Couleur de la bordure */
-    -fx-border-width: 2px; /* Épaisseur de la bordure */
-}
+/* Style pour la ComboBox */
+.gridPane .combo-box {
 
-.alert .header-panel {
-    -fx-background-color: #CCCCCC; /* Couleur de l'en-tête */
-}
+    -fx-font-size: 10px;
 
-.alert .content {
-    -fx-font-size: 14px; /* Taille de la police du contenu */
 }
-
 
 
 
@@ -87,16 +58,17 @@
 .Boutton{
 
     -fx-background-color: #7681EA;
-    -fx-font-size: 20px;
     -fx-background-radius: 50px;
     -fx-text-fill: black;
+    -fx-font-size: 20px;
     /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
 }
+
 
 .Boutton:hover{
 
     -fx-background-color: #5D68CC ;
-    -fx-font-size: 20px;
+    -fx-font-size: 25px;
     -fx-background-radius: 50px;
     -fx-text-fill: black;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8),20, 0, 0, 0);
@@ -162,6 +134,12 @@
     -fx-background-radius: 10px;
     -fx-alignment: center;
 
+}
+
+.StyleBox2{
+    -fx-background-color: #b8b8b8;
+    -fx-background-radius: 10px;
+    -fx-font-size: 20px;
 }
 
 /* Style initial (mode clair) */

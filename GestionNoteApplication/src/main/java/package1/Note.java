@@ -53,7 +53,7 @@ public class Note implements Serializable {
      * @return true si la valeur est une note correcte sinon false
      */
     public static boolean isNote(double valeur) {
-        return (valeur >= 0.0 && valeur <=20.0) || valeur ==-1;
+        return (valeur >= 0.0 && valeur <=20.0 ) || valeur == -1;
     }
     
     public boolean equals(Note note){

@@ -6,9 +6,9 @@
 package GestionNoteApplication.src.main.controller;
 
 import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
-import GestionNoteApplication.src.main.java.modele.GestionNote;
-import GestionNoteApplication.src.main.java.modele.Server;
-import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.GestionNote;
+import GestionNoteApplication.src.main.java.package1.Server;
+import GestionNoteApplication.src.main.java.package1.Stockage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +50,8 @@ public class AccueilController implements Initializable {
         fenetreActive = fenetre;
     }
 
-    
+    @FXML
+    private Label textePresentation;
     
     @FXML
     private AnchorPane contenuPage;
@@ -67,10 +68,10 @@ public class AccueilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
-                 System.out.println(file.getAbsolutePath());
             try {
                 GestionNote.recupererDonnees();
                 userLabel.setText(Stockage.getInstance().getUserName());
+                textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
             } catch (IOException ex) {
                 
             } catch (ClassNotFoundException ex) {
@@ -100,7 +101,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            changerPage("ajouterEvaluations.fxml");
+            changerPage("calculerMoyenne.fxml");
         } catch (IOException ex) {
             
         }
@@ -138,7 +139,7 @@ public class AccueilController implements Initializable {
             t1.interrupt();
         }
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.getAbsolutePath());
+        System.out.println(file.exists());
         if(file.exists()) {
             String changementPage = "../../ressources/fxml/"+page;
             System.out.println(file.getAbsolutePath());
@@ -161,6 +162,8 @@ public class AccueilController implements Initializable {
         UserTextField.setVisible(false);
         userLabel.setText(UserTextField.getText());
         userLabel.setVisible(true);
+        Stockage.getInstance().setUserName(userLabel.getText());
+        textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
 
     }
 

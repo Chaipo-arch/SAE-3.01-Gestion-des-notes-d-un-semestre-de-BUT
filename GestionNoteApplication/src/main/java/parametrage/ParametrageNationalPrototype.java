@@ -6,9 +6,9 @@
 package GestionNoteApplication.src.main.java.parametrage;
 
 
-import GestionNoteApplication.src.main.java.modele.MauvaisFormatFichierException;
+import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 
-import GestionNoteApplication.src.main.java.modele.Stockage;
+import GestionNoteApplication.src.main.java.package1.Stockage;
 import GestionNoteApplication.src.main.java.package1.Competence;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
@@ -128,14 +128,15 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
             if (calculCoeff == 100) {
                
-                Object compe = Stockage.getInstance().recherche(saveIdentifiantC);
+                ArrayList<Object> compe = Stockage.getInstance().recherche(saveIdentifiantC);
                 
-                ress = Stockage.getInstance().addRessources(ress,(Competence)compe);
-                
-                if (compe instanceof Competence) {
-                    for(Ressource r : ress) {
-                        ((Competence) compe).ajouterRessource(r);
-                    }
+                ress = Stockage.getInstance().addRessources(ress,(Competence)compe.get(0));
+                for(Object o : compe) {
+                    if (o instanceof Competence) {
+                       for(Ressource r : ress) {
+                           ((Competence) o).ajouterRessource(r);
+                       }
+                   }
                 }
             } else {
                 throw new MauvaisFormatFichierException("La competence " + saveIdentifiantC + " a une somme des coefficients pas egale à 100: " + calculCoeff);
@@ -176,11 +177,6 @@ public class ParametrageNationalPrototype extends Parametrage {
         } while (line.isEmpty());
         return line;
     }
-
-    @Override
-    public boolean isCorrect() {
-        return false;
-    }
     
     /**
      * 
@@ -201,7 +197,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
                 ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");
                 for(Ressource r: c.getRessources()) {
-                    ecritureLigne.write(r.type +";"+ r.identifiant+";"+r.libelle+ ";" +(int) r.coefficient+"\n");
+                    ecritureLigne.write(r.getType() +";"+ r.getIdentifiant()+";"+r.getIdentifiant()+ ";" +(int) r.getCoefficient()+"\n");
                 }
             }
         } catch (IOException ex) {

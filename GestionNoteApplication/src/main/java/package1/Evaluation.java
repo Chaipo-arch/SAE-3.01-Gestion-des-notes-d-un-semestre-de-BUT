@@ -57,16 +57,17 @@ public class Evaluation implements Serializable{
         this.date = dateEvaluation;
     }
     public Evaluation(String type,String dateEvaluation
-                      ,double coefficientEvaluation
-                      )throws EvaluationException{
-        if(!isCoefficient(coefficientEvaluation)){
-            throw new EvaluationException("le coefficient doit être >0 & <= 100");  
-        }
-        this.type = type;
-        this.coefficient = coefficientEvaluation;
-        this.date = dateEvaluation;
-        this.note = null;
+		            ,double coefficientEvaluation
+		            )throws EvaluationException, NoteException{
+		if(!isCoefficient(coefficientEvaluation)){
+		  throw new EvaluationException("le coefficient doit être >0 & <= 100");  
+		}
+		this.type = type;
+		this.coefficient = coefficientEvaluation;
+		this.date = dateEvaluation;
+		this.note = new Note(-1);
     }
+    
     /**
      * Ajoute une note à l'intance de l'évaluation
      * @return true si l'ajout a bien été effectué(la nouvelle note inséré 
@@ -120,6 +121,28 @@ public class Evaluation implements Serializable{
         }
         return false;  
     }
+    public boolean compareEvaluation(Evaluation EvaluationAComparer) {
+    	if (ressource.equals(EvaluationAComparer.ressource) 
+    		&& note.getNote() == EvaluationAComparer.note.getNote()
+                && type.equals(EvaluationAComparer.type)    
+                && coefficient == EvaluationAComparer.coefficient
+                && date.equals(EvaluationAComparer.date)) {
+    		return true;
+    	}
+    	return false;
+    }
+    //getter coefficient
+    public String getRessource(){
+        return ressource;
+    }
+    //getter note
+    public String getType(){
+        return type;
+    }
+    //getter coefficient
+    public String getDate(){
+        return date;
+    }
     //getter note
     public double getNote(){
         return note.getNote();
@@ -134,13 +157,5 @@ public class Evaluation implements Serializable{
      */
     public static boolean isCoefficient(double coefficientATester){
         return coefficientATester <= 100 && coefficientATester > 0;
-    }
-
-    public String getType() {
-       return this.type;
-    }
-
-    public String getDate() {
-        return this.date;
     }
 }
