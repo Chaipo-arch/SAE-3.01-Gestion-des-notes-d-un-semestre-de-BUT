@@ -2,6 +2,7 @@ package GestionNoteApplication.src.main.java.package1;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,14 +52,28 @@ public class Server {
             File fichier = new File(filePath);
             FileReader fr = new FileReader(fichier);
             BufferedReader br = new BufferedReader(fr);
+            ArrayList<String> toutLeFichier = new ArrayList<>();
+            while (br.readLine() != null) {
+                toutLeFichier.add(br.readLine());
+            }
             
-            String toutLeFichier = br.readLine();
             br.close();
             fr.close();
             
-            Cryptage.decryptage(Cryptage.cle, toutLeFichier);
-            System.out.println(toutLeFichier);
-            System.out.println(Cryptage.decryptage(Cryptage.cle, toutLeFichier));
+            FileWriter fw = new FileWriter(fichier);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for(int i = 0; i < toutLeFichier.size()-1;i++){
+                System.out.println(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i)));
+                bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
+            }
+            bw.close();
+            fw.close();
+            
+            
+            //Cryptage.decryptage(Cryptage.cle, toutLeFichier);
+           
+            
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
             //in.close();
             //fileOutputStream.close();
