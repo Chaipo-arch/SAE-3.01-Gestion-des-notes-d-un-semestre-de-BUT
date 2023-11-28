@@ -67,6 +67,10 @@ public class Evaluation implements Serializable{
 		this.date = dateEvaluation;
 		this.note = new Note(-1);
     }
+
+    public Evaluation(Ressource r, Note note, String typeAcomparer, double coefficientAcomparer, String dateAcomparer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Ajoute une note à l'intance de l'évaluation
