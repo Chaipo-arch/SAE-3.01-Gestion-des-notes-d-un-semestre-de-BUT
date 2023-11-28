@@ -63,6 +63,10 @@ public class ParametrageRessourcePrototype extends Parametrage {
         numeroLigne = 0;
         String line;
         for (line = newLine(); numeroLigne < 3; line = newLine()) {
+            if(line == null) {
+                throw new MauvaisFormatFichierException("Fichier vide");
+            }
+                
             String[] chaine = line.split(";");
             if (numeroLigne == 0) {
                 chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);

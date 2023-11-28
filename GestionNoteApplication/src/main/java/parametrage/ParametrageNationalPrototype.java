@@ -62,7 +62,11 @@ public class ParametrageNationalPrototype extends Parametrage {
         numeroLigne = 0;
         String line;
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
+            if(line == null) {
+                throw new MauvaisFormatFichierException("Fichier vide");
+            }
             String[] chaine = line.split(";");
+           
             if (!chaine[0].equals(MODELE[numeroLigne])) {
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit " );
             }
