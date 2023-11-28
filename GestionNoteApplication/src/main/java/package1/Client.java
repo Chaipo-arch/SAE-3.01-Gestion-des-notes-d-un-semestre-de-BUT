@@ -2,6 +2,7 @@ package GestionNoteApplication.src.main.java.package1;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,23 +34,32 @@ public class Client {
             // Flux de sortie pour envoyer le fichier CSV au serveur
             OutputStream out = socket.getOutputStream();
             System.out.println("hiorg uiosbh fgui fhdjkfdbfgjh fvb vf;n vbvc,b vcb ,nvc hv ,nbfdv  vb ");
-            FileInputStream fileInputStream = new FileInputStream(file);
+           
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             
-            String toutLeFichier = "" ;
+            ArrayList<String> toutLeFichier = new ArrayList<>() ;
             while (br.readLine() != null) {
-                toutLeFichier+=  br.readLine();
+                toutLeFichier.add(br.readLine());
             }
             br.close();
             fr.close();
             
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            System.out.println(toutLeFichier);
+            
             System.out.println(Cryptage.cle);
-            System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier));
-            bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier));
+            
+            
+            for(int i=0; i < toutLeFichier.size();i++){
+                System.out.println(toutLeFichier.get(i));
+              //  System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+                bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+            }
+            bw.close();
+            fw.close();
+            
+            FileInputStream fileInputStream = new FileInputStream(file);
             byte[] buffer = new byte[1024];
             int bytesRead;
            
