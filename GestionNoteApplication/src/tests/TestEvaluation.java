@@ -49,24 +49,20 @@ public class TestEvaluation  {
         listeCoefficientNonValide.add(100.0001);
 
         // Initialisation de listes d'évaluations valides avec des notes, des coefficients et des modalités
-        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(0)
+        listeEvaluationValide.add(new Evaluation("r1",listeNoteValide.get(0)
                 ,"QCM",listeCoefficientValide.get(0),"25/01/2023"));
-        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(1)
+        listeEvaluationValide.add(new Evaluation("r1",listeNoteValide.get(1)
                 ,"Exam sur machine",listeCoefficientValide.get(1),"Mi septembre"));
-        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(2)
+        listeEvaluationValide.add(new Evaluation("r1",listeNoteValide.get(2)
                 ,"Ecrit",listeCoefficientValide.get(2),""));
-        listeEvaluationValide.add(new Evaluation(listeNoteValide.get(3)
+        listeEvaluationValide.add(new Evaluation("r1",listeNoteValide.get(3)
                 ,"Relevés TPs",listeCoefficientValide.get(3),"25/12/2024"));
 
         // Initialisation de listes d'évaluations sans note avec des modalités
-        listeEvaluationSansNote.add(new Evaluation(null
-                ,"QCM",1,"25/01/2023"));
-        listeEvaluationSansNote.add(new Evaluation(null
-                ,"Exam sur machine",10,"Mi septembre"));
-        listeEvaluationSansNote.add(new Evaluation(null
-                ,"Ecrit",20,""));
-        listeEvaluationSansNote.add(new Evaluation(null
-                ,"Relevés TPs",50.5,"25/12/2024"));
+        listeEvaluationSansNote.add(new Evaluation("QCM","25/01/2023",1));
+        listeEvaluationSansNote.add(new Evaluation("Exam sur machine","Mi septembre", 10));
+        listeEvaluationSansNote.add(new Evaluation("Ecrit","",20));
+        listeEvaluationSansNote.add(new Evaluation("Relevés TPs","25/12/2024", 50.5));
 
         // Initialisation de listes de chaînes non valides
         listeChaineNonValide.add("");
@@ -77,28 +73,31 @@ public class TestEvaluation  {
      * tests sur la méthode ajouterNote de la classe Evaluation.
      */
     public static void testAjouterNote(){
+        System.out.println("TEST AjouterNote");
         int nbTestNOk = 0;
         int index = 0;
-        
+        System.out.println("Test avec evaluation sans note");
         for(Evaluation evaluationTeste : listeEvaluationSansNote){
             
             if (!evaluationTeste.ajouterNote(listeNoteValide.get(index))){
+                System.out.println(listeNoteValide.get(index).getNote() + " non valide pour " + evaluationTeste.getType() );
                 nbTestNOk++;
             }
             index++;
         }
         index =0;
         
-        
+        System.out.println("Test avec evaluation valide");
         for(Evaluation evaluationTeste : listeEvaluationValide){
             
             if (evaluationTeste.ajouterNote(listeNoteValide.get(index))){
+                System.out.println(listeNoteValide.get(index) + " non valide pour " + evaluationTeste.getType() );
                 nbTestNOk++;
             }
             index++;
         }
         if(nbTestNOk != 0){
-            System.out.println("Il y a " + nbTestNOk + " erreur(s)");
+            System.out.println("TEST : ajouterNote. Il y a " + nbTestNOk + " erreur(s)");
         }else{
             System.out.println("TEST : ajouterNote VALIDE");
         }
@@ -148,8 +147,7 @@ public class TestEvaluation  {
      * tests sur la méthode modifierModalite de la classe Evaluation.
      */
     public static void testModifierModalite(){
-        if(!listeEvaluationValide.get(0).modifierModalite(null,
-                "Exam sur machine",100,"Mi septembre")){
+        if(!listeEvaluationValide.get(0).modifierModalite("r2",listeNoteValide.get(1),"Exam sur machine",10,"Mi septembre")){
             System.out.println("Une erreur s'est produite lors de la modification");
         }
         else if (listeEvaluationValide.get(0) ==listeEvaluationValide.get(1)){

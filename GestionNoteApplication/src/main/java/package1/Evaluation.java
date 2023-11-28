@@ -74,7 +74,7 @@ public class Evaluation implements Serializable{
      * n'écrase pas une ancienne note), false sinon
      */
     public boolean ajouterNote(Note noteAAjouter){
-        if(note == null){
+        if(note.getNote() == -1){
             note = noteAAjouter; 
             return true;
         }
@@ -89,7 +89,7 @@ public class Evaluation implements Serializable{
      */
     
     public String toString(){
-        if (note == null){
+        if (note.getNote() == -1){
             return ressource + " " + type + " " + date 
                              + coefficient + " note non renseignée";
         }
