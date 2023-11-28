@@ -53,8 +53,9 @@ public class Server {
             FileReader fr = new FileReader(fichier);
             BufferedReader br = new BufferedReader(fr);
             ArrayList<String> toutLeFichier = new ArrayList<>();
-            while (br.readLine() != null) {
-                toutLeFichier.add(br.readLine());
+            String ligne ;
+            while ((ligne = br.readLine()) != null) {
+                toutLeFichier.add(ligne);
             }
             
             br.close();
@@ -63,7 +64,7 @@ public class Server {
             FileWriter fw = new FileWriter(fichier);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for(int i = 0; i < toutLeFichier.size()-1;i++){
+            for(int i = 0; i < toutLeFichier.size();i++){
                 System.out.println(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i)));
                 bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
