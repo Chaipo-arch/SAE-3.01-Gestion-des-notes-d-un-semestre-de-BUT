@@ -24,9 +24,10 @@ public class Cryptage {
    public static String cle = "";
    static int p = 71;
 
-    public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô()-" + " ";
+    public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô()-'" + " ";
     
     public static String codeAlice(int g) {
+        tableauA.clear();
         String chaineA = "";
         for(int i=0 ; i<30 ;i++){
             int a = (int)(Math.random()*70);
@@ -39,6 +40,7 @@ public class Cryptage {
     }
 
     public static String codeBob(int g) {
+        tableauB.clear();
         String chaineB = "";
         for(int i=0 ; i<30 ;i++){
             int b = (int)(Math.random()*70);
@@ -134,7 +136,6 @@ public class Cryptage {
        String chaine = "";
         for (int i = 0; i < messageACrypter.length(); i++) {
             
-            System.out.println(messageACrypter.charAt(i));
             int nombre = (dicoReverse.get(messageACrypter.charAt(i)) + dicoReverse.get(cle.charAt(i % cle.length()))) % ENSEMBLE_CARACTERES.length();
             chaine += dico.get(nombre);
         }
