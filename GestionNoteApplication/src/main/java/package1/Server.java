@@ -65,7 +65,7 @@ public class Server {
             BufferedWriter bw = new BufferedWriter(fw);
 
             for(int i = 0; i < toutLeFichier.size();i++){
-                System.out.println(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i)));
+               
                 bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
             bw.close();

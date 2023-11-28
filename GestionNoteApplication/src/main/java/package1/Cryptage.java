@@ -136,7 +136,6 @@ public class Cryptage {
        String chaine = "";
         for (int i = 0; i < messageACrypter.length(); i++) {
             
-            //System.out.println(messageACrypter.charAt(i));
             int nombre = (dicoReverse.get(messageACrypter.charAt(i)) + dicoReverse.get(cle.charAt(i % cle.length()))) % ENSEMBLE_CARACTERES.length();
             chaine += dico.get(nombre);
         }
