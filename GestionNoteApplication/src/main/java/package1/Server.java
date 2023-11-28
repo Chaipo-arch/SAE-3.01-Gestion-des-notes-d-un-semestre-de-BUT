@@ -48,6 +48,17 @@ public class Server {
             while ((bytesRead = in.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
+            File fichier = new File(filePath);
+            FileReader fr = new FileReader(fichier);
+            BufferedReader br = new BufferedReader(fr);
+            
+            String toutLeFichier = br.readLine();
+            br.close();
+            fr.close();
+            
+            Cryptage.decryptage(Cryptage.cle, toutLeFichier);
+            System.out.println(toutLeFichier);
+            System.out.println(Cryptage.decryptage(Cryptage.cle, toutLeFichier));
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
             //in.close();
             //fileOutputStream.close();
