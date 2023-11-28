@@ -327,8 +327,8 @@ public class NotesController implements Initializable{
             }
         }
     } 
-    public Evaluation getEvaluationWithTF() {
+   /* public Evaluation getEvaluationWithTF() {
         
-    }
+    }*/
     
 }
