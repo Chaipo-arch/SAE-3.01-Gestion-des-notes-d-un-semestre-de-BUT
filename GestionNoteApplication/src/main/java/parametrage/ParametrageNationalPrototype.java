@@ -148,6 +148,7 @@ public class ParametrageNationalPrototype extends Parametrage {
         }
         br.close();
         fr.close();
+        
     }
     
     /**
@@ -197,7 +198,8 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
             
         } catch (IOException ex) {
-            
+            System.out.println("le fichiers n'a pas était supprimé");
+            System.out.println(ex.getMessage());
         }
         //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
@@ -207,7 +209,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
                 ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");
                 for(Ressource r: c.getRessources()) {
-                    ecritureLigne.write(r.getType() +";"+ r.getIdentifiant()+";"+r.getIdentifiant()+ ";" +(int) r.getCoefficient()+"\n");
+                    ecritureLigne.write(r.getType() +";"+ r.getIdentifiant()+";"+r.getLibelle()+ ";" +(int) r.getCoefficient()+"\n");
                 }
             }
         } catch (IOException ex) {

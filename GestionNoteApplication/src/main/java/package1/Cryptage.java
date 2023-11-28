@@ -24,7 +24,7 @@ public class Cryptage {
    public static String cle = "";
    static int p = 71;
 
-    public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô" + " ";
+    public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô()-" + " ";
     
     public static String codeAlice(int g) {
         String chaineA = "";

@@ -50,11 +50,11 @@ public class Client {
             
             System.out.println(Cryptage.cle);
             
-            
-            for(int i=0; i < toutLeFichier.size();i++){
+            bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(0)));
+            for(int i=1; i < toutLeFichier.size()-1;i++){
                 System.out.println(toutLeFichier.get(i));
-              //  System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
-                bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
+                System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+                bw.write("\n"+Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
             }
             bw.close();
             fw.close();
