@@ -69,11 +69,7 @@ public class ImporterParametresController {
             if(nationalToggle.isSelected()) {
                 try {
                     ParametrageNationalPrototype paN = null;
-                    try {
-                        paN = new ParametrageNationalPrototype(file);
-                    } catch (EvaluationException ex) {
-                        System.out.println("erreur2");
-                    }
+                    paN = new ParametrageNationalPrototype(file);
                     try {
                         paN.parse();
                     } catch (NoteException ex) {
