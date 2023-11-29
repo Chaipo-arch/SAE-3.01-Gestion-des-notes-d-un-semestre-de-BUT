@@ -155,7 +155,7 @@ public class ParametrageNationalPrototype extends Parametrage {
     }
     
    /** Eviter l'ajout de 1 à numero ligne pour être conforme aux modèle */
-    private static boolean flag = true;
+    public static boolean flag = true;
 
     /**
      * 

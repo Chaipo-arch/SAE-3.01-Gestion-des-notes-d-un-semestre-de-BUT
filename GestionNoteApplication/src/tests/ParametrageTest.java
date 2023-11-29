@@ -46,8 +46,6 @@ public class ParametrageTest {
                 System.out.println("Test Incorrecte " + fichNational);
             } catch (MauvaisFormatFichierException ex) {
                 System.out.println("Test correcte : " + ex.getMessage());
-            } catch (EvaluationException ex) {
-
             } catch (NoteException ex) {
 
             } catch (IOException ex) {
