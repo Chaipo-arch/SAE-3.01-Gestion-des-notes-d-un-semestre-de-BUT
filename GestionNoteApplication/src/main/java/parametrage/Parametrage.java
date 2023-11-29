@@ -13,36 +13,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe qui permet de faire toutes les fonctionnalités des parametrages :
+ * Importation des données dans l'application
+ * Créer le csv avec les données de l'application
  * @author enzo.cluzel
  */
 public abstract class Parametrage {
    
-    /**
-     * 
-     */
+    /** file à utilisée */
     protected File file;
-    /** TODO comment field role (attribute, association) */
-    protected ArrayList<String> contenue ;
-    
-    
-    
-    
     
     /**
-     * 
-     * @param chemin 
-     * @throws IllegalArgumentException 
+     * Instancie un parametrage
+     * @param chemin du fichier
+     * @throws IllegalArgumentException Si le fichier n'existe pas
      */
     public Parametrage(File chemin) throws IllegalArgumentException {;
-        
-            contenue = new ArrayList();
-        file = chemin; 
+        if (chemin.exists()) {
+            file = chemin; 
+        } else {
+            throw new IllegalArgumentException("Fichier non existant");
+        }
     }
     
    
     
-    /** TODO comment method role
+    /** 
      * 
      */
     public abstract void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException;
