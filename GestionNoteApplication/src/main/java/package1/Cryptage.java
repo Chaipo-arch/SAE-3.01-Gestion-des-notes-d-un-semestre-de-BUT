@@ -12,57 +12,78 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * classe outils de cryptage
+ * permet de crypter Diffie Helman et Vigenére
  * @author ahmed.bribach
  */
 public class Cryptage {
    
-   public static HashMap<Integer,Character> dico = new HashMap<>();
+  public static HashMap<Integer,Character> dico = new HashMap<>();
    public static HashMap<Character,Integer> dicoReverse = new HashMap<>();
-   public static ArrayList<Integer> tableauB = new ArrayList<>();
-   public static ArrayList<Integer> tableauA = new ArrayList<>();
+   public static int b;
+   public static int a;
    public static String cle = "";
-   static int p = 71;
-
-    public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô()-'" + " ";
+   static int p = 509;
+   public static int g;
+   public static final String ENSEMBLE_CARACTERES = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzàéèê,;:/.ô()-'" + " ";
     
-    public static String codeAlice(int g) {
-        tableauA.clear();
-        String chaineA = "";
-        for(int i=0 ; i<30 ;i++){
-            int a = (int)(Math.random()*70);
-            tableauA.add(a);  
-            int A = expModulaire(g, a, p);
-            chaineA+= " "+A;
-        }
+    /**
+     * génére le code de Alice
+     * @param g
+     * @return 
+     */
+    public static String codeAlice() {
         
+        String chaineA;    
+        a = (int)(Math.random()*p-1);
+        int A = expModulaire(g, a, p);
+        chaineA= ""+A;
         return chaineA;
     }
 
-    public static String codeBob(int g) {
-        tableauB.clear();
-        String chaineB = "";
-        for(int i=0 ; i<30 ;i++){
-            int b = (int)(Math.random()*70);
-            tableauB.add(b);  
-            int B = expModulaire(g, b, p);
-            chaineB+= " "+B;
-        }
+    /**
+     * 
+     * @param g
+     * @return 
+     */
+    public static String codeBob() {
         
+        String chaineB = "";
+        b = (int)(Math.random()*p-1); 
+        int B = expModulaire(g, b, p);
+        chaineB=""+B;
         return chaineB;
     }
 
+    /**
+     * 
+     * @param B
+     * @param a
+     * @return
+     */
     public static int decodeAlice(int B, int a) {
         int cleSecrete = expModulaire(B, a, p);
         return cleSecrete;
     }
-
+    
+    /**
+     * 
+     * @param A
+     * @param b
+     * @return
+     */
     public static int decodeBob(int A, int b) {
         int cleSecrete = expModulaire(A, b, p);
         return cleSecrete;
     }
 
-    // Implémentation de l'exponentiation modulaire
+    /**
+     * 
+     * @param base
+     * @param exposant
+     * @param modulo
+     * @return
+     */
     private static int expModulaire(int base, int exposant, int modulo) {
         int resultat = 1;
         base = base % modulo;
@@ -81,7 +102,9 @@ public class Cryptage {
     
    
     
-   
+   /**
+    * 
+    */
     public static void  remplissageduDico(){      
         for (int i = 0; i < ENSEMBLE_CARACTERES.length(); i++) {
             char character = ENSEMBLE_CARACTERES.charAt(i);
@@ -90,57 +113,69 @@ public class Cryptage {
            
         }
     }
-    public static void creationClefBob(String ss){
-        cle = "";
+    
+    /**
+     * 
+     * @param ss
+     */
+    public static void creationClefBob(int ss){
+        
         remplissageduDico();
-        String tableau[]= ss.split(" ");
-        int a = 0;
         
-        for(int i=0; i< tableau.length;i++){
-             tableau[i] = tableau[i].trim();
-            if(!tableau[i].equals("")){
-                 
-                cle+=dico.get(decodeBob(Integer.parseInt(tableau[i]),tableauB.get(a)));
-                a++;
-                
-            }
-           
+        int nouvelIndex;
+        String CleRemplacement="";
+        for(int i=0; i< cle.length();i++){
+        	nouvelIndex = (dicoReverse.get(cle.charAt(i))+decodeBob(ss,b))%ENSEMBLE_CARACTERES.length();
+            CleRemplacement += dico.get(nouvelIndex);
+            
         }
-       
-        
+        cle = CleRemplacement;
+           
     }
     
-    public static String creationClefAlice(String ss){
-        cle = ""; 
-        remplissageduDico();
-        String tableau[]= ss.split(" "); 
-        int a = 0;
-        for(int i=0; i< tableau.length;i++){
-            tableau[i] = tableau[i].trim();
-            if(!tableau[i].equals("")){
-                
-                
-                char c = dico.get(decodeAlice(Integer.parseInt(tableau[i]),tableauA.get(a)));
-                a++;
-                cle+=c; 
-                
-            }
-           
-        }
+       
         
-        return cle;
+    
+    /**
+     * 
+     * @param ss
+     * @return
+     */
+    public static void creationClefAlice(int ss){
+    	remplissageduDico();
+        
+        int nouvelIndex;
+        String CleRemplacement="";
+        for(int i=0; i< cle.length();i++){
+        	nouvelIndex = (dicoReverse.get(cle.charAt(i))+decodeAlice(ss,a))%ENSEMBLE_CARACTERES.length();
+            CleRemplacement += dico.get(nouvelIndex);
+            
+        }
+        cle = CleRemplacement;
     }
    
+    /**
+     * 
+     * @param cle
+     * @param messageACrypter
+     * @return
+     */
     public static String cryptage(String cle, String messageACrypter){      
        remplissageduDico();
        String chaine = "";
         for (int i = 0; i < messageACrypter.length(); i++) {
-            
             int nombre = (dicoReverse.get(messageACrypter.charAt(i)) + dicoReverse.get(cle.charAt(i % cle.length()))) % ENSEMBLE_CARACTERES.length();
             chaine += dico.get(nombre);
         }
         return chaine;
     }
+    
+    /**
+     * 
+     * @param cle
+     * @param messageCrypter
+     * @return
+     */
     public static String decryptage(String cle, String messageCrypter){
         String chaine = "";
         for (int i = 0; i < messageCrypter.length(); i++) {
@@ -152,14 +187,51 @@ public class Cryptage {
         }
         return chaine;
     }
+    
+    /**
+     * 
+     * @return
+     */
+    public static String creationCleEtape1(){
+        
+        String chaineCle="";
+        for(int i= 0 ; i<(int)(Math.random()*1000);i++){
+            chaineCle+=dico.get((int)(Math.random()*ENSEMBLE_CARACTERES.length()));
+        }
+        cle = chaineCle;
+        return cle;
+    }
+    public static boolean testG(int g) {
+    	ArrayList<Integer> G = new ArrayList<>();
+    	for(int i=0;i<p-1;i++) {
+    		if(G.contains(expModulaire(g, i, p))) {
+    			return false;
+    		}
+    		G.add(expModulaire(g, i, p));
+    	}
+    	
+    	
+    	return true;
+    }
+    
+    public static boolean genereG() {
+    	for(int i=0;i<p-1;i++) {
+    		if(testG(i)) {
+    			g=i;
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     public static void main(String[] args){
         remplissageduDico();
+        creationCleEtape1();
+        System.out.println(cle);
         
+        System.out.println("TEST de G: "+ genereG() + " et G est : " +g);
+        creationClefBob(decodeBob(Integer.parseInt(codeAlice()), b));
         System.out.println(cle);
         System.out.println(cle.length());
-     
-       
-       
-         
     }
+
 }

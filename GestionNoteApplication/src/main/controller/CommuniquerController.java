@@ -94,7 +94,7 @@ public class CommuniquerController {
             client.connection(serverIP, port);
             boolean ok;
                 
-            ok = client.sendA(Cryptage.codeAlice(2));
+            ok = client.sendA(Cryptage.codeAlice());
                     if(ok){
                         System.out.println("sa marche");
                        
