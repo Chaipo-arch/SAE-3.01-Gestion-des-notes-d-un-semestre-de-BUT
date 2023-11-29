@@ -84,8 +84,10 @@ public class Client {
         try{
             OutputStream out = socket.getOutputStream();
             Cryptage.creationCleEtape1();
+            String espace="\n";
             
             out.write(Cryptage.cle.getBytes());
+            out.write(espace.getBytes());
             out.write(cle.getBytes());
             socket.shutdownOutput();
            return true; 
