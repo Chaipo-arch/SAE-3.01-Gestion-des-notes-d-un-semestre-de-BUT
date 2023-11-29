@@ -25,6 +25,14 @@ public class Client {
     
     public void sendCSVFileToServer(String filePath) {
         try {
+            File fileC = new File("crypte.csv");
+            if (fileC.exists()) {
+                fileC.delete();
+                fileC.createNewFile();
+            } else {
+                fileC.createNewFile();
+            }
+            String fichierCrypter = "crypte.csv";
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("Le fichier spécifié n'existe pas.");
@@ -36,33 +44,31 @@ public class Client {
             System.out.println("hiorg uiosbh fgui fhdjkfdbfgjh fvb vf;n vbvc,b vcb ,nvc hv ,nbfdv  vb ");
            
             FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            
+            BufferedReader br =  new BufferedReader(fr);
+            String ligne;
             ArrayList<String> toutLeFichier = new ArrayList<>() ;
-            while (br.readLine() != null) {
-                toutLeFichier.add(br.readLine());
-            }
+            while ((ligne = br.readLine()) != null) {
+                toutLeFichier.add(ligne);
+            }           
             br.close();
             fr.close();
-            
-            FileWriter fw = new FileWriter(file);
+            File fileCripte = new File(fichierCrypter);
+            FileWriter fw = new FileWriter(fileCripte);
             BufferedWriter bw = new BufferedWriter(fw);
-            
-            System.out.println(Cryptage.cle);
-            
-            bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(0)));
-            for(int i=1; i < toutLeFichier.size()-1;i++){
-                System.out.println(toutLeFichier.get(i));
-                System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
-                bw.write("\n"+Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+            for(int i=0; i < toutLeFichier.size();i++){
+                 System.out.println(toutLeFichier.get(i));
+                //  System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+                bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
+            
             bw.close();
             fw.close();
-            
-            FileInputStream fileInputStream = new FileInputStream(file);
+            FileInputStream fileInputStream = new FileInputStream(fileCripte);
             byte[] buffer = new byte[1024];
             int bytesRead;
+            
            
+            
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
