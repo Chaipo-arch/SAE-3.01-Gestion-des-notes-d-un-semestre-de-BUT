@@ -38,14 +38,14 @@ public class ParametrageTest {
         nomFichiersTest.add("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalCoeffIncorrecte1.csv");
         nomFichiersTest.add("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalCoeffIncorrecte2.csv");
         nomFichiersTest.add("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalRessourceIncorrecte.csv");
-        nomFichiersTest.add("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalNationalTypeIncorrecte.csv");
+        nomFichiersTest.add("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalTypeRIncorrect.csv");
         for(String fichNational : nomFichiersTest) {
             try {
                 ParametrageNationalPrototype paN= new ParametrageNationalPrototype(new File(fichNational)) ;// TODO mettre fichier incorrecte
                 paN.parse();
-                System.out.println("Test Incorrecte" + fichNational);
+                System.out.println("Test Incorrecte " + fichNational);
             } catch (MauvaisFormatFichierException ex) {
-                System.out.println("Test correcte" + ex.getMessage());
+                System.out.println("Test correcte : " + ex.getMessage());
             } catch (EvaluationException ex) {
 
             } catch (NoteException ex) {
@@ -77,9 +77,6 @@ public class ParametrageTest {
      */
     public static void testFichierCorrecte() {
         try {
-            File existe = new File("truc.csv");
-            existe.createNewFile();
-            
             ParametrageNationalPrototype paN= new ParametrageNationalPrototype(new File("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalCorrect.csv")) ;
             paN.parse();
             //System.out.println(Stockage.getInstance().competences.get(0).identifiant);

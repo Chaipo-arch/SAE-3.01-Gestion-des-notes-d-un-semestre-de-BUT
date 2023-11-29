@@ -36,10 +36,10 @@ public abstract class Parametrage {
         }
     }
     
-   
-    
     /** 
-     * 
+     * Lis le fichier, et créer des données dans l'application selon les données du fichiers
+     * Ces données créées sont des instances de Evaluation, Ressource et compétence
+     * @throws MauvaisFormatFichierException si des données dans le ficher sont incorrectes
      */
     public abstract void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException;
 
