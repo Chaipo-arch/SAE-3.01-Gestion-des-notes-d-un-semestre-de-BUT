@@ -1,3 +1,6 @@
+/*
+ * ImportationDistanceController.java
+ */
 package GestionNoteApplication.src.main.controller;
 
 import java.net.InetAddress;
@@ -28,6 +31,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * Controlleur permettant de gérer l'importation des fichiers à distance
+ * L'ordinateur joue le Serveur
+ *@author enzo.cluzel, ahmed.bribach, robin.britelle
+ */
 public class ImportationDistanceController implements Initializable{
 
     @FXML 
@@ -71,6 +79,11 @@ public class ImportationDistanceController implements Initializable{
      */
     @FXML
     void importationDistanceButton(ActionEvent event) {
+        // TODO
+        // Gerer le cas ou un fichiers de trop à était coché par rapport aux serveurs
+        // Cela peut causer un crash ou une erreur
+
+        // vérifie qu'un fichiers soit coché avant de lancer le thread
         if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
             connexion.setVisible(true);
             annulerButton.setVisible(true);
@@ -79,6 +92,7 @@ public class ImportationDistanceController implements Initializable{
            public void run() {
                 try {
                     ArrayList<String> fichier = new ArrayList();
+                    // noms des fichiers à recevoir
                     if(nationalToggle.isSelected()) {
                         System.out.println("ok1");
                         fichier.add("NationalExporte.csv");
@@ -88,6 +102,7 @@ public class ImportationDistanceController implements Initializable{
                         fichier.add("RessourceExporte.csv");
                     }
                     Server.createServer();
+                    
                     String codeBob = Cryptage.codeBob(2);
                     //System.out.println(fichier.size());
                     boolean reussi = false;
@@ -166,12 +181,6 @@ public class ImportationDistanceController implements Initializable{
         connexion.setVisible(false);
         annulerButton.setVisible(false);
         Server.closeServer();
-        t1.interrupt();
-        
-        
-        
+        t1.interrupt();  
     }
-
-    
-
 }

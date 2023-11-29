@@ -19,6 +19,10 @@ import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
 
+/**
+ * 
+ * @author enzo.cluzel
+ */
 public class ImporterParametresController {
 
        @FXML
