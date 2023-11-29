@@ -108,7 +108,7 @@ public class Server {
                 message.append(new String(buffer, 0, bytesRead));
             }
             
-            
+            System.out.println(message.toString());
             Cryptage.creationClefBob(Integer.parseInt(message.toString()));
             System.out.println("la clé de cryptage est : "+Cryptage.cle);
 

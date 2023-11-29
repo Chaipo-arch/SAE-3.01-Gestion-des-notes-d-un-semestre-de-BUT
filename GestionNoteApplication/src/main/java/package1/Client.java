@@ -83,9 +83,9 @@ public class Client {
         System.out.println(cle);
         try{
             OutputStream out = socket.getOutputStream();
+            Cryptage.creationCleEtape1();
             
-            
-
+            out.write(Cryptage.cle.getBytes());
             out.write(cle.getBytes());
             socket.shutdownOutput();
            return true; 
