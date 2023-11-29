@@ -16,8 +16,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.ScrollPane;
 /**
- *
- *
+ * 
+ * @author ahmed.bribach
  */
 public class CalculerMoyenneController implements Initializable {
 
@@ -76,7 +76,5 @@ public class CalculerMoyenneController implements Initializable {
                 .mapToDouble(rowConstraints -> rowConstraints.getMinHeight()).sum();
         
         tableau.setPrefHeight(totalHeight);
-        
- 
     }
 }

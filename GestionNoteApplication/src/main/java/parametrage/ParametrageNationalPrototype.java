@@ -28,40 +28,42 @@ import java.util.ArrayList;
  */
 public class ParametrageNationalPrototype extends Parametrage {
 
-    /**
-     * TODO comment field role (attribute, association)
-     */
+    /** modèle correspondant au ligne du csv qui sont toujours similaire */
     protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances (programme national)", "Semestre", "Parcours", "Type evaluation;Identifiant;Libelle;Poids"};
 
     private static int numeroLigne;
 
     /**
-     * TODO comment initial state
-     *
-     * @param chemin
-     * @throws IOException
+     * instancie un parametrageNational
+     * @param chemin du fichier
      */
-    public ParametrageNationalPrototype(File chemin) throws IOException, MauvaisFormatFichierException, EvaluationException {
+    public ParametrageNationalPrototype(File chemin)  {
         super(chemin);
+        // Mettre à true car est false aprés un premier import
         flag = true;
     }
 
+    /**
+     * Lis un fichier ligne par ligne et créer des instances de Competences avec des ressources sans Evaluation
+     * @throws MauvaisFormatFichierException Si les données du fichier sont mauvaises 
+     *         exemple : fichier vide, taille de la colonne pas suffisantes, identifiant mal ecrit
+     *                   Pas ecrit Ressource,Portfolio,SAE
+     *         Voir dans le dossier csv situé dans ressources pour un exemple de fichier csv correct
+     */
     @Override
     public void parse() throws IOException, MauvaisFormatFichierException, NoteException {
         FileReader fr = null;
-        // prerequis
         try {
             fr = new FileReader(file);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
         }
-        // bufferedReader plus pratique
         BufferedReader br = new BufferedReader(fr);
-        // lecture ligne par ligne
         numeroLigne = 0;
         String line;
+        // Lecture des 3 premières lignes du fichier
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
+            // Verif fichier non vide
             if(line == null) {
                 throw new MauvaisFormatFichierException("Fichier vide");
             }
@@ -70,7 +72,6 @@ public class ParametrageNationalPrototype extends Parametrage {
             if (!chaine[0].equals(MODELE[numeroLigne])) {
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit " );
             }
-            //System.out.println(chaine.length);
             if(chaine.length != 2 && numeroLigne == 1) {
                
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" );
@@ -86,8 +87,10 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
 
         }
+        // Sauvegarde l'identifiant de la competence dans lequel des ressources sont attribuées
         String saveIdentifiantC = null;
         int calculCoeff;
+        // lecture des lignes suivantes arret lors de la fin du fichier
         while (line != null) {
             calculCoeff = 0;
             String[] chaine = line.split(";");
@@ -131,10 +134,10 @@ public class ParametrageNationalPrototype extends Parametrage {
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
             }
             if (calculCoeff == 100) {
-               
+                // Recherche de la competence dans stockage avec le même identifiant
                 ArrayList<Object> compe = Stockage.getInstance().recherche(saveIdentifiantC);
-                
                 ress = Stockage.getInstance().addRessources(ress,(Competence)compe.get(0));
+                // Pour la competence recherché, on ajoute les ressources à cette competence 
                 for(Object o : compe) {
                     if (o instanceof Competence) {
                        for(Ressource r : ress) {
@@ -151,10 +154,8 @@ public class ParametrageNationalPrototype extends Parametrage {
         
     }
     
-    /**
-     * eviter premier passage
-     */
-    public static boolean flag = true;
+   /** Eviter l'ajout de 1 à numero ligne pour être conforme aux modèle */
+    private static boolean flag = true;
 
     /**
      * 
@@ -162,7 +163,7 @@ public class ParametrageNationalPrototype extends Parametrage {
      * @return
      * @throws IOException 
      */
-    public String newLine(BufferedReader br) throws IOException {
+    private String newLine(BufferedReader br) throws IOException {
         String line = null;
         do {
             line = br.readLine();
@@ -184,7 +185,10 @@ public class ParametrageNationalPrototype extends Parametrage {
     }
     
     /**
-     * 
+     * Crée un csv similaire aux csv donné dans les ressource en utilisant
+     * les données stockées dans Stockage
+     * Le Csv crée est NationalExporte.csv, si il existe il doit être supprimer puis créer
+     * sinon le créer
      */
      public static void createCsv() {
         File file = new File("NationalExporte.csv");
@@ -201,10 +205,9 @@ public class ParametrageNationalPrototype extends Parametrage {
             System.out.println("le fichiers n'a pas était supprimé");
             System.out.println(ex.getMessage());
         }
-        //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
             ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances (programme national)\n");
-            ecritureLigne.write("Semestre;2\nParcours;Tous\n");
+            ecritureLigne.write("Semestre;2\nParcours;Tous\n"); // TODO changer la facon d'écrire le semestre
             for(Competence c : Stockage.getInstance().competences) {
                 ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
                 ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");

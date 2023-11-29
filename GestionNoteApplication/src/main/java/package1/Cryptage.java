@@ -155,10 +155,6 @@ public class Cryptage {
         remplissageduDico();
         
         System.out.println(cle);
-        System.out.println(cle.length());
-     
-       
-       
-         
+        System.out.println(cle.length());  
     }
 }
