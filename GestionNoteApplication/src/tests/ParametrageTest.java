@@ -104,7 +104,7 @@ public class ParametrageTest {
         }
     }
     /**
-     * Main : lancer les différents tests
+     * Main : lancer les différents test
      * @param args
      * @throws IOException 
      */
