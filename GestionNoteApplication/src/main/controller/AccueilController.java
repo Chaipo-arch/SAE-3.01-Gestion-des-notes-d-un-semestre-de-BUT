@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AccueilController.java
  */
 package GestionNoteApplication.src.main.controller;
 
@@ -27,13 +25,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author robin.britelle
+ * Controller de la premiere page de l'application 
+ * Cette classe permet de faire la liaison entre toutes les autres pages de l'application
+ * Ainsi que de gérer l'arret de l'aplication
+ * Si le thread de l'application est activé lors d'une action sur cette page 
+ * il doit être arrété sauf pour le changement du nom d'utilisateur 
+ * @author enzo.cluzel
  */
 public class AccueilController implements Initializable {
     
-        @FXML
+    @FXML
     private TextField UserTextField;
 
     @FXML
@@ -44,20 +45,18 @@ public class AccueilController implements Initializable {
 
     @FXML
     private Label BtnAccueil;
-    private Stage fenetreActive;
-
-    public void setFenetre(Stage fenetre) {
-        fenetreActive = fenetre;
-    }
 
     @FXML
     private Label textePresentation;
     
+    /** Affiche la nouvelle page appelé */
     @FXML
     private AnchorPane contenuPage;
-    
-    
+
+    /** Appeler les pages fxml  */
     Parent fxml;
+
+    /** sauvegarde de la page accueil pour remettre le contenu de accueil */
     private ArrayList<Node> sauvegardeAccueil;
 
     /**
@@ -73,10 +72,8 @@ public class AccueilController implements Initializable {
                 GestionNote.recupererDonnees();
                 userLabel.setText(Stockage.getInstance().getUserName());
                 textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
-            } catch (IOException ex) {
-                
-            } catch (ClassNotFoundException ex) {
-               
+            } catch (IOException|ClassNotFoundException ex) {
+                System.out.println("L'application n'a pas pu récupérer les données de la derniere connexion");
             }
        sauvegardeAccueil = new ArrayList();
        sauvegardeAccueil.addAll(contenuPage.getChildren());
@@ -96,7 +93,7 @@ public class AccueilController implements Initializable {
     }
     
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage
      */
      @FXML
     void mesNotesActionBtn() {
@@ -108,7 +105,7 @@ public class AccueilController implements Initializable {
     }
     
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage
      */
      @FXML
     void AjouterEvaluationActionButton() {
@@ -123,7 +120,7 @@ public class AccueilController implements Initializable {
 
     
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage
      */
     @FXML
     void ParametreActionButton() {

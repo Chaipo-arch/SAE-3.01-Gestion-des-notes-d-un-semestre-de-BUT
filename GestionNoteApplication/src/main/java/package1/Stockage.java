@@ -1,12 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Stockage.java
  */
+
 package GestionNoteApplication.src.main.java.package1;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+
 /**
  * Stockage < singleton > permettant de stocker les competences, ressources, 
  * evaluations lors de l'importation de paramétrage ou de l'initialisation des 
@@ -17,18 +17,15 @@ import java.io.Serializable;
 public class Stockage implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    
     public ArrayList<Competence> competences ;
     
-   /** TODO comment field role (attribute, association) */
     public ArrayList<Ressource> ressources;
-    
     
     public  ArrayList<Evaluation> evaluations;
     
-    
     private String userName;
     
-   
     private static Stockage instance = new Stockage();
     
     private Stockage() {
@@ -49,7 +46,7 @@ public class Stockage implements Serializable {
     /**
      * Sauvegarde de nouvelles instances de l'objet competences dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
-     * @return a
+     * @return True si l'ajout a pu être effectué sinon false
      */
     public boolean addCompetences(ArrayList<Competence> aAjouter) {
          if(competences.containsAll(aAjouter)) {
@@ -61,8 +58,7 @@ public class Stockage implements Serializable {
                 if (competence.identifiant.equals(c.identifiant)) {
                     aSupprimer.add(competence);
                 } 
-            }
-             
+            } 
         }
         aAjouter.removeAll(aSupprimer);
         return competences.addAll(aAjouter);
@@ -72,6 +68,7 @@ public class Stockage implements Serializable {
     /**
      * Sauvegarde de nouvelles instances de l'objet ressource dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
+     * @param c , la competence lié aux ressources
      * @return l'array list aAjouter mais avec les ressources qui sont déjà dans le Stockage
      */
     public ArrayList<Ressource> addRessources(ArrayList<Ressource> aAjouter, Competence c) {
@@ -81,26 +78,24 @@ public class Stockage implements Serializable {
 
         ArrayList<Ressource> save = new ArrayList<>() ;
         ArrayList<Ressource> aSupprimer = new ArrayList<>() ;
-        System.out.println("ok");
             for (Ressource ressou: c.getRessources()) {
                 for(Ressource r: aAjouter){
                     if(r.getIdentifiant().equals(ressou.getIdentifiant())) {
-                        System.out.println("non");
+                        // Sauvegarde la resource du stockage
                         save.add(ressou);
+                        // Sauvegarde la ressource de aAjouter a supprimer
                         aSupprimer.add(r);
                     }
                  
                 }
             }
-        
         aAjouter.removeAll(aSupprimer);
-        
+        // Ajoute dans stockage ce qui n'existe pas
         ressources.addAll(aAjouter);
         aAjouter.addAll(save);
         return aAjouter;
     }
     
-   
     /**
      * Sauvegarde de nouvelles instances de l'objet évaluation dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste

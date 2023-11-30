@@ -1,3 +1,6 @@
+/*
+ * ParametreController.java
+ */
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.package1.GestionNote;
@@ -15,25 +18,22 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
-
-public class ParametreController implements Initializable {
+/**
+ * Controlleur donnant accés à toutes les pages concernant l'importation, 
+ * l'exportation et la reinitialisation de l'application
+ * @enzo.cluzel
+ */
+public class ParametreController {
     
+    /** Utilisé lors du changement du contenue de la page pour appeler la page fxml  */
     Parent fxml;
     
+    /** Afficher le contenue de la page par la nouvelle appelé */
     @FXML
     private AnchorPane contenuPage;
 
     /**
-     * Initializes the controller class.
-     * @param url
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-         System.out.println("bon controller");
-    }
-    
-    /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage 
      */
     @FXML
     void communiquerActionButton() throws IOException {
@@ -56,7 +56,7 @@ public class ParametreController implements Initializable {
     }
 
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage
      */
     @FXML
     void importerActionButton() throws IOException {

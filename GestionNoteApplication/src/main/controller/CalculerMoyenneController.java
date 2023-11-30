@@ -1,3 +1,6 @@
+/*
+ * CalculerMoyenneController.java  
+ */
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.package1.Competence;
@@ -12,11 +15,12 @@ import javafx.scene.layout.RowConstraints;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.ScrollPane;
-
+/**
+ * 
+ * @author ahmed.bribach
+ */
 public class CalculerMoyenneController implements Initializable {
 
-    
-    
     @FXML
     private GridPane tableau;
 
@@ -72,7 +76,5 @@ public class CalculerMoyenneController implements Initializable {
                 .mapToDouble(rowConstraints -> rowConstraints.getMinHeight()).sum();
         
         tableau.setPrefHeight(totalHeight);
-        
- 
     }
 }

@@ -1,3 +1,6 @@
+/*
+ * ImporterParametresController_1.java
+ */
 package GestionNoteApplication.src.main.controller;
 
 
@@ -9,16 +12,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * Controlleur permettant d'acceder à toutes les pages concernant l'importation de parametrage que ce soit en local ou a distance.
+ * @author enzo.cluzel
+ */
 public class ImporterParametresController_1 {
 
-    
+    /** Utilisé lors du changement du contenue de la page pour appeler la page fxml  */
     Parent fxml;
+
+    /** Afficher le contenue de la page par la nouvelle appelé */
     @FXML
     private AnchorPane contenuPage;
     
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage 
      */
     @FXML
     void LocalActionButton(ActionEvent event) throws IOException {
@@ -26,7 +34,7 @@ public class ImporterParametresController_1 {
     }
 
     /**
-     * Donne la page a changerPage correspondant aux button
+     * Donne la page correspondant aux button a changerPage 
      */
     @FXML
     void DistanceActionButton(ActionEvent event) throws IOException {

@@ -46,23 +46,27 @@ public class ParametrageRessourcePrototype extends Parametrage {
         flag = true;
     }
 
+    /**
+     * Lis un fichier ligne par ligne et créer des instances de Evaluation et les ajoutent dans une ressource
+     * @throws MauvaisFormatFichierException Si les données du fichier sont mauvaises 
+     *         exemple : fichier vide, taille de la colonne pas suffisantes, identifiant mal ecrit
+     * 
+     *         Voir dans le dossier csv situé dans ressources pour un exemple de fichier csv correct
+     */
     @Override
     public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException {
         FileReader fr = null;
-        //System.out.println("ok");
-        // prerequis
         try {
             fr = new FileReader(file);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
         }
-        // bufferedReader plus pratique
          br = new BufferedReader(fr);
-        // lecture ligne par ligne
         numeroLigne = 0;
         String line;
+        // Lecture des 3 premières lignes du fichier
         for (line = newLine(); numeroLigne < 3; line = newLine()) {
+            // Verif fichier non vide
             if(line == null) {
                 throw new MauvaisFormatFichierException("Fichier vide");
             }
@@ -96,8 +100,10 @@ public class ParametrageRessourcePrototype extends Parametrage {
             }
 
         }
+        // Sauvegarde l'identifiant de la Ressource dans lequel des evaluations sont attribuées
         String saveIdentifiantR = null;
         int calculCoeff;
+        // lecture des lignes suivantes arret lors de la fin du fichier
         while (line != null) {
             calculCoeff = 0;
             String[] chaine = line.split(";");
@@ -113,7 +119,6 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 System.out.println("erreur3");
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit");
             }
-            //System.out.println("passage1");
             // verification des prochaines lignes
             ArrayList<Evaluation> evals = new ArrayList();
             for (line = newLine(); line != null
@@ -130,22 +135,21 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 calculCoeff += Integer.parseInt(chaine[2]);
                 evals.add(new Evaluation(chaine[0], chaine[1], Double.parseDouble(chaine[2])));
             }
-            //System.out.println(calculCoeff);
             if (calculCoeff == 100) {
+                // Recherche de la ressource ou des ressources dans stockage avec le même identifiant
                 ArrayList<Object> ressource = Stockage.getInstance().recherche(saveIdentifiantR);
+                // Verfication que la ressource existe
                 if(ressource.size() == 0) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: La ressource avec comme identifiant " + saveIdentifiantR + " n'existe pas");
                 }
                 Stockage.getInstance().addEvaluations(evals);
-                
-                 for(Object o : ressource) {
+                // Pour chaque ressource recherché, ajouté les evaluations 
+                for(Object o : ressource) {
                     if (o instanceof Ressource) {
-                    for(Evaluation e: evals) {
-                        ((Ressource) o).ajouterEvaluation(e);
+                        for(Evaluation e: evals) {
+                            ((Ressource) o).ajouterEvaluation(e);
+                        }
                     }
-                    
-
-                }
                 }
             } else {
                 throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantR + " a une somme des coefficients pas égale à 100: " + calculCoeff);

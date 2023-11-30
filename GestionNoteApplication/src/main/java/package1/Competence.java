@@ -1,8 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Competence.java
  */
+
 package GestionNoteApplication.src.main.java.package1;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -105,6 +104,7 @@ public class Competence implements Serializable{
         return true;
     }
     
+    /** @return les ressources de l'instance */
     public ArrayList<Ressource> getRessources(){
         return  ressources;
     }

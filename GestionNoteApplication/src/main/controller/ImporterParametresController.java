@@ -19,6 +19,10 @@ import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
 
+/**
+ * 
+ * @author enzo.cluzel
+ */
 public class ImporterParametresController {
 
        @FXML
@@ -65,11 +69,7 @@ public class ImporterParametresController {
             if(nationalToggle.isSelected()) {
                 try {
                     ParametrageNationalPrototype paN = null;
-                    try {
-                        paN = new ParametrageNationalPrototype(file);
-                    } catch (EvaluationException ex) {
-                        System.out.println("erreur2");
-                    }
+                    paN = new ParametrageNationalPrototype(file);
                     try {
                         paN.parse();
                     } catch (NoteException ex) {
