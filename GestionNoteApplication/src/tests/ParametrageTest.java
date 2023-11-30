@@ -77,7 +77,6 @@ public class ParametrageTest {
         try {
             ParametrageNationalPrototype paN= new ParametrageNationalPrototype(new File("src/GestionNoteApplication/src/ressources/csv/ParametrageNationalCorrect.csv")) ;
             paN.parse();
-            //System.out.println(Stockage.getInstance().competences.get(0).identifiant);
             ParametrageRessourcePrototype paR= new ParametrageRessourcePrototype(new File("src/GestionNoteApplication/src/ressources/csv/ParametrageRessourceCorrect.csv")) ;// TODO mettre fichier de base
             paR.parse();
             for(Competence c : Stockage.getInstance().competences ) {

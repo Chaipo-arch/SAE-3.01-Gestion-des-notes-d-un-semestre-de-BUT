@@ -1,12 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * MauvaisFormatFichierException.java
  */
 package GestionNoteApplication.src.main.java.package1;
 
 /**
- *
+ * Exception pour les fichiers lues non correstes lors du parse 
  * @author enzo.cluzel
  */
 public class MauvaisFormatFichierException extends Exception {
