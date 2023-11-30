@@ -91,9 +91,6 @@ public class ParametrageTest {
                     System.out.println();
                 }
             }
-            
-            
-            //ystem.out.println(Stockage.getInstance().evaluations.toString());
         } catch (MauvaisFormatFichierException ex) {
             System.out.println("Test incorrecte" + ex.getMessage());
         
@@ -107,7 +104,7 @@ public class ParametrageTest {
         }
     }
     /**
-     * TODO comment method role
+     * Main : lancer les différents tests
      * @param args
      * @throws IOException 
      */
