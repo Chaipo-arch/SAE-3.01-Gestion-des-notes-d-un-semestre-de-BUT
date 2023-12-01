@@ -69,7 +69,12 @@ public class Stockage implements Serializable {
      * Sauvegarde de nouvelles instances de l'objet ressource dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
      * @param c , la competence lié aux ressources
+<<<<<<< HEAD
      * @return l'array list aAjouter mais avec les ressources qui sont déjà dans le Stockage
+=======
+     * @return l'array list aAjouter mais avec les ressources qui sont déjà dans le Stockage 
+     *         sinon l'arrayList donné en argument
+>>>>>>> test2
      */
     public ArrayList<Ressource> addRessources(ArrayList<Ressource> aAjouter, Competence c) {
         if(ressources.containsAll(aAjouter)) {
@@ -99,7 +104,7 @@ public class Stockage implements Serializable {
     /**
      * Sauvegarde de nouvelles instances de l'objet évaluation dans la liste associé
      * @param aAjouter , les instances à ajouter dans la liste
-     * @return barnabe
+     * @return true si l'ajout cet effectué, sinon false
      */
     public boolean addEvaluations(ArrayList<Evaluation> aAjouter) {
         ArrayList<Evaluation> save = new ArrayList<>() ;
@@ -111,6 +116,11 @@ public class Stockage implements Serializable {
         aAjouter.removeAll(save);
         return evaluations.addAll(aAjouter);
     }
+
+    /**
+     * @param e , une evaluation
+     * @return true si e est déja dans Stockage sinon false
+     */
     public boolean contientDeja(Evaluation e) {
     	for (Evaluation evaluationAComparer : evaluations) {
     		if(e.compareEvaluation(evaluationAComparer)) {
@@ -134,7 +144,7 @@ public class Stockage implements Serializable {
      * Trouve la competence, ou ressource selon l'identifiant de ce qui est cherché 
      * Si plusieurs Ressource on le meme identifiant tous les doublons seront envoyé
      * @param identifiant , le libelle de ce qui est cherche
-     * @return null si l'objet cherché n'est pas trouvé sinon l'instance du libellé
+     * @return null si l'objet cherché n'est pas trouvé sinon l'instance ou les instances du libellé
      */
     public ArrayList<Object> recherche(String identifiant) {
         Object cherche = null;
@@ -160,14 +170,21 @@ public class Stockage implements Serializable {
         }
         return liste;       
     }
+
+    /** @return le nom de l'utilisateur stocké */
     public String getUserName() {
         return userName;
     }
     
+    /** @param name , le nouveau nom de l'utilisateur */
     public void setUserName(String name) {
         this.userName = name;
     }
     
+    /**
+     * @return Les identifiants de chaque ressources stockées dans Stockage
+     *         Chaque identifiant sont distincts (pas de doublons)
+     */
     public ArrayList<String> getRessourcesId(){
         ArrayList<String> identifiantDejaApparue = new ArrayList<>();
         for(Competence c : competences){   

@@ -1,3 +1,6 @@
+/*
+ * Client.java
+ */
 package GestionNoteApplication.src.main.java.package1;
 
 import java.io.*;
@@ -6,6 +9,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Classe pour la communication 
+ * Le client envoie un ou des fichiers aux serveurs
+ */
 public class Client {
     
     public Client(){
@@ -13,7 +20,11 @@ public class Client {
     }
     private Socket socket ;
     
-    
+    /**
+     * Connexion au serveur 
+     * @param serverIP , L'adresse ip du serveur dont on veut se connecter
+     * @param port , le port du serveur
+     */
     public void connection(String serverIP, int port) {
         try {
             this.socket = new Socket(serverIP, port);
@@ -23,6 +34,10 @@ public class Client {
         }
     }
     
+    /**
+     * Envoyer au serveur le fichier avec le chemin du fichier donné en argument
+     * @param filePath , chemin du fichier
+     */
     public void sendCSVFileToServer(String filePath) {
         try {
             File fileC = new File("crypte.csv");
@@ -56,8 +71,7 @@ public class Client {
             FileWriter fw = new FileWriter(fileCripte);
             BufferedWriter bw = new BufferedWriter(fw);
             for(int i=0; i < toutLeFichier.size();i++){
-                 System.out.println(toutLeFichier.get(i));
-                //  System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
+                System.out.println(toutLeFichier.get(i));
                 bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
             
@@ -66,14 +80,9 @@ public class Client {
             FileInputStream fileInputStream = new FileInputStream(fileCripte);
             byte[] buffer = new byte[1024];
             int bytesRead;
-            
-           
-            
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-            //socket.shutdownOutput();
-           //fileInputStream.close();
             socket.shutdownOutput();
             System.out.println("Fichier CSV envoyé au serveur.");
             System.out.println("serveur close : " + socket.isClosed());
@@ -82,6 +91,10 @@ public class Client {
             e.printStackTrace();
         }
     }
+
+    /**
+     * TODO
+     */
     public boolean sendA(String cle) throws IOException{
         System.out.println(cle);
         try{
@@ -98,14 +111,21 @@ public class Client {
         
     }      
         
- public void closeConnection() {
+    /**
+     * Fermeture de la connexion avec le serveur
+     */    
+    public void closeConnection() {
         try {
             socket.close();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-            }
+        }
+
+    /**
+     * Recevoir la réponse envoyé par le serveur 
+     */
     public String recevoirReponse() throws IOException {
         //socket.shutdownOutput();// a garder si marche pas
         try {

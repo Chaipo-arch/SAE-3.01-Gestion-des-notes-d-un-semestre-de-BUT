@@ -1,4 +1,3 @@
-
 /*
  * Note.java                                            //2023
  * IUT de Rodez, BUT2, aucun droit d'auteur
@@ -45,6 +44,7 @@ public class Note implements Serializable {
         
     }
     
+    /** @return la valeur de la note */
     public double getNote(){
         return valeur;
     }
@@ -56,6 +56,9 @@ public class Note implements Serializable {
         return (valeur >= 0.0 && valeur <=20.0 ) || valeur == -1;
     }
     
+    /**
+     * @return true si la valeur de la note est égale avec celle donné en argument
+     */
     public boolean equals(Note note){
         if(valeur == note.getNote()){
             return true;
