@@ -19,7 +19,6 @@ import javafx.scene.control.ButtonType;
 public class ParametreController implements Initializable {
     
     Parent fxml;
-    
     @FXML
     private AnchorPane contenuPage;
 
@@ -31,48 +30,40 @@ public class ParametreController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
          System.out.println("bon controller");
     }
-    
-    /**
-     * Donne la page a changerPage correspondant aux button
-     */
     @FXML
     void communiquerActionButton() throws IOException {
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
+        System.out.println(file.getAbsolutePath());
+         System.out.println("bon controller");
         changerPage("communiquer.fxml");
     }
 
-    /**
-     * Reinitialse les donnees du stockage si l'utilisateur confirme son choix 
-     * Une notification apparaitra si le choix a était confirmé
-     */
     @FXML
     void reinitialiserActionButton() {
+        //NotificationController.popUpMessage("Reinitialisation données","");
         NotificationController NotificationController = new NotificationController();
-        Optional<ButtonType> result = NotificationController.popUp("Reinitialisation données","Réinitialiser vos données ?");
+        
+        //NotificationController.popUpMessage("salut", "salut");
+        Optional<ButtonType> result = NotificationController.popUpChoix("Reinitialisation données ?","");
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Reini");
             Stockage.getInstance().supprimerDonnees();
             NotificationController.showNotification("Vos données ont bien était réinitialiser");
         }
         ParametrageNationalPrototype.flag = true;
     }
 
-    /**
-     * Donne la page a changerPage correspondant aux button
-     */
     @FXML
     void importerActionButton() throws IOException {
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
+        System.out.println(file.getAbsolutePath());
         changerPage("ImporterParametres.fxml");
     }
-    
-    /**
-     * Change la page selon le button appuyé sur le menu
-     * L'anchor pane de la page est modifié pour prendre celle du fxml demandé
-     * @param page, la page demandée
-     * @throws IOException si la page demandée est cherché mais n'est pas trouvé
-     */
-    public void changerPage(String page) throws IOException {
+     public void changerPage(String page) throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
+        System.out.println(file.getAbsolutePath());
         if(file.exists()) {
-            String changementPage = "../../ressources/fxml/"+page;
+             String changementPage = "../../ressources/fxml/"+page;
             fxml = FXMLLoader.load(getClass().getResource(changementPage));
             contenuPage.getChildren().removeAll();
             contenuPage.getChildren().setAll(fxml);
