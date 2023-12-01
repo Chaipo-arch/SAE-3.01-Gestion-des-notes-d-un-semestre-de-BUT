@@ -46,7 +46,11 @@ public class AccueilController implements Initializable {
 
     @FXML
     private Label BtnAccueil;
+    
     private Stage fenetreActive;
+    
+    @FXML
+    private Label TextTitre;
 
     public void setFenetre(Stage fenetre) {
         fenetreActive = fenetre;
@@ -85,6 +89,7 @@ public class AccueilController implements Initializable {
     
     @FXML
     void AccueilActionBouton() {
+        TextTitre.setText("Application Gestion Notes");
         if(t1 != null && t1.isAlive()) {
             Server.closeServer();
             t1.interrupt();
@@ -95,6 +100,7 @@ public class AccueilController implements Initializable {
      @FXML
     void mesNotesActionBtn() {
         try {
+            TextTitre.setText("Mes Notes");
             changerPage("notes.fxml");
         } catch (IOException ex) {
             
@@ -103,6 +109,7 @@ public class AccueilController implements Initializable {
      @FXML
     void AjouterEvaluationActionButton() {
         try {
+            TextTitre.setText("Vos Moyennes");
             changerPage("calculerMoyenne.fxml");
         } catch (IOException ex) {
             
@@ -116,6 +123,7 @@ public class AccueilController implements Initializable {
     @FXML
     void ParametreActionButton() {
          try {
+             TextTitre.setText("Parametres");
             changerPage("Parametres.fxml");
         } catch (IOException ex) {
             

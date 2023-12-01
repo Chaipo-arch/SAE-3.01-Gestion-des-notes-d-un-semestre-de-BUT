@@ -20,7 +20,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/**aaa
+/**
  *
  * @author enzo.cluzel
  */
@@ -42,7 +42,7 @@ public class GEstionNoteApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-               
+                primaryStage.setResizable(false);
                 System.out.println();
                 File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
                  System.out.println(file.getAbsolutePath());

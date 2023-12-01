@@ -60,6 +60,7 @@ public class NotesController implements Initializable{
     @FXML
     private GridPane Grid;
 
+    private GridPane GridSave;
     int nbRow = 1;
     
     TextField type = new TextField();
@@ -68,7 +69,7 @@ public class NotesController implements Initializable{
     TextField note = new TextField();
     
     private ArrayList<Button> but = new ArrayList();
-    private ArrayList<Evaluation> evaluationList = new ArrayList();
+    Evaluation evaluationAAjouter;
     
     private String typeString ="";
     private String dateString ="";
@@ -89,6 +90,7 @@ public class NotesController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        GridSave = Grid;
     	//Stockage.getInstance().supprimerDonnees();
         Grid.getChildren().clear();
         //System.out.println(" 1");
@@ -105,22 +107,20 @@ public class NotesController implements Initializable{
             comboBox.setOnAction(e -> comboBoxAction());
             comboBoxAction();
             
-        }  else {
-            NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
-                    + "Programme Nationnal pour utiliser cette fonctionnalité."
-                    + "Rendez vous dans Parametres > Importer ", 
-                    "Erreur Parametres d'application manquants");
-        }
+        }  
     }
     @FXML
     void ValiderAction(ActionEvent event) throws NoteException, EvaluationException {
+        
         LabelNotificationID.setText("");
-        for(Ressource r : stock.ressources) {
-            if(r.getIdentifiant().equals(comboBox.getValue())) {
-            	r.getEvaluation().clear();
+        
+            for(Ressource r : stock.ressources) {
+                if(r.getIdentifiant().equals(comboBox.getValue())) {
+                    r.getEvaluation().clear();
+                }
             }
-        }
-        evaluationList.clear();
+        
+        
         if(Stockage.getInstance().ressources.size() != 0) {
             double totalCoefficient = 0.0;
             Note noteATester = null;
@@ -142,12 +142,7 @@ public class NotesController implements Initializable{
                     }
                     if (colIndex == 1){
                         dateString = textFieldAnalyser.getText();
-                        /*if(dateString.equals("")||dateString == null){
-                            textFieldAnalyser.setStyle("-fx-background-color: red;");
-                        } else { 
-                            dateCorrect = true;*/
                         textFieldAnalyser.setStyle(STYLE + "-fx-background-color: white;");
-                        //}
                     }
                     if (colIndex == 2){
                         try {
@@ -160,7 +155,6 @@ public class NotesController implements Initializable{
                                 textFieldAnalyser.setStyle(STYLE);
                             }
                         } catch (Exception e ){
-                            //System.out.println(e);
                             LabelNotificationID.setText("Un ou plusieur coefficient ne correcponde pas au champs attendu");
                             textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
                         }  
@@ -189,61 +183,38 @@ public class NotesController implements Initializable{
                 } else if(typeCorrect && coefficientCorrect && noteCorrect != 0) {
                     if(noteCorrect == 2){
                         Note noteAAjouter = new Note(noteDouble);
-                        evaluationList.add(new Evaluation(NomRessource.getText(),noteAAjouter 
-                                               ,typeString,coefficientDouble,dateString));
-                        NotificationController NotificationController = new NotificationController();
-                        NotificationController.showNotification("Vos données ont bien était insérer");
-                        
-                    } else {
-                        evaluationList.add(new Evaluation(NomRessource.getText(),new Note(-1) 
-                                               ,typeString,coefficientDouble,dateString));
+                        evaluationAAjouter = new Evaluation(NomRessource.getText(),noteAAjouter 
+                                               ,typeString,coefficientDouble,dateString);
+                        //LabelNotificationID ajouter notif eval succeful
                         NotificationController NotificationController = new NotificationController();
                         NotificationController.showNotification("Vos données ont était insérer");
-                        NotificationController.popUpMessage("Certaine Ligne ne seront pas prise en comptes lors du calcul de moyenne car des "
-                                + "information sont manquantes (Note et/ou Date)", "Avertissement");
-                        //LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne");
+                    } else {
+                        evaluationAAjouter = new Evaluation(NomRessource.getText(),new Note(-1) 
+                                               ,typeString,coefficientDouble,dateString);
+                        LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne");
                          
-                    }  
+                    } 
+                    if(totalCoefficient <= 100 && totalCoefficient > 0){
+                        for(Ressource r : stock.ressources) {
+                            if(r.getIdentifiant().equals(comboBox.getValue())) {
+                                
+                                if(!r.ajouterEvaluation(evaluationAAjouter)){
+                                    LabelNotificationID.setText("Erreur des evaluation sont similaire" + STYLE);
+                                }                                                     
+                            }
+                        }
+                    } else {            	
+                        for(int j = 2; j < Grid.getChildren().size(); j+= 5){
+                            Grid.getChildren().get(j).setStyle("-fx-border-color: red;" + STYLE);
+                        }
+                        LabelNotificationID.setText("total des coefficient != de 100");  
+                    }
                     noteCorrect = 0;
                     typeCorrect = false;
-                    //dateCorrect = false;
-                    coefficientCorrect = false;
-                    
-                    
-                } else{
-                    ajoutEvaluationPossible = false;
+                    coefficientCorrect = false;     
                 }
-            }
-            if(ajoutEvaluationPossible){
-                //System.out.println(totalCoefficient);
-                if(totalCoefficient == 100){
-                    for(Ressource r : stock.ressources) {
-                        if(r.getIdentifiant().equals(comboBox.getValue())) {
-                            for(int i = 0; i <Grid.getChildren().size(); i++){
-                                sauvegardeGrid.add(Grid.getChildren().get(i));
-                            }
-                            r.getEvaluation().clear();
-                            for(Evaluation e : evaluationList) {
-                                if(!r.ajouterEvaluation(e)){
-                                    LabelNotificationID.setText("Erreur des evaluation sont similaire" + STYLE);
-                                    //TODO quand 2 éval sont identiques
-                    		}
-                            }                           
-                        }
-                    }
-                }else{            	
-                    for(int i = 2; i < Grid.getChildren().size(); i+= 5){
-                        Grid.getChildren().get(i).setStyle("-fx-border-color: red;" + STYLE);
-                    }
-                    LabelNotificationID.setText("total des coefficient != de 100");  
-                }
-            }
+            }            
         } else {
-            NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
-                    + "Programme Nationnal pour utiliser cette fonctionnalité."
-                    + "Rendez vous dans Parametres > Importer ", 
-                    "Erreur Parametres d'application manquants"
-            );
             LabelNotificationID.setText("Impossible d'ajout� les évaluations, veuillez importé un paramétrage");  
         }   
     } 
@@ -301,25 +272,21 @@ public class NotesController implements Initializable{
     }
 
     private void SupprimerAction(int supprimerId) {
+        
         Grid.getChildren().remove(supprimerId*5,supprimerId*5+5);    
         but.remove(supprimerId);
-        //System.out.println(Grid);
         ArrayList<Node> copieGrid = new ArrayList();
+        
         for(int i = 0; i <Grid.getChildren().size(); i++){
             copieGrid.add(Grid.getChildren().get(i));
-            //System.out.println(Grid.getChildren().get(i).getStyle());
         }
-         //System.out.println(copieGrid.get(1+1).getStyle());
-       // //System.out.println(copieGrid);
         Grid.getChildren().clear();
         nbRow = 1;
         for(int i = 0; i <copieGrid.size(); i+=5){
-            //System.out.println(copieGrid.get(i+1).getStyle());
             Grid.addRow(nbRow, copieGrid.get(i),copieGrid.get(i+1),copieGrid.get(i+2),copieGrid.get(i+3),copieGrid.get(i+4));
-           // Grid.addRow(nbRow, new TextField(),new TextField(),new TextField(),copieGrid.get(i+3),copieGrid.get(i+4));
             nbRow++;
         }
-       
+        
         
     }
     private void comboBoxAction() {
@@ -360,26 +327,20 @@ public class NotesController implements Initializable{
                     }
                 }
             }
-        } else {
-            for(Ressource r : stock.ressources) {
-                if(r.getIdentifiant().equals(comboBox.getValue()) && nonPasse) {
-                    NomRessource.setText(r.getLibelle());
-                    Type.setText(r.getType()); 
-                    
-                    for(Node n : restaurationEvaluation(r)){
-                        nonPasse = false;
-                        
-                        //Grid.addRow(nbRow,textField1,textField2,textField3,textField4,supprimer);
-                    }
+        }
+    } 
+    public boolean modification(GridPane GridSave){
+        boolean resultat = true;
+        if(Grid.getChildren().size() != GridSave.getChildren().size()){
+            resultat = false;
+        }else {
+            for (int i = 0; i < Grid.getChildren().size(); i++) {
+                if(Grid.getChildren().get(i) != GridSave.getChildren().get(i)){//TODO != a changer
+                    resultat = false;
                 }
             }
         }
-    } 
-    public void sauvegarde(Ressource cle, ArrayList<Node> listeBackup) {
-        HashMap<Ressource, ArrayList<Node>> map = new HashMap<>();
-        map.put(cle, listeBackup);
+        return resultat;
     }
-    public ArrayList<Node> restaurationEvaluation(Ressource cle){
-        return map.get(cle);       
-    }
+    
 }

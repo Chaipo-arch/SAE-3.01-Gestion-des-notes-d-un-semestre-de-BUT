@@ -148,6 +148,9 @@ public class Ressource implements Serializable{
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;
     }
+    public double getNote(){
+        return note.getNote();
+    }
     public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
         
         if(coefficient<=0 || intitule.trim().isEmpty() || id.trim().isEmpty()  || identifiant.trim().isEmpty() ){

@@ -41,12 +41,13 @@ public class NotificationController {
 
         // Définition du style de la notification
         rootNotif.setStyle(
-            "-fx-background-color: green;" + // Couleur de fond blanche
-            "-fx-background-radius: 20;" // Coins arrondis de 20 pixels
+            "-fx-background-color: #7EEC93;" + // Couleur de fond blanche
+            "-fx-background-radius: 20;"+ // Coins arrondis de 20 pixels
+            "-fx-font-size: 15px;"
         );
         
         // Création de la scène pour la fenêtre de notification
-        Scene scene = new Scene(rootNotif, 300, 55); // Taille de la scène (largeur x hauteur)
+        Scene scene = new Scene(rootNotif, 270, 55); // Taille de la scène (largeur x hauteur)
         scene.setFill(Color.TRANSPARENT); // Rend la scène transparente
 
         
@@ -68,8 +69,8 @@ public class NotificationController {
         double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
         
         // Positionnement de la fenêtre de notification
-        notificationStage.setX(GEstionNoteApp.getPrimaryStage().getX() + 800); // Décalage de la position X
-        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 40); // Décalage de la position Y
+        notificationStage.setX(GEstionNoteApp.getPrimaryStage().getX() + 830); // Décalage de la position X
+        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 35); // Décalage de la position Y
         
         // Affichage de la fenêtre de notification
         notificationStage.show();

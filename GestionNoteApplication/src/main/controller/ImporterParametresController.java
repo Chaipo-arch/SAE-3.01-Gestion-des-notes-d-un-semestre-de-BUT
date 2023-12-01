@@ -18,6 +18,8 @@ import GestionNoteApplication.src.main.java.package1.NoteException;
 
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
 
 public class ImporterParametresController {
 
@@ -55,32 +57,42 @@ public class ImporterParametresController {
 
     @FXML
     void choixValiderAction(ActionEvent event){
+        
+        
             if(!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file==null) {
-                NotificationController.popUpMessage("Merci de cocher et de selectionner le fichier que voussouhaitez importer ", "Erreur Importation");
+                NotificationController.popUpMessage("Merci de cocher et de selectionner le fichier que vous souhaitez importer ", "Erreur Importation");
             }
             if(nationalToggle.isSelected() && file != null) {
-                try {
-                    System.out.println("ok");
-                    ParametrageNationalPrototype paN = null;
-                    try {
-                        paN = new ParametrageNationalPrototype(file);
-                    } catch (EvaluationException ex) {
-                        System.out.println("erreur2");
-                    }
-                    try {
-                        paN.parse();
-                        NotificationController NotificationController = new NotificationController();
-                        NotificationController.showNotification("Votre programme Nationnal a bien été importé");
-                    } catch (NoteException ex) {
-                        System.out.println("erreur");
-                    }
-                } catch (IOException ex) {
-                    
-                } catch (MauvaisFormatFichierException ex) {
-                    NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
-                    System.out.println(ex.getMessage());
-                }
-            } 
+                
+                    Optional<ButtonType> result = NotificationController.popUpChoix("L'imporation de votre Nouveau Programme vas supprimer toutes les données précédemment enregistrer souhaitez vous continuer ?","");
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                            
+                        try {
+                            System.out.println("Reini");
+                            Stockage.getInstance().supprimerDonnees();
+                            System.out.println("ok");
+                            ParametrageNationalPrototype paN = null;
+                            try {
+                                paN = new ParametrageNationalPrototype(file);
+                            } catch (EvaluationException ex) {
+                                System.out.println("erreur2");
+                            }
+                            try {
+                                paN.parse();
+                                NotificationController NotificationController = new NotificationController();
+                                NotificationController.showNotification("Importation Réussie");
+                            } catch (NoteException ex) {
+                                System.out.println("erreur");
+                            }
+                        } catch (IOException ex) {
+
+                        } catch (MauvaisFormatFichierException ex) {
+                            NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
+                            System.out.println(ex.getMessage());
+                        }
+                    } 
+                
+            }
             if(ressourceToggle.isSelected() && file != null) {
                 try {
                     System.out.println("ok");

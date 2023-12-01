@@ -123,7 +123,9 @@ public class CommuniquerController {
                 
                 
                 System.out.println(portID.getText());
-                int port = Integer.parseInt(portID.getText());
+                //int port = Integer.parseInt(portID.getText());
+                
+                int port = 10008;
                 System.out.println(port);
 
                 System.out.println("salut debug1");
@@ -133,7 +135,7 @@ public class CommuniquerController {
                     
                 if (checkValider == true ) {
                     // Tentative de connexion au serveur et envoi de fichiers
-                    Client.connection(serverIP, port);
+                    Client.connection(serverIP);
 
                     // Envoi de fichiers au serveur
                     for (int i = 0; i < fichiers.size(); i++) {

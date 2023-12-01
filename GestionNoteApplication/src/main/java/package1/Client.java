@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 public class Client {
     
     private static Socket socket ;
+    private static int port = 10008;
     
-    
-    public static void connection(String serverIP, int port) {
+    public static void connection(String serverIP) {
         try {
              socket = new Socket(serverIP, port);
         } catch (IOException ex) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,8 +10,19 @@
 
 <AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.NotesController">
    <children>
-      <Button fx:id="ValiderChangementButton" layoutX="666.0" layoutY="457.0" mnemonicParsing="false" onAction="#ValiderAction" prefHeight="58.0" prefWidth="220.0" styleClass="BouttonQuitter" text="Valider" />
-      <Button fx:id="AjouterBoutonID" layoutX="36.0" layoutY="464.0" mnemonicParsing="false" onAction="#AjouterEvaluationAction" prefHeight="44.0" prefWidth="137.0" styleClass="Boutton" text="+" />
+      <Button fx:id="ValiderChangementButton" layoutX="666.0" layoutY="457.0" mnemonicParsing="false" onAction="#ValiderAction" prefHeight="58.0" prefWidth="220.0" text="Enregistrer">
+         <styleClass>
+            <String fx:value="BouttonQuitter" />
+            <String fx:value="textTaille20" />
+         </styleClass></Button>
+      <Button fx:id="AjouterBoutonID" layoutX="36.0" layoutY="464.0" mnemonicParsing="false" onAction="#AjouterEvaluationAction" prefHeight="44.0" prefWidth="137.0" text="+">
+         <styleClass>
+            <String fx:value="BouttonAjouter" />
+            <String fx:value="textTaille20" />
+         </styleClass>
+         <font>
+            <Font size="24.0" />
+         </font></Button>
       <Label fx:id="LabelNotificationID" layoutX="689.0" layoutY="501.0" prefHeight="17.0" prefWidth="220.0" />
       <ScrollPane layoutX="15.0" layoutY="153.0" prefHeight="288.0" prefWidth="891.0">
          <content>

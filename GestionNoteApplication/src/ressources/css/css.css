@@ -74,6 +74,27 @@
 .Boutton:hover{
 
     -fx-background-color: #5D68CC ;
+    -fx-font-size: 34px;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8),20, 0, 0, 0);
+}
+
+
+
+.BouttonAjouter{
+
+    -fx-background-color: #7681EA;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    -fx-font-size: 20px;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
+}
+
+
+.BouttonAjouter:hover{
+
+    -fx-background-color: #5D68CC ;
     -fx-font-size: 25px;
     -fx-background-radius: 50px;
     -fx-text-fill: black;
