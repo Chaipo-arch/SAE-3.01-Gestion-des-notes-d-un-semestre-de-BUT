@@ -79,7 +79,6 @@ public class NotesController implements Initializable{
     private boolean coefficientCorrect = false;
     Stockage stock = Stockage.getInstance();
     ArrayList<Node> sauvegardeGrid = new ArrayList();
-    HashMap<Ressource, ArrayList<Node>> map;
     /**
      * Initializes the controller class.
      * @param url
@@ -89,7 +88,6 @@ public class NotesController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
     //Stockage.getInstance().supprimerDonnees();
         Grid.getChildren().clear();
-        gridSave = sauvegardeGrid();
         ArrayList<String> ids = Stockage.getInstance().getRessourcesId();
         if(stock.ressources.size() != 0) {
            
@@ -104,6 +102,7 @@ public class NotesController implements Initializable{
             comboBox.getSelectionModel().selectFirst();
             comboBox.setOnAction(e -> comboBoxAction());
             restauration();
+            setupGridListeners();
            
         }  else {
             NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
@@ -179,7 +178,6 @@ public class NotesController implements Initializable{
                                 }
                             }
                         } catch (Exception e ){
-                            //System.out.println(e);
                             textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");  
                         }  
                     }  
@@ -202,9 +200,10 @@ public class NotesController implements Initializable{
                             if(r.getIdentifiant().equals(comboBox.getValue())) {                              
                                 if(!r.ajouterEvaluation(evaluationAAjouter)){
                                     LabelNotificationID.setText("Erreur des evaluation sont similaire" + STYLE);
-                                }                                                   
+                                }                                                 
                             }                            
                         }
+                        sauvegardeGrid();
                        
                     } else {            
                         for(int j = 2; j < Grid.getChildren().size(); j+= 5){
@@ -263,7 +262,7 @@ public class NotesController implements Initializable{
        
         Grid.addRow(nbRow, textField1, textField2, textField3, textField4, supprimer);
         nbRow++;
-        //modification(gridSave);
+        modification(sauvegardeGrid);
     }
 
     private void SupprimerAction(int supprimerId) {
@@ -276,7 +275,7 @@ public class NotesController implements Initializable{
                             if(e.getDate() ==((TextField) Grid.getChildren().get(i-3)).getText()){
                                 if(e.getCoefficient() == Double.parseDouble(((TextField) Grid.getChildren().get(i-2)).getText())){
                                     if(e.getNote() == Double.parseDouble(((TextField) Grid.getChildren().get(i-1)).getText())){
-                                        System.out.println(r.getEvaluation().remove(e));                                      
+                                        r.getEvaluation().remove(e);                                      
                                     }
                                 }
                             }
@@ -300,12 +299,11 @@ public class NotesController implements Initializable{
             Grid.addRow(nbRow, copieGrid.get(i),copieGrid.get(i+1),copieGrid.get(i+2),copieGrid.get(i+3),copieGrid.get(i+4));
             nbRow++;
         }
-       
-        //modification(gridSave);
+        modification(sauvegardeGrid);
        
     }
-    public void comboBoxAction() {  
-        //modification(gridSave);
+    public void comboBoxAction() { 
+        modification(sauvegardeGrid);
         if(AccueilController.mesNoteCourant){
             Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
             if (result.isPresent() && result.get() == ButtonType.OK) {          
@@ -316,7 +314,15 @@ public class NotesController implements Initializable{
                     restauration();
                 }
             }
-        }    
+        } else{
+            if(stock.ressources.size() != 0){
+                    nbRow = 1;
+                    Grid.getChildren().clear();
+                    but.clear();
+                    restauration();
+            }
+        } 
+        AccueilController.mesNoteCourant = false;
     }
        
     public void restauration(){
@@ -352,42 +358,44 @@ public class NotesController implements Initializable{
                     }
                 }
             }
-        }    
+        }  
+        sauvegardeGrid();
     }
-    public void modification(GridPane GridSave){
+    public void modification(ArrayList<Node> sauvegardeGrid){
         boolean resultat = false;
-        if(Grid.getChildren().size() != GridSave.getChildren().size()){
+        if(Grid.getChildren().size() != sauvegardeGrid.size()){
             resultat = true;
         } else {
             for (int i = 0; i < Grid.getChildren().size(); i++) {
-                if(GridSave.getChildren() instanceof TextField){
-                    if((((TextField)Grid.getChildren().get(i)).getText() != ((TextField)GridSave.getChildren().get(i)).getText())){
+                if(sauvegardeGrid.get(i) instanceof TextField){
+                    if((!((TextField)Grid.getChildren().get(i)).getText().equals(((TextField) sauvegardeGrid.get(i)).getText()))){
                         resultat = true;
-                        System.out.println(((TextField)Grid.getChildren().get(i)).getText()+"different de ");
-                        System.out.println(((TextField)GridSave.getChildren().get(i)).getText()+"different de ");
+                        //.out.println(((TextField)Grid.getChildren().get(i)).getText()+" different de : "+ ((TextField)sauvegardeGrid.get(i)).getText());
+                        
                     }
                 } else {
-                    if(Grid.getChildren().get(i).getId() != GridSave.getChildren().get(i).getId()){
+                    if(Grid.getChildren().get(i).getId() != sauvegardeGrid.get(i).getId()){
                         resultat = true;
                     }
                 }              
             }
         }
         AccueilController.mesNoteCourant = resultat;
-        System.out.println(resultat);
+        //.out.println(resultat);
     }
-    public GridPane sauvegardeGrid(){
-        GridPane sauvegardeGrid = new GridPane();
+    public void sauvegardeGrid(){
         ArrayList<Node> sauvegarde = new ArrayList();
         int nbRowSauvegarde = 1;
         for(int i = 0; i <Grid.getChildren().size(); i++){
-            sauvegarde.add(Grid.getChildren().get(i));
-        }      
-        for(int i = 0; i <sauvegarde.size(); i+=5){
-            sauvegardeGrid.addRow(nbRowSauvegarde, sauvegarde.get(i),sauvegarde.get(i+1),sauvegarde.get(i+2),sauvegarde.get(i+3),sauvegarde.get(i+4));
-            nbRowSauvegarde++;
-        }
-        return sauvegardeGrid;
+            if(Grid.getChildren().get(i) instanceof TextField){
+                TextField tx = new TextField(((TextField)Grid.getChildren().get(i)).getText());
+                sauvegarde.add(tx);
+            } else {
+                sauvegarde.add(Grid.getChildren().get(i));
+            }
+            
+        }   
+        sauvegardeGrid = sauvegarde;
     }
     public Ressource getRessource(){
         boolean nonPasse = true;  
@@ -397,5 +405,16 @@ public class NotesController implements Initializable{
             }
         }
         return null;
+    }
+    private void setupGridListeners() {
+        for (Node node : Grid.getChildren()) {
+            if (node instanceof TextField) {
+                TextField textField = (TextField) node;
+                textField.textProperty().addListener((observable) -> {
+                    int row = Grid.getRowIndex(textField);
+                    modification(sauvegardeGrid);
+                });
+            }
+        }
     }
 }
