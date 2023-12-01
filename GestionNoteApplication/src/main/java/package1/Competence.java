@@ -39,13 +39,17 @@ public class Competence implements Serializable{
         double totalCoef = 0.0;
         double calculMoyenne = 0.0;
         
-        if(ressources.size() ==0){
+        if(ressources.size() == 0){
             return note;
         }
         
         for(int index = 0 ; index < ressources.size(); index++){
+            if ( ressources.get(index).calculMoyenne().getNote() == -1) {
+                return note;
+            }
             calculMoyenne += ressources.get(index).calculMoyenne().getNote() 
-                             * ressources.get(index).getCoefficient();               
+                             * ressources.get(index).getCoefficient();
+            
             totalCoef += ressources.get(index).getCoefficient();
         }
         
@@ -54,6 +58,8 @@ public class Competence implements Serializable{
         note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
 
         return note ; // calcul la moyenne d'une ressource
+        
+        //-1 pour pas d'eval
        
     }
 

@@ -15,7 +15,7 @@ import javafx.scene.control.ScrollPane;
 
 public class CalculerMoyenneController implements Initializable {
 
-    
+    private boolean AffichageNotificationErreur = false;
     
     @FXML
     private GridPane tableau;
@@ -30,12 +30,13 @@ public class CalculerMoyenneController implements Initializable {
         for (int i = 0; i < stockage.competences.size(); i++) {
             try {
                 tableau.add(new Label(stockage.competences.get(i).identifiant + ""), 0, tableau.getRowConstraints().size());
-                double noteValeur;
+                String noteValeur;
                 
                 if(stockage.competences.get(i).calculMoyenneCompetence().getNote() == -1){
-                    noteValeur = 0;
+                    noteValeur = "";
+                    AffichageNotificationErreur = true;
                 }else {
-                    noteValeur = stockage.competences.get(i).calculMoyenneCompetence().getNote();
+                    noteValeur = stockage.competences.get(i).calculMoyenneCompetence().getNote()+"";
                 }
                 tableau.add(new Label(noteValeur + ""), 1, tableau.getRowConstraints().size());
                 System.out.println(tableau.getRowConstraints().size());
@@ -64,7 +65,14 @@ public class CalculerMoyenneController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            
         }
+        
+        if (AffichageNotificationErreur==true){
+            NotificationController.popUpMessage("Attention des Notes sont Manquantes toutes les moyennes de vos Compétences ne pourront pas etre calculer","");
+        }
+        
+        
         
         tableau.setLayoutY(0);
         tableau.getRowConstraints().size();
@@ -72,6 +80,7 @@ public class CalculerMoyenneController implements Initializable {
                 .mapToDouble(rowConstraints -> rowConstraints.getMinHeight()).sum();
         
         tableau.setPrefHeight(totalHeight);
+        
         
  
     }

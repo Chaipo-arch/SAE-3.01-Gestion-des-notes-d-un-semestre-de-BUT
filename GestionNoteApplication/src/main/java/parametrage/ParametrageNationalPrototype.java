@@ -6,6 +6,7 @@
 package GestionNoteApplication.src.main.java.parametrage;
 
 
+import GestionNoteApplication.src.main.controller.NotificationController;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 
 import GestionNoteApplication.src.main.java.package1.Stockage;
@@ -62,23 +63,32 @@ public class ParametrageNationalPrototype extends Parametrage {
         numeroLigne = 0;
         String line;
         for (line = newLine(br); numeroLigne < 3; line = newLine(br)) {
+            if (line == null) {
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application.\nFichier vide","Erreur Importation");
+            }
             String[] chaine = line.split(";");
             if (!chaine[0].equals(MODELE[numeroLigne])) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit " );
+               // NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application.\n Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit ", "Erreur Importation" );
+                
             }
             //System.out.println(chaine.length);
             if(chaine.length != 2 && numeroLigne == 1) {
+                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" );
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" , "Erreur Importation");
                 
             } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
+                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6" , "Erreur Importation");
             }
             if (numeroLigne == 2 && chaine.length != 2) {
+                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" , "Erreur Importation");
             } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal ecrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
+               // NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) +  " est mal ecrit: la deuxieme colonne n'a pas ABCD, rien ou Tous", "Erreur Importation");
             }
 
         }
@@ -98,12 +108,14 @@ public class ParametrageNationalPrototype extends Parametrage {
                 Stockage.getInstance().addCompetences(comps);
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit" + line);
+               // NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit" + line, "Erreur Importation");
             }
             line = newLine(br);
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit");
+                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit", "Erreur Importation");
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
@@ -112,16 +124,20 @@ public class ParametrageNationalPrototype extends Parametrage {
                     && !line.split(";")[0].equals("Competence"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 4) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 4 colonne");
+                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 4 colonne", "Erreur Importation");
                 }
                 if (!chaine[0].matches("Ressource|Portfolio|SAE")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: " + chaine[0]);
+                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                    throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: " + chaine[0], "Erreur Importation");
                 }
                 if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1]);
+                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                    throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1], "Erreur Importation");
                 }
-                if (!chaine[3].matches("\\d*")) { //TODO gerer erreur a1
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3]);
+                if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
+                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                    throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3], "Erreur Importation");
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
                 ress.add(new Ressource(chaine[0], chaine[1], chaine[2], Double.parseDouble(chaine[3])));
@@ -139,7 +155,8 @@ public class ParametrageNationalPrototype extends Parametrage {
                    }
                 }
             } else {
-                throw new MauvaisFormatFichierException("La competence " + saveIdentifiantC + " a une somme des coefficients pas egale à 100: " + calculCoeff);
+                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
+                throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLa competence " + saveIdentifiantC + " a une somme des coefficients pas egale à 100: " + calculCoeff, "Erreur Importation");
             }
         }
         br.close();
@@ -185,13 +202,7 @@ public class ParametrageNationalPrototype extends Parametrage {
         File file = new File("NationalExporte.csv");
         String csv = "NationalExporte.csv";
         try {
-            if(file.exists()) {
-                file.delete();
-                file.createNewFile();
-            } else {
-                file.createNewFile();
-            }
-            
+            file.createNewFile();
         } catch (IOException ex) {
             
         }
@@ -207,7 +218,7 @@ public class ParametrageNationalPrototype extends Parametrage {
                 }
             }
         } catch (IOException ex) {
-            
+            System.out.println("Un problemes est survenue lors de la Creation du fichier CSV");
         }
     }
 

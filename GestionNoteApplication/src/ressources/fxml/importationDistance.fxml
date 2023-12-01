@@ -5,22 +5,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImportationDistanceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImportationDistanceController">
    <children>
-      <Button defaultButton="true" layoutX="370.0" layoutY="183.0" mnemonicParsing="false" onAction="#importationDistanceButton" prefHeight="25.0" prefWidth="176.0" text="Attendre une importation" />
-      <Label fx:id="connexion" layoutX="234.0" layoutY="244.0" text="Connexion en attente..." visible="false">
+      <Button defaultButton="true" layoutX="280.0" layoutY="365.0" mnemonicParsing="false" onAction="#importationDistanceButton" prefHeight="70.0" prefWidth="356.0" style="-fx-font-size: 25;" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Attendre une importation" />
+      <Label fx:id="connexion" layoutX="215.0" layoutY="266.0" text="Connexion en attente..." visible="false">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="annulerButton" cancelButton="true" layoutX="202.0" layoutY="380.0" mnemonicParsing="false" onAction="#annulerAttenteAction" text="Annuler l'attente" visible="false" />
-      <Label layoutX="297.0" layoutY="44.0" text="Importation de parametre a distance">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="adresseIP" layoutX="647.0" layoutY="187.0" text="Votre adresse ip :" />
-      <CheckBox fx:id="nationalToggle" layoutX="248.0" layoutY="128.0" mnemonicParsing="false" text="parametrageNational" />
-      <CheckBox fx:id="ressourceToggle" layoutX="504.0" layoutY="128.0" mnemonicParsing="false" text="parametrageRessource" />
+      <Button fx:id="annulerButton" cancelButton="true" layoutX="38.0" layoutY="453.0" mnemonicParsing="false" onAction="#annulerAttenteAction" prefHeight="25.0" prefWidth="249.0" styleClass="Boutton" text="Annuler l'attente" visible="false" />
+      <Label fx:id="adresseIP" layoutX="215.0" layoutY="173.0" prefHeight="53.0" prefWidth="487.0" style="-fx-font-size: 30;" styleClass="StyleBox" stylesheets="@../css/css.css" text="     Votre adresse ip :" />
+      <AnchorPane layoutX="131.0" layoutY="45.0" prefHeight="103.0" prefWidth="493.0" styleClass="StyleBox" stylesheets="@../css/css.css">
+         <children>
+            <CheckBox fx:id="nationalToggle" layoutX="21.0" layoutY="26.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="356.0" style="-fx-font-size: 25;" text="parametrageNational" />
+            <CheckBox fx:id="ressourceToggle" layoutX="357.0" layoutY="34.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="311.0" style="-fx-font-size: 25;" text="parametrageRessource" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

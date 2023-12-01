@@ -10,25 +10,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.CalculerMoyenneController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.CalculerMoyenneController">
    <children>
-      <ScrollPane layoutX="128.0" layoutY="7.0" prefHeight="503.0" prefWidth="698.0">
+      <ScrollPane layoutX="106.0" layoutY="7.0" prefHeight="503.0" prefWidth="720.0">
          <content>
-            <GridPane fx:id="tableau" alignment="CENTER" gridLinesVisible="true" maxHeight="200000.0" minHeight="40.0" minWidth="10.0" prefHeight="40.0" prefWidth="634.0">
+            <GridPane fx:id="tableau" alignment="CENTER" gridLinesVisible="true" maxHeight="200000.0" minHeight="40.0" minWidth="10.0" prefHeight="40.0" prefWidth="718.0" styleClass="textTaille30">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="139.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="137.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="427.0" minWidth="318.0" prefWidth="427.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="400.0" minWidth="291.0" prefWidth="291.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Competence">
+                  <Label styleClass="textTaille30" text="Competence">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label id="tableau" minHeight="40.0" minWidth="-Infinity" prefHeight="40.0" text="Moyenne" GridPane.columnIndex="1">
+                  <Label id="tableau" minHeight="40.0" minWidth="-Infinity" prefHeight="40.0" styleClass="textTaille30" text="Moyenne" GridPane.columnIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>

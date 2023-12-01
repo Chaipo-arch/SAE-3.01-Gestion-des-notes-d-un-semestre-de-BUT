@@ -30,7 +30,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances ressources semestre", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
+    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances ressources semestre ", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
 
     private static BufferedReader br;
     private static int numeroLigne;
@@ -63,9 +63,13 @@ public class ParametrageRessourcePrototype extends Parametrage {
         numeroLigne = 0;
         String line;
         for (line = newLine(); numeroLigne < 3; line = newLine()) {
+            if (line == null) {
+                //NotificationController
+                throw new MauvaisFormatFichierException("Fichier vide");
+            }
             String[] chaine = line.split(";");
             if (numeroLigne == 0) {
-                chaine[0] = chaine[0].substring(0, chaine[0].length() - 2);
+                chaine[0] = chaine[0].substring(0, chaine[0].length() - 1);
             }
            if (!chaine[0].matches(MODELE[numeroLigne])) {
                System.out.println(chaine[0]);
@@ -119,7 +123,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne");
                 }
-                if (!chaine[2].matches("\\d*")) {
+                if (chaine[2].matches("-([0-9]){1,}")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2]);
                 }
                 
@@ -191,31 +195,24 @@ public class ParametrageRessourcePrototype extends Parametrage {
         String csv = "RessourceExporte.csv";
         ArrayList<String> idDejaApparue = new ArrayList();
         try {
-            if(file.exists()) {
-                file.delete();
-                file.createNewFile();
-            } else {
-                file.createNewFile();
-            }
-            
+            file.createNewFile();
         } catch (IOException ex) {
-            
+           
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
-            ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre 2\n");
-            System.out.println("BUT Informatique - Modalite Controle de connaissances ressources semestre 2\n");
+            ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre\n");
             ecritureLigne.write("Semestre;2\nParcours;Tous\n");
             for(Ressource r: Stockage.getInstance().ressources) {
                 if (!idDejaApparue.contains(r.getIdentifiant())){
                     idDejaApparue.add(r.getIdentifiant());
                     if(r.getEvaluation().size() != 0) {
-                        ecritureLigne.write("Ressource;"+ r.getIdentifiant()+";"+r.getLibelle()+ "\n");
+                        ecritureLigne.write("Ressource;"+ r.getIdentifiant()+";"+r.getIdentifiant()+ "\n");
                         ecritureLigne.write("Type evaluation;Date;Poids\n");
 
 
                     }
                     for(Evaluation e: r.getEvaluation()) {
-                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ ((int)e.getCoefficient())+ "\n");  
+                        ecritureLigne.write(e.getType() +";"+ e.getDate()+";"+ e.getCoefficient()+ "\n");  
                     }
                 }
             }

@@ -88,7 +88,8 @@ public class CommuniquerController {
                 filePath = "RessourceExporte.csv";
                 fichiers.add(filePath);
             }             
-            int port = Integer.parseInt(portID.getText());
+            //int port = Integer.parseInt(portID.getText());
+            int port = 10008;
             Client client = new Client();
             System.out.println(serverIP);
             client.connection(serverIP, port);

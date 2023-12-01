@@ -18,6 +18,8 @@ import GestionNoteApplication.src.main.java.package1.NoteException;
 
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
 
 public class ImporterParametresController {
 
@@ -34,66 +36,79 @@ public class ImporterParametresController {
     @FXML
     private RadioButton ressourceToggle;
 
-    /**
-     * Affiche une nouvelle fenetre à l'utilisateur qui lui permet 
-     * de choisir un fichier CSV, le fichier si bon sera ensuite affiché dans le label nomFichier
-     * @param event click sur le button
-     * @throws IOException 
-     */
     @FXML
     void importerFichier(ActionEvent event) throws IOException {
+       
+        
         FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("csv","*.csv");
         ex.getExtensions();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(ex);
         File selectedFile = fileChooser.showOpenDialog(null);
+           
             if (selectedFile != null) {
                 file = selectedFile;
                 nomFichier.setText(selectedFile.getName());
+                
+            
             }
+        
     }
 
-    /**
-     * Selon le choix de l'utilsateur :
-     * - si est coché national, crée un parametrageNational
-     * - si est coché Ressource, crée un parametrageRessource
-     * Ces parametrage seront ensuite lue
-     * @param event le click sur le bouton
-     */
     @FXML
     void choixValiderAction(ActionEvent event){
-            if(nationalToggle.isSelected()) {
+        
+        
+            if(!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file==null) {
+                NotificationController.popUpMessage("Merci de cocher et de selectionner le fichier que vous souhaitez importer ", "Erreur Importation");
+            }
+            if(nationalToggle.isSelected() && file != null) {
+                
+                    Optional<ButtonType> result = NotificationController.popUpChoix("L'imporation de votre Nouveau Programme vas supprimer toutes les données précédemment enregistrer souhaitez vous continuer ?","");
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                            
+                        try {
+                            System.out.println("Reini");
+                            Stockage.getInstance().supprimerDonnees();
+                            System.out.println("ok");
+                            ParametrageNationalPrototype paN = null;
+                            try {
+                                paN = new ParametrageNationalPrototype(file);
+                            } catch (EvaluationException ex) {
+                                System.out.println("erreur2");
+                            }
+                            try {
+                                paN.parse();
+                                NotificationController NotificationController = new NotificationController();
+                                NotificationController.showNotification("Importation Réussie");
+                            } catch (NoteException ex) {
+                                System.out.println("erreur");
+                            }
+                        } catch (IOException ex) {
+
+                        } catch (MauvaisFormatFichierException ex) {
+                            NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
+                            System.out.println(ex.getMessage());
+                        }
+                    } 
+                
+            }
+            if(ressourceToggle.isSelected() && file != null) {
                 try {
-                    ParametrageNationalPrototype paN = null;
-                    try {
-                        paN = new ParametrageNationalPrototype(file);
-                    } catch (EvaluationException ex) {
-                        System.out.println("erreur2");
-                    }
-                    try {
-                        paN.parse();
-                    } catch (NoteException ex) {
-                        System.out.println("erreur");
-                    }
-                } catch (IOException ex) {
-                    
-                } catch (MauvaisFormatFichierException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            } 
-            if(ressourceToggle.isSelected()) {
-                try {
+                    System.out.println("ok");
                     ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
                     try {
                         paR.parse();
                         System.out.println(Stockage.getInstance().evaluations);
+                         NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Votre programme Nationnal a bien été importé");
                     } catch (EvaluationException ex) {
                         Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } catch (IOException|NoteException ex) {
                     
                 } catch (MauvaisFormatFichierException ex) {
-                    System.out.println(ex.getMessage());
+                    NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
                 }
             }
             

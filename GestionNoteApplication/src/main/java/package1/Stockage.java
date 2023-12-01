@@ -136,8 +136,7 @@ public class Stockage implements Serializable {
     
     
     /**
-     * Trouve la competence, ou ressource selon l'identifiant de ce qui est cherché 
-     * Si plusieurs Ressource on le meme identifiant tous les doublons seront envoyé
+     * Trouve la competence, ou ressource selon le libele de ce qui est cherché
      * @param identifiant , le libelle de ce qui est cherche
      * @return null si l'objet cherché n'est pas trouvé sinon l'instance du libellé
      */

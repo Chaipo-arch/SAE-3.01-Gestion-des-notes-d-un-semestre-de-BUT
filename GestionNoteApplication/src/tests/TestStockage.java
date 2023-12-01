@@ -10,7 +10,11 @@ import GestionNoteApplication.src.main.java.package1.Stockage;
 import GestionNoteApplication.src.main.java.package1.Ressource;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.Competence;
+import GestionNoteApplication.src.main.java.package1.EvaluationException;
+import GestionNoteApplication.src.main.java.package1.NoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -24,14 +28,27 @@ public class TestStockage{
     static ArrayList<Ressource> listeRessour = new ArrayList<>();
     static ArrayList<Evaluation> listeEvaluation = new ArrayList<>();
     
-    static Competence [] tabCompe = {new Competence("c1"), new Competence("c2"), new Competence("c3")};
-    static Ressource [] tabRessource = {new Ressource("s1"), new Ressource("s2"), new Ressource("s3")};
-    static Evaluation [] tabEval = {new Evaluation("e1")};
+    static Competence [] tabCompe ;
+    static Ressource [] tabRessource ;
+    static Evaluation [] tabEval ;
     
-    public static void jeuxDeDonnees() {
-        stockage = Stockage.getInstance();
-        Competence competence = new Competence("U2.1");
-        listeCompe.add(competence);
+    public static void jeuxDeDonnees()  {
+        try {
+            stockage = Stockage.getInstance();
+            
+            tabCompe = new Competence[2];
+            tabCompe[0] = new Competence("U2.1","c1");
+            tabCompe[1] = new Competence("U2.2","c2");
+            tabRessource = new Ressource[2];
+            tabRessource[0] = new Ressource("Sae", "id", "Programmation Général", 10);
+            tabRessource[1] = new Ressource("Portefolio", "id", "Mathématique", 20);
+            tabEval = new Evaluation[1];
+            tabEval[0] = new Evaluation("QCM","25/01/2023",1);
+            Competence competence = new Competence("U2.1","c3");
+            listeCompe.add(competence);
+        } catch (EvaluationException|NoteException ex) {
+            System.out.println("Une evaluation ou une note est incorrecte");
+        }
     }
     public static void testAdd(){
         int nombreErreur = 0;
@@ -41,9 +58,9 @@ public class TestStockage{
             listeCompe.add(competence);
             System.out.print("cas competence :" + competence.libelle);
             if(stockage.addCompetences(listeCompe)){
-                System.out.println(": cas valide");
+                System.out.println(": [ cas valide ]");
             }else{
-                System.out.println(": cas invalide");
+                System.out.println(": [ cas invalide ]");
                 nombreErreur++;
             }
         }
@@ -51,32 +68,42 @@ public class TestStockage{
             listeCompe.add(competence);
             System.out.print("cas competence :" + competence.libelle);
             if(stockage.addCompetences(listeCompe)){
-                System.out.println(": cas invalide");
+                System.out.println(": [ cas valide ]");
                 nombreErreur++;
             }else{
-                System.out.println(": cas valide");
+                System.out.println(": [ cas invalide ]");
                 
             }
         }
-         
+        listeCompe.get(0).getRessources().clear();
+        stockage.ressources.clear();
         for (Ressource ressource : tabRessource) {
-            System.out.print("cas ressource :" + ressource.libelle);
+            System.out.print("cas ressource :" + ressource.getLibelle());
             listeRessour.add(ressource);
-            if(stockage.addRessources(listeRessour)){
-                System.out.println(": cas valide");
+            listeCompe.get(0).ajouterRessource(ressource);
+            stockage.addRessources(listeRessour, listeCompe.get(0));
+            
+            if(stockage.ressources.containsAll(listeRessour)){
+                System.out.println(": [ cas valide ]");
             }else{
-                System.out.println(": cas invalide");
+                System.out.print(stockage.ressources);
+                System.out.println(": [ cas invalide ]");
                 nombreErreur++;
             }
         }
+        listeCompe.get(0).getRessources().clear();
+         stockage.ressources.clear();
          for (Ressource ressource : tabRessource) {
-            System.out.print("cas ressource :" + ressource.libelle);
+            //System.out.print("cas ressource :" + ressource.getLibelle());
             listeRessour.add(ressource);
-            if(stockage.addRessources(listeRessour)){
-                System.out.println(": cas invalide");
+            listeCompe.get(0).ajouterRessource(ressource);
+           
+            stockage.addRessources(listeRessour, listeCompe.get(0));
+            if(stockage.ressources.containsAll(listeRessour)){
+                System.out.println(": [ cas invalide ]");
                 nombreErreur++;
             }else{
-                System.out.println(": cas valide");
+                System.out.println(": [ cas valide ]");
                 
             }
         }
@@ -85,12 +112,13 @@ public class TestStockage{
     
     public static void testSuppression(){
         System.out.println("## TestStockageSuppression ## \n ###########################\n ");
+        
         if(stockage.recherche("U2.1") !=null) {
             stockage.supprimerDonnees();
         }
         if(stockage.recherche("U2.1") !=null) {
             System.out.print("Données non supprimé");
-            System.out.println(": cas invalide");
+            System.out.println(": [ cas invalide ]");
         } else {
             System.out.println("Fonctionnel");
         }
@@ -101,15 +129,15 @@ public class TestStockage{
         int nombreErreur = 0;
         System.out.println("## TestStockageRecherche ## \n ###########################\n ");
         if(stockage.recherche("U2.1") !=null) {
-            System.out.println("cas valide");
+            System.out.println(": [ cas valide ]");
         } else {
-            System.out.println(": cas invalide");
+            System.out.println(": [ cas invalide ]");
                 nombreErreur++;
         }
         if(stockage.recherche("U2.") == null) {
-            System.out.println("cas valide");
+            System.out.println(": [ cas valide ]");
         } else {
-            System.out.println(": cas invalide");
+            System.out.println(": [ cas invalide ]");
                 nombreErreur++;
         }
         System.out.println("le nombre d'erreur est de : "+nombreErreur);

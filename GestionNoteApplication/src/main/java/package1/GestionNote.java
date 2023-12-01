@@ -86,5 +86,51 @@ public class GestionNote {
            donnees.close();
         }
     }
+    
+    /**
+     * Reinitialie toutes les données de l'application en supprimant 
+     * les données de stockage
+     */
+    public void reinitialiser() {
+        Stockage.getInstance().supprimerDonnees();
+    }
+    
+    /**
+     * Permet de consulter toutes les notes par compétences et Ressource pour 
+     * chaque éval
+     */
+    public void consulterNote() {
+        //stockageDonnees.competences // TODO 
+        
+    }
+    
+    public void communiquer() {
+        
+    }
+    
+    /**
+     * Permet de données une note à une évaluation selon une compétence et 
+     * une resource donné
 
+     */
+    public void saisirNote() {
+        //stockageDonnees.competences // TODO 
+    }
+    
+    /**
+     * permet d'importer un paramètre depuis le poste en local ou depuis un 
+     * poste sur le réseau
+     */
+    public void importerParametre() {
+        // new Parametrage() // TODO
+    }
+    
+    /**
+     * calcule les moyennes par compétence, ressources et la moyennes générale 
+     * avec les notes qui sont disponibles
+     */
+    public void lancerCalculs() {
+        //stockageDonnees.competences // TODO 
+    }
+    
 }
