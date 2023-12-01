@@ -1,3 +1,6 @@
+/**
+ * Server.java
+ */
 package GestionNoteApplication.src.main.java.package1;
 
 import java.io.*;
@@ -6,13 +9,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Classe pour la communication 
+ * Le Serveur reçoie un ou 2 fichiers envoyé par le client 
+ */
 public class Server {
     
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static ObjectInputStream in;
     
-
+    /**
+     * Creation du serveur
+     */
     public static void createServer() {
         try {
             int port = 10008;
@@ -23,6 +32,10 @@ public class Server {
            
         }
     }
+
+    /**
+     * Attendre la connexion du client
+     */
     public static boolean connexion()  {
         try {
             clientSocket = serverSocket.accept();
@@ -33,6 +46,11 @@ public class Server {
             return false;
         }
     }
+
+    /**
+    * recevoir le fichier envoyé par le client, le nouveau fichier a pour nom le nom donné en argument
+     * @param filePath , chemin du fichier
+     */
     public static boolean receiveCSVFile(String filePath) {
         try {
             System.out.println("receive en cours");
@@ -46,6 +64,8 @@ public class Server {
             
             byte[] buffer = new byte[1024];
             int bytesRead;
+            // Lecture de ce qu'est envoyé par le client 
+            // Le fichier est écrit ligne par ligne
             while ((bytesRead = in.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
@@ -54,6 +74,7 @@ public class Server {
             BufferedReader br = new BufferedReader(fr);
             ArrayList<String> toutLeFichier = new ArrayList<>();
             String ligne ;
+            // lecture du fichier créé
             while ((ligne = br.readLine()) != null) {
                 toutLeFichier.add(ligne);
             }
@@ -63,21 +84,14 @@ public class Server {
             
             FileWriter fw = new FileWriter(fichier);
             BufferedWriter bw = new BufferedWriter(fw);
-
+            // Décryptage puis réécriture du fichier
             for(int i = 0; i < toutLeFichier.size();i++){
                
                 bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
             bw.close();
             fw.close();
-            
-            
-            //Cryptage.decryptage(Cryptage.cle, toutLeFichier);
-           
-            
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
-            //in.close();
-            //fileOutputStream.close();
             clientSocket.shutdownInput();
             System.out.println("client close : "+ clientSocket.isClosed());
             System.out.println("server close : " + serverSocket.isClosed());
@@ -89,6 +103,10 @@ public class Server {
             return false;   
         }
     }
+
+    /**
+     * 
+     */
     public static boolean cle(){
         try {
             System.out.println("receive en cours");
@@ -124,28 +142,23 @@ public class Server {
             return false;   
         }
     }
+
+    /**
+     * Envoie de la réponse aux client 
+     * @param message , la réponse à envoyer
+     */
     public static void reponse(String message) throws IOException {
         
         System.out.println("Envoie Reponse");
         OutputStream os = clientSocket.getOutputStream();
         os.write(message.getBytes());
-        
-        /*OutputStream os = clientSocket.getOutputStream();
-        OutputStreamWriter ow = new OutputStreamWriter(os);
-        BufferedWriter wr = new BufferedWriter(ow);         
-        wr.write("Test\n".);*/
         clientSocket.shutdownOutput();
-        
-        try {
-            Thread.sleep(500); // Mettre en pause pendant 1 seconde
-        } catch (InterruptedException e) {
-         // Gérer une éventuelle exception si l'interruption se produit pendant la pause
-            e.printStackTrace();
-        }
     }
     
     
-    
+    /**
+     * Arret de la connexion avec le client
+     */
     public static void closeClient() {
         try {
             if (clientSocket != null) {
@@ -160,6 +173,10 @@ public class Server {
             //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * arret du serveur 
+     */
     public static void closeServer() {
         //SocketException e;
         try {
