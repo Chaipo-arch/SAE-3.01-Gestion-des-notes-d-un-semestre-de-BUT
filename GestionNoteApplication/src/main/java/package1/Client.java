@@ -93,7 +93,7 @@ public class Client {
     }
 
     /**
-     * 
+     * TODO
      */
     public boolean sendA(String cle) throws IOException{
         System.out.println(cle);
