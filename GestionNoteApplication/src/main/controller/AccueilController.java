@@ -180,6 +180,16 @@ public class AccueilController implements Initializable {
         textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
 
     }
+    @FXML
+    void NoticeClick() {
+         try {
+             NoticeController.y = 0;
+            TextTitre.setText("Notice");
+            changerPage("Notice.fxml");
+        } catch (IOException ex) {
+            
+        }
+    }
 
     
     

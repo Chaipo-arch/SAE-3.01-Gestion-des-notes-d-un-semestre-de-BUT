@@ -1,5 +1,6 @@
 package GestionNoteApplication.src.main.controller;
 
+import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import java.net.URL;
@@ -20,12 +21,21 @@ import GestionNoteApplication.src.main.java.package1.Stockage;
 import javafx.scene.control.TextField;
 import GestionNoteApplication.src.main.java.package1.Note;
 import GestionNoteApplication.src.main.java.package1.NoteException;
+import GestionNoteApplication.src.main.java.package1.Server;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 
 public class NotesController implements Initializable{
 
+    
+    @FXML
+    private AnchorPane contenuPage;
     
     @FXML
     private Button ValiderChangementButton;
@@ -35,6 +45,8 @@ public class NotesController implements Initializable{
 
     @FXML
     private Label Type;
+    
+     Parent fxml;
 
     @FXML
     private Button AjouterBoutonID;
@@ -341,6 +353,33 @@ public class NotesController implements Initializable{
             }
         }
         return resultat;
+    }
+    
+    @FXML
+    void NoticeClick() {
+         try {
+             NoticeController.y = 6.5;
+             changerPage("Notice.fxml");
+            //changerPage("Notice.fxml");
+        } catch (IOException ex) {
+            
+        }
+    }
+    
+    public void changerPage(String page) throws IOException {
+        if(t1 != null && t1.isAlive()) {
+            Server.closeServer();
+            t1.interrupt();
+        }
+        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
+        System.out.println(file.exists());
+        if(file.exists()) {
+            String changementPage = "../../ressources/fxml/"+page;
+            System.out.println(file.getAbsolutePath());
+            fxml = FXMLLoader.load(getClass().getResource(changementPage));
+            contenuPage.getChildren().removeAll();
+            contenuPage.getChildren().setAll(fxml);
+        }
     }
     
 }

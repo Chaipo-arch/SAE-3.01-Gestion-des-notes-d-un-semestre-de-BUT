@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.NotesController">
+<AnchorPane id="AnchorPane" fx:id="contenuPage" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.NotesController">
    <children>
       <Button fx:id="ValiderChangementButton" layoutX="666.0" layoutY="457.0" mnemonicParsing="false" onAction="#ValiderAction" prefHeight="58.0" prefWidth="220.0" text="Enregistrer">
          <styleClass>
@@ -89,5 +89,6 @@
             </GridPane>
          </children>
       </GridPane>
+      <Button layoutX="380.0" layoutY="470.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="36.0" prefWidth="109.0" styleClass="BouttonQuitter" text="Notice" />
    </children>
 </AnchorPane>

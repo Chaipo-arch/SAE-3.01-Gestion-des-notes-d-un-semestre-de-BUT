@@ -25,6 +25,7 @@
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font></Label>
+                  <Button layoutX="380.0" layoutY="470.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="36.0" prefWidth="109.0" styleClass="BouttonQuitter" text="Notice" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="203.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="933.0" styleClass="barreTitre" stylesheets="@../css/css.css">
