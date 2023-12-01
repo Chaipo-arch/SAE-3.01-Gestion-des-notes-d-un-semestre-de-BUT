@@ -74,10 +74,7 @@ public class Server {
             BufferedReader br = new BufferedReader(fr);
             ArrayList<String> toutLeFichier = new ArrayList<>();
             String ligne ;
-<<<<<<< HEAD
-=======
             // lecture du fichier créé
->>>>>>> test2
             while ((ligne = br.readLine()) != null) {
                 toutLeFichier.add(ligne);
             }
@@ -87,11 +84,7 @@ public class Server {
             
             FileWriter fw = new FileWriter(fichier);
             BufferedWriter bw = new BufferedWriter(fw);
-<<<<<<< HEAD
-
-=======
             // Décryptage puis réécriture du fichier
->>>>>>> test2
             for(int i = 0; i < toutLeFichier.size();i++){
                
                 bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
