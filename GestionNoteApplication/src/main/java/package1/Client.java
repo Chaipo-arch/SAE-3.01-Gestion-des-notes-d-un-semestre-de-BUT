@@ -79,16 +79,20 @@ public class Client {
             e.printStackTrace();
         }
     }
-    public boolean sendA(String cle) throws IOException{
+    public boolean sendA(int cle) throws IOException{
         System.out.println(cle);
         try{
             OutputStream out = socket.getOutputStream();
             Cryptage.creationCleEtape1();
             String espace="\n";
-            
+            String p = Cryptage.p +espace;
+            String g = Cryptage.g+espace;
+            out.write(p.getBytes());
+            out.write(g.getBytes());
             out.write(Cryptage.cle.getBytes());
             out.write(espace.getBytes());
-            out.write(cle.getBytes());
+            String cleString = cle+""; 
+            out.write(cleString.getBytes());
             socket.shutdownOutput();
            return true; 
         }catch(Exception e){

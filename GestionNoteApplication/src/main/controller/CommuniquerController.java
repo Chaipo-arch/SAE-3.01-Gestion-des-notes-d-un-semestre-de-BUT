@@ -94,13 +94,13 @@ public class CommuniquerController {
             client.connection(serverIP, port);
             boolean ok;
             
-            ok = client.sendA(Cryptage.codeAlice());
+            ok = client.sendA(Cryptage.codeAliceEtBob());
                     if(ok){
                         System.out.println("sa marche");
                        
                         System.out.println("1000");
                         int b = Integer.parseInt(client.recevoirReponse());
-                        Cryptage.creationClefAlice(b);
+                        Cryptage.creationClefBobOuAlice(b);
                         
                         System.out.println("la clé est : "+Cryptage.cle);
                         

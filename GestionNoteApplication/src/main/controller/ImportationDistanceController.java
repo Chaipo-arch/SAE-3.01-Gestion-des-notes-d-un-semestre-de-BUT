@@ -88,7 +88,7 @@ public class ImportationDistanceController implements Initializable{
                         fichier.add("RessourceExporte.csv");
                     }
                     Server.createServer();
-                    String codeBob = Cryptage.codeBob();
+                    String codeBob = Cryptage.codeAliceEtBob()+"";
                     //System.out.println(fichier.size());
                     boolean reussi = false;
                     while(!Thread.interrupted() && !reussi) {

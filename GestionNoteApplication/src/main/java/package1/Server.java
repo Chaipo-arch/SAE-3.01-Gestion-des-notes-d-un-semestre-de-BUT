@@ -112,7 +112,9 @@ public class Server {
             System.out.println(cle[0]);
             Cryptage.cle = cle[0];
             System.out.println(cle[1]);
-            Cryptage.creationClefBob(Integer.parseInt(cle[1]));
+            Cryptage.p = Integer.parseInt(cle[1]);
+            Cryptage.g = Integer.parseInt(cle[2]);
+            Cryptage.creationClefBobOuAlice(Integer.parseInt(cle[3]));
             System.out.println("la clé de cryptage est : "+Cryptage.cle);
 
             
