@@ -60,7 +60,7 @@ public class Cryptage {
      * @return 
      */
     public static int codeAliceEtBob() {
-        genereG();
+        
         String chaineB = "";
         bOUa = (int)(Math.random()*p-1); 
         int B = expModulaire(g, bOUa, p);
