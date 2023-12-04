@@ -114,7 +114,7 @@ public class Cryptage {
             dicoReverse.put(character,i);
            
         }
-        genereP();
+        
     }
     
     /**
@@ -158,6 +158,7 @@ public class Cryptage {
      * @return
      */
     public static String decryptage(String cle, String messageCrypter){
+        remplissageduDico();
         String chaine = "";
         for (int i = 0; i < messageCrypter.length(); i++) {
             int nombre = (dicoReverse.get(messageCrypter.charAt(i)) - dicoReverse.get(cle.charAt(i % cle.length()))) % ENSEMBLE_CARACTERES.length();
@@ -176,7 +177,9 @@ public class Cryptage {
     public static String creationCleEtape1(){
         remplissageduDico();
         System.out.println("hoe");
+        genereP();
         genereG();
+        
         System.out.println("hoe");
         String chaineCle="";
         for(int i= 0 ; i<(int)(Math.random()*1000);i++){

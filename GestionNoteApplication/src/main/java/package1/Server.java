@@ -109,9 +109,12 @@ public class Server {
             }
             
             String[] cle = message.toString().split("\n");
-            System.out.println(cle[0]);
+            
             Cryptage.cle = cle[0];
+            System.out.println(cle[0]);
             System.out.println(cle[1]);
+            System.out.println(cle[2]);
+            System.out.println(cle[3]);
             Cryptage.p = Integer.parseInt(cle[1]);
             Cryptage.g = Integer.parseInt(cle[2]);
             Cryptage.creationClefBobOuAlice(Integer.parseInt(cle[3]));
