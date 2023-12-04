@@ -75,7 +75,7 @@
             <GridPane prefHeight="30.0" prefWidth="377.0" GridPane.columnIndex="2">
                <children>
                   <Label prefHeight="39.0" prefWidth="355.0" text="Notes" GridPane.columnIndex="1" />
-                  <Label prefHeight="58.0" prefWidth="303.0" text="Poids" />
+                  <Label prefHeight="58.0" prefWidth="303.0" text="Coefficient" />
                   <Label prefHeight="58.0" prefWidth="156.0" GridPane.columnIndex="2" />
                </children>
                <columnConstraints>
@@ -89,6 +89,6 @@
             </GridPane>
          </children>
       </GridPane>
-      <Button layoutX="380.0" layoutY="470.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="36.0" prefWidth="109.0" styleClass="BouttonQuitter" text="Notice" />
+      <Button layoutX="358.0" layoutY="464.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="44.0" prefWidth="137.0" styleClass="BouttonQuitter" text="Notice" />
    </children>
 </AnchorPane>

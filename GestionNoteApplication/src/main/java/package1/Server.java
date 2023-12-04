@@ -2,6 +2,7 @@ package GestionNoteApplication.src.main.java.package1;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,7 @@ public class Server {
         try {
             clientSocket = serverSocket.accept();
             System.out.println("Connexion établie avec " + clientSocket.getInetAddress());
+            
             return true;
         } catch (IOException ex) {
             return false;
@@ -47,6 +49,32 @@ public class Server {
             while ((bytesRead = in.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
+            File fichier = new File(filePath);
+            FileReader fr = new FileReader(fichier);
+            BufferedReader br = new BufferedReader(fr);
+            ArrayList<String> toutLeFichier = new ArrayList<>();
+            String ligne;
+            while ((ligne = br.readLine() )!= null) {
+                toutLeFichier.add(ligne);
+            }
+            
+            br.close();
+            fr.close();
+            
+            FileWriter fw = new FileWriter(fichier);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for(int i = 0; i < toutLeFichier.size();i++){
+               
+                bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
+            }
+            bw.close();
+            fw.close();
+            
+            
+            //Cryptage.decryptage(Cryptage.cle, toutLeFichier);
+           
+            
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
             //in.close();
             //fileOutputStream.close();
@@ -61,25 +89,67 @@ public class Server {
             return false;   
         }
     }
-    public static void reponse(String message) throws IOException {
-        
-        System.out.println("Envoie Reponse");
-        OutputStream os = clientSocket.getOutputStream();
-        os.write(message.getBytes());
-        
-        /*OutputStream os = clientSocket.getOutputStream();
-        OutputStreamWriter ow = new OutputStreamWriter(os);
-        BufferedWriter wr = new BufferedWriter(ow);         
-        wr.write("Test\n".);*/
-        clientSocket.shutdownOutput();
-        
+    public static boolean cle(){
         try {
-            Thread.sleep(500); // Mettre en pause pendant 1 seconde
-        } catch (InterruptedException e) {
-         // Gérer une éventuelle exception si l'interruption se produit pendant la pause
-            e.printStackTrace();
+            System.out.println("receive en cours");
+            // Flux d'entrée pour recevoir le fichier CSV du client
+            InputStream in = clientSocket.getInputStream();
+            
+            // Chemin de stockage du fichier CSV reçu
+            
+           
+            
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            
+           String mess = "";
+           StringBuilder message = new StringBuilder();
+           while ((bytesRead = in.read(buffer)) != -1) {
+                message.append(new String(buffer, 0, bytesRead));
+            }
+            
+            String[] cle = message.toString().split("\n");
+            System.out.println(cle[0]);
+            Cryptage.cle = cle[0];
+            System.out.println(cle[1]);
+            Cryptage.creationClefBob(Integer.parseInt(cle[1]));
+            System.out.println("la clé de cryptage est : "+Cryptage.cle);
+
+            
+            //in.close();
+            clientSocket.shutdownInput();
+            System.out.println("client close : "+ clientSocket.isClosed());
+            System.out.println("server close : " + serverSocket.isClosed());
+            return true;
+        } catch (Exception e) {
+            //OutputStream os = clientSocket.getOutputStream();
+            //os.write("Le fichier n'a pas était recu ".getBytes());
+            return false;   
         }
     }
+    public static void reponse(String message) throws IOException {
+        if(clientSocket != null) {
+            System.out.println("Envoie Reponse");
+            OutputStream os = clientSocket.getOutputStream();
+            os.write(message.getBytes());
+
+            /*OutputStream os = clientSocket.getOutputStream();
+            OutputStreamWriter ow = new OutputStreamWriter(os);
+            BufferedWriter wr = new BufferedWriter(ow);         
+            wr.write("Test\n".);*/
+            clientSocket.shutdownOutput();
+
+            try {
+                Thread.sleep(500); // Mettre en pause pendant 1 seconde
+            } catch (InterruptedException e) {
+             // Gérer une éventuelle exception si l'interruption se produit pendant la pause
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    
+    
     public static void closeClient() {
         try {
             if (clientSocket != null) {

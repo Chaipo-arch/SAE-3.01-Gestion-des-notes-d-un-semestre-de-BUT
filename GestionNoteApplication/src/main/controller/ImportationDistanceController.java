@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
+import GestionNoteApplication.src.main.java.package1.Cryptage;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.Server;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
@@ -29,6 +30,7 @@ import javafx.scene.control.ToggleGroup;
 
 public class ImportationDistanceController implements Initializable{
 
+    private InetAddress ip = null;
     @FXML 
     private CheckBox nationalToggle;
     
@@ -39,35 +41,45 @@ public class ImportationDistanceController implements Initializable{
     private Label connexion;
 
     @FXML
-    private Label adresseIP;
+    private Button btnAdresseIP;
 
     @FXML
     private  CheckBox ressourceToggle;
+    
+    private final String STYLE = "-fx-font-size: 32px";
+    private final String STYLE2 = "-fx-font-size: 25px";
+
 
     /**
-     * Initializes the controller class.
+     * Affiche l'addresse ip de l'ordinateur 
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       InetAddress ip = null;
+       
         try {
             ip = InetAddress.getLocalHost();
         } catch (UnknownHostException ex) {
             
         }
-       adresseIP.setText("Votre adresse ip : " + ip.getHostAddress());
+       
     }
     private int i = 0;
    
-    
+    /**
+     * Cree une fonction que le thread va utiliser, puis lance le thread et affiche les labels de connexion
+     * Le thread ajoute des fichiers qui vont être envoyé selon ce qui est coché, puis le serveur est crée 
+     * et connecte un autre ordinateur selon le nombre de fichiers voulu, et recoit les fichers demandés
+     * une fois reçus, les fichiers sont lues et crée les instances selon leur contenu
+     * une reponse correspondante aux fichiers lue et envoyé a l'ordinateur qui a communiquer
+     * @param event click sur le button
+     */
     @FXML
     void importationDistanceButton(ActionEvent event) {
-        
         if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
             connexion.setVisible(true);
             annulerButton.setVisible(true);
-             t1 = new Thread(new Runnable() {
+            t1 = new Thread(new Runnable() {
             @Override
            public void run() {
                 try {
@@ -75,17 +87,33 @@ public class ImportationDistanceController implements Initializable{
                     if(nationalToggle.isSelected()) {
                         System.out.println("ok1");
                         fichier.add("NationalExporte.csv");
+
                     }
                     if(ressourceToggle.isSelected()) {
                         System.out.println("ok2");
                         fichier.add("RessourceExporte.csv");
+
                     }
+                    
                     Server.createServer();
+                    String codeBob = Cryptage.codeBob();
                     //System.out.println(fichier.size());
                     boolean reussi = false;
+                    boolean correct = true;
                     while(!Thread.interrupted() && !reussi) {
-                        boolean correct = true;
-                    
+                        Server.connexion();
+                        boolean ok;
+                        ok =Server.cle();
+                        
+                        Server.reponse(codeBob);
+                        if(ok){
+                            
+                            System.out.println("sa marche");
+                            
+                        }
+                        Server.closeClient();
+                       
+                        
                         for(int i = 0; i < fichier.size() && correct; i++ ) {
                             correct = Server.connexion();
                             if(correct) {
@@ -106,39 +134,48 @@ public class ImportationDistanceController implements Initializable{
                             System.out.println("Probleme de connexion");
                             Server.closeClient();
                         }
-                        
-                        
                     }
-                    System.out.println("Envoie en cours");
-                    String message = "CSV reçu";
-                    try {
-                        if(nationalToggle.isSelected()) {
-                            ParametrageNationalPrototype pNP = new ParametrageNationalPrototype(new File("NationalExporte.csv"));
-                            pNP.parse();
+                    System.out.println(reussi);
+                    if(reussi) {
+                        System.out.println("Envoie en cours");
+                        String message = "CSV reçu";
+                        try {
+                            if(nationalToggle.isSelected()) {
+                                ParametrageNationalPrototype pNP = new ParametrageNationalPrototype(new File("NationalExporte.csv"));
+                                pNP.parse();
+                            }
+                            if(ressourceToggle.isSelected()) {
+                                ParametrageRessourcePrototype pRP = new ParametrageRessourcePrototype(new File("RessourceExporte.csv"));
+                                pRP.parse();
+                            }
+
+                        } catch (IOException|MauvaisFormatFichierException|EvaluationException|NoteException ex) {
+                            System.out.println(ex.getMessage());
+                            message = ex.getMessage();
                         }
-                        if(ressourceToggle.isSelected()) {
-                            ParametrageRessourcePrototype pRP = new ParametrageRessourcePrototype(new File("RessourceExporte.csv"));
-                            pRP.parse();
-                        }
-                        
-                    } catch (IOException|MauvaisFormatFichierException|EvaluationException|NoteException ex) {
-                        System.out.println(ex.getMessage());
-                        message = ex.getMessage();
+                        //new file().delete();
+                        System.out.println(message);
+                        Server.reponse(message);
+                        Server.closeClient();
                     }
-                    System.out.println(message);
-                    Server.reponse(message);
-                    Server.closeClient();
-                    annulerAttenteAction(null);
+                        
+                        annulerAttenteAction(null);
                 } catch (IOException ex) {
                     
                 }
             }
             });
             t1.start();
+        }else{
+            NotificationController.popUpMessage("Merci de selectionner le Fichier que vous voulez recevoir lors de l'importation","");
         }
        
     }
 
+    /**
+     * Arrete le thread, et le serveur 
+     * @param event 
+     */
     @FXML
     void annulerAttenteAction(ActionEvent event) {
         connexion.setVisible(false);
@@ -149,6 +186,18 @@ public class ImportationDistanceController implements Initializable{
         
         
     }
+    @FXML
+    void changeText(ActionEvent event) {
+        if (btnAdresseIP.getText().equals("cliquer pour voir Mon adresse IP :")) {
+            btnAdresseIP.setText(ip.getHostAddress());
+            btnAdresseIP.setStyle(STYLE);
+        } else {
+            btnAdresseIP.setText("cliquer pour voir Mon adresse IP :");
+            btnAdresseIP.setStyle(STYLE2);
+        }
+    }
+    
+    //btnAdresseIP.setText("Votre adresse ip : " + ip.getHostAddress());
 
     
 

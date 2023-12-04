@@ -30,7 +30,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     /**
      * TODO comment field role (attribute, association)
      */
-    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances ressources semestre ", "Semestre", "Parcours", "Type evaluation;Date;Poids"};
+    protected final String[] MODELE = {"BUT Informatique - Modalite Controle de connaissances ressources semestre " + Stockage.getInstance().getSemestre(), "Semestre", "Parcours", "Type evaluation;Date;Poids"};
 
     private static BufferedReader br;
     private static int numeroLigne;
@@ -68,9 +68,6 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 throw new MauvaisFormatFichierException("Fichier vide");
             }
             String[] chaine = line.split(";");
-            if (numeroLigne == 0) {
-                chaine[0] = chaine[0].substring(0, chaine[0].length() - 1);
-            }
            if (!chaine[0].matches(MODELE[numeroLigne])) {
                System.out.println(chaine[0]);
                System.out.println("ok");
@@ -81,17 +78,17 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 
             }
             
-             if(chaine.length != 2 && numeroLigne == 1) {
+             if(chaine.length != 2 && numeroLigne == 1 ) {
                
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
                 
-            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
+            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$") && chaine[1].equals(""+Stockage.getInstance().getSemestre())) {
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
             }
             if (numeroLigne == 2 && chaine.length != 2) {
                 
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
-            } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
+            } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$") && chaine[1].equals(Stockage.getInstance().getParcour())) {
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
             }
 
@@ -102,7 +99,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
             calculCoeff = 0;
             String[] chaine = line.split(";");
 
-            if ((chaine[0].matches("Competence") || chaine[0].matches("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
+            if ((chaine[0].matches("Competence") || chaine[0].matches("Ressource")) && chaine.length == 3 && chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]") && Stockage.getInstance().getSemestre() == Integer.parseInt("" +chaine[1].charAt(1))) {
                 saveIdentifiantR = chaine[1];
             } else {
                 System.out.println("erreur4");
@@ -123,7 +120,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 if (chaine.length != 3) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne");
                 }
-                if (chaine[2].matches("-([0-9]){1,}")) {
+                if (!chaine[2].matches("\\d*")) {
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2]);
                 }
                 
@@ -201,7 +198,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
             ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre\n");
-            ecritureLigne.write("Semestre;2\nParcours;Tous\n");
+            ecritureLigne.write("Semestre;+"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
             for(Ressource r: Stockage.getInstance().ressources) {
                 if (!idDejaApparue.contains(r.getIdentifiant())){
                     idDejaApparue.add(r.getIdentifiant());

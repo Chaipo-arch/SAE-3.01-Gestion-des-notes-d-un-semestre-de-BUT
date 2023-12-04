@@ -41,7 +41,8 @@ public class CryptageTest {
         
 
         if (codeAlice != null && codeAlice.matches("\\d+")) {
-            int expectedA = Cryptage.expModulaire(g, Cryptage.a, Cryptage.p);
+            int expectedA;
+            expectedA = Cryptage.expModulaire(g, Cryptage.a, Cryptage.p);
             if (codeAlice.equals(String.valueOf(expectedA))) {
                 System.out.println("Test CodeAlice réussi : la valeur du code est egal a la valeur attendue");
                 n+=1;

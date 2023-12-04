@@ -81,7 +81,10 @@ public class ParametrageNationalPrototype extends Parametrage {
             } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$")) {
                 //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6" , "Erreur Importation");
+            }else if (numeroLigne == 1){
+                Stockage.getInstance().setSemestre(Integer.parseInt(chaine[1]));
             }
+            
             if (numeroLigne == 2 && chaine.length != 2) {
                 //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 
@@ -89,7 +92,10 @@ public class ParametrageNationalPrototype extends Parametrage {
             } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$")) {
                // NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) +  " est mal ecrit: la deuxieme colonne n'a pas ABCD, rien ou Tous", "Erreur Importation");
+            } else if (numeroLigne == 2){
+                Stockage.getInstance().setParcour(chaine[1]);
             }
+            
 
         }
         String saveIdentifiantC = null;
@@ -131,11 +137,14 @@ public class ParametrageNationalPrototype extends Parametrage {
                     //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: " + chaine[0], "Erreur Importation");
                 }
-                if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]")) {
+                if (!chaine[1].matches("[RPS][1-6]\\.[0-9][0-9]") || Stockage.getInstance().getSemestre() != Integer.parseInt("" +chaine[1].charAt(1))) {
+                    System.out.println(Stockage.getInstance().getSemestre());
+                    System.out.println(chaine[1].charAt(1));
+                    System.out.println(Stockage.getInstance().getSemestre() != chaine[1].charAt(1));
                     //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1], "Erreur Importation");
                 }
-                if (chaine[3].matches("-([0-9]){1,}|[^0-9]")) { //TODO gerer erreur a1
+                if (!chaine[3].matches("\\d*")) { //TODO gerer erreur a1
                     //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3], "Erreur Importation");
                 }
@@ -209,7 +218,7 @@ public class ParametrageNationalPrototype extends Parametrage {
         //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
             ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances (programme national)\n");
-            ecritureLigne.write("Semestre;2\nParcours;Tous\n");
+            ecritureLigne.write("Semestre;+"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
             for(Competence c : Stockage.getInstance().competences) {
                 ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
                 ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");

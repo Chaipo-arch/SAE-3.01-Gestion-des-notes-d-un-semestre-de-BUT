@@ -34,23 +34,19 @@ import javafx.stage.Stage;
  * @author robin.britelle
  */
 public class AccueilController implements Initializable {
-    
-        @FXML
+   
+    @FXML
     private TextField UserTextField;
 
     @FXML
     private Label userLabel;
 
-   @FXML
+    @FXML
     private AnchorPane idaccueil;
 
     @FXML
     private Label BtnAccueil;
-    
     private Stage fenetreActive;
-    
-    @FXML
-    private Label TextTitre;
 
     public void setFenetre(Stage fenetre) {
         fenetreActive = fenetre;
@@ -58,95 +54,146 @@ public class AccueilController implements Initializable {
 
     @FXML
     private Label textePresentation;
-    
+   
     @FXML
     private AnchorPane contenuPage;
-    
-    
+   
+   
     Parent fxml;
     private ArrayList<Node> sauvegardeAccueil;
-
+    
+    @FXML
+    private Label TextTitre;
+   
+    static boolean mesNoteCourant;
     /**
      * Initializes the controller class.
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        mesNoteCourant = false;
+       
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
             try {
                 GestionNote.recupererDonnees();
                 userLabel.setText(Stockage.getInstance().getUserName());
                 textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
             } catch (IOException ex) {
-                
+               
             } catch (ClassNotFoundException ex) {
                
             }
        sauvegardeAccueil = new ArrayList();
        sauvegardeAccueil.addAll(contenuPage.getChildren());
     }
-    
+   
     @FXML
     void AccueilActionBouton() {
-        TextTitre.setText("Application Gestion Notes");
-        if(t1 != null && t1.isAlive()) {
-            Server.closeServer();
-            t1.interrupt();
+       
+        if(mesNoteCourant){
+            
+            Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                TextTitre.setText("Application Gestion Notes");
+                if(t1 != null && t1.isAlive()) {
+                    Server.closeServer();
+                    t1.interrupt();
+                }
+                contenuPage.getChildren().setAll(sauvegardeAccueil);
+                mesNoteCourant = false;
+            }         
+        } else {
+            TextTitre.setText("Application Gestion Notes");
+            if(t1 != null && t1.isAlive()) {
+                    Server.closeServer();
+                    t1.interrupt();
+                }
+            contenuPage.getChildren().setAll(sauvegardeAccueil);
         }
-       contenuPage.getChildren().setAll(sauvegardeAccueil);
     }
-    
-     @FXML
+   
+    @FXML
     void mesNotesActionBtn() {
         try {
-            TextTitre.setText("Mes Notes");
-            changerPage("notes.fxml");
-        } catch (IOException ex) {
             
+            if(!mesNoteCourant){
+                TextTitre.setText("Mes Notes");
+                changerPage("notes.fxml");
+            }
+        } catch (IOException ex) {
+
         }
     }
      @FXML
     void AjouterEvaluationActionButton() {
         try {
-            TextTitre.setText("Vos Moyennes");
-            changerPage("calculerMoyenne.fxml");
+            if(mesNoteCourant){
+                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    TextTitre.setText("Vos Moyennes");
+                    changerPage("calculerMoyenne.fxml");
+                    mesNoteCourant = false;
+                }
+            } else {
+                
+                changerPage("calculerMoyenne.fxml");
+                TextTitre.setText("Vos Moyennes");
+            }
         } catch (IOException ex) {
-            
+           
         }
     }
 
-    
+   
 
-    
+   
 
     @FXML
     void ParametreActionButton() {
          try {
-             TextTitre.setText("Parametres");
-            changerPage("Parametres.fxml");
+            //NotesController nC = new NotesController();
+            //nC.modification();
+            if(mesNoteCourant){
+                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    TextTitre.setText("Parametres");
+                    changerPage("Parametres.fxml");
+                    mesNoteCourant = false;
+                }
+            } else {
+                TextTitre.setText("Parametres");
+                changerPage("Parametres.fxml");
+            }
         } catch (IOException ex) {
-            
+           
         }
     }
 
     @FXML
     void QuitterActionButton() {
-        Optional<ButtonType> result = NotificationController.popUpChoix("","Souhaitez vous quitter l'application ?");
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            if(t1 != null && t1.isAlive()) {
-                Server.closeServer();
-                t1.interrupt();
-            }
-            //fenetreActive.hide();
-            GestionNote.enregistrerDonnees();
-            System.exit(0);
+        Optional<ButtonType> result;
+        //NotesController nC = new NotesController();
+        //nC.modification();
+        if(mesNoteCourant){
+            result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées et quitter l'application ?","");
+            mesNoteCourant = false;
+        } else {
+            result = NotificationController.popUpChoix("","Souhaitez vous quitter l'application ?");          
         }
-        
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+                if(t1 != null && t1.isAlive()) {
+                    Server.closeServer();
+                    t1.interrupt();
+                }
+                //fenetreActive.hide();
+                GestionNote.enregistrerDonnees();
+                System.exit(0);          
+        }
     }
 
 
-    
+   
     public void changerPage(String page) throws IOException {
         if(t1 != null && t1.isAlive()) {
             Server.closeServer();
@@ -162,7 +209,7 @@ public class AccueilController implements Initializable {
             contenuPage.getChildren().setAll(fxml);
         }
     }
-    
+   
     @FXML
     void UserMouseEnter() {
         UserTextField.setText(userLabel.getText());
@@ -178,8 +225,9 @@ public class AccueilController implements Initializable {
         userLabel.setVisible(true);
         Stockage.getInstance().setUserName(userLabel.getText());
         textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
-
     }
+    
+    
     @FXML
     void NoticeClick() {
          try {
@@ -190,7 +238,5 @@ public class AccueilController implements Initializable {
             
         }
     }
-
-    
-    
 }
+

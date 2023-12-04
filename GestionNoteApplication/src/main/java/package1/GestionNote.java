@@ -83,6 +83,8 @@ public class GestionNote {
            
             Stockage.getInstance().setUserName(stockageDonnees.getUserName());
             Stockage.getInstance().addEvaluations(stockageDonnees.evaluations);
+            Stockage.getInstance().setSemestre(stockageDonnees.getSemestre());
+            Stockage.getInstance().setParcour(stockageDonnees.getParcour());
            donnees.close();
         }
     }

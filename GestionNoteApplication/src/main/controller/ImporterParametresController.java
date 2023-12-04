@@ -60,13 +60,12 @@ public class ImporterParametresController {
         
         
             if(!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file==null) {
-                NotificationController.popUpMessage("Merci de cocher et de selectionner le fichier que vous souhaitez importer ", "Erreur Importation");
+                NotificationController.popUpMessage("Merci de cocher une option et de selectionner le fichier que vous souhaitez importer ", "Erreur Importation");
             }
             if(nationalToggle.isSelected() && file != null) {
                 
                     Optional<ButtonType> result = NotificationController.popUpChoix("L'imporation de votre Nouveau Programme vas supprimer toutes les données précédemment enregistrer souhaitez vous continuer ?","");
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-                            
                         try {
                             System.out.println("Reini");
                             Stockage.getInstance().supprimerDonnees();

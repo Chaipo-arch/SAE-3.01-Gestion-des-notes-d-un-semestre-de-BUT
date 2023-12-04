@@ -24,6 +24,5 @@
             <String fx:value="Boutton" />
             <String fx:value="textTaille30" />
          </styleClass></Button>
-      <Button layoutX="353.0" layoutY="392.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="204.0" styleClass="BouttonQuitter" text="Notices" />
    </children>
 </AnchorPane>

@@ -22,7 +22,8 @@ public class Stockage implements Serializable {
    /** TODO comment field role (attribute, association) */
     public ArrayList<Ressource> ressources;
     
-    
+    public int semestreActuelle;
+    public String parcoursActuelle;
     public  ArrayList<Evaluation> evaluations;
     
     
@@ -170,6 +171,22 @@ public class Stockage implements Serializable {
     
     public void setUserName(String name) {
         this.userName = name;
+    }
+    
+    public int getSemestre() {
+        return semestreActuelle;
+    }
+    
+    public void setSemestre(int semestre) {
+        this.semestreActuelle = semestre;
+    }
+    
+    public String getParcour() {
+        return parcoursActuelle;
+    }
+    
+    public void setParcour(String parcour) {
+        this.parcoursActuelle = parcour;
     }
     
     public ArrayList<String> getRessourcesId(){

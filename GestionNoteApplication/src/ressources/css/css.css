@@ -81,6 +81,25 @@
 }
 
 
+.BouttonCommuniquer{
+
+    -fx-background-color: #7681EA;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    -fx-font-size: 20px;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
+}
+
+.BouttonCommuniquer:hover{
+
+    -fx-background-color: #7681EA;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black;
+    -fx-font-size: 25px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8),20, 0, 0, 0);
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);*/
+}
+
 
 .BouttonAjouter{
 

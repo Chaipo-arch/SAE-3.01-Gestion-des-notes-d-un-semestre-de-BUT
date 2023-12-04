@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class Cryptage {
    
-  public static HashMap<Integer,Character> dico = new HashMap<>();
+   public static HashMap<Integer,Character> dico = new HashMap<>();
    public static HashMap<Character,Integer> dicoReverse = new HashMap<>();
    public static int b;
    public static int a;
@@ -33,7 +33,7 @@ public class Cryptage {
      * @return 
      */
     public static String codeAlice() {
-        
+        genereG();
         String chaineA;    
         a = (int)(Math.random()*p-1);
         int A = expModulaire(g, a, p);
@@ -47,7 +47,7 @@ public class Cryptage {
      * @return 
      */
     public static String codeBob() {
-        
+        genereG();
         String chaineB = "";
         b = (int)(Math.random()*p-1); 
         int B = expModulaire(g, b, p);
@@ -193,7 +193,8 @@ public class Cryptage {
      * @return
      */
     public static String creationCleEtape1(){
-        
+        remplissageduDico();
+        genereG();
         String chaineCle="";
         for(int i= 0 ; i<(int)(Math.random()*1000);i++){
             chaineCle+=dico.get((int)(Math.random()*ENSEMBLE_CARACTERES.length()));

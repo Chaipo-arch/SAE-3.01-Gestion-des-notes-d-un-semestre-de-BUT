@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -77,7 +78,7 @@ public class NotificationController {
         
         // Définition de la durée d'affichage de la notification avant de la fermer
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(9), // Durée de 6 secondes
+            new KeyFrame(Duration.seconds(11), // Durée de 6 secondes
                 new KeyValue(notificationStage.opacityProperty(), 0)) // Réduction de l'opacité jusqu'à 0
         );
 
@@ -93,13 +94,15 @@ public class NotificationController {
      * @return La réponse de l'utilisateur (option choisie).
      */
     public static Optional<ButtonType> popUpChoix(String text, String titre){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(titre);
-        alert.setHeaderText(titre);
-        alert.setContentText(text);
-        // Affichage de la boîte de dialogue et attente de fermeture
-        return alert.showAndWait(); // Retourne l'option choisie par l'utilisateur
-    }
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+         alert.setTitle(titre);
+         alert.setHeaderText(titre);
+         alert.setContentText(text);
+
+         // Affichage de la boîte de dialogue et attente de fermeture
+         return alert.showAndWait(); // Retourne l'option choisie par l'utilisateur
+     }
+
     
     /**
      * Affiche une boîte de dialogue d'avertissement.

@@ -1,12 +1,13 @@
 package GestionNoteApplication.src.main.controller;
 
 import GestionNoteApplication.src.main.java.package1.Client;
+import GestionNoteApplication.src.main.java.package1.Cryptage;
+import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
 import GestionNoteApplication.src.main.java.package1.NoteException;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageNationalPrototype;
 import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourcePrototype;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -53,13 +55,23 @@ public class CommuniquerController {
     private CheckBox checkRessource;
     
     @FXML
+    private Label notifEnvoi;
+     
+    @FXML
     private CheckBox checkTout;
 
     private Client client = new Client(); // Instanciation de la classe Client
    
 
+    /**
+     * Communiquer avec un ordinateur pour lui envoyé les documents coché
+     * les documents à envoyé sont crée puis une tentative de connexion s'effectue selon le nombre de fichier à envoyé
+     * Une fois envoyé l'ordinateur attend une réponse sur l'envoie de la part de l'autre ordinateur
+     */
     @FXML
-    public void CommuniquerAction() {
+    public void CommuniquerAction() throws IOException{
+        
+        
         
         boolean ipValider = false;
         
@@ -84,10 +96,11 @@ public class CommuniquerController {
                 // L'adresse IP n'est pas valide, gérer l'erreur
                 System.out.println("L'adresse IP n'est pas valide : " + serverIP);
                 NotificationController.popUpMessage("Erreur format IP invalide","");
-                System.out.println("Une exception s'est produite lors de la validation de l'adresse IP : ");
+                System.out.println("Une Erreur s'est produite lors de la validation de l'adresse IP");
                 ipValider = false;
-                // ... Traitement en cas d'adresse IP invalide
             }
+            
+            
         } catch (Exception e) {
             // Une exception s'est produite lors de la validation de l'adresse IP
             NotificationController.popUpMessage("Erreur format IP invalide","");
@@ -96,75 +109,85 @@ public class CommuniquerController {
             ipValider = false;
         }
         
-
         
         
-        
+        //notifEnvoi.setVisible(false);
+        ///String serverIP = adresseIPText.getText(); // Adresse IP du serveur
+        //boolean BoucleTout = false;
         
         if (ipValider == true) {
             try {
                 String filePath = "";
                 ArrayList<String> fichiers = new ArrayList();
                 if(checkNational.isSelected()) {
-                    System.out.println("Envoie des Parametres national");
+                    //System.out.println("Envoie des Parametres national");
                     ParametrageNationalPrototype.createCsv();
                     filePath = "NationalExporte.csv";
                     fichiers.add(filePath);
                     checkValider = true;
                 }
                 if(checkRessource.isSelected()) {
-                    System.out.println("Envoie des Parametres Ressource");
+                    //System.out.println("Envoie des Parametres Ressource");
                     ParametrageRessourcePrototype.createCsv();
                     filePath = "RessourceExporte.csv";
                     fichiers.add(filePath);
                     checkValider = true;
-                } 
-                //ParametrageNationalPrototype.createCsv();
-                
-                
-                System.out.println(portID.getText());
+                }             
                 //int port = Integer.parseInt(portID.getText());
-                
                 int port = 10008;
-                System.out.println(port);
-
-                System.out.println("salut debug1");
-
+                Client client = new Client();
                 System.out.println(serverIP);
-                    
-                    
-                if (checkValider == true ) {
-                    // Tentative de connexion au serveur et envoi de fichiers
-                    Client.connection(serverIP);
-
-                    // Envoi de fichiers au serveur
-                    for (int i = 0; i < fichiers.size(); i++) {
-                        client.sendCSVFileToServer(fichiers.get(i));
-                    }
-
-                    // Réception de la réponse du serveur
-                    try {
-                        Client.recevoirReponse();
-                    } catch (IOException ex) {
-                        System.out.println("Erreur lors de la réception de la réponse du serveur : " + ex.getMessage());
-                        // Autres actions en cas d'erreur de réception de réponse
-                    }
-                }
+                
                 if(!checkNational.isSelected() && !checkRessource.isSelected()){
                      NotificationController.popUpMessage("Veuillez selectionnez un fichier a envoyer","");
                 }
+                
+                if (checkValider == true ) {
+                    client.connection(serverIP, port);
+                    boolean ok;
+
+                    ok = client.sendA(Cryptage.codeAlice());
+                            if(ok){
+                                System.out.println("sa marche");
+
+                                System.out.println("1000");
+                                int b = Integer.parseInt(client.recevoirReponse());
+                                Cryptage.creationClefAlice(b);
+
+                                System.out.println("la clé est : "+Cryptage.cle);
+
+                                }
+                       if (Client.checkServer != false){
+                            if(fichiers.size() != 0) { 
+                                 for(int i = 0; i < fichiers.size();i++) {
+                                     client.connection(serverIP, port);
+
+                                     client.sendCSVFileToServer(fichiers.get(i));
+                                     if(fichiers.size() != i+1) {
+                                         System.out.println("ok");
+                                         client.closeConnection();
+                                     }
+                                 }
+                                 ///notifEnvoi.setVisible(true);
+                                 try {
+                                     notifEnvoi.setText(client.recevoirReponse());
+                                 } catch (IOException ex) {
+                                     //Logger.getLogger(CommuniquerController.class.getName()).log(Level.SEVERE, null, ex);
+                                 }
+                            }
+                       }
+                    
+                }
             } catch (NumberFormatException e) {
-                NotificationController.popUpMessage("Le port renseigner n'est pas valide", "Erreur de Port");
-                System.out.println("Le port doit être un nombre valide.");
-                // Actions en cas d'erreur de conversion du port en nombre
-            } catch (Exception e) {
-                System.out.println("Une erreur s'est produite : " + e.getMessage());
-                // Actions en cas d'autres exceptions génériques
+
+                //notifEnvoi.setVisible(true);
+                //notifEnvoi.setText("Le port doit être un nombre valide.");
+
+                //e.printStackTrace();
             }
-            
-            System.out.println("Fin du traitement dans le contrôleur");
-            
         }
         
+
+        //client.sendSerializedFileToServer(serverIP, filePath, port); // Appeler la méthode du client
     }
 }

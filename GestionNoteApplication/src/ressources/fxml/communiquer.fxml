@@ -15,11 +15,16 @@
             <String fx:value="textTaille30" />
          </styleClass>
       </Button>
-      <AnchorPane layoutX="132.0" layoutY="124.0" prefHeight="75.0" prefWidth="698.0" styleClass="textTaille20" stylesheets="@../css/css.css">
+      <AnchorPane layoutX="158.0" layoutY="146.0" prefHeight="97.0" prefWidth="645.0" stylesheets="@../css/css.css">
          <children>
-            <CheckBox fx:id="checkNational" layoutX="65.0" layoutY="23.0" mnemonicParsing="false" text="Parametrage Nationnal" />
-            <CheckBox fx:id="checkRessource" layoutX="406.0" layoutY="23.0" mnemonicParsing="false" text="Parametrage Ressource" />
+            <CheckBox fx:id="checkNational" layoutX="62.0" layoutY="47.0" mnemonicParsing="false" text="Parametrage Nationnal" />
+            <CheckBox fx:id="checkRessource" layoutX="363.0" layoutY="47.0" mnemonicParsing="false" text="Parametrage Ressource" />
+            <Label layoutX="15.0" layoutY="8.0" prefHeight="30.0" prefWidth="374.0" text="Quel(s) fichier(s) voulez vous envoyer :" />
          </children>
+         <styleClass>
+            <String fx:value="textTaille20" />
+            <String fx:value="StyleBox" />
+         </styleClass>
       </AnchorPane>
       <Label layoutX="265.0" layoutY="46.0" prefHeight="64.0" prefWidth="430.0" stylesheets="@../css/css.css" text="Vous etes dans l'exportation de vos Parametres">
          <styleClass>
@@ -27,7 +32,7 @@
             <String fx:value="textTaille20" />
          </styleClass>
       </Label>
-      <AnchorPane layoutX="158.0" layoutY="227.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox" stylesheets="@../css/css.css">
+      <AnchorPane layoutX="158.0" layoutY="281.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox" stylesheets="@../css/css.css">
          <children>
             <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" stylesheets="@../css/css.css" text="Adresse Ip : " />
             <TextField fx:id="adresseIPText" layoutX="314.0" layoutY="14.0" prefHeight="48.0" prefWidth="267.0" promptText="            ex : 192.1.1.0" />
