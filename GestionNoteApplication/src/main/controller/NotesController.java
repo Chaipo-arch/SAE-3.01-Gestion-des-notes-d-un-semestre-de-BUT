@@ -358,7 +358,7 @@ public class NotesController implements Initializable{
     @FXML
     void NoticeClick() {
          try {
-             NoticeController.y = 6.5;
+             NoticeController.y = 6.3;
              changerPage("Notice.fxml");
             //changerPage("Notice.fxml");
         } catch (IOException ex) {

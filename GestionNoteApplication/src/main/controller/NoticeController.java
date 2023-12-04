@@ -3,6 +3,9 @@
  */
 package GestionNoteApplication.src.main.controller;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -40,5 +43,15 @@ public class NoticeController implements Initializable{
         scroll.setVvalue(y);
         //contenu2.setLayoutY(y);
        // scroll.setLayoutY(y);
+    }
+    
+    @FXML
+    void askNationalCsv() throws IOException {
+        Desktop.getDesktop().open(new File("src/GestionNoteApplication/src/ressources/csv/ParametrageNational.csv"));
+    }
+
+    @FXML
+    void askRessourceCsv() throws IOException {
+        Desktop.getDesktop().open(new File("src/GestionNoteApplication/src/ressources/csv/Paramétrage ressources semestre2.csv"));
     }
 }

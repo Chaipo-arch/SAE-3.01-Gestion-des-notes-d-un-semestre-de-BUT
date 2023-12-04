@@ -21,7 +21,7 @@
       <children>
             <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" maxHeight="532.0" maxWidth="916.0" minHeight="529.0" minWidth="910.0" prefHeight="529.0" prefWidth="910.0" stylesheets="@../css/css.css">
                <children>
-                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
+                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="102.0" layoutY="62.0" prefHeight="85.0" prefWidth="719.0" text="Bienvenue " wrapText="true">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font></Label>

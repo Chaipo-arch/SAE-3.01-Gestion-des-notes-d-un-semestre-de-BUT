@@ -97,7 +97,6 @@ public class NotificationController {
         alert.setTitle(titre);
         alert.setHeaderText(titre);
         alert.setContentText(text);
-
         // Affichage de la boîte de dialogue et attente de fermeture
         return alert.showAndWait(); // Retourne l'option choisie par l'utilisateur
     }
