@@ -37,6 +37,8 @@ public class Stockage implements Serializable {
         ressources = new ArrayList<>();
         evaluations = new ArrayList<>();
         userName = "user";
+        parcoursActuelle = "0";
+        semestreActuelle = 0;
     }
     
     /**
@@ -133,6 +135,8 @@ public class Stockage implements Serializable {
         competences.clear();
         ressources.clear();
         evaluations.clear();
+        parcoursActuelle = "0";
+        semestreActuelle = 0;
     }
     
     

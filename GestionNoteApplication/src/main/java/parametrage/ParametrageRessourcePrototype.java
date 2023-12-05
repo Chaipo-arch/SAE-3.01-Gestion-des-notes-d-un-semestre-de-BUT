@@ -48,6 +48,9 @@ public class ParametrageRessourcePrototype extends Parametrage {
 
     @Override
     public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException {
+        if (Stockage.getInstance().getSemestre() ==0) {
+            throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: un fichier national n'a pas était importé");
+        }
         FileReader fr = null;
         //System.out.println("ok");
         // prerequis
@@ -82,14 +85,14 @@ public class ParametrageRessourcePrototype extends Parametrage {
                
                 throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
                 
-            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$") && chaine[1].equals(""+Stockage.getInstance().getSemestre())) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: la deuxieme colonne n'a pas de chiffre entre 1 et 6");
+            } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$") || numeroLigne == 1 && Stockage.getInstance().getSemestre() != Integer.parseInt(""+chaine[1].charAt(0))) {
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: Le semestre ne correspond pas au semestre importé dans le fichier national");
             }
             if (numeroLigne == 2 && chaine.length != 2) {
                 
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
             } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$") && chaine[1].equals(Stockage.getInstance().getParcour())) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: la deuxieme colonne n'a pas ABCD, rien ou Tous");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: Le parcours ne correspond pas au semestre importé dans le fichier national");
             }
 
         }

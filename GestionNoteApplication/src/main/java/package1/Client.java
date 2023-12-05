@@ -96,23 +96,36 @@ public class Client {
             //e.printStackTrace();
         }
     }
-    public boolean sendA(String cle) throws IOException{
+    
+    
+    
+    public boolean sendA(int cle) throws IOException{
         System.out.println(cle);
+        
         try{
             OutputStream out = socket.getOutputStream();
             Cryptage.creationCleEtape1();
             String espace="\n";
+            System.out.println("g = "+Cryptage.g);
+            System.out.println("p = "+Cryptage.p);
+            String p = Cryptage.p +"";
+            String g = Cryptage.g+"";
             
             out.write(Cryptage.cle.getBytes());
             out.write(espace.getBytes());
-            out.write(cle.getBytes());
+            out.write(p.getBytes());
+            out.write(espace.getBytes());
+            out.write(g.getBytes());
+            out.write(espace.getBytes());
+            String cleString = cle+""; 
+            out.write(cleString.getBytes());
             socket.shutdownOutput();
            return true; 
         }catch(Exception e){
             return false;
         }
         
-    }      
+    }         
         
  public void closeConnection() {
         try {

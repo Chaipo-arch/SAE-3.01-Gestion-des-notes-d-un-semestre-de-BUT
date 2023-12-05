@@ -96,7 +96,7 @@ public class ImportationDistanceController implements Initializable{
                     }
                     
                     Server.createServer();
-                    String codeBob = Cryptage.codeBob();
+                    String codeBob = Cryptage.codeAliceEtBob()+"";
                     //System.out.println(fichier.size());
                     boolean reussi = false;
                     boolean correct = true;
