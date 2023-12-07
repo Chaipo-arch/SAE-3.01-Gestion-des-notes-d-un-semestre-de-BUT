@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author enzo.cluzel
+ * @author enzo.cluzel, Robin britelle
  */
 public abstract class Parametrage {
    

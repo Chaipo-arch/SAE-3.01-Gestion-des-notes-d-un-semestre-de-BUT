@@ -10,8 +10,18 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+/**
+ * Cette classe représente un client pour la connexion et l'envoi 
+ * de fichiers CSV à un serveur distant.
+ * @author Robin Britelle, Enzo Cluzel, Ahmed Bribach
+ */
 public class Client {
-    
+
+    /**
+     * Constructeur par défaut de la classe Client.
+     */
     public Client(){
         
     }
@@ -20,18 +30,30 @@ public class Client {
     public static boolean checkServer = true;
     
     
+    
+    /**
+     * Établit une connexion avec le serveur spécifié en parametres
+     * a partir de Socket
+     * @param serverIP Adresse IP du serveur.
+     * @param port Port du serveur.
+     */
     public void connection(String serverIP, int port) {
         try {
             this.socket = new Socket(serverIP, port);
             this.socket.setKeepAlive(true);
-            //checkServer = true;
         } catch (IOException ex) {
-            this.checkServer = false;
+            checkServer = false;
             NotificationController.popUpMessage("Erreur, aucun server en attente","");
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    
+    
+    /**
+     * Envoie un fichier CSV crypté au serveur.
+     * Verifie l'existance du fichier a envoyer
+     * @param filePath Chemin du fichier CSV.
+     */
     public void sendCSVFileToServer(String filePath) {
         try {
             String fichierCrypter = "parametrageNationaleCrypte.csv";
@@ -42,9 +64,8 @@ public class Client {
             }
 
             // Flux de sortie pour envoyer le fichier CSV au serveur
-            System.out.println("erreur reseau");
             OutputStream out = socket.getOutputStream();
-            // Utilisation de 'out' pour écrire des données via le socket
+            
             
             System.out.println("hiorg uiosbh fgui fhdjkfdbfgjh fvb vf;n vbvc,b vcb ,nvc hv ,nbfdv  vb ");
            
@@ -66,7 +87,6 @@ public class Client {
             
             for(int i=0; i < toutLeFichier.size();i++){
                  System.out.println(toutLeFichier.get(i));
-                //  System.out.println(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i)));
                 bw.write(Cryptage.cryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
             }
             
@@ -81,8 +101,7 @@ public class Client {
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-            //socket.shutdownOutput();
-           //fileInputStream.close();
+
             socket.shutdownOutput();
             System.out.println("Fichier CSV envoyé au serveur.");
             
@@ -92,13 +111,18 @@ public class Client {
             System.out.println("serveur close : " + socket.isClosed());
             System.out.println("Fermeture de l'envoi du fichier");
         } catch (IOException e) {
-            System.out.println("erreur client ligne 90");
-            //e.printStackTrace();
+            System.out.println("erreur Client.java");
+
         }
     }
     
     
-    
+     /**
+     * Envoie une clé au serveur
+     * @param cle Valeur de la clé à envoyer.
+     * @return Retourne true si l'envoi a réussi, sinon false.
+     * @throws IOException Si une erreur d'entrée/sortie survient.
+     */
     public boolean sendA(int cle) throws IOException{
         System.out.println(cle);
         
@@ -126,21 +150,28 @@ public class Client {
         }
         
     }         
-        
- public void closeConnection() {
+    
+    
+    /**
+     * Ferme la connexion avec le serveur en fermant le socket
+     */
+    public void closeConnection() {
         try {
             socket.close();
         } catch (IOException ex) {
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-            }
+    }
+ 
+    /**
+     * Reçoit la réponse du serveur apres un envoie
+     * @return La réponse reçue du serveur.
+     * @throws IOException Si une erreur d'entrée/sortie survient.
+     */
     public String recevoirReponse() throws IOException {
-        //socket.shutdownOutput();// a garder si marche pas
+
         try {
             Thread.sleep(500); // Mettre en pause pendant 1 seconde
         } catch (InterruptedException e) {
-            //e.printStackTrace();
         }
         String serverReponse ="";
         InputStream responseIn = socket.getInputStream();
@@ -155,6 +186,13 @@ public class Client {
         return serverReponse;
     }
     
+    
+    
+    /**
+     * Vérifie si une chaîne saisie par l'utilisateur correspond à une adresse IP valide.
+     * @param ip Chaîne à vérifier.
+     * @return true si la chaîne est une adresse IP valide, sinon false.
+     */
      public static boolean validateIP(String ip) {
         String regex = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
         Pattern pattern = Pattern.compile(regex);
@@ -162,14 +200,6 @@ public class Client {
         return matcher.matches();
     }
     
-    public static void main(String[] args) {
-        String serverIP = "10.2.14.25"; // Adresse IP du serveur
-        //String filePath = "Z:\\communication\\src\\Ressource\\test.csv"; // Chemin du fichier CSV à envoyer
-        String filePath = "Z:\\IHM\\src\\GestionNoteApplication\\src\\ressources\\csv\\Paramétrage semestre2.xlsx"; // Chemin du fichier CSV à envoyer
-        int port = 8881; // Port du serveur
-        //connection(serverIP, port);
-        //Client.sendCSVFileToServer(filePath);
-        }
 
 }
         

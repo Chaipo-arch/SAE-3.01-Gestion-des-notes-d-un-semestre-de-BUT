@@ -21,11 +21,11 @@
       <children>
             <AnchorPane fx:id="contenuPage" layoutX="203.0" layoutY="74.0" maxHeight="532.0" maxWidth="916.0" minHeight="529.0" minWidth="910.0" prefHeight="529.0" prefWidth="910.0" stylesheets="@../css/css.css">
                <children>
-                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="99.0" layoutY="74.0" prefHeight="56.0" prefWidth="719.0" text="Bienvenue " underline="true">
+                  <Label fx:id="textePresentation" alignment="CENTER" layoutX="100.0" layoutY="23.0" prefHeight="148.0" prefWidth="719.0" text="Bienvenue " underline="true" wrapText="true">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font></Label>
-                  <Button layoutX="728.0" layoutY="451.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="64.0" prefWidth="168.0" styleClass="BouttonQuitter" text="Notice" />
+                  <Button layoutX="272.0" layoutY="265.0" mnemonicParsing="false" onAction="#NoticeClick" prefHeight="64.0" prefWidth="374.0" styleClass="BouttonQuitter" text="Notice" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="203.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="71.0" prefWidth="933.0" styleClass="barreTitre" stylesheets="@../css/css.css">
@@ -40,10 +40,9 @@
                <children>
                   <Button layoutX="-59.0" layoutY="224.0" mnemonicParsing="false" onAction="#mesNotesActionBtn" prefHeight="65.0" prefWidth="240.0" styleClass="glass-grey" stylesheets="@../css/css.css" />
                   <Button layoutX="22.0" layoutY="523.0" mnemonicParsing="false" onMouseClicked="#QuitterActionButton" prefHeight="55.0" prefWidth="147.0" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Quitter" />
-                  <AnchorPane layoutX="74.0" layoutY="38.0" onMouseEntered="#UserMouseEnter" onMouseExited="#UserMouseExit" prefHeight="27.0" prefWidth="109.0" styleClass="userPane" stylesheets="@css.css">
+                  <AnchorPane layoutX="74.0" layoutY="38.0" prefHeight="27.0" prefWidth="109.0" styleClass="userPane" stylesheets="@css.css">
                      <children>
-                        <TextField fx:id="UserTextField" alignment="CENTER" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" visible="false" />
-                        <Label fx:id="userLabel" alignment="CENTER" layoutX="11.0" layoutY="2.0" prefHeight="25.0" prefWidth="85.0" styleClass="textBlanc" text="User" textFill="WHITE" />
+                        <TextField fx:id="UserTextField" alignment="CENTER" onKeyPressed="#userTextChanged" prefHeight="25.0" prefWidth="103.0" styleClass="userPane" stylesheets="@css.css" />
                      </children>
                   </AnchorPane>
                   <ImageView fitHeight="81.0" fitWidth="64.0" layoutX="10.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">

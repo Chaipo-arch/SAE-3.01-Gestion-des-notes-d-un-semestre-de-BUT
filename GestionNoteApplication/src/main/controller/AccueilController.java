@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GestionNoteApplication.src.main.controller;
 
+/*
+ *
+ */
+
+
+package GestionNoteApplication.src.main.controller;
 import static GestionNoteApplication.src.main.controller.GEstionNoteApp.t1;
 import GestionNoteApplication.src.main.java.package1.GestionNote;
 import GestionNoteApplication.src.main.java.package1.Server;
@@ -29,12 +29,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author robin.britelle
+ * Contrôleur FXML pour la page d'accueil.
+ * Gère les fonctionnalités de la page d'accueil de l'application.
+ * Implémente Initializable pour l'initialisation du contrôleur.
+ * @author enzo.cluzel, robin.britelle
  */
 public class AccueilController implements Initializable {
    
+    public static AccueilController accueil ;
     @FXML
     private TextField UserTextField;
 
@@ -46,8 +48,13 @@ public class AccueilController implements Initializable {
 
     @FXML
     private Label BtnAccueil;
+    
     private Stage fenetreActive;
 
+    /**
+     * Définit la fenêtre active.
+     * @param fenetre La fenêtre active
+     */
     public void setFenetre(Stage fenetre) {
         fenetreActive = fenetre;
     }
@@ -66,23 +73,29 @@ public class AccueilController implements Initializable {
     private Label TextTitre;
    
     static boolean mesNoteCourant;
+    
     /**
-     * Initializes the controller class.
-     * @param url
+     * Initialise la classe du contrôleur.
+     * @param url L'emplacement utilisé pour résoudre les chemins relatifs pour l'objet racine
+     * @param rb Les ressources à utiliser par ce contrôleur
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initialisation des variables
+        accueil = this;
         mesNoteCourant = false;
        
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
             try {
+                // Récupèration des données
                 GestionNote.recupererDonnees();
-                userLabel.setText(Stockage.getInstance().getUserName());
-                textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
+                
+                UserTextField.setText(Stockage.getInstance().getUserName());
+                textePresentation.setText("Bienvenue " + UserTextField.getText() + " sur votre application de Gestion de Note");
             } catch (IOException ex) {
-               
+               // Gestion de l'exception d'entrée/sortie
             } catch (ClassNotFoundException ex) {
-               
+               // Gestion de l'exception de classe non trouvée
             }
        sauvegardeAccueil = new ArrayList();
        sauvegardeAccueil.addAll(contenuPage.getChildren());
@@ -90,25 +103,36 @@ public class AccueilController implements Initializable {
    
     @FXML
     void AccueilActionBouton() {
-       
-        if(mesNoteCourant){
-            
-            Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+        // Vérifie si des évaluations sont en cours
+        if (mesNoteCourant) {
+            // Affiche une boîte de dialogue de confirmation pour abandonner les évaluations non sauvegardées
+            Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. Voulez-vous vraiment abandonner vos évaluations non sauvegardées ?", "");
+
+            // Vérifie si l'utilisateur a confirmé l'abandon des évaluations
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 TextTitre.setText("Application Gestion Notes");
-                if(t1 != null && t1.isAlive()) {
+
+                // Arrête le serveur si actif
+                if (t1 != null && t1.isAlive()) {
                     Server.closeServer();
                     t1.interrupt();
                 }
+
+                // Charge la sauvegarde de la page d'accueil et désactive les évaluations en cours
                 contenuPage.getChildren().setAll(sauvegardeAccueil);
                 mesNoteCourant = false;
-            }         
+            }
         } else {
+            // Affiche la page d'accueil par défaut
             TextTitre.setText("Application Gestion Notes");
-            if(t1 != null && t1.isAlive()) {
-                    Server.closeServer();
-                    t1.interrupt();
-                }
+
+            // Arrête le serveur si actif
+            if (t1 != null && t1.isAlive()) {
+                Server.closeServer();
+                t1.interrupt();
+            }
+
+            // Charge la sauvegarde de la page d'accueil
             contenuPage.getChildren().setAll(sauvegardeAccueil);
         }
     }
@@ -116,32 +140,40 @@ public class AccueilController implements Initializable {
     @FXML
     void mesNotesActionBtn() {
         try {
-            
-            if(!mesNoteCourant){
+            // Vérifie si aucune évaluation n'est en cours
+            if (!mesNoteCourant) {
+                // Affiche la page "Mes Notes"
                 TextTitre.setText("Mes Notes");
                 changerPage("notes.fxml");
             }
         } catch (IOException ex) {
-
+            // Gère les exceptions liées à la lecture de la page "Mes Notes"
         }
     }
-     @FXML
+    
+    
+    @FXML
     void AjouterEvaluationActionButton() {
         try {
-            if(mesNoteCourant){
-                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+            if (mesNoteCourant) {
+                // Affiche une boîte de dialogue de confirmation pour abandonner les évaluations non sauvegardées
+                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. Voulez-vous vraiment abandonner vos évaluations non sauvegardées ?", "");
+
+                // Vérifie si l'utilisateur a confirmé l'abandon des évaluations
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     TextTitre.setText("Vos Moyennes");
+
+                    // Charge la page "Vos Moyennes" et désactive les évaluations en cours
                     changerPage("calculerMoyenne.fxml");
                     mesNoteCourant = false;
                 }
             } else {
-                
+                // Charge la page "Vos Moyennes" par défaut
                 changerPage("calculerMoyenne.fxml");
                 TextTitre.setText("Vos Moyennes");
             }
         } catch (IOException ex) {
-           
+            // Gère les exceptions liées à la lecture de la page "Vos Moyennes"
         }
     }
 
@@ -151,91 +183,116 @@ public class AccueilController implements Initializable {
 
     @FXML
     void ParametreActionButton() {
-         try {
-            //NotesController nC = new NotesController();
-            //nC.modification();
-            if(mesNoteCourant){
-                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
+        try {
+            // Vérifie si des évaluations sont en cours
+            if (mesNoteCourant) {
+                // Affiche une boîte de dialogue de confirmation pour abandonner les évaluations non sauvegardées
+                Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. Voulez-vous vraiment abandonner vos évaluations non sauvegardées ?", "");
+
+                // Vérifie si l'utilisateur a confirmé l'abandon des évaluations
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     TextTitre.setText("Parametres");
+
+                    // Charge la page "Parametres" 
                     changerPage("Parametres.fxml");
                     mesNoteCourant = false;
                 }
             } else {
+                // Charge la page "Parametres" par défaut
                 TextTitre.setText("Parametres");
                 changerPage("Parametres.fxml");
             }
         } catch (IOException ex) {
-           
+            // Gère les exceptions liées à la lecture de la page "Parametres"
         }
     }
 
     @FXML
     void QuitterActionButton() {
         Optional<ButtonType> result;
-        //NotesController nC = new NotesController();
-        //nC.modification();
-        if(mesNoteCourant){
-            result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées et quitter l'application ?","");
+
+        // Vérifie si des modifications sur la page ont eu lieu
+        if (mesNoteCourant) {
+            // Affiche une boîte de dialogue de confirmation pour abandonner les évaluations non sauvegardées et quitter l'application
+            result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. Voulez-vous vraiment abandonner vos évaluations non sauvegardées et quitter l'application ?", "");
+
             mesNoteCourant = false;
         } else {
-            result = NotificationController.popUpChoix("","Souhaitez vous quitter l'application ?");          
+            // Affiche une boîte de dialogue pour confirmer la sortie de l'application
+            result = NotificationController.popUpChoix("", "Souhaitez-vous quitter l'application ?");
         }
+
+        // Vérifie si l'utilisateur a confirmé la sortie de l'application
         if (result.isPresent() && result.get() == ButtonType.OK) {
-                if(t1 != null && t1.isAlive()) {
-                    Server.closeServer();
-                    t1.interrupt();
-                }
-                //fenetreActive.hide();
-                GestionNote.enregistrerDonnees();
-                System.exit(0);          
+            // Arrête le serveur s'il est actif
+            if (t1 != null && t1.isAlive()) {
+                Server.closeServer();
+                t1.interrupt();
+            }
+
+            // Enregistre les données et ferme l'application
+            GestionNote.enregistrerDonnees();
+            System.exit(0);
         }
     }
 
 
    
+    /**
+    * Methodes permettant de changer la page courantes
+    * @param page le nom du fichier FXML de la page à charger
+    * @throws IOException si une erreur survient lors de la lecture du fichier FXML
+    */
     public void changerPage(String page) throws IOException {
-        if(t1 != null && t1.isAlive()) {
-            Server.closeServer();
-            t1.interrupt();
-        }
-        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.exists());
-        if(file.exists()) {
-            String changementPage = "../../ressources/fxml/"+page;
-            System.out.println(file.getAbsolutePath());
-            fxml = FXMLLoader.load(getClass().getResource(changementPage));
-            contenuPage.getChildren().removeAll();
-            contenuPage.getChildren().setAll(fxml);
-        }
-    }
-   
-    @FXML
-    void UserMouseEnter() {
-        UserTextField.setText(userLabel.getText());
-        UserTextField.setVisible(true);
-        userLabel.setVisible(false);
-        UserTextField.setEditable(true);
-    }
+        // Vérifie si la page à charger est la page d'accueil
+        if (page.equals("accueil.fxml")) {
+            // Charge la page d'accueil en appelant la méthode AccueilActionBouton()
+            AccueilActionBouton();
+        } else {
+            // Vérifie si le serveur est actif et l'arrête le cas échéant
+            if (t1 != null && t1.isAlive()) {
+                Server.closeServer();
+                t1.interrupt();
+            }
 
-    @FXML
-    void UserMouseExit() {
-        UserTextField.setVisible(false);
-        userLabel.setText(UserTextField.getText());
-        userLabel.setVisible(true);
-        Stockage.getInstance().setUserName(userLabel.getText());
-        textePresentation.setText("Bienvenu " + userLabel.getText() + " sur votre application de Gestion de Note");
+            // Crée un objet File pour la page à charger
+            File file = new File("src/GestionNoteApplication/src/ressources/fxml/" + page);
+
+            // Vérifie si le fichier de la page existe
+            if (file.exists()) {
+                // Construit le chemin relatif de la page à charger
+                String changementPage = "../../ressources/fxml/" + page;
+
+                // Affiche le chemin absolu du fichier de la page
+                System.out.println(file.getAbsolutePath());
+
+                // Charge le fichier FXML dans le contenu de la page
+                fxml = FXMLLoader.load(getClass().getResource(changementPage));
+                contenuPage.getChildren().removeAll();
+                contenuPage.getChildren().setAll(fxml);
+            }
+        }
     }
-    
+  
+    @FXML
+    void userTextChanged() {
+        // Met à jour le nom d'utilisateur dans le Stockage
+        Stockage.getInstance().setUserName(UserTextField.getText());
+        // Met à jour le texte de présentation
+        textePresentation.setText("Bienvenue " + UserTextField.getText() + " sur votre application de gestion de notes");
+    }
     
     @FXML
     void NoticeClick() {
-         try {
-             NoticeController.y = 0;
+        try {
+            // Configure la page de retour et la position sur la page d'accueil
+            NoticeController.pageRetour = "accueil.fxml";
+            NoticeController.y = 0;
+            // Affiche la page de la Notice
             TextTitre.setText("Notice");
             changerPage("Notice.fxml");
         } catch (IOException ex) {
-            
+            // Gère les exceptions liées à la lecture de la page Notice
         }
     }
 }

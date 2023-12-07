@@ -2,6 +2,14 @@ package GestionNoteApplication.src.tests;
 
 import GestionNoteApplication.src.main.java.package1.Cryptage;
 
+
+
+/**
+ * La classe CryptageTest contient des méthodes pour tester les fonctionnalités de cryptage et de décryptage.
+ * Ces méthodes évaluent différentes parties de l'algorithme de cryptage à l'aide de tests unitaires.
+ * Elle utilise la classe Cryptage pour réaliser les tests et vérifier le bon fonctionnement des méthodes.
+ * @author Robin Britelle
+ */
 public class CryptageTest {
     
     private static int n = 0;
@@ -33,17 +41,17 @@ public class CryptageTest {
     public void testCodeAlice() {
         int g = 3; // Valeur arbitraire pour g
         Cryptage.g = g; // Définition de la valeur arbitraire de g dans la classe Cryptage
-        String codeAlice = Cryptage.codeAlice();
+        int codeAlice = Cryptage.codeAliceEtBob();
         
         System.out.println("\n=============================================="
                 + "\ntestCode Alice et Bob"+
                 "\n==============================================");
         
 
-        if (codeAlice != null && codeAlice.matches("\\d+")) {
+        if (codeAlice>=0) {
             int expectedA;
-            expectedA = Cryptage.expModulaire(g, Cryptage.a, Cryptage.p);
-            if (codeAlice.equals(String.valueOf(expectedA))) {
+            expectedA = Cryptage.expModulaire(g, Cryptage.bOUa, Cryptage.p);
+            if (codeAlice == expectedA) {
                 System.out.println("Test CodeAlice réussi : la valeur du code est egal a la valeur attendue");
                 n+=1;
             } else {
@@ -57,12 +65,12 @@ public class CryptageTest {
     public void testCodeBob() {
         int g = 5; // Valeur arbitraire pour g
         Cryptage.g = g; // Définition de la valeur arbitraire de g dans la classe Cryptage
-        String codeBob = Cryptage.codeBob();
+        int codeBob = Cryptage.codeAliceEtBob();
         
         
-        if (codeBob != null && codeBob.matches("\\d+")) {
-            int expectedB = Cryptage.expModulaire(g, Cryptage.b, Cryptage.p);
-            if (codeBob.equals(String.valueOf(expectedB))) {
+        if (codeBob > 0) {
+            int expectedB = Cryptage.expModulaire(g, Cryptage.bOUa, Cryptage.p);
+            if (codeBob == expectedB) {
                 System.out.println("Test CodeBob réussi : la valeur du code est egal a la valeur attendue");
                 n+=1;
             } else {
@@ -81,7 +89,11 @@ public class CryptageTest {
                 + "\ntestDecode Alice et Bob"+
                 "\n==============================================");
         
-        int cleSecrete = Cryptage.decodeAlice(B, a);
+        //int cleSecrete = Cryptage.decodeAlice(B, a);
+        
+        int cleSecrete = Cryptage.decodeAliceOuBOB(B, a);
+        
+        
         int expectedCleSecrete = Cryptage.expModulaire(B, a, Cryptage.p);
 
         if (cleSecrete == expectedCleSecrete) {
@@ -95,7 +107,7 @@ public class CryptageTest {
     public void testDecodeBob() {
         int A = 5; // Valeur arbitraire pour A
         int b = 3; // Valeur arbitraire pour b
-        int cleSecrete = Cryptage.decodeBob(A, b);
+        int cleSecrete = Cryptage.decodeAliceOuBOB(A, b);
         int expectedCleSecrete = Cryptage.expModulaire(A, b, Cryptage.p);
 
         if (cleSecrete == expectedCleSecrete) {

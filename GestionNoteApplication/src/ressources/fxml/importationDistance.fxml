@@ -22,7 +22,7 @@
       </AnchorPane>
       <AnchorPane layoutX="88.0" layoutY="181.0" prefHeight="96.0" prefWidth="779.0" styleClass="StyleBox2">
          <children>
-            <Button fx:id="btnAdresseIP" layoutX="18.0" layoutY="17.0" mnemonicParsing="false" onAction="#changeText" prefHeight="63.0" prefWidth="748.0" styleClass="BouttonCommuniquer" text="cliquer pour voir Mon adresse IP :" />
+            <Button fx:id="btnAdresseIP" layoutX="18.0" layoutY="17.0" mnemonicParsing="false" onAction="#changeText" prefHeight="63.0" prefWidth="748.0" styleClass="BouttonCommuniquer" text="Cliquez pour voir mon adresse IP" />
          </children>
       </AnchorPane>
    </children>

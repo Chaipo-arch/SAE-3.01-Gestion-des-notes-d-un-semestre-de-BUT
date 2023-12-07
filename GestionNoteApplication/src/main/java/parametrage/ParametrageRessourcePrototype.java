@@ -5,7 +5,9 @@
  */
 package GestionNoteApplication.src.main.java.parametrage;
 
+//import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
 import GestionNoteApplication.src.main.java.package1.MauvaisFormatFichierException;
+
 import GestionNoteApplication.src.main.java.package1.Stockage;
 import GestionNoteApplication.src.main.java.package1.Evaluation;
 import GestionNoteApplication.src.main.java.package1.EvaluationException;
@@ -49,7 +51,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
     @Override
     public void parse() throws IOException, MauvaisFormatFichierException, EvaluationException, NoteException {
         if (Stockage.getInstance().getSemestre() ==0) {
-            throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: un fichier national n'a pas était importé");
+            throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: un fichier national n'a pas était importé", "Erreur Importation" );
         }
         FileReader fr = null;
         //System.out.println("ok");
@@ -68,7 +70,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
         for (line = newLine(); numeroLigne < 3; line = newLine()) {
             if (line == null) {
                 //NotificationController
-                throw new MauvaisFormatFichierException("Fichier vide");
+                throw new MauvaisFormatFichierException("Fichier vide" , "Erreur Importation" );
             }
             String[] chaine = line.split(";");
            if (!chaine[0].matches(MODELE[numeroLigne])) {
@@ -77,22 +79,22 @@ public class ParametrageRessourcePrototype extends Parametrage {
                
                System.out.println(numeroLigne);
                System.out.println(MODELE[numeroLigne]);
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " + line + numeroLigne );
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit " + line + numeroLigne , "Erreur Importation" );
                 
             }
             
              if(chaine.length != 2 && numeroLigne == 1 ) {
                
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" );
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes" , "Erreur Importation" );
                 
             } else if(numeroLigne == 1 &&!chaine[1].matches("^[1-6]$") || numeroLigne == 1 && Stockage.getInstance().getSemestre() != Integer.parseInt(""+chaine[1].charAt(0))) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: Le semestre ne correspond pas au semestre importé dans le fichier national");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: Le semestre ne correspond pas au semestre importé dans le fichier national", "Erreur Importation" );
             }
             if (numeroLigne == 2 && chaine.length != 2) {
                 
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 2 colonnes", "Erreur Importation" );
             } else if( numeroLigne == 2 && !chaine[1].matches("^[ABCD]$|^ $|^Tous$") && chaine[1].equals(Stockage.getInstance().getParcour())) {
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: Le parcours ne correspond pas au semestre importé dans le fichier national");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) +  " est mal écrit: Le parcours ne correspond pas au semestre importé dans le fichier national", "Erreur Importation" );
             }
 
         }
@@ -106,12 +108,12 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 saveIdentifiantR = chaine[1];
             } else {
                 System.out.println("erreur4");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit" + line);
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit" + line, "Erreur Importation" );
             }
             line = newLine();
             if (!line.equals(MODELE[3])) {
                 System.out.println("erreur3");
-                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit");
+                throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit", "Erreur Importation" );
             }
             //System.out.println("passage1");
             // verification des prochaines lignes
@@ -121,10 +123,10 @@ public class ParametrageRessourcePrototype extends Parametrage {
                     && !line.split(";")[0].equals("Ressource"); line = newLine()) {
                 chaine = line.split(";");
                 if (chaine.length != 3) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: pas 3 colonne", "Erreur Importation" );
                 }
                 if (!chaine[2].matches("\\d*")) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2]);
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: " + chaine[2], "Erreur Importation" );
                 }
                 
                 calculCoeff += Integer.parseInt(chaine[2]);
@@ -134,7 +136,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
             if (calculCoeff == 100) {
                 ArrayList<Object> ressource = Stockage.getInstance().recherche(saveIdentifiantR);
                 if(ressource.size() == 0) {
-                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: La ressource avec comme identifiant " + saveIdentifiantR + " n'existe pas");
+                    throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal écrit: La ressource avec comme identifiant " + saveIdentifiantR + " n'existe pas", "Erreur Importation" );
                 }
                 Stockage.getInstance().addEvaluations(evals);
                 
@@ -148,7 +150,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                 }
                 }
             } else {
-                throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantR + " a une somme des coefficients pas égale à 100: " + calculCoeff);
+                throw new MauvaisFormatFichierException("La compétence " + saveIdentifiantR + " a une somme des coefficients pas égale à 100: " + calculCoeff, "Erreur Importation" );
             }
 
         }
@@ -178,7 +180,6 @@ public class ParametrageRessourcePrototype extends Parametrage {
             } else {
                 numeroLigne++;
             }
-            System.out.println(line);
             while (line.endsWith(";")) {
                 line = (String) line.subSequence(0, line.length() - 1);
             }
@@ -201,7 +202,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
         }
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
             ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances ressources semestre\n");
-            ecritureLigne.write("Semestre;+"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
+            ecritureLigne.write("Semestre;"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
             for(Ressource r: Stockage.getInstance().ressources) {
                 if (!idDejaApparue.contains(r.getIdentifiant())){
                     idDejaApparue.add(r.getIdentifiant());
@@ -216,10 +217,7 @@ public class ParametrageRessourcePrototype extends Parametrage {
                     }
                 }
             }
-           
-        } catch (IOException ex) {
-           
+        } catch (IOException ex) { 
         }
     }
-
 }

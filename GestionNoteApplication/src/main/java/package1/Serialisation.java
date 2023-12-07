@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GestionNoteApplication.src.main.java.package1;
 
 import GestionNoteApplication.src.main.java.package1.Competence;
@@ -17,16 +13,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-
-
 /**
- *
+ * Classe pour la sérialisation et la désérialisation d'objets.
+ * Cette classe implémente l'interface Serializable.
  * @author robin.britelle
  */
 public class Serialisation implements Serializable{
     
     
-    // Méthode pour sérialiser un objet
+    /**
+     * Méthode pour sérialiser un objet.
+     * 
+     * @param objet Objet à sérialiser.
+     */
      public static void serialiserObjet(Object objet) {
          try {
              String fichier = "stock.bin";
@@ -44,10 +43,14 @@ public class Serialisation implements Serializable{
          }
      }
 
-     // Méthode pour désérialiser un objet
+     /**
+     * Méthode pour désérialiser un objet.
+     * 
+     * @return Objet désérialisé.
+     */
      public static Object deserialiserObjet() {
          
-         //zone de stockage a mettre en Fichier Binaire TODO
+         
     	 String fichier = "stock.bin";
          Object objetDeserialise = null;
     	 
@@ -65,18 +68,12 @@ public class Serialisation implements Serializable{
          return objetDeserialise;
      }
      
-     
-     
-     
-     
-     
-     
-     
      private static String nomFichierDonnees1 = "stock.bin";
-     //private static String nomFichierDonnees2 = "stockNational.bin";
-     //private static String nomFichierDonnees3 = "stockRessource.bin";
      
-     
+
+     /**
+     * Méthode pour sérialiser une instance de Stockage.
+     */
      public static void serialiserStockage(){        
         
         try {
@@ -93,9 +90,6 @@ public class Serialisation implements Serializable{
 
 
             Serialisation.serialiserObjet(monStockage);
-            
-            
-            //System.out.println("Objet Serialisé Normalement ?");
         }
         catch(IOException e) {
           System.out.println("Erreur sauvegarde ");
@@ -107,13 +101,5 @@ public class Serialisation implements Serializable{
      
      
      
-    public static void main(String[] args) {
-            // Création d'une instance de Personne
-        //Personne personne = new Personne("Alice", 30, "123 Rue de la Java");
-
-            // Appel de la méthode pour sérialiser l'objet
-        Serialisation.serialiserStockage();
-        //serialiserNationnal();
-    }
 }
    

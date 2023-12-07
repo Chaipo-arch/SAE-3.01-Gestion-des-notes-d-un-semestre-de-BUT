@@ -23,7 +23,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label styleClass="textTaille30" text="Competence">
+                  <Label styleClass="textTaille30" text="Compétence">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -20,13 +20,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-/*import GestionNoteApplication.src.main.java.modele.Client;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;*/
+
 
 public class CommuniquerController {
 
@@ -67,6 +61,7 @@ public class CommuniquerController {
      * Communiquer avec un ordinateur pour lui envoyé les documents coché
      * les documents à envoyé sont crée puis une tentative de connexion s'effectue selon le nombre de fichier à envoyé
      * Une fois envoyé l'ordinateur attend une réponse sur l'envoie de la part de l'autre ordinateur
+     * @author Robin Britelle, Enzo Cluzel, Ahmed Bribach
      */
     @FXML
     public void CommuniquerAction() throws IOException{
@@ -76,9 +71,7 @@ public class CommuniquerController {
         boolean ipValider = false;
         
         boolean checkValider = false;
-        //String adresseIP = adresseIPText.getText();
-        //int port = Integer.parseInt(portText.getText()); // Convertir le port en entier
-        //portID.setText("1234");
+
         String serverIP = adresseIPText.getText(); // Adresse IP du serveur
         
         
@@ -87,13 +80,11 @@ public class CommuniquerController {
             boolean isValidIP = Client.validateIP(serverIP);
 
             if (isValidIP) {
-                // L'adresse IP est valide, effectuez votre logique ici
                 
                 System.out.println("L'adresse IP est valide : " + serverIP);
                 ipValider = true;
-                // ... Autres actions à effectuer avec l'adresse IP valide
             } else {
-                // L'adresse IP n'est pas valide, gérer l'erreur
+                // Geres le cas d'une IP non valide
                 System.out.println("L'adresse IP n'est pas valide : " + serverIP);
                 NotificationController.popUpMessage("Erreur format IP invalide","");
                 System.out.println("Une Erreur s'est produite lors de la validation de l'adresse IP");
@@ -102,92 +93,89 @@ public class CommuniquerController {
             
             
         } catch (Exception e) {
-            // Une exception s'est produite lors de la validation de l'adresse IP
             NotificationController.popUpMessage("Erreur format IP invalide","");
             System.out.println("Une exception s'est produite lors de la validation de l'adresse IP : " + e.getMessage());
-            // Gérer l'exception ici
             ipValider = false;
         }
-        
-        
-        
-        //notifEnvoi.setVisible(false);
-        ///String serverIP = adresseIPText.getText(); // Adresse IP du serveur
-        //boolean BoucleTout = false;
         
         if (ipValider == true) {
             try {
                 String filePath = "";
                 ArrayList<String> fichiers = new ArrayList();
                 if(checkNational.isSelected()) {
-                    //System.out.println("Envoie des Parametres national");
                     ParametrageNationalPrototype.createCsv();
                     filePath = "NationalExporte.csv";
                     fichiers.add(filePath);
                     checkValider = true;
                 }
                 if(checkRessource.isSelected()) {
-                    //System.out.println("Envoie des Parametres Ressource");
                     ParametrageRessourcePrototype.createCsv();
                     filePath = "RessourceExporte.csv";
                     fichiers.add(filePath);
                     checkValider = true;
-                }             
-                //int port = Integer.parseInt(portID.getText());
-                int port = 10008;
+                }
+                
+                
+                //Definit le port Utiliser lors de la communication en reseau entre
+                //le client et le server
+                int port = 51263;
+                
+                
                 Client client = new Client();
                 System.out.println(serverIP);
                 
                 if(!checkNational.isSelected() && !checkRessource.isSelected()){
-                     NotificationController.popUpMessage("Veuillez selectionnez un fichier a envoyer","");
+                     NotificationController.popUpMessage("Veuillez sélectionner un fichier à envoyer.","");
                 }
                 
+                // Vérifie si les conditions pour l'envoi de fichiers sont valides
                 if (checkValider == true ) {
+                    
+                     // Initialise la connexion avec le serveur
                     client.connection(serverIP, port);
                     boolean ok;
-
+                    
+                    
+                    // Envoie un code spécifique pour établir une communication sécurisée avec le serveur
                     ok = client.sendA(Cryptage.codeAliceEtBob());
                             if(ok){
-                                System.out.println("sa marche");
-
-                                System.out.println("1000");
+                                System.out.println("Envoie initial du chiffrement");
+                                
+                                
+                                // Reçoit une réponse du serveur et crée une clé de chiffrement en fonction de la réponse
                                 int b = Integer.parseInt(client.recevoirReponse());
                                 Cryptage.creationClefBobOuAlice(b);
 
                                 System.out.println("la clé est : "+Cryptage.cle);
 
                                 }
-                       if (Client.checkServer != false){
+                       
+                        if (Client.checkServer){
+                            // Envoie les fichiers sélectionnés au serveur
                             if(fichiers.size() != 0) { 
-                                 for(int i = 0; i < fichiers.size();i++) {
-                                     client.connection(serverIP, port);
-
-                                     client.sendCSVFileToServer(fichiers.get(i));
-                                     if(fichiers.size() != i+1) {
-                                         System.out.println("ok");
-                                         client.closeConnection();
-                                     }
-                                 }
-                                 ///notifEnvoi.setVisible(true);
-                                 try {
-                                     notifEnvoi.setText(client.recevoirReponse());
-                                 } catch (IOException ex) {
-                                     //Logger.getLogger(CommuniquerController.class.getName()).log(Level.SEVERE, null, ex);
-                                 }
+                                for(int i = 0; i < fichiers.size();i++) {
+                                    
+                                    // Établit une connexion et envoie chaque fichier au serveur
+                                    client.connection(serverIP, port);
+                                    client.sendCSVFileToServer(fichiers.get(i));
+                                    
+                                    // Vérifie si d'autres fichiers restent à envoyer et ferme la connexion
+                                    if(fichiers.size() != i+1) {
+                                        System.out.println("ok");
+                                        client.closeConnection();
+                                    }
+                                }
+                                try {
+                                    notifEnvoi.setText(client.recevoirReponse());
+                                } catch (IOException ex) {
+                                }
                             }
-                       }
+                        }
                     
                 }
             } catch (NumberFormatException e) {
-
-                //notifEnvoi.setVisible(true);
-                //notifEnvoi.setText("Le port doit être un nombre valide.");
-
-                //e.printStackTrace();
             }
         }
-        
 
-        //client.sendSerializedFileToServer(serverIP, filePath, port); // Appeler la méthode du client
     }
 }

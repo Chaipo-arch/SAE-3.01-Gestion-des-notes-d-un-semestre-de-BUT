@@ -32,7 +32,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * Cette classe contrôle l'interface utilisateur associée à la gestion des notes.
+ * Elle implémente l'interface Initializable pour initialiser les composants lors du chargement.
+ * Elle permet de gérer les interractions de l'utilisateurs avec la fonctionnalité 
+ * d'ajout de notes et également les cas d'erreur associé et d'en avertir l'utilisateur
+ * @author Alexandres Brouzes, Robin Britelle, Ahmed Bribach
+ */
 public class NotesController implements Initializable{
 
     Parent fxml;
@@ -76,45 +82,51 @@ public class NotesController implements Initializable{
     int nbRow = 1;
     Evaluation evaluationAAjouter;
    
+     // Listes pour stocker les éléments graphiques et les évaluations associées
     private ArrayList<Button> but = new ArrayList();
     private ArrayList<Evaluation> evaluationList = new ArrayList();
    
+    // Variables pour stocker les valeurs saisies ou sélectionnées
     private String typeString ="";
     private String dateString ="";
     private double coefficientDouble = 0.0;
     private double noteDouble = 0.0;
    
+    // Variables pour gérer les vérifications des données saisies
     private int noteCorrect = 0;
     private boolean typeCorrect = false;
     private boolean dateCorrect = false;
     private boolean coefficientCorrect = false;
     
+    // Variables pour gérer les différents états d'erreur
     private boolean flagErreur1 = false;
     private boolean flagErreur2 = false;
     private boolean flagErreur3 = false;
     
+    // Messages d'erreur associés à chaque type d'erreur
     private String messageErreur1 = "Erreur : Le type d'une évaluation est manquant";
-    //messageErreur1 = "";
-    private String messageErreur2 = "Erreur : Le total des coeficients d'une ressource sont obligatoirement compris entre 0 et 100";
-    //messageErreur2 = "\nErreur : Le total des coeficients d'une ressource sont obligatoirement compris entre 0 et 100";
-    private String messageErreur3 = "WARNING : Attention certaines évaluation ne possédes pas de note, elles ne seront pas pris en comptes dans le calcul des moyennes";
-    //messageErreur3="\nWARNING : Attention certaines évaluation ne possédes pas de note, elles ne seront pas pris en comptes dans le calcul des moyennes";
+    private String messageErreur2 = "Erreur : Le total des coefficients d'une ressource doit être compris entre 0 et 100";
+    private String messageErreur3 = "WARNING : Attention, certaines évaluations ne possèdent pas de note, elles ne seront pas prises en compte dans le calcul des moyennes";
     
-    
+    // Instance de Stockage pour gérer les données
     Stockage stock = Stockage.getInstance();
+    
+    // Liste pour sauvegarder l'état précédent du GridPane
     ArrayList<Node> sauvegardeGrid = new ArrayList();
-    /**
-     * Initializes the controller class.
-     * @param url
-     */
+    
    
+    
+    // Méthode d'initialisation appelée lors du chargement de l'interface utilisateur
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    //Stockage.getInstance().supprimerDonnees();
+        
+        // Nettoie le GridPane et récupère les identifiants des ressources depuis Stockage
         Grid.getChildren().clear();
         ArrayList<String> ids = Stockage.getInstance().getRessourcesId();
+        
+        
+        // Initialise la liste déroulante avec les identifiants des ressources disponibles
         if(stock.ressources.size() != 0) {
-           
             ObservableList<String> items =  FXCollections.observableArrayList();
             for(String id : ids) {
                 items.add(id);
@@ -129,85 +141,105 @@ public class NotesController implements Initializable{
             setupGridListeners();
            
         }  else {
+            // Affiche un message d'erreur si aucune ressource n'est disponible
             NotificationController.popUpMessage("Il est nécessaire d'impoter votre "
                     + "Programme Nationnal pour utiliser cette fonctionnalité."
                     + "Rendez vous dans :  Parametres > Importer ",
                     "Erreur Parametres d'application manquants");
         }
     }
+    
+    
+    /**
+    * Valide les données saisies par l'utilisateur dans l'interfaces de "mes Notes"
+    *
+    * @param event L'événement déclencheur de l'action.
+    * @throws NoteException      En cas d'erreur de note.
+    * @throws EvaluationException En cas d'erreur dans l'évaluation.
+    */
     @FXML
     void ValiderAction(ActionEvent event) throws NoteException, EvaluationException {
-       
-       
-            for(Ressource r : stock.ressources) {
-                if(r.getIdentifiant().equals(comboBox.getValue())) {
-                    r.getEvaluation().clear();
-                }
+
+        // Efface les évaluations existantes pour une ressource sélectionnée
+        for (Ressource r : stock.ressources) {
+            if (r.getIdentifiant().equals(comboBox.getValue())) {
+                r.getEvaluation().clear();
             }
-       
-       
-        if(stock.ressources.size() != 0) {
+        }
+
+        // Vérifie si des ressources sont disponibles dans stock.ressources
+        if (stock.ressources.size() != 0) {
+            // Initialisation des variables pour le calcul des coefficients
             double totalCoefficient = 0.0;
             Note noteATester = null;
             boolean ajoutEvaluationPossible = true;
+
+            // Parcours des éléments du Grid
             for (int i = 0; i < Grid.getChildren().size(); i++) {
                 if (Grid.getChildren().get(i) instanceof TextField) {
                     TextField textFieldAnalyser = (TextField) Grid.getChildren().get(i);
-
                     int colIndex = GridPane.getColumnIndex(textFieldAnalyser);
 
-                    if (colIndex == 0){
+                    // Vérification du type d'évaluation
+                    if (colIndex == 0) {
+                        // Récupère et vérifie le type d'évaluation
+                        // Si le type est manquant, affiche une erreur visuelle
+                        // et enregistre le flag d'erreur correspondant
                         typeString = textFieldAnalyser.getText();
-                        if(typeString.equals("")||typeString == null){
-                            
+                        if (typeString.equals("") || typeString == null) {
                             textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
-                            if(!flagErreur3){
-                                
-                                //NotificationController.popUpMessage("Erreur : Une Evaluation ne peut pas etre insérer car elle ne posséde pas de type", "");
-                                flagErreur3=true;
+                            if (!flagErreur3) {
+                                flagErreur3 = true;
                             }
                         } else {
                             typeCorrect = true;
-                            textFieldAnalyser.setStyle(STYLE);    
+                            textFieldAnalyser.setStyle(STYLE);
                         }
                     }
-                    if (colIndex == 1){
+
+                    // Gestion de la date de l'évaluation
+                    if (colIndex == 1) {
+                        // Récupère et affiche la date, aucun traitement d'erreur requis ici
                         dateString = textFieldAnalyser.getText();
                         textFieldAnalyser.setStyle(STYLE + "-fx-background-color: white;");
                     }
-                    if (colIndex == 2){
+
+                    // Vérification du coefficient de l'évaluation
+                    if (colIndex == 2) {
                         try {
-                            coefficientDouble = Double.parseDouble(textFieldAnalyser.getText().replace(',','.'));
-                            
-                            if(!Evaluation.isCoefficient(coefficientDouble)){
+                            // Récupère et valide le coefficient
+                            coefficientDouble = Double.parseDouble(textFieldAnalyser.getText().replace(',', '.'));
+
+                            // Vérifie si le coefficient est valide et l'ajoute au total des coefficients
+                            // Affiche une erreur visuelle sur le TextField si le coefficient est invalide
+                            if (!Evaluation.isCoefficient(coefficientDouble)) {
                                 textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
                             } else {
                                 coefficientCorrect = true;
                                 totalCoefficient += coefficientDouble;
                                 textFieldAnalyser.setStyle(STYLE);
-                                
                             }
-                        } catch (Exception e ){
-                            if (!flagErreur1){
-                                
-                                //NotificationController.popUpMessage("Erreur : Un ou plusieurs coeficient ne correspondent pas au format attendu (le nombre doit etre compris entre 0 et 100)", "");
-                                //LabelNotificationID.setText("Un ou plusieur coefficient ne correcponde pas au champs attendu");
-                                
-                                flagErreur1=true;
+                        } catch (Exception e) {
+                            // Capture des exceptions de conversion et affichage d'une erreur visuelle
+                            // Enregistre le flag d'erreur correspondant
+                            if (!flagErreur1) {
+                                flagErreur1 = true;
                             }
                             textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
-                            
-                        }                       
+                        }
                     }
-                    if (colIndex == 3){                  
+
+                    // Gestion de la note de l'évaluation
+                    if (colIndex == 3) {
                         try {
-                            if(textFieldAnalyser.getText() == null
-                                    || textFieldAnalyser.getText().equals("")){
+                            // Vérifie si la note est vide ou invalide
+                            // Affiche une erreur visuelle si la note est vide
+                            if (textFieldAnalyser.getText() == null || textFieldAnalyser.getText().equals("")) {
                                 noteCorrect = 1;
                                 textFieldAnalyser.setStyle(STYLE + "-fx-border-color: orange;" + "-fx-border-width: 2px;");
                             } else {
-                                noteATester = new Note(Double.parseDouble(textFieldAnalyser.getText().replace(',','.')));
-                                if(Note.isNote(noteATester.getNote())){
+                                noteATester = new Note(Double.parseDouble(textFieldAnalyser.getText().replace(',', '.')));
+                                if (Note.isNote(noteATester.getNote())) {
                                     noteCorrect = 2;
                                     noteDouble = Double.parseDouble(textFieldAnalyser.getText());
                                     textFieldAnalyser.setStyle(STYLE);
@@ -215,83 +247,99 @@ public class NotesController implements Initializable{
                                     textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
                                 }
                             }
-                        } catch (Exception e ){
-                            textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");  
-                        }  
-                    }  
-                } else if(typeCorrect && coefficientCorrect && noteCorrect != 0) {
-                    if(noteCorrect == 2){
-                        Note noteAAjouter = new Note(noteDouble);
-                        evaluationAAjouter = new Evaluation(NomRessource.getText(),noteAAjouter
-                                               ,typeString,coefficientDouble,dateString);
-                        //LabelNotificationID ajouter notif eval succeful
-                        NotificationController NotificationController = new NotificationController();
-                        NotificationController.showNotification("Vos données ont était insérer");
-                    } else {
-                        evaluationAAjouter = new Evaluation(NomRessource.getText(),new Note(-1)
-                                               ,typeString,coefficientDouble,dateString);
-                        if(!flagErreur2){
-                           
-                           //NotificationController.popUpMessage("Attention : certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne car elles ne possédent pas de note", "");
-                            //LabelNotificationID.setText("Attention certaines évaluation ne seront pas pris en compte lors du calcul de la moyenne"); 
-                           flagErreur2=true;
+                        } catch (Exception e) {
+                            // Capture des exceptions de conversion et affichage d'une erreur visuelle
+                            textFieldAnalyser.setStyle(STYLE + "-fx-border-color: red;" + "-fx-border-width: 2px;");
                         }
-                            
-                         
                     }
-                    if(totalCoefficient <= 100 && totalCoefficient > 0){
-                        for(Ressource r : stock.ressources) {
-                            if(r.getIdentifiant().equals(comboBox.getValue())) {                              
-                                if(!r.ajouterEvaluation(evaluationAAjouter)){
-                                    String messageErreurSimi = "Erreur des evaluation sont similaire" + STYLE;
+                } else if (typeCorrect && coefficientCorrect && noteCorrect != 0) {
+                    // Création d'une nouvelle évaluation si toutes les données sont correctes
+                    // et ajout de cette évaluation à la ressource sélectionnée
+                    // Gestion des erreurs d'évaluation incorrecte
+                    if (noteCorrect == 2) {
+                        // Crée une note et une évaluation pour l'ajouter à la ressource
+                        Note noteAAjouter = new Note(noteDouble);
+                        evaluationAAjouter = new Evaluation(NomRessource.getText(), noteAAjouter,
+                                typeString, coefficientDouble, dateString);
+
+                        NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Vos données ont été insérées");
+                    } else {
+                        // Crée une évaluation avec une note invalide et enregistre l'erreur correspondante
+                        evaluationAAjouter = new Evaluation(NomRessource.getText(), new Note(-1),
+                                typeString, coefficientDouble, dateString);
+                        if (!flagErreur2) {
+                            flagErreur2 = true;
+                        }
+                    }
+
+                    // Ajoute l'évaluation à la ressource si le total des coefficients est valide
+                    if (totalCoefficient <= 100 && totalCoefficient > 0) {
+                        for (Ressource r : stock.ressources) {
+                            if (r.getIdentifiant().equals(comboBox.getValue())) {
+                                if (!r.ajouterEvaluation(evaluationAAjouter)) {
+                                    String messageErreurSimi = "Des évaluations sont similaires" + STYLE;
                                     NotificationController.popUpMessage(messageErreurSimi, "");
-                                }                                                 
-                            }                            
+                                }
+                            }
                         }
                         sauvegardeGrid();
                         AccueilController.mesNoteCourant = false;
                     }
+
+                    // Réinitialise les flags de données correctes et incorrectes
                     noteCorrect = 0;
                     typeCorrect = false;
-                    coefficientCorrect = false;    
+                    coefficientCorrect = false;
                 }
-                
             }
-            if (flagErreur1 && flagErreur2 && flagErreur3){
+
+            // Gestion des messages d'erreur en fonction des flags d'erreur, permet d'eviter une redondance dans 
+            // l'affichage des alertes
+            if (flagErreur1 && flagErreur2 && flagErreur3) {
                 NotificationController.popUpMessage(
-                          messageErreur1
-                        + "\n"+messageErreur2
-                        + "\n"+messageErreur3, "Des données sont absentes ou incorrect");
-            }else if (flagErreur1 && flagErreur3){
-                NotificationController.popUpMessage(""
-                        + messageErreur1
-                        + "\n"+ messageErreur2,"Des données sont absentes ou incorrect");
-            }else if(flagErreur1){
-                NotificationController.popUpMessage(""
-                        + messageErreur2,"Des données sont absentes ou incorrect");
-            }else if(flagErreur3){
-                NotificationController.popUpMessage(""
-                        + messageErreur1,"Des données sont absentes ou incorrect");
-            }else if (flagErreur2){
-                NotificationController.popUpMessage(""
-                        + messageErreur3,"Attention");
+                        messageErreur1 + "\n" + messageErreur2 + "\n" + messageErreur3,
+                        "Des données sont absentes ou incorrectes");
+            } else if (flagErreur1 && flagErreur3) {
+                NotificationController.popUpMessage(
+                        "" + messageErreur1 + "\n" + messageErreur2,
+                        "Des données sont absentes ou incorrectes");
+            } else if (flagErreur1) {
+                NotificationController.popUpMessage(
+                        "" + messageErreur2,
+                        "Des données sont absentes ou incorrectes");
+            } else if (flagErreur3) {
+                NotificationController.popUpMessage(
+                        "" + messageErreur1,
+                        "Des données sont absentes ou incorrectes");
+            } else if (flagErreur2) {
+                NotificationController.popUpMessage(
+                        "" + messageErreur3,
+                        "Attention");
             }
-            if(totalCoefficient > 100 || totalCoefficient < 0){
-                for(int j = 2; j < Grid.getChildren().size(); j+= 5){
+
+            // Met en évidence visuellement les champs avec des coefficients invalides
+            if (totalCoefficient > 100 || totalCoefficient < 0) {
+                for (int j = 2; j < Grid.getChildren().size(); j += 5) {
                     Grid.getChildren().get(j).setStyle(STYLE + "-fx-border-color: red;");
                 }
             }
-            
+
         } else {
-            NotificationController.popUpMessage("L'ajout d'evaluation est impossible tant que vos parametres n'ont pas était importer :"
-                    + "\nRendez vous dans Parametres > Importer","");
-            //LabelNotificationID.setText("Impossible d'ajout� les évaluations, veuillez importé un paramétrage");  
+            // Affiche un message si aucune ressource n'est disponible
+            NotificationController.popUpMessage(
+                    "L'ajout d'évaluations est impossible tant que vos paramètres n'ont pas été importés :"
+                            + "\nRendez-vous dans Paramètres > Importer",
+                    "");
         }
-        flagErreur1=false;
-        flagErreur2=false;
-        flagErreur3=false;
-        
+
+        // Réinitialisation des flags d'erreur après traitement
+        flagErreur1 = false;
+        flagErreur2 = false;
+        flagErreur3 = false;
     }  
+    
+    
    
     private final String STYLE = "-fx-padding: 5px 10px;" + // Padding haut et bas 5px, gauche et droite 10px
             "-fx-pref-height: 25px;" + // Hauteur préférée
@@ -304,105 +352,140 @@ public class NotesController implements Initializable{
                 "-fx-text-fill: white;"+
                 "-fx-padding: 5px 10px;"+
                 "-fx-min-width: 100px;";
+    
+    
+    
+    /**
+    * Action déclenchée lors de l'ajout d'une évaluation.
+    *
+    * @param event L'événement déclencheur de l'action.
+    */
     @FXML
     void AjouterEvaluationAction(ActionEvent event) {
+        // Crée un bouton "Supprimer" associé à la nouvelle évaluation
         Button supprimer = new Button("Supprimer");
-        supprimer.setId(nbRow+"");
-        but.add(supprimer);
-        supprimer.setOnAction(events -> SupprimerAction(but.indexOf(supprimer)));
-       
-        supprimer.setStyle(STYLE_SUP);
-        //supprimer.getStyleClass().add("button-supprimer"); // Ajout de la classe CSS au bouton
+        supprimer.setId(nbRow + ""); // Attribue un identifiant unique
+        but.add(supprimer); // Ajoute le bouton à la liste pour le suivi des actions
 
-        // Création des champs de texte avec la classe CSS associée
-        //TODO utilisation d'une classe CSS plutot que insertion dans le code a Favoriser
+        // Action associée au bouton "Supprimer"
+        supprimer.setOnAction(events -> SupprimerAction(but.indexOf(supprimer)));
+        supprimer.setStyle(STYLE_SUP); // Applique le style CSS approprié
+
+        // Création de champs de texte pour l'évaluation avec un style CSS spécifique
         TextField textField1 = new TextField();
-        textField1.setStyle("-fx-background-color: #f2f2f2;" + STYLE);// Fond gris clair
-       
-       
+        textField1.setStyle("-fx-background-color: #f2f2f2;" + STYLE);
+
         TextField textField2 = new TextField();
         textField2.setStyle("-fx-background-color: #f2f2f2;" + STYLE);
-       
-       
+
         TextField textField3 = new TextField();
         textField3.setStyle("-fx-background-color: #f2f2f2;" + STYLE);
-       
-       
+
         TextField textField4 = new TextField();
         textField4.setStyle("-fx-background-color: #f2f2f2;" + STYLE);
-       
+
+        // Ajout des champs de texte et du bouton "Supprimer" à la nouvelle ligne du Grid
         Grid.addRow(nbRow, textField1, textField2, textField3, textField4, supprimer);
-        nbRow++;
+        nbRow++; // Incrémente le compteur pour l'ajout ultérieur
+
+        // Met à jour la sauvegarde de la grille
         modification(sauvegardeGrid);
     }
 
+    
+
+    /**
+    * Action déclenchée lors de la suppression d'une évaluation.
+    *
+    * @param supprimerId Identifiant de l'évaluation à supprimer.
+    */
     private void SupprimerAction(int supprimerId) {
-        Ressource r = getRessource();
-        for(int i = 0; i < Grid.getChildren().size();i++){
-            if(Grid.getChildren().get(i) instanceof Button){
-                if(Grid.getChildren().get(i).getId().equals(supprimerId)){
-                    for(Evaluation e : r.getEvaluation()){
-                        if(e.getType() ==((TextField) Grid.getChildren().get(i-4)).getText()){
-                            if(e.getDate() ==((TextField) Grid.getChildren().get(i-3)).getText()){
-                                if(e.getCoefficient() == Double.parseDouble(((TextField) Grid.getChildren().get(i-2)).getText())){
-                                    if(e.getNote() == Double.parseDouble(((TextField) Grid.getChildren().get(i-1)).getText())){
-                                        r.getEvaluation().remove(e);                                      
-                                    }
-                                }
-                            }
+        Ressource r = getRessource(); // Récupère la ressource concernée
+        for (int i = 0; i < Grid.getChildren().size(); i++) {
+            if (Grid.getChildren().get(i) instanceof Button) {
+                // Vérifie si l'identifiant correspond à celui de l'évaluation à supprimer
+                if (Grid.getChildren().get(i).getId().equals(supprimerId)) {
+                    for (Evaluation e : r.getEvaluation()) {
+                        // Parcourt les évaluations pour trouver celle correspondante à l'identifiant
+                        if (e.getType().equals(((TextField) Grid.getChildren().get(i - 4)).getText())
+                                && e.getDate().equals(((TextField) Grid.getChildren().get(i - 3)).getText())
+                                && e.getCoefficient() == Double.parseDouble(((TextField) Grid.getChildren().get(i - 2)).getText())
+                                && e.getNote() == Double.parseDouble(((TextField) Grid.getChildren().get(i - 1)).getText())) {
+                            r.getEvaluation().remove(e); // Supprime l'évaluation correspondante
                         }
-                    }        
+                    }
                 }
             }
         }
-       
-        Grid.getChildren().remove(supprimerId*5,supprimerId*5+5);    
-        but.remove(supprimerId);
-        //System.out.println(Grid);
-        ArrayList<Node> copieGrid = new ArrayList();
-        for(int i = 0; i <Grid.getChildren().size(); i++){
+
+        // Supprime visuellement la ligne correspondante à l'évaluation
+        Grid.getChildren().remove(supprimerId * 5, supprimerId * 5 + 5);
+        but.remove(supprimerId); // Retire le bouton de la liste de suivi
+
+        // Crée une copie de la grille pour réorganiser les données
+        ArrayList<Node> copieGrid = new ArrayList<>();
+        for (int i = 0; i < Grid.getChildren().size(); i++) {
             copieGrid.add(Grid.getChildren().get(i));
-           
         }
-        Grid.getChildren().clear();
-        nbRow = 1;
-        for(int i = 0; i <copieGrid.size(); i+=5){
-            Grid.addRow(nbRow, copieGrid.get(i),copieGrid.get(i+1),copieGrid.get(i+2),copieGrid.get(i+3),copieGrid.get(i+4));
+
+        Grid.getChildren().clear(); // Efface la grille actuelle
+        nbRow = 1; // Réinitialise le compteur de ligne
+        // Réinsère les éléments de la copie de la grille dans la grille
+        for (int i = 0; i < copieGrid.size(); i += 5) {
+            Grid.addRow(nbRow, copieGrid.get(i), copieGrid.get(i + 1), copieGrid.get(i + 2), copieGrid.get(i + 3), copieGrid.get(i + 4));
             nbRow++;
         }
-        modification(sauvegardeGrid);
-       
+
+        modification(sauvegardeGrid); // Met à jour la sauvegarde de la grille
     }
-    public void comboBoxAction() { 
-        modification(sauvegardeGrid);
-        if(AccueilController.mesNoteCourant){
-            Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
-            if (result.isPresent() && result.get() == ButtonType.OK) {          
-                if(stock.ressources.size() != 0){
+
+
+
+    /**
+    * Action déclenchée lors du changement de sélection dans la ComboBox.
+    */
+    public void comboBoxAction() {
+        modification(sauvegardeGrid); // Effectue une modification dans la grille et sauvegarde les changements
+
+        // Vérifie si une action n'a pas encore etait sauvegarder
+        if (AccueilController.mesNoteCourant) {
+            // Affiche une boîte de dialogue pour confirmer l'abandon des modifications non sauvegardées
+            Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?", "");
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Si l'utilisateur confirme l'abandon, réinitialise la grille avec les données précédentes
+                if (stock.ressources.size() != 0) {
                     nbRow = 1;
                     Grid.getChildren().clear();
                     but.clear();
                     restauration();
                 }
             }
-        } else{
-            if(stock.ressources.size() != 0){
-                    nbRow = 1;
-                    Grid.getChildren().clear();
-                    but.clear();
-                    restauration();
+        } else {
+            // Si aucune note n'est en cours d'édition, réinitialise simplement la grille avec les données précédentes
+            if (stock.ressources.size() != 0) {
+                nbRow = 1;
+                Grid.getChildren().clear();
+                but.clear();
+                restauration();
             }
-        } 
-        AccueilController.mesNoteCourant = false;
+        }
+
+        AccueilController.mesNoteCourant = false; // Indique qu'il n'y a pas de modifications en cours sur la page
     }
-       
+    
+    
+    /**
+    * Restaure les données des évaluations dans la grille pour une ressource sélectionnée.
+    */
     public void restauration(){
         boolean nonPasse = true;
         for(Ressource r : stock.ressources) {
             if(r.getIdentifiant().equals(comboBox.getValue()) && nonPasse) {
-                NomRessource.setText(r.getLibelle());
-                Type.setText(r.getType());
-                if(r.getEvaluation().size()!= 0){
+                NomRessource.setText(r.getLibelle()); // Met à jour le nom de la ressource dans l'IHM
+                Type.setText(r.getType()); // Met à jour le type de la ressource dans l'IHM
+                
+                if(r.getEvaluation().size()!= 0){ //Cree et affiche les differentes évalutation enregistrer dans la Ressource
                     for(Evaluation e : r.getEvaluation()){
                         nonPasse = false;
                         Button supprimer = new Button("supprimer");
@@ -432,51 +515,81 @@ public class NotesController implements Initializable{
         }  
         sauvegardeGrid();
     }
-    public void modification(ArrayList<Node> sauvegardeGrid){
-        boolean resultat = false;
-        if(Grid.getChildren().size() != sauvegardeGrid.size()){
-            resultat = true;
+    
+    
+    
+    /**
+    * Vérifie s'il y a eu des modifications dans la grille par rapport à une sauvegarde précédente.
+    *
+    * @param sauvegardeGrid La liste des nœuds de sauvegarde de la grille précédente
+    */
+    public void modification(ArrayList<Node> sauvegardeGrid) {
+        boolean resultat = false; 
+
+        // Vérifie si la taille de la grille a changé par rapport à la sauvegarde précédente
+        if (Grid.getChildren().size() != sauvegardeGrid.size()) {
+            resultat = true; 
         } else {
+            // Parcourt les nœuds de la grille actuelle et de la sauvegarde pour comparer les valeurs
             for (int i = 0; i < Grid.getChildren().size(); i++) {
-                if(sauvegardeGrid.get(i) instanceof TextField){
-                    if((!((TextField)Grid.getChildren().get(i)).getText().equals(((TextField) sauvegardeGrid.get(i)).getText()))){
-                        resultat = true;
-                        //.out.println(((TextField)Grid.getChildren().get(i)).getText()+" different de : "+ ((TextField)sauvegardeGrid.get(i)).getText());
-                        
+                // Vérifie si le nœud est un champ de texte
+                if (sauvegardeGrid.get(i) instanceof TextField) {
+                    // Compare le texte du champ de texte actuel avec celui de la sauvegarde
+                    if (!((TextField) Grid.getChildren().get(i)).getText().equals(((TextField) sauvegardeGrid.get(i)).getText())) {
+                        resultat = true; // Met à jour le statut de modification à vrai
                     }
                 } else {
-                    if(Grid.getChildren().get(i).getId() != sauvegardeGrid.get(i).getId()){
-                        resultat = true;
+                    // Compare les identifiants des nœuds s'ils ne sont pas des champs de texte
+                    if (!Grid.getChildren().get(i).getId().equals(sauvegardeGrid.get(i).getId())) {
+                        resultat = true; 
                     }
-                }              
+                }
             }
         }
-        AccueilController.mesNoteCourant = resultat;
-        //.out.println(resultat);
+
+        AccueilController.mesNoteCourant = resultat; 
     }
-    public void sauvegardeGrid(){
-        ArrayList<Node> sauvegarde = new ArrayList();
-        int nbRowSauvegarde = 1;
-        for(int i = 0; i <Grid.getChildren().size(); i++){
-            if(Grid.getChildren().get(i) instanceof TextField){
-                TextField tx = new TextField(((TextField)Grid.getChildren().get(i)).getText());
-                sauvegarde.add(tx);
-            } else {
-                sauvegarde.add(Grid.getChildren().get(i));
-            }
-            
-        }   
-        sauvegardeGrid = sauvegarde;
-    }
-    public Ressource getRessource(){
-        boolean nonPasse = true;  
-        for(Ressource r : stock.ressources) {
-            if(r.getIdentifiant().equals(comboBox.getValue()) && nonPasse) {
-                return r;
-            }
-        }
-        return null;
-    }
+    
+    
+    
+    /**
+    * Sauvegarde l'état actuel de la grille dans la variable 'sauvegardeGrid'.
+    * Parcourt les éléments de la grille et les stocke dans une liste.
+    */
+   public void sauvegardeGrid(){
+       ArrayList<Node> sauvegarde = new ArrayList();
+       int nbRowSauvegarde = 1;
+       for(int i = 0; i < Grid.getChildren().size(); i++){
+           if(Grid.getChildren().get(i) instanceof TextField){
+               // Crée un nouveau champ de texte avec la valeur actuelle du champ dans la grille
+               TextField tx = new TextField(((TextField)Grid.getChildren().get(i)).getText());
+               sauvegarde.add(tx); 
+           } else {
+               sauvegarde.add(Grid.getChildren().get(i)); 
+           }
+       }   
+       sauvegardeGrid = sauvegarde; // Met à jour la variable de sauvegarde globale
+   }
+    
+    
+    /**
+    * Récupère la ressource associée à la valeur sélectionnée dans la comboBox et la return
+    * @return La ressource correspondante ou null si non trouvée.
+    */
+   public Ressource getRessource(){
+       boolean nonPasse = true;  
+       for(Ressource r : stock.ressources) {
+           if(r.getIdentifiant().equals(comboBox.getValue()) && nonPasse) {
+               return r; 
+           }
+       }
+       return null; // Aucune ressource correspondante trouvée
+   }
+
+    
+    /**
+    * Vérifie les modifications dans la grille et déclenche une action si détectée.
+    */
     private void setupGridListeners() {
         for (Node node : Grid.getChildren()) {
             if (node instanceof TextField) {
@@ -488,40 +601,31 @@ public class NotesController implements Initializable{
             }
         }
     }
+
     
+    /**
+    * Gère le clic sur le bouton "Notice".
+    * Vérifie les modifications sur la page des évaluations et redirige vers la page de la notice si nécessaire.
+    */
     @FXML
     void NoticeClick() {
         try {
+            NoticeController.pageRetour = "notes.fxml";
             NoticeController.y = 6.3;
-            modification(sauvegardeGrid);
+            modification(sauvegardeGrid); 
             if(AccueilController.mesNoteCourant){
                 Optional<ButtonType> result = NotificationController.popUpChoix("Des modifications sur la page des évaluation non pas été sauvegardé. voulez vous vraiment abandonner vos évaluations non sauvegardées ?","");
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    changerPage("Notice.fxml");
+                    AccueilController.accueil.changerPage("Notice.fxml");
                 }
             } else {
-                changerPage("Notice.fxml");
+                AccueilController.accueil.changerPage("Notice.fxml");
             }
-            
-             
         } catch (IOException ex) {
-            
+            // Gère les exceptions d'entrée/sortie (IOException)
         }
     }
+
     
-    public void changerPage(String page) throws IOException {
-        if(t1 != null && t1.isAlive()) {
-            Server.closeServer();
-            t1.interrupt();
-        }
-        File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
-        System.out.println(file.exists());
-        if(file.exists()) {
-            String changementPage = "../../ressources/fxml/"+page;
-            System.out.println(file.getAbsolutePath());
-            fxml = FXMLLoader.load(getClass().getResource(changementPage));
-            contenuPage.getChildren().removeAll();
-            contenuPage.getChildren().setAll(fxml);
-        }
-    }
+    
 }

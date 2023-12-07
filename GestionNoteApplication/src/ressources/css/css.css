@@ -142,6 +142,7 @@
 .userPane{
     -fx-background-color: #737373;
     -fx-background-radius: 70px;
+    -fx-text-fill: white;
 }
 
 

@@ -16,20 +16,33 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 
+
+/**
+ * Contrôleur pour la gestion de la page de paramètres dans l'application de gestion de notes.
+ * Initialise et gère les éléments de la page de paramètres.
+ * @author Enzo Cluzel
+ */
 public class ParametreController implements Initializable {
     
     Parent fxml;
     @FXML
     private AnchorPane contenuPage;
 
-    /**
-     * Initializes the controller class.
-     * @param url
+     /**
+     * Initialise le contrôleur de la classe 
+     * @param url URL utilisée pour initialiser le contrôleur.
+     * @param rb ResourceBundle utilisé pour localiser l'objet racine.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          System.out.println("bon controller");
     }
+    
+     /**
+     * Action effectuée lors du clic sur le bouton "communiquer",
+     * permet de changer la page courantes sur communiquer.fxml
+     * @throws IOException Si une erreur d'entrée/sortie survient lors du changement de page.
+     */
     @FXML
     void communiquerActionButton() throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
@@ -37,7 +50,13 @@ public class ParametreController implements Initializable {
          System.out.println("bon controller");
         changerPage("communiquer.fxml");
     }
-
+    
+    
+     /**
+     * Action effectuée lors du clic sur le bouton pour réinitialiser les données
+     * Affiche une notification a l'utilisateur pour la comfirmation de la supression
+     * et supprime ou non les données en conséquence
+     */
     @FXML
     void reinitialiserActionButton() {
         //NotificationController.popUpMessage("Reinitialisation données","");
@@ -53,12 +72,26 @@ public class ParametreController implements Initializable {
         ParametrageNationalPrototype.flag = true;
     }
 
+    /**
+     * Action effectuée lors du clic sur le bouton "importer"
+     * et renvoie a la page ImporterParametres.fxml
+     * @throws IOException Si une erreur d'entrée/sortie survient lors du changement de page.
+     */
     @FXML
     void importerActionButton() throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/");
         System.out.println(file.getAbsolutePath());
         changerPage("ImporterParametres.fxml");
     }
+    
+    
+    
+    /**
+     * Methodes permettant de chnger la page courante de l'utilisateur, la destination est 
+     * passer en parametre
+     * @param page Nom de la page à charger.
+     * @throws IOException Si une erreur survient lors du chargement de la page.
+     */
      public void changerPage(String page) throws IOException {
         File file = new File("src/GestionNoteApplication/src/ressources/fxml/"+page);
         System.out.println(file.getAbsolutePath());

@@ -21,6 +21,14 @@ import GestionNoteApplication.src.main.java.parametrage.ParametrageRessourceProt
 import java.util.Optional;
 import javafx.scene.control.ButtonType;
 
+
+
+/**
+ * Class de Controlleur de l'IHM, permettant l'importation des parametres en local
+ * elle verifie les fichiers en appelant ParametrageNational.java ou ParametrageRessource.java
+ * Affichage de Notification utilisateur en foocntions des cas d'erreurs
+ * @author Enzo.Cluzel, Robin.Britelle
+ */
 public class ImporterParametresController {
 
        @FXML
@@ -55,63 +63,71 @@ public class ImporterParametresController {
         
     }
 
+    /**
+    * Gère l'action de validation du choix d'importation.
+    * Vérifie les options sélectionnées et les fichiers choisis pour l'importation,
+    * affiche des messages d'erreur ou procède à l'importation en conséquence.
+    *
+    * @param event Événement déclencheur de l'action
+    */
     @FXML
-    void choixValiderAction(ActionEvent event){
+    void choixValiderAction(ActionEvent event) {
         
-        
-            if(!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file==null) {
-                NotificationController.popUpMessage("Merci de cocher une option et de selectionner le fichier que vous souhaitez importer ", "Erreur Importation");
-            }
-            if(nationalToggle.isSelected() && file != null) {
-                
-                    Optional<ButtonType> result = NotificationController.popUpChoix("L'imporation de votre Nouveau Programme vas supprimer toutes les données précédemment enregistrer souhaitez vous continuer ?","");
-                    if (result.isPresent() && result.get() == ButtonType.OK) {
-                        try {
-                            System.out.println("Reini");
-                            Stockage.getInstance().supprimerDonnees();
-                            System.out.println("ok");
-                            ParametrageNationalPrototype paN = null;
-                            try {
-                                paN = new ParametrageNationalPrototype(file);
-                            } catch (EvaluationException ex) {
-                                System.out.println("erreur2");
-                            }
-                            try {
-                                paN.parse();
-                                NotificationController NotificationController = new NotificationController();
-                                NotificationController.showNotification("Importation Réussie");
-                            } catch (NoteException ex) {
-                                System.out.println("erreur");
-                            }
-                        } catch (IOException ex) {
+        if (!nationalToggle.isSelected() && !ressourceToggle.isSelected() || file == null) {
+            NotificationController.popUpMessage("Merci de cocher une option et de sélectionner le fichier que vous souhaitez importer ", "Erreur Importation");
+        }
 
-                        } catch (MauvaisFormatFichierException ex) {
-                            NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
-                            System.out.println(ex.getMessage());
-                        }
-                    } 
-                
-            }
-            if(ressourceToggle.isSelected() && file != null) {
+        if (nationalToggle.isSelected() && file != null) {
+            // Demande une confirmation pour la suppression des données précédentes
+            Optional<ButtonType> result = NotificationController.popUpChoix("L'importation de votre Nouveau Programme va supprimer toutes les données précédemment enregistrées. Souhaitez-vous continuer ?", "");
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
-                    System.out.println("ok");
-                    ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
+                    // Supprime les données précédentes
+                    Stockage.getInstance().supprimerDonnees();
+                    ParametrageNationalPrototype paN = null;
                     try {
-                        paR.parse();
-                        System.out.println(Stockage.getInstance().evaluations);
-                         NotificationController NotificationController = new NotificationController();
-                        NotificationController.showNotification("Votre programme Nationnal a bien été importé");
+                        paN = new ParametrageNationalPrototype(file);
                     } catch (EvaluationException ex) {
-                        Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("erreur2");
                     }
-                } catch (IOException|NoteException ex) {
-                    
+                    try {
+                        // Parse les données
+                        paN.parse();
+                        
+                        // Affiche une notification de réussite
+                        NotificationController NotificationController = new NotificationController();
+                        NotificationController.showNotification("Importation Réussie");
+                    } catch (NoteException ex) {
+                        System.out.println("erreur");
+                    }
+                } catch (IOException ex) {
+
                 } catch (MauvaisFormatFichierException ex) {
-                    NotificationController.popUpMessage(ex.getMessage(),ex.getTitre());
+                    NotificationController.popUpMessage(ex.getMessage(), ex.getTitre());
+                    System.out.println(ex.getMessage());
                 }
             }
-            
         }
-    
 
+        if (ressourceToggle.isSelected() && file != null) {
+            try {
+                // Crée un objet ParametrageRessourcePrototype avec le fichier sélectionné
+                ParametrageRessourcePrototype paR = new ParametrageRessourcePrototype(file);
+                try {
+                    // Parse les données
+                    paR.parse();
+                    
+                    // Affiche une notification de réussite
+                    NotificationController NotificationController = new NotificationController();
+                    NotificationController.showNotification("Votre programme Nationnal a bien été importé");
+                } catch (EvaluationException ex) {
+                    Logger.getLogger(ImporterParametresController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (IOException | NoteException ex) {
+
+            } catch (MauvaisFormatFichierException ex) {
+                NotificationController.popUpMessage(ex.getMessage(), ex.getTitre());
+            }
+        }
+    }
 }

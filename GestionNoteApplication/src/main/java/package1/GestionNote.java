@@ -42,10 +42,7 @@ public class GestionNote {
              }
              
             ObjectOutputStream donnees = new ObjectOutputStream(new FileOutputStream(nomFichierDonnees));
-            donnees.writeObject(Stockage.getInstance()); // TODO Object C,R,E pas Stockage
-            //donnees.writeObject(stockageDonnees.ressources);
-             //donnees.writeObject(stockageDonnees.evaluations);
-        
+            donnees.writeObject(Stockage.getInstance()); 
             donnees.close();
         }
         catch(IOException e) {
@@ -54,6 +51,8 @@ public class GestionNote {
         
         
     }
+
+
     /**
      * Recupere les données sauvegarder dans un fichier externe crée à partir 
      * de enregistrer données
@@ -97,42 +96,5 @@ public class GestionNote {
         Stockage.getInstance().supprimerDonnees();
     }
     
-    /**
-     * Permet de consulter toutes les notes par compétences et Ressource pour 
-     * chaque éval
-     */
-    public void consulterNote() {
-        //stockageDonnees.competences // TODO 
-        
-    }
-    
-    public void communiquer() {
-        
-    }
-    
-    /**
-     * Permet de données une note à une évaluation selon une compétence et 
-     * une resource donné
-
-     */
-    public void saisirNote() {
-        //stockageDonnees.competences // TODO 
-    }
-    
-    /**
-     * permet d'importer un paramètre depuis le poste en local ou depuis un 
-     * poste sur le réseau
-     */
-    public void importerParametre() {
-        // new Parametrage() // TODO
-    }
-    
-    /**
-     * calcule les moyennes par compétence, ressources et la moyennes générale 
-     * avec les notes qui sont disponibles
-     */
-    public void lancerCalculs() {
-        //stockageDonnees.competences // TODO 
-    }
     
 }

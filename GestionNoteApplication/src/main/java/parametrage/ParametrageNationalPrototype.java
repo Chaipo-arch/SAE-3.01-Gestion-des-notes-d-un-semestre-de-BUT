@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author enzo.cluzel
+ * @author enzo.cluzel, robin Britelle
  */
 public class ParametrageNationalPrototype extends Parametrage {
 
@@ -68,13 +68,10 @@ public class ParametrageNationalPrototype extends Parametrage {
             }
             String[] chaine = line.split(";");
             if (!chaine[0].equals(MODELE[numeroLigne])) {
-               // NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application.\n Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit ", "Erreur Importation" );
                 
             }
-            //System.out.println(chaine.length);
             if(chaine.length != 2 && numeroLigne == 1) {
-                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 2 colonnes" , "Erreur Importation");
                 
@@ -105,7 +102,6 @@ public class ParametrageNationalPrototype extends Parametrage {
             String[] chaine = line.split(";");
 
             if (chaine[0].equals("Competence") && chaine.length == 3 && chaine[1].matches("U[1-6]\\.[1-9]")) {
-                //System.out.println("passage2");
                 ArrayList<Competence> comps = new ArrayList();
 
                 Competence comp = new Competence(chaine[1],chaine[2]);
@@ -123,14 +119,12 @@ public class ParametrageNationalPrototype extends Parametrage {
                 //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + (numeroLigne+1) + " est mal ecrit", "Erreur Importation");
             }
-            //System.out.println("passage1");
             // verification des prochaines lignes
             ArrayList<Ressource> ress = new ArrayList();
             for (line = newLine(br); line != null
                     && !line.split(";")[0].equals("Competence"); line = newLine(br)) {
                 chaine = line.split(";");
                 if (chaine.length != 4) {
-                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le fichier à la ligne " + (numeroLigne+1) + " est mal ecrit: pas 4 colonne", "Erreur Importation");
                 }
                 if (!chaine[0].matches("Ressource|Portfolio|SAE")) {
@@ -141,11 +135,9 @@ public class ParametrageNationalPrototype extends Parametrage {
                     System.out.println(Stockage.getInstance().getSemestre());
                     System.out.println(chaine[1].charAt(1));
                     System.out.println(Stockage.getInstance().getSemestre() != chaine[1].charAt(1));
-                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne " + numeroLigne + " est mal ecrit: " + chaine[1], "Erreur Importation");
                 }
                 if (!chaine[3].matches("\\d*")) { //TODO gerer erreur a1
-                    //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                     throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLe fichier à la ligne  " + numeroLigne + " est mal ecrit: " + chaine[3], "Erreur Importation");
                 }
                 calculCoeff += Integer.parseInt(chaine[3]);
@@ -164,7 +156,6 @@ public class ParametrageNationalPrototype extends Parametrage {
                    }
                 }
             } else {
-                //NotificationController.popUpMessage("Le contenue du Fichier n'est pas utilisable par l'application", "Erreur Importation");
                 throw new MauvaisFormatFichierException("Le contenue du Fichier n'est pas utilisable par l'application\nLa competence " + saveIdentifiantC + " a une somme des coefficients pas egale à 100: " + calculCoeff, "Erreur Importation");
             }
         }
@@ -218,7 +209,7 @@ public class ParametrageNationalPrototype extends Parametrage {
         //ACBufferedWriter ecritureLigne = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("C:\\test.csv"), "UTF-8")
         try (BufferedWriter ecritureLigne = new BufferedWriter(new FileWriter(csv))){
             ecritureLigne.write("BUT Informatique - Modalite Controle de connaissances (programme national)\n");
-            ecritureLigne.write("Semestre;+"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
+            ecritureLigne.write("Semestre;"+ Stockage.getInstance().getSemestre() +"\nParcours;"+ Stockage.getInstance().getParcour() +"\n");
             for(Competence c : Stockage.getInstance().competences) {
                 ecritureLigne.write("Competence;"+ c.identifiant+";"+c.libelle+ "\n");
                 ecritureLigne.write("Type evaluation;Identifiant;Libelle;Poids\n");

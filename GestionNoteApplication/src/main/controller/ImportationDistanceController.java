@@ -28,6 +28,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+
+/**
+ * Classe controller de l'ihm, permettant l'importation des Parametres National ou des Parametres Ressources
+ * Elle lance les methodes de cryptages et initialise le thread et la communnication client/server
+ * @author Enzo.Cluzel, Robin.Britelle
+ */
 public class ImportationDistanceController implements Initializable{
 
     private InetAddress ip = null;
@@ -51,7 +57,7 @@ public class ImportationDistanceController implements Initializable{
 
 
     /**
-     * Affiche l'addresse ip de l'ordinateur 
+     * Recupére l'addresse ip de l'ordinateur 
      * @param url
      */
     @Override
@@ -76,100 +82,116 @@ public class ImportationDistanceController implements Initializable{
      */
     @FXML
     void importationDistanceButton(ActionEvent event) {
-        if(ressourceToggle.isSelected() || nationalToggle.isSelected()) {
+        // Vérifie si l'un des deux choix est sélectionné
+        if (ressourceToggle.isSelected() || nationalToggle.isSelected()) {
+            // Affiche les éléments de connexion a l'utilisateur
             connexion.setVisible(true);
             annulerButton.setVisible(true);
+
+            // Crée un thread pour gérer l'importation/exportation 
             t1 = new Thread(new Runnable() {
-            @Override
-           public void run() {
-                try {
-                    ArrayList<String> fichier = new ArrayList();
-                    if(nationalToggle.isSelected()) {
-                        System.out.println("ok1");
-                        fichier.add("NationalExporte.csv");
+                @Override
+                public void run() {
+                    try {
+                        ArrayList<String> fichier = new ArrayList<>();
 
-                    }
-                    if(ressourceToggle.isSelected()) {
-                        System.out.println("ok2");
-                        fichier.add("RessourceExporte.csv");
-
-                    }
-                    
-                    Server.createServer();
-                    String codeBob = Cryptage.codeAliceEtBob()+"";
-                    //System.out.println(fichier.size());
-                    boolean reussi = false;
-                    boolean correct = true;
-                    while(!Thread.interrupted() && !reussi) {
-                        Server.connexion();
-                        boolean ok;
-                        ok =Server.cle();
-                        
-                        Server.reponse(codeBob);
-                        if(ok){
-                            
-                            System.out.println("sa marche");
-                            
+                        // Si le toggle "National" est sélectionné, ajoute le fichier "NationalExporte.csv" au tableau
+                        if (nationalToggle.isSelected()) {
+                            System.out.println("Le fichiers : NationalExporte.csv à était crée");
+                            fichier.add("NationalExporte.csv");
                         }
-                        Server.closeClient();
-                       
-                        
-                        for(int i = 0; i < fichier.size() && correct; i++ ) {
-                            correct = Server.connexion();
-                            if(correct) {
-                                System.out.println(fichier.get(i));
-                                reussi = Server.receiveCSVFile(fichier.get(i));
-                                if(fichier.size() != i+1) {
-                                    Server.closeClient();
-                                    
-                                } else if(reussi){
-                                    System.out.println("Fichier " + fichier.get(i) + " reçu");
-                                } else {
-                                    System.out.println("Fichiers non reçu");
+
+                        // Si le toggle "Ressource" est sélectionné, ajoute le fichier "RessourceExporte.csv" au tableau
+                        if (ressourceToggle.isSelected()) {
+                            System.out.println("Le fichiers : RessourceExporte.csv à était crée");
+                            fichier.add("RessourceExporte.csv");
+                        }
+
+                        // Crée un serveur
+                        Server.createServer();
+                        String codeBob = Cryptage.codeAliceEtBob() + "";
+                        boolean reussi = false;
+                        boolean correct = true;
+
+                   
+                        while (!Thread.interrupted() && !reussi) {
+                            
+                            Server.connexion();
+                            boolean ok;
+                            ok = Server.cle();
+
+                            Server.reponse(codeBob);
+
+
+                            Server.closeClient();
+
+                            for (int i = 0; i < fichier.size() && correct; i++) {
+                                correct = Server.connexion();
+                                if (correct) {
+                                    System.out.println(fichier.get(i));
+                                    reussi = Server.receiveCSVFile(fichier.get(i));
+
+                                    // Verifie si ce n'est pas le dernier fichier, et ferme le client en consequence
+                                    if (fichier.size() != i + 1) {
+                                        Server.closeClient();
+                                    } else if (reussi) {
+                                        System.out.println("Fichier " + fichier.get(i) + " reçu");
+                                    } else {
+                                        System.out.println("Fichiers non reçus");
+                                    }
                                 }
                             }
-                        }
-                        if(!correct) {
-                            
-                            System.out.println("Probleme de connexion");
-                            Server.closeClient();
-                        }
-                    }
-                    System.out.println(reussi);
-                    if(reussi) {
-                        System.out.println("Envoie en cours");
-                        String message = "CSV reçu";
-                        try {
-                            if(nationalToggle.isSelected()) {
-                                ParametrageNationalPrototype pNP = new ParametrageNationalPrototype(new File("NationalExporte.csv"));
-                                pNP.parse();
+
+                            // En cas de problème de connexion, ferme le client
+                            if (!correct) {
+                                System.out.println("Problème de connexion");
+                                Server.closeClient();
                             }
-                            if(ressourceToggle.isSelected()) {
-                                ParametrageRessourcePrototype pRP = new ParametrageRessourcePrototype(new File("RessourceExporte.csv"));
-                                pRP.parse();
+                        }
+
+                        // Si l'importation est réussie
+                        if (reussi) {
+                            System.out.println("Envoie en cours");
+                            String message = "CSV reçu";
+
+                            try {
+                                // Traite les fichiers reçus en fonction des toggles sélectionnés
+                                if (nationalToggle.isSelected()) {
+                                    ParametrageNationalPrototype pNP = new ParametrageNationalPrototype(new File("NationalExporte.csv"));
+                                    pNP.parse();
+                                }
+                                if (ressourceToggle.isSelected()) {
+                                    ParametrageRessourcePrototype pRP = new ParametrageRessourcePrototype(new File("RessourceExporte.csv"));
+                                    pRP.parse();
+                                }
+
+                            } catch (IOException | MauvaisFormatFichierException | EvaluationException | NoteException ex) {
+                                // En cas d'erreur lors du traitement des fichiers, récupère le message d'erreur
+                                System.out.println(ex.getMessage());
+                                message = ex.getMessage();
                             }
 
-                        } catch (IOException|MauvaisFormatFichierException|EvaluationException|NoteException ex) {
-                            System.out.println(ex.getMessage());
-                            message = ex.getMessage();
+                            System.out.println(message);
+
+                            // Envoie la réponse au client
+                            Server.reponse(message);
+                            Server.closeClient();
                         }
-                        //new file().delete();
-                        System.out.println(message);
-                        Server.reponse(message);
-                        Server.closeClient();
-                    }
-                        
+
+                        // Annule l'action d'attente pour le Server
                         annulerAttenteAction(null);
-                } catch (IOException ex) {
-                    
+                    } catch (IOException ex) {
+                        // En cas d'erreur d'entrée/sortie
+                    }
                 }
-            }
             });
+
+            // Lance le thread
             t1.start();
-        }else{
-            NotificationController.popUpMessage("Merci de selectionner le Fichier que vous voulez recevoir lors de l'importation","");
+        } else {
+            // Affiche un message si aucun toggle n'est sélectionné
+            NotificationController.popUpMessage("Merci de sélectionner le fichier que vous voulez recevoir lors de l'importation", "");
         }
-       
     }
 
     /**
@@ -186,6 +208,12 @@ public class ImportationDistanceController implements Initializable{
         
         
     }
+    
+    
+    /**
+     * Methodes Permettant d'afficher son adress IP
+     * @param event 
+     */
     @FXML
     void changeText(ActionEvent event) {
         if (btnAdresseIP.getText().equals("cliquer pour voir Mon adresse IP :")) {
@@ -196,9 +224,4 @@ public class ImportationDistanceController implements Initializable{
             btnAdresseIP.setStyle(STYLE2);
         }
     }
-    
-    //btnAdresseIP.setText("Votre adresse ip : " + ip.getHostAddress());
-
-    
-
 }

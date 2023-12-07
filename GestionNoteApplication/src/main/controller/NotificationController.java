@@ -26,21 +26,23 @@ public class NotificationController {
     private Label notificationLabel; // Le label contenant le message de la notification
 
     /**
-     * Constructeur de la classe NotificationController.
+     * Constructeur de la classe NotificationController permettant de crée une
+     * scene remporaires lors de l'affichage d'une notification
      */
     public NotificationController() {
+        
         // Initialisation de la fenêtre de notification
         notificationStage = new Stage();
-        notificationStage.initStyle(StageStyle.UNDECORATED); // Pas de décoration (barre de titre, boutons de fermeture, etc.)
-        notificationStage.setAlwaysOnTop(true); // Toujours au premier plan
+        notificationStage.initStyle(StageStyle.UNDECORATED); 
+        notificationStage.setAlwaysOnTop(true); 
 
-        // Création de la structure de la notification (VBox pour centrer le label)
+
         VBox rootNotif = new VBox();
-        rootNotif.setAlignment(Pos.CENTER); // Centrage des éléments
-        notificationLabel = new Label(); // Initialisation du label
-        rootNotif.getChildren().add(notificationLabel); // Ajout du label à la structure
+        rootNotif.setAlignment(Pos.CENTER); 
+        notificationLabel = new Label(); 
+        rootNotif.getChildren().add(notificationLabel); 
 
-        // Définition du style de la notification
+        
         rootNotif.setStyle(
             "-fx-background-color: #7EEC93;" + // Couleur de fond blanche
             "-fx-background-radius: 20;"+ // Coins arrondis de 20 pixels
@@ -48,14 +50,13 @@ public class NotificationController {
         );
         
         // Création de la scène pour la fenêtre de notification
-        Scene scene = new Scene(rootNotif, 270, 55); // Taille de la scène (largeur x hauteur)
+        Scene scene = new Scene(rootNotif, 270, 55); 
         scene.setFill(Color.TRANSPARENT); // Rend la scène transparente
 
         
         // Attribution de la scène à la fenêtre de notification
         notificationStage.setScene(scene);
         notificationStage.initStyle(StageStyle.TRANSPARENT);
-        //notificationStage.setScene(scene);
     }
 
     /**
@@ -65,20 +66,17 @@ public class NotificationController {
     public void showNotification(String message) {
         notificationLabel.setText(message); // Définition du message de la notification
 
-        // Récupération de la taille de l'écran principal
-        double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
-        double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
         
         // Positionnement de la fenêtre de notification
-        notificationStage.setX(GEstionNoteApp.getPrimaryStage().getX() + 830); // Décalage de la position X
-        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 35); // Décalage de la position Y
+        notificationStage.setX(GEstionNoteApp.getPrimaryStage().getX() + 830); 
+        notificationStage.setY(GEstionNoteApp.getPrimaryStage().getY() + 35); 
         
         // Affichage de la fenêtre de notification
         notificationStage.show();
         
         // Définition de la durée d'affichage de la notification avant de la fermer
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(11), // Durée de 6 secondes
+            new KeyFrame(Duration.seconds(11), 
                 new KeyValue(notificationStage.opacityProperty(), 0)) // Réduction de l'opacité jusqu'à 0
         );
 
@@ -88,7 +86,7 @@ public class NotificationController {
     }
 
     /**
-     * Affiche une boîte de dialogue de type confirmation avec des options.
+     * Affiche une boîte de dialogue a l'utilisateur de type confirmation avec des options "OK" et "Annuler".
      * @param text Le texte à afficher dans la boîte de dialogue.
      * @param titre Le titre de la boîte de dialogue.
      * @return La réponse de l'utilisateur (option choisie).
@@ -99,13 +97,12 @@ public class NotificationController {
          alert.setHeaderText(titre);
          alert.setContentText(text);
 
-         // Affichage de la boîte de dialogue et attente de fermeture
          return alert.showAndWait(); // Retourne l'option choisie par l'utilisateur
      }
 
     
     /**
-     * Affiche une boîte de dialogue d'avertissement.
+     * Affiche une boîte de dialogue d'avertissement pour informer l'utilisateur.
      * @param text Le texte à afficher dans la boîte de dialogue.
      * @param titre Le titre de la boîte de dialogue.
      */
@@ -114,6 +111,6 @@ public class NotificationController {
         alert.setTitle(titre);
         alert.setHeaderText(titre);
         alert.setContentText(text);
-        alert.showAndWait(); // Affichage de la boîte de dialogue d'avertissement
+        alert.showAndWait(); 
     }
 }

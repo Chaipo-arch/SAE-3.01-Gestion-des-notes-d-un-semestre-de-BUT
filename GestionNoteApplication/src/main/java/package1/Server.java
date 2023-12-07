@@ -6,16 +6,27 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/*
+ * Cette classe représente le server pour la reception et l'envoi 
+ * de fichiers CSV à un serveur distant.
+ * Le port Definie est 51263
+ * comprends des methodes pour le cryptage/decryptage et la reception de fichier csv avec 
+ * Verification et notification utilisateur en focntion des cas d'erreur
+ * @author Robin Britelle, Enzo Cluzel, Ahmed Bribach
+ */
 public class Server {
     
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static ObjectInputStream in;
     
-
+    /**
+    * Crée un serveur sur un port spécifié et attend les connexions entrantes.
+    */
     public static void createServer() {
         try {
-            int port = 10008;
+            int port = 51263;
             serverSocket = new ServerSocket(port);
             
             System.out.println("Serveur en attente de connexion...");
@@ -23,6 +34,12 @@ public class Server {
            
         }
     }
+
+    /**
+    * Accepte une connexion entrante du côté du serveur.
+    * 
+    * @return true si la connexion est établie avec succès, false sinon.
+    */
     public static boolean connexion()  {
         try {
             clientSocket = serverSocket.accept();
@@ -33,62 +50,78 @@ public class Server {
             return false;
         }
     }
+
+
+    /**
+    * Reçoit un fichier CSV envoyé par le client, 
+    * le déchiffre et le stocke localement.
+    * 
+    * @param filePath Chemin de stockage du fichier CSV reçu.
+    * @return true si le fichier CSV est reçu, déchiffré et stocké avec succès, false sinon.
+    */
     public static boolean receiveCSVFile(String filePath) {
         try {
             System.out.println("receive en cours");
+            
             // Flux d'entrée pour recevoir le fichier CSV du client
             InputStream in = clientSocket.getInputStream();
             
-            // Chemin de stockage du fichier CSV reçu
-            String f;
-            f = filePath;
-            FileOutputStream fileOutputStream = new FileOutputStream(f);
+            // Flux de sortie pour stocker le fichier CSV
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             
             byte[] buffer = new byte[1024];
             int bytesRead;
+            
+            // Lecture et écriture du fichier CSV
             while ((bytesRead = in.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
+            
+            // Lecture du fichier CSV stocké localement
             File fichier = new File(filePath);
             FileReader fr = new FileReader(fichier);
             BufferedReader br = new BufferedReader(fr);
             ArrayList<String> toutLeFichier = new ArrayList<>();
             String ligne;
-            while ((ligne = br.readLine() )!= null) {
+            
+            // Lecture de chaque ligne du fichier CSV
+            while ((ligne = br.readLine()) != null) {
                 toutLeFichier.add(ligne);
             }
             
+            // Fermeture des flux de lecture
             br.close();
             fr.close();
             
+            // Écriture déchiffrée du fichier CSV
             FileWriter fw = new FileWriter(fichier);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for(int i = 0; i < toutLeFichier.size();i++){
-               
-                bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i))+"\n");
+            for (int i = 0; i < toutLeFichier.size(); i++) {
+                // Déchiffrement et écriture dans le fichier
+                bw.write(Cryptage.decryptage(Cryptage.cle, toutLeFichier.get(i)) + "\n");
             }
+            
+            // Fermeture des flux d'écriture
             bw.close();
             fw.close();
             
-            
-            //Cryptage.decryptage(Cryptage.cle, toutLeFichier);
-           
+            // Fermeture de la connexion côté client
+            clientSocket.shutdownInput();
             
             System.out.println("Fichier CSV reçu et stocké : " + filePath);
-            //in.close();
-            //fileOutputStream.close();
-            clientSocket.shutdownInput();
-            System.out.println("client close : "+ clientSocket.isClosed());
-            System.out.println("server close : " + serverSocket.isClosed());
             return true;
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            //OutputStream os = clientSocket.getOutputStream();
-            //os.write("Le fichier n'a pas était recu ".getBytes());
             return false;   
         }
     }
+
+    /**
+    * Reçoit et traite la clé de cryptage envoyée par le client pour initialiser le cryptage.
+    * 
+    * @return true si la clé est reçue et traitée avec succès, false sinon.
+    */
     public static boolean cle(){
         try {
             System.out.println("receive en cours");
@@ -121,40 +154,51 @@ public class Server {
             System.out.println("la clé de cryptage est : "+Cryptage.cle);
 
             
-            //in.close();
             clientSocket.shutdownInput();
             System.out.println("client close : "+ clientSocket.isClosed());
             System.out.println("server close : " + serverSocket.isClosed());
             return true;
         } catch (Exception e) {
-            //OutputStream os = clientSocket.getOutputStream();
-            //os.write("Le fichier n'a pas était recu ".getBytes());
+            
             return false;   
         }
     }
+
+
+    /**
+    * Envoie une réponse au client a partir du socket
+    * 
+    * @param message Le message à envoyer en réponse.
+    * @throws IOException Si une erreur d'entrée/sortie se produit lors de l'envoi de la réponse.
+    */
     public static void reponse(String message) throws IOException {
+        // Vérifie si la connexion avec le client est active
         if(clientSocket != null) {
             System.out.println("Envoie Reponse");
+            
+            // Flux de sortie pour envoyer la réponse au client
             OutputStream os = clientSocket.getOutputStream();
+            
+            // Envoi du message au client
             os.write(message.getBytes());
-
-            /*OutputStream os = clientSocket.getOutputStream();
-            OutputStreamWriter ow = new OutputStreamWriter(os);
-            BufferedWriter wr = new BufferedWriter(ow);         
-            wr.write("Test\n".);*/
+            
+            // Fermeture de la sortie côté client
             clientSocket.shutdownOutput();
 
             try {
-                Thread.sleep(500); // Mettre en pause pendant 1 seconde
+                // Mettre en pause pendant 500 millisecondes (0,5 seconde)
+                Thread.sleep(500);
             } catch (InterruptedException e) {
-             // Gérer une éventuelle exception si l'interruption se produit pendant la pause
-                e.printStackTrace();
+                // Gérer une éventuelle exception si l'interruption se produit pendant la pause
+                System.out.println("Une erreur est survenue");
             }
         }
     }
     
     
-    
+    /**
+    * Ferme la connexion avec le client en genrant les cas cas d'erreurs
+    */
     public static void closeClient() {
         try {
             if (clientSocket != null) {
@@ -163,14 +207,17 @@ public class Server {
             }
            
         } catch (SocketException e) {
-            System.out.println("je suis le message d'erreur !!");
+            System.out.println("Une erreur sur le socket est survenue");
            
         } catch (IOException ex) {
-            //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
+    /**
+    * Ferme le serveur et les flux associés.
+    */
     public static void closeServer() {
-        //SocketException e;
         try {
             if (in != null) {
                 in.close();
@@ -181,17 +228,9 @@ public class Server {
                 System.out.println("Server Close3");
             }
         } catch (SocketException e) {
-            System.out.println("je suis le message d'erreur !!");
+            System.out.println("Une erreur sur le socket est survenue");
            
         } catch (IOException ex) {
-            //Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
-    public static void main(String[] args) {
-        //Server.createServer();
-        //Server.receiveCSVFile();
-        //Server.closeServer();
     }
 }

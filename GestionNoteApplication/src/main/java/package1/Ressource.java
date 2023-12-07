@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GestionNoteApplication.src.main.java.package1;
 
 import GestionNoteApplication.src.main.java.package1.Evaluation;
@@ -32,10 +28,6 @@ public class Ressource implements Serializable{
      * @throws NoteException 
      */
     public Ressource(String type, String id, String intitule, double coeff) throws NoteException{
-        //if(coefficient<=0 || intitule.isEmpty() || id.isEmpty() || identifiant.isEmpty()){
-        //   throw new IllegalArgumentException();
-        //}
-       
         this.note = new Note(-1);
         this.identifiant = id;
         this.libelle = intitule;
@@ -45,6 +37,8 @@ public class Ressource implements Serializable{
         
         
     }
+
+
     /**
      * calcul la moyenne de la ressources
      * à l'aides des evaluations de cette ressources
@@ -61,7 +55,6 @@ public class Ressource implements Serializable{
                 calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
                 totalCoef += evaluations.get(index).getCoefficient();
             }
-            //note.setNote(calculMoyenne/totalCoef);
             DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
             String noteArrondi = df.format(calculMoyenne/totalCoef);
             note.setNote(Double.parseDouble(noteArrondi.replace(',', '.')));
@@ -132,6 +125,8 @@ public class Ressource implements Serializable{
     public double getCoefficient(){
         return coefficient;
     }
+
+
     /**
      * renvoi le type de la ressource
      * @return coefficient  
@@ -139,32 +134,51 @@ public class Ressource implements Serializable{
     public String getType(){
         return type;
     }
+
     public String getIdentifiant(){
         return identifiant;
     }
+
     public String getLibelle(){
         return libelle;
     }
+
     public ArrayList<Evaluation> getEvaluation(){
         return evaluations;
     }
     public double getNote(){
         return note.getNote();
     }
-    public static boolean isValide(String intitule, double coefficient , String id,String identifiant ){
-        
-        if(coefficient<=0 || intitule.trim().isEmpty() || id.trim().isEmpty()  || identifiant.trim().isEmpty() ){
+
+    /**
+    * Vérifie si les informations fournies pour une évaluation sont valides.
+    * 
+    * @param intitule     L'intitulé de l'évaluation.
+    * @param coefficient  Le coefficient de l'évaluation.
+    * @param id           L'ID de l'évaluation.
+    * @param identifiant  L'identifiant de l'évaluation.
+    * @return             Retourne true si les informations sont valides, sinon false.
+    */
+    public static boolean isValide(String intitule, double coefficient, String id, String identifiant) {
+        if (coefficient <= 0 || intitule.trim().isEmpty() || id.trim().isEmpty() || identifiant.trim().isEmpty()) {
             return false;
         }
         return true;
     }
+
+    /**
+    * Vérifie si une évaluation est déjà présente dans une liste d'évaluations.
+    * 
+    * @param e L'évaluation à comparer avec les autres évaluations dans la liste.
+    * @return  Retourne true si l'évaluation est déjà présente, sinon false.
+    */
     public boolean contientDeja(Evaluation e) {
-    	for (Evaluation evaluationAComparer : evaluations) {
-            if(e.compareEvaluation(evaluationAComparer)) {
-    		return true;
-    	    }
-    	}
-    	return false;
+        for (Evaluation evaluationAComparer : evaluations) {
+            if (e.compareEvaluation(evaluationAComparer)) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
