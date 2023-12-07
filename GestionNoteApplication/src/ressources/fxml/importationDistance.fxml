@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImportationDistanceController">
+   <children>
+      <Button defaultButton="true" layoutX="299.0" layoutY="395.0" mnemonicParsing="false" onAction="#importationDistanceButton" prefHeight="70.0" prefWidth="356.0" style="-fx-font-size: 25;" styleClass="BouttonQuitter" stylesheets="@../css/css.css" text="Attendre une importation" />
+      <Label fx:id="connexion" layoutX="216.0" layoutY="306.0" text="Connexion en attente..." visible="false">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Button fx:id="annulerButton" cancelButton="true" layoutX="26.0" layoutY="465.0" mnemonicParsing="false" onAction="#annulerAttenteAction" prefHeight="25.0" prefWidth="249.0" styleClass="BouttonCommuniquer" text="Annuler l'attente" visible="false" />
+      <AnchorPane layoutX="151.0" layoutY="45.0" prefHeight="103.0" prefWidth="493.0" styleClass="StyleBox" stylesheets="@../css/css.css">
+         <children>
+            <CheckBox fx:id="nationalToggle" layoutX="21.0" layoutY="26.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="356.0" style="-fx-font-size: 25;" text="parametrageNational" />
+            <CheckBox fx:id="ressourceToggle" layoutX="357.0" layoutY="34.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="311.0" style="-fx-font-size: 25;" text="parametrageRessource" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="88.0" layoutY="181.0" prefHeight="96.0" prefWidth="779.0" styleClass="StyleBox2">
+         <children>
+            <Button fx:id="btnAdresseIP" layoutX="18.0" layoutY="17.0" mnemonicParsing="false" onAction="#changeText" prefHeight="63.0" prefWidth="748.0" styleClass="BouttonCommuniquer" text="Cliquez pour voir mon adresse IP" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

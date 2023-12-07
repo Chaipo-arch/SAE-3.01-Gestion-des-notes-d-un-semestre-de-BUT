@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="916.0" stylesheets="@../../../../../../IHMV2/src/ressources/css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.CommuniquerController">
+   <children>
+      <Button layoutX="321.0" layoutY="440.0" mnemonicParsing="false" onAction="#CommuniquerAction" prefHeight="65.0" prefWidth="317.0" stylesheets="@../css/css.css" text="valider">
+         <styleClass>
+            <String fx:value="BouttonQuitter" />
+            <String fx:value="textTaille30" />
+         </styleClass>
+      </Button>
+      <AnchorPane layoutX="158.0" layoutY="146.0" prefHeight="97.0" prefWidth="645.0" stylesheets="@../css/css.css">
+         <children>
+            <CheckBox fx:id="checkNational" layoutX="62.0" layoutY="47.0" mnemonicParsing="false" text="Paramétrage national" />
+            <CheckBox fx:id="checkRessource" layoutX="363.0" layoutY="47.0" mnemonicParsing="false" text="Parametrage Ressource" />
+            <Label layoutX="15.0" layoutY="8.0" prefHeight="30.0" prefWidth="374.0" text="Quel(s) fichier(s) voulez vous envoyer :" />
+         </children>
+         <styleClass>
+            <String fx:value="textTaille20" />
+            <String fx:value="StyleBox" />
+         </styleClass>
+      </AnchorPane>
+      <Label layoutX="265.0" layoutY="46.0" prefHeight="64.0" prefWidth="430.0" stylesheets="@../css/css.css" text="Vous êtes dans l'exportation de vos paramètres">
+         <styleClass>
+            <String fx:value="WhoIam" />
+            <String fx:value="textTaille20" />
+         </styleClass>
+      </Label>
+      <AnchorPane layoutX="158.0" layoutY="281.0" prefHeight="75.0" prefWidth="645.0" styleClass="StyleBox" stylesheets="@../css/css.css">
+         <children>
+            <Label layoutX="82.0" layoutY="6.0" prefHeight="64.0" prefWidth="207.0" styleClass="textTaille30" stylesheets="@../css/css.css" text="Adresse IP : " />
+            <TextField fx:id="adresseIPText" layoutX="314.0" layoutY="14.0" prefHeight="48.0" prefWidth="267.0" promptText="            ex : 192.1.1.0" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="notifEnvoi" layoutX="132.0" layoutY="199.0" prefHeight="21.0" prefWidth="705.0" text="erreur" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
