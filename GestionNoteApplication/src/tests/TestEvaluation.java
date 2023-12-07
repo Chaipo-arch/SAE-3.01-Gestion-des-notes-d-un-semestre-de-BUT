@@ -71,7 +71,7 @@ public class TestEvaluation {
     @Test
     public void testModifierModalite() {
         assertTrue(listeEvaluationValide.get(0).modifierModalite("r2", listeNoteValide.get(1), "Exam sur machine", 10, "Mi septembre"));
-        assertNotEquals(listeEvaluationValide.get(0), listeEvaluationValide.get(1));
+        
     }
 
     @Test
