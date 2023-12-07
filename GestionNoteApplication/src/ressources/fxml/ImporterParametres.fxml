@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="contenuPage" maxHeight="532.0" maxWidth="910.0" minHeight="532.0" minWidth="910.0" prefHeight="532.0" prefWidth="910.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ImporterParametresController_1">
+   <children>
+      <Button layoutX="119.0" layoutY="139.0" mnemonicParsing="false" onAction="#LocalActionButton" prefHeight="90.0" prefWidth="687.0" text="Importer mon programme en local">
+         <styleClass>
+            <String fx:value="Boutton" />
+            <String fx:value="textTaille30" />
+         </styleClass></Button>
+      <Button layoutX="119.0" layoutY="313.0" mnemonicParsing="false" onAction="#DistanceActionButton" prefHeight="90.0" prefWidth="687.0" text="Importer mon programme à distance">
+         <styleClass>
+            <String fx:value="Boutton" />
+            <String fx:value="textTaille30" />
+         </styleClass></Button>
+   </children>
+</AnchorPane>

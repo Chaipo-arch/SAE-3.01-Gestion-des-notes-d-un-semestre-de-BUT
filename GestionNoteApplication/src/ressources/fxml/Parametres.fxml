@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="contenuPage" maxHeight="-1.0" maxWidth="-1.0" prefHeight="532.0" prefWidth="910.0" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionNoteApplication.src.main.controller.ParametreController">
+   <children>
+      <Button layoutX="16.0" layoutY="183.0" mnemonicParsing="false" onAction="#importerActionButton" prefHeight="121.0" prefWidth="314.0" text="Importer">
+         <styleClass>
+            <String fx:value="Boutton" />
+            <String fx:value="textTaille30" />
+         </styleClass></Button>
+      <Button layoutX="344.0" layoutY="183.0" mnemonicParsing="false" onAction="#communiquerActionButton" prefHeight="121.0" prefWidth="314.0" text="Communiquer">
+         <styleClass>
+            <String fx:value="Boutton" />
+            <String fx:value="textTaille30" />
+         </styleClass></Button>
+      <Button layoutX="675.0" layoutY="183.0" mnemonicParsing="false" onAction="#reinitialiserActionButton" prefHeight="121.0" prefWidth="224.0" text="Réinitialiser">
+         <styleClass>
+            <String fx:value="Boutton" />
+            <String fx:value="textTaille30" />
+         </styleClass></Button>
+   </children>
+</AnchorPane>
