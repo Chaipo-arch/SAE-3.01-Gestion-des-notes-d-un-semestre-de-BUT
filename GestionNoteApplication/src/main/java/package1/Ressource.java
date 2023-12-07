@@ -52,8 +52,14 @@ public class Ressource implements Serializable{
         }
         else{
             for(int index = 0 ; index < evaluations.size(); index++){
-                calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
-                totalCoef += evaluations.get(index).getCoefficient();
+                if(evaluations.get(index).getNote() != -1){
+                    calculMoyenne +=evaluations.get(index).getNote()*evaluations.get(index).getCoefficient();
+                    totalCoef += evaluations.get(index).getCoefficient();
+                }
+               
+            }
+            if(calculMoyenne ==0.0){
+                return note;
             }
             DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
             String noteArrondi = df.format(calculMoyenne/totalCoef);

@@ -368,7 +368,16 @@ public class NotesController implements Initializable{
         but.add(supprimer); // Ajoute le bouton à la liste pour le suivi des actions
 
         // Action associée au bouton "Supprimer"
-        supprimer.setOnAction(events -> SupprimerAction(but.indexOf(supprimer)));
+        
+        supprimer.setOnAction(events -> {
+        try {
+            SupprimerAction(but.indexOf(supprimer));
+        } catch (Exception e) {
+            // Gérer l'exception ici, par exemple, imprimer le message d'erreur
+            e.printStackTrace();
+        }
+    });
+    
         supprimer.setStyle(STYLE_SUP); // Applique le style CSS approprié
 
         // Création de champs de texte pour l'évaluation avec un style CSS spécifique
@@ -399,24 +408,22 @@ public class NotesController implements Initializable{
     *
     * @param supprimerId Identifiant de l'évaluation à supprimer.
     */
-    private void SupprimerAction(int supprimerId) {
+    private void SupprimerAction(int supprimerId) throws NoteException{    
         Ressource r = getRessource(); // Récupère la ressource concernée
-        for (int i = 0; i < Grid.getChildren().size(); i++) {
-            if (Grid.getChildren().get(i) instanceof Button) {
+        
                 // Vérifie si l'identifiant correspond à celui de l'évaluation à supprimer
-                if (Grid.getChildren().get(i).getId().equals(supprimerId)) {
-                    for (Evaluation e : r.getEvaluation()) {
-                        // Parcourt les évaluations pour trouver celle correspondante à l'identifiant
-                        if (e.getType().equals(((TextField) Grid.getChildren().get(i - 4)).getText())
-                                && e.getDate().equals(((TextField) Grid.getChildren().get(i - 3)).getText())
-                                && e.getCoefficient() == Double.parseDouble(((TextField) Grid.getChildren().get(i - 2)).getText())
-                                && e.getNote() == Double.parseDouble(((TextField) Grid.getChildren().get(i - 1)).getText())) {
-                            r.getEvaluation().remove(e); // Supprime l'évaluation correspondante
-                        }
-                    }
+                
+        for(int i=0;i < stock.competences.size();i++){
+            for(int indice = 0 ; indice <stock.competences.get(i).getRessources().size() ; indice++){
+                if(stock.competences.get(i).getRessources().get(indice).getIdentifiant() == r.getIdentifiant()){
+
+                    stock.ressources.get(indice).getEvaluation().get(supprimerId).setNote(-1.0);
+                    System.out.println(stock.ressources.get(indice).getEvaluation().get(supprimerId));
                 }
             }
         }
+                
+           
 
         // Supprime visuellement la ligne correspondante à l'évaluation
         Grid.getChildren().remove(supprimerId * 5, supprimerId * 5 + 5);
@@ -506,7 +513,14 @@ public class NotesController implements Initializable{
                         supprimer.setStyle(STYLE_SUP);
                         Grid.addRow(nbRow,textField1,textField2,textField3,textField4,supprimer);
                         but.add(supprimer);
-                        supprimer.setOnAction(events -> SupprimerAction(but.indexOf(supprimer)));
+                       supprimer.setOnAction(events -> {
+                        try {
+                            SupprimerAction(but.indexOf(supprimer));
+                        } catch (Exception b) {
+                            // Gérer l'exception ici, par exemple, imprimer le message d'erreur
+                            b.printStackTrace();
+                        }
+                    });
                         nbRow ++;
                        
                     }
