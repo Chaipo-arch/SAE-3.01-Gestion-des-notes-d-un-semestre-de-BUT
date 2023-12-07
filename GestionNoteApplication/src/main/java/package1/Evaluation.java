@@ -89,12 +89,12 @@ public class Evaluation implements Serializable {
 
     /**
      * Ajoute une note à l'intance de l'évaluation
-     *
+     * @param noteAAjouter la note à ajouter
      * @return true si l'ajout a bien été effectué(la nouvelle note inséré
      * n'écrase pas une ancienne note), false sinon
      */
     public boolean ajouterNote(Note noteAAjouter) {
-        if (note == null) {
+        if (note.getNote() == -1) {
             note = noteAAjouter;
             return true;
         }
@@ -107,18 +107,6 @@ public class Evaluation implements Serializable {
      *
      * @return la chaîne de caractère contenant la description de l'évaluation
      */
-    public String toString() {
-        if (note == null) {
-            return ressource + " " + type + " " + date
-                    + coefficient + " note non renseignée";
-        }
-        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(note.getNote());
-
-        noteArrondi.replace('.', ','); // remplace le '.' par ','
-        return ressource + " " + type + " " + date
-                + coefficient + noteArrondi;
-    }
 
     /**
      * Modifie tous les attributs d'un objet évaluation

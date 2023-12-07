@@ -62,25 +62,6 @@ public class Competence implements Serializable{
     }
 
     /**
-     * Affiche l'instance de l'competence
-     * @return la chaîne de caractère contenant la description de l'évaluation
-     */
-    public String competenceToString() {
-
-        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(note);
-        noteArrondi.replace('.', ','); // remplace le '.' par ','
-        String ensembleRessource = "";
-        for (Ressource ressourceAAfficher : ressources){
-            ensembleRessource += ressourceAAfficher.toString();
-        }
-        if (note == null){
-            return libelle +" note non renseignée " + ensembleRessource;
-        }
-        return libelle +" "+ noteArrondi + ensembleRessource;
-    }
-
-    /**
      * ajoute une ressources à la compétence
      * @param ressourceAAjouter ressource à ajouter
      * @return true si l'ajout a pu être effectué, false sinon

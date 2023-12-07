@@ -71,23 +71,6 @@ public class Ressource implements Serializable{
      * 
      */
     
-    public String toString(){
-        String affichageEvaluation = "";
-        DecimalFormat df = new DecimalFormat("#.##"); //définition d'un format XX.XX 
-        String noteArrondi = df.format(note.getNote());
-        noteArrondi.replace('.', ','); // remplace le '.' par ','
-
-        for (int i=0 ; i<evaluations.size();i++){
-            affichageEvaluation += evaluations.get(i).toString() + " | ";
-        }
-        if (note.getNote() == -1){
-            return identifiant + " " + libelle + " " + coefficient + " note non renseigné " 
-                   + affichageEvaluation;     
-        }
-        return identifiant + " " + libelle + " " + coefficient + " " + noteArrondi
-                   + affichageEvaluation;
-        }
-    
     /**
      * ajoute une evaluation à la ressource
      * @param evaluationAAjouter 
